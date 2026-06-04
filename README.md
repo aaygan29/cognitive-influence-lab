@@ -2,10 +2,6 @@
 
 **Aayush Gandhi**
 
-> *"A digital brain that captures only amplitude without geometry is an impoverished proxy: correct about how loudly a person's brain speaks, but not about what it is saying."*
-
----
-
 ## Overview
 
 This repository contains the full experimental pipeline for the paper:
