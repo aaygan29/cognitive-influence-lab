@@ -10,23 +10,24 @@ in a confirmatory analysis. We do not assume licenses.
 
 ---
 
-## 1. choices13k — *primary confirmatory target*
+## 1. choices13k — *DEFERRED (separate paper, pending author permission — no license at source)*
 - **What/why:** ~13,006 risky-choice problems; ~14,711 participants; >1M choices. Built to power
   ML models of human risky choice (Peterson et al., 2021).
 - **Instance / outcome:** per-problem gamble description → aggregate human **choice rate**.
 - **Source:** official repository `github.com/jcpeterson/choices13k`. ⚠ **No LICENSE file is
   present in the source repo as of access — treat as all-rights-reserved; email the authors to
   confirm terms before use, and record the exact SPDX in the manifest. Do not redistribute.**
-- **Use here:** H1 (predictive), H2 (incremental), spiking value-model evaluation.
+- **Use here:** DEFERRED to a separate paper (H1/H2 + spiking value-model) — only after the
+  authors confirm a usable license.
 - **Hygiene:** problem-level split, fixed pre-analysis; no outcome leakage into features.
 
-## 2. NARPS — `ds001734`
+## 2. NARPS — `ds001734` — *PRIMARY confirmatory target (CC0)*
 - **What/why:** mixed-gambles task with gain/loss framing; behavioral choices + fMRI; famous for
   analytic-variability findings (Botvinik-Nezer et al., 2020).
 - **Instance / outcome:** trial framing → accept/reject; (optional) group statistical maps.
 - **Source:** OpenNeuro `ds001734`. License **CC0** (confirmed on the OpenNeuro record); pin the
   exact dataset version in the manifest.
-- **Use here:** H1 replication; optional neural-side correlation (clearly secondary).
+- **Use here:** **H1/H2 primary confirmatory**; optional neural-side correlation (secondary).
 
 ## 3. IBL decision-making task
 - **What/why:** standardized perceptual decision task in mice with a 0.2/0.8 **prior block** that

@@ -70,8 +70,8 @@ scaffold ships the contract + tests only)*. See `spikeprint/validate.py`.
 
 ## Roadmap
 1. ✅ Scaffold + preregistration + datasheet + references.
-2. ☐ `data/manifest.csv` with SHA-256 + checksum-guarded loaders (choices13k first).
-3. ☐ H1/H2 predictive + incremental validity on choices13k (held-out).
+2. ☐ `data/manifest.csv` with SHA-256 + checksum-guarded loaders (**NARPS ds001734** first; CC0).
+3. ☐ H1/H2 predictive + incremental validity on **NARPS** (held-out). choices13k deferred (license).
 4. ☐ Spiking decision model + energy benchmark vs. rate/Transformer controls.
 5. ☐ Replication on CMV / Persuasion-for-Good; synthetic-respondent calibration gate.
 

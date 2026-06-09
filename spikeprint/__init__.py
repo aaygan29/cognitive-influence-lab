@@ -4,6 +4,7 @@ This package makes one kind of claim, and it is behavioral: does a content-level
 predict observed choice distortion? It does not detect "manipulation" and does not read any
 individual's neural state. See PREREGISTRATION.md (section 1).
 """
+from .analysis import auc, incremental_validity, predictive_validity
 from .validate import (
     Finding,
     UnvalidatedClaimError,
@@ -16,9 +17,12 @@ from .validate import (
 __all__ = [
     "Finding",
     "UnvalidatedClaimError",
+    "auc",
     "benjamini_hochberg",
     "bootstrap_ci",
     "decide_family",
     "gate",
+    "incremental_validity",
+    "predictive_validity",
 ]
 __version__ = "0.0.1"

@@ -26,11 +26,12 @@ class DatasetSpec:
 # License = "VERIFY" until confirmed against the official source (see docs/DATA.md).
 REGISTRY: Dict[str, DatasetSpec] = {
     "choices13k": DatasetSpec(
-        "choices13k", "https://github.com/jcpeterson/choices13k", "VERIFY", "H1/H2 primary"
+        "choices13k", "https://github.com/jcpeterson/choices13k", "NO-LICENSE-AT-SOURCE",
+        "deferred (separate paper, pending author permission)",
     ),
     "narps_ds001734": DatasetSpec(
-        "narps_ds001734", "https://openneuro.org/datasets/ds001734", "VERIFY",
-        "H1 replication + optional neural side",
+        "narps_ds001734", "https://openneuro.org/datasets/ds001734", "CC0-1.0",
+        "PRIMARY confirmatory (H1/H2) + optional neural side",
     ),
     "ibl": DatasetSpec(
         "ibl", "https://www.internationalbrainlab.com/data", "VERIFY", "H1 prior-induced shift"

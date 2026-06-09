@@ -97,15 +97,16 @@ de-identified at source. Per-dataset provenance, license, version, and access da
 
 | Dataset | Stimulus | Outcome (choice distortion) | License (verify) | Role |
 |---|---|---|---|---|
-| choices13k (Peterson et al., 2021) | gamble description | human choice rate (~1M choices) | see DATA.md | H1/H2 value-choice |
-| NARPS `ds001734` (Botvinik-Nezer et al., 2020) | gain/loss framing | accept/reject (+fMRI optional) | CC0 (verify) | H1; neural side optional |
+| **NARPS `ds001734`** (Botvinik-Nezer et al., 2020) | gain/loss framing | accept/reject (+fMRI optional) | **CC0 (confirmed)** | **primary confirmatory (H1/H2)** |
+| choices13k (Peterson et al., 2021) | gamble description | human choice rate (~1M choices) | **no license — deferred** | replication; **separate paper, pending author permission** |
 | IBL decision task (IBL et al., 2021) | 0.2/0.8 prior block | prior-induced choice shift | CC-BY (verify) | H1 perceptual-value |
 | Winning Arguments / CMV (Tan et al., 2016) | argument text | opinion change (Δ) | see ConvoKit/DATA.md | H1/H2/H4 text |
 | Persuasion-for-Good (Wang et al., 2019) | persuasion dialogue | donation amount ($) | see ConvoKit/DATA.md | H1/H4 behavioral $ |
 
-The **primary confirmatory test** is H1/H2 on **choices13k** (largest, cleanest behavioral
-target). All others are pre-specified replication/extension targets, analyzed with the same
-pipeline.
+The **primary confirmatory test** is H1/H2 on **NARPS `ds001734`** (CC0; its gain/loss framing →
+accept/reject is a clean, license-clear choice-distortion target). **choices13k is deferred to a
+separate paper** pending written permission from its authors (no license file at source). All
+other datasets are pre-specified replication/extension targets, analyzed with the same pipeline.
 
 ## 5. Data hygiene, splits, and leakage controls
 
