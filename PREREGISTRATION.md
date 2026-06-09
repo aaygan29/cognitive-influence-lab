@@ -21,11 +21,14 @@ This study makes **one** kind of claim, and it is behavioral:
 - **Ground truth (the thing we predict):** *choice distortion* — a measured shift in an
   observable decision (accept/reject a gamble, donation amount, opinion change), produced by
   a stimulus, relative to a control or to a reflective baseline.
-- **Instrument under test:** the **Cognitive Sovereignty Index (CSI)** — a score computed
-  **from the content/stimulus**, not from any person's brain. *(The name is a proper-noun
-  instrument label inherited from prior work; it does not assert that the metric measures
-  "sovereignty," harm, or any normative property. CSI's meaning is fixed solely by the
-  validation tests in §3 — nothing else.)*
+- **Instrument under test:** the **Cognitive Sovereignty Index (CSI)** — defined as
+  **vmPFC activation − dlPFC activation**, a contrast computed from **fMRI** (or from a validated
+  model that predicts those regions' activation, e.g. TRIBE). CSI is therefore a *neural* measure,
+  **not** a text score; when applied to an arbitrary stimulus the vmPFC/dlPFC activations are
+  model-predicted and that prediction's validity is itself part of what must be established.
+  *(The name is a proper-noun label from prior work; it does not assert the metric measures
+  "sovereignty," harm, or any normative property — its meaning is fixed by the validation tests in
+  §3.)*
 - **The brain-encoder** (TRIBE / `neurosignal`) is used only as a *theory-motivated,
   population-average feature generator*. Its activations are inputs to CSI, **not evidence of
   anything by themselves.**
@@ -142,9 +145,13 @@ source).
 
 ## 6. Methods
 
-**CSI computation.** CSI is computed by `neurosignal` from stimulus content (reference encoder
-by default; learned TRIBE encoder as a pre-registered sensitivity analysis). The exact formula
-and weights are version-pinned and reported; no post-hoc reweighting.
+**CSI computation.** CSI = vmPFC − dlPFC activation. For NARPS it is computed from the dataset's
+**fMRI** (subject-level ROI activations; see `results/PILLAR_A_NARPS_CSI_fmri.md`). The earlier
+text-heuristic route (`neurosignal` reference encoder on a text rendering of the stimulus) is
+**not CSI** and is retained only as a clearly-labeled supplementary probe. The learned TRIBE
+encoder (predicting vmPFC/dlPFC) is a registered alternative when measured fMRI is unavailable; its
+predictive validity is reported, not assumed. ROI definitions and the activation model are
+version-pinned; no post-hoc reweighting.
 
 **Baselines (H2).** sentiment (lexicon), token length, readability, TF-IDF + L2 logistic
 regression, and an LLM-judge baseline. Baselines and CSI are evaluated under identical splits.

@@ -1,4 +1,12 @@
-# Pillar A on NARPS ds001734 — value-framing construct (H1a) + EV positive control
+# ⚠️ SUPERSEDED — this run did NOT test CSI
+
+> **Correction (2026-06-08).** The score below labeled "CSI" was a *text heuristic* (`neurosignal`
+> Buy/Sell on a text rendering of the gamble), **not** the Cognitive Sovereignty Index. CSI =
+> **vmPFC − dlPFC activation** and requires fMRI (or a validated fMRI-predicting model). This run
+> therefore tests a text heuristic, not CSI; it is retained only for the record. See
+> `results/CORRECTION_2026-06-08.md`. The magnitude-blindness finding stands (relabeled).
+
+# (original) NARPS ds001734 — text-heuristic probe + EV positive control
 
 **Run:** 2026-06-08 · n_trials = 27454 · n_subjects = 108 · unique gambles = 416 ·
 accept rate = 0.554

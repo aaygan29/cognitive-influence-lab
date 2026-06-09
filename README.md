@@ -16,10 +16,10 @@ Index (CSI) predict real, measured choice distortion?** It does *not* claim to d
 - **Discipline:** preregistered hypotheses with **kill criteria**, secondary public data only,
   every major claim cited (APA), honest negative results.
 
-> Status: **first real result in** (`results/PILLAR_A_NARPS.md`). H1a on NARPS is an honest
-> **null** — the reference-encoder CSI is magnitude-blind on gambles (AUC 0.500), while an
-> expected-value positive control predicts choices (AUC 0.883), proving the pipeline. CSI's real
-> test is persuasive text (H1b), next.
+> Status: **correction in progress.** The first NARPS run mislabeled a text heuristic as "CSI";
+> CSI = **vmPFC − dlPFC** (fMRI-based) and that run is **superseded**
+> (`results/CORRECTION_2026-06-08.md`). Real CSI is now being computed from the NARPS fMRI. The
+> heuristic's magnitude-blindness and all pipeline machinery stand.
 
 ## Why this exists
 Manipulation/persuasion detection today is split between ungrounded text classifiers and
