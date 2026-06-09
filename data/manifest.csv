@@ -1,0 +1,2 @@
+name,source_url,version_or_commit,license_spdx,access_date,sha256,local_path
+# One row per raw file. Filled in when a dataset is obtained; loaders verify sha256 before use.
