@@ -32,7 +32,8 @@ def main() -> None:
     )
     print(h2.render())
     print("\nInterpretation: the pipeline emits well-formed, decided Findings. On REAL NARPS data")
-    print("these same calls produce the actual H1/H2 result — pass or fail per the kill criteria.")
+    print("these same calls produce the actual value-framing (H1a) result — pass or fail per the")
+    print("kill criteria. (Persuasive-text H1b is a separate construct on CMV / Persuasion-for-Good.)")
 
 
 if __name__ == "__main__":

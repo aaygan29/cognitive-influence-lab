@@ -74,10 +74,17 @@ else is labeled exploratory.
 
 | ID | Hypothesis | Directional prediction | **Kill criterion (preregistered)** |
 |----|------------|------------------------|------------------------------------|
-| **H1 Predictive** | CSI(stimulus) predicts choice distortion | β > 0; out-of-sample AUC/ρ above chance | If 95% CI of the effect includes the null on the held-out test set → H1 **fails**, reported as such. |
+| **H1a Value-framing** | CSI on a value/gamble stimulus predicts choice (NARPS) | out-of-sample AUC > 0.5 | If 95% CI of AUC includes 0.5 on the held-out test set → H1a **fails**, reported as such. |
+| **H1b Persuasive-text** | CSI on persuasive text predicts choice/opinion change (CMV, P4G) | out-of-sample AUC/ρ above chance | If 95% CI includes the null on held-out test → H1b **fails**, reported as such. |
 | **H2 Incremental** | CSI adds predictive value over simple text baselines | ΔAUC > 0 vs. {sentiment, length, readability, TF-IDF+logistic} | If CSI does **not** beat the best baseline (CI of ΔAUC includes 0) → CSI is **not** incrementally valid. |
 | **H3 Discriminant** | CSI is not merely sentiment/arousal/length | Effect survives covarying out sentiment, arousal, length, readability | If the H1 effect disappears after these covariates → CSI is **confounded**, reported as such. |
 | **H4 Convergent** | CSI aligns with established persuasion signals | ρ > 0 with Persuasion-for-Good strategy annotations / CMV winning-argument features | If no positive association → convergent validity **not supported**. |
+
+**Construct separation (registered).** A value/gamble stimulus (NARPS) and persuasive text
+(CMV, Persuasion-for-Good) are **different operationalizations** — the `neurosignal` encoder
+sees very different inputs. **H1a and H1b are reported separately and are NOT pooled into one
+FDR family.** Whether a CSI validated on one construct transfers to the other is an *exploratory*
+question, never reported as confirmatory.
 
 **Power / minimum detectable effect (registered).** α = .05 two-sided; target power = .80.
 Using the Fisher-z approximation (`scripts/power.py`), the minimum detectable correlation is
@@ -103,10 +110,12 @@ de-identified at source. Per-dataset provenance, license, version, and access da
 | Winning Arguments / CMV (Tan et al., 2016) | argument text | opinion change (Δ) | see ConvoKit/DATA.md | H1/H2/H4 text |
 | Persuasion-for-Good (Wang et al., 2019) | persuasion dialogue | donation amount ($) | see ConvoKit/DATA.md | H1/H4 behavioral $ |
 
-The **primary confirmatory test** is H1/H2 on **NARPS `ds001734`** (CC0; its gain/loss framing →
-accept/reject is a clean, license-clear choice-distortion target). **choices13k is deferred to a
-separate paper** pending written permission from its authors (no license file at source). All
-other datasets are pre-specified replication/extension targets, analyzed with the same pipeline.
+**NARPS `ds001734`** (CC0) is the **primary confirmatory test of the value-framing construct
+(H1a)** — its gain/loss framing → accept/reject is a clean, license-clear choice-distortion
+target. The **persuasive-text construct (H1b)** is confirmed on **CMV + Persuasion-for-Good**.
+These are distinct constructs, analyzed and **reported separately (not pooled)**. **choices13k is
+deferred to a separate paper** pending written permission from its authors (no license file at
+source).
 
 ## 5. Data hygiene, splits, and leakage controls
 
@@ -166,7 +175,10 @@ estimate.**
 percentile method, with BCa as a sensitivity check). The confirmatory pass/fail rule is
 **Benjamini–Hochberg FDR across the H1–H4 family** (Benjamini & Hochberg, 1995), implemented as
 `spikeprint.validate.decide_family` so the code enforces exactly the registered correction. The
-power/MDES targets are fixed in §3 before any data are touched.
+power/MDES targets are fixed in §3 before any data are touched. **Resample integrity:**
+degenerate (single-class) bootstrap/permutation resamples are skipped *and counted*; a Finding
+with **>1% skipped resamples** is flagged and treated as not-yet-validated pending a fix
+(registered threshold; implemented and surfaced in `analysis.py`).
 
 ## 7. Analysis plan, exclusions, stopping rules
 

@@ -82,3 +82,20 @@ def test_gate_blocks_unvalidated():
 
 def test_gate_passes_validated():
     gate([Finding("X", 1.0, "d", ci95=(0.5, 1.5), n=10).decide()])
+
+
+# --- per-metric null (regression test for the mixed-null decide_family bug) ---
+def test_decide_family_uses_per_finding_null_for_auc():
+    # AUC Finding (null 0.5) whose CI [0.49, 0.55] includes chance -> must NOT pass, even though
+    # that CI trivially excludes 0.0 (the old single-scalar-null rule would have passed it).
+    auc_f = Finding(
+        "H1a", 0.52, "narps", metric="AUC", ci95=(0.49, 0.55), n=500, p_value=0.001, null=0.5
+    )
+    assert not decide_family([auc_f])[0].passed
+
+
+def test_decide_family_mixed_null_family():
+    h1 = Finding("H1a", 0.58, "narps", metric="AUC", ci95=(0.54, 0.62), n=500, p_value=0.001, null=0.5)
+    h2 = Finding("H2", 0.0, "narps", metric="dAUC", ci95=(-0.05, 0.05), n=500, p_value=0.90, null=0.0)
+    out = decide_family([h1, h2])
+    assert out[0].passed and not out[1].passed
