@@ -12,6 +12,7 @@ surfaced on every Finding and flagged above the registered threshold (1%).
 """
 from __future__ import annotations
 
+from dataclasses import replace
 from typing import Optional, Sequence, Tuple, Union
 
 import numpy as np
@@ -217,6 +218,7 @@ def incremental_validity(
         n=int(y.size),
         p_value=p,
         null=0.0,
-        notes=_skip_note(skipped / n_boot),
+        notes=_skip_note(skipped / n_boot) + "; H2 is one-sided (pass = lower 95% CI > 0)",
     )
-    return f.decide()
+    # H2 is directional: CSI is incrementally valid only if it STRICTLY beats the baseline.
+    return replace(f, passed=bool(f.ci95[0] > 0.0))
