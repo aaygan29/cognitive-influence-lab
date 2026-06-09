@@ -22,6 +22,14 @@ Six-reviewer adversarial panel, run **before any outcome data were examined**. A
 
 No outcome data were examined during this round.
 
+## 2026-06-08 — CORRECTION: the NARPS "CSI" run did not test CSI
+The first real run (commit `9f4143c`) labeled a `neurosignal` text heuristic "CSI." CSI is defined
+as **vmPFC − dlPFC activation** (fMRI-based). Corrected: the prereg's CSI definition (§1, §6) was
+fixed from "content-level score" to the neural contrast; the heuristic run is marked SUPERSEDED
+(`results/PILLAR_A_NARPS.md` banner; `results/CORRECTION_2026-06-08.md`). Real CSI is now computed
+from NARPS fMRI. The magnitude-blindness finding and all pipeline machinery stand. Caught by the
+author, not the automated critic — logged accordingly.
+
 ## 2026-06-08 — analysis iteration + adversarial review round 2 (verdict: major-revisions)
 Pillar-A pipeline added and re-reviewed. Fixed before commit:
 - **Correctness bug:** `decide_family` applied a single null to mixed-null metrics (AUC null 0.5
