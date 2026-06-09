@@ -222,6 +222,44 @@ Secondary analysis of public, de-identified data; no new data collection. We wil
 IRB/exemption determination in `docs/ETHICS.md`. Intended use is auditing and measurement
 (decision-support/research), **not** diagnosis, and not deployment against individuals.
 
+## Study 2 — Spiking decision model on NARPS (iso-accuracy, lower-energy)
+
+**Question (preregistered; reframed per adversarial review).** Can a spiking (neuromorphic) model
+**match** the canonical prospect-theory account of human risky choice on NARPS, at **substantially
+lower per-decision energy**? Energy is the dependent variable; accuracy is a *constraint*, not the
+claim. We do **not** claim the spiking model is *more accurate* — EV alone already gives AUC ≈ 0.88
+and, with only gain/loss, there is little headroom (Tversky & Kahneman, 1981).
+
+**Data.** NARPS ds001734, behavioral only (accept/reject; gain, loss). **RT and any post-choice
+signal are excluded** (leakage). Features standardized on **train folds only**. No EV/ratio feature
+engineering into the MLP/SNN — raw (gain, loss) only.
+
+**Models** (capacity + training budget + timesteps T held constant where compared):
+- **EV-logistic** — logistic on EV = 0.5·gain − 0.5·loss (risk-neutral null).
+- **Prospect-theory logistic** — logistic on (gain, loss); loss aversion λ = −β_loss/β_gain
+  (the canonical target to match).
+- **Rate MLP** — matched-capacity ANN control.
+- **Spiking LIF net** — snnTorch, surrogate gradient, **current/direct** input encoding, fixed T
+  (the neuromorphic model).
+- **Expressivity ceiling** — gradient-boosted trees (tests whether the ceiling is the *data*).
+
+**Metrics.** Held-out **AUC + balanced accuracy** (subject-clustered bootstrap CI; within-subject
+permutation null) AND **energy** = spikes-per-decision and a **SynOps:MAC range** (a proxy, not
+measured joules; reported across standard energy-per-op assumptions, with sensitivity to T).
+
+**Validation.** 5-fold **subject-grouped** CV (tractable leave-subjects-out); Finding contract.
+
+**Kill criteria.**
+- **KC1 (iso-accuracy):** if the spiking model's held-out AUC CI lies *below* prospect-theory's, it
+  failed to match → no energy claim is made.
+- **KC2 (energy):** the lower-energy claim holds only if spiking SynOps < rate MACs across the
+  *entire* reported energy range at matched capacity/accuracy; else "no energy advantage."
+- **KC3 (ceiling honesty):** if GBT ≈ prospect-theory, the accuracy ceiling is set by the data
+  (gain, loss), not the model — stated explicitly.
+
+**CSI/TRIBE.** A wired interface only (run on PI compute); reported solely as incremental ΔAUC over
+economic features, with CI. Not part of Study 2's claims.
+
 ## References
 
 See `REFERENCES.md` for full APA entries and per-citation verification status.
