@@ -10,14 +10,16 @@ Index (CSI) predict real, measured choice distortion?** It does *not* claim to d
 - **Ground truth:** observed choice shifts in public behavioral datasets (gambles, donations,
   opinion change).
 - **Instrument under test:** CSI, computed from the *stimulus* by
-  [`neurosignal`](../../Sapient/neurosignal).
+  [`neurosignal`](../../../Sapient/neurosignal).
 - **Mechanistic arm:** a spiking decision model (snnTorch) reporting accuracy **and**
   energy/decision.
 - **Discipline:** preregistered hypotheses with **kill criteria**, secondary public data only,
   every major claim cited (APA), honest negative results.
 
-> Status: **scaffold / pre-data.** No results are reported yet. This repo is built to be
-> auditable end-to-end before any number is produced.
+> Status: **first real result in** (`results/PILLAR_A_NARPS.md`). H1a on NARPS is an honest
+> **null** — the reference-encoder CSI is magnitude-blind on gambles (AUC 0.500), while an
+> expected-value positive control predicts choices (AUC 0.883), proving the pipeline. CSI's real
+> test is persuasive text (H1b), next.
 
 ## Why this exists
 Manipulation/persuasion detection today is split between ungrounded text classifiers and
@@ -70,10 +72,11 @@ scaffold ships the contract + tests only)*. See `spikeprint/validate.py`.
 
 ## Roadmap
 1. ✅ Scaffold + preregistration + datasheet + references.
-2. ☐ `data/manifest.csv` with SHA-256 + checksum-guarded loaders (**NARPS ds001734** first; CC0).
-3. ☐ H1/H2 predictive + incremental validity on **NARPS** (held-out). choices13k deferred (license).
-4. ☐ Spiking decision model + energy benchmark vs. rate/Transformer controls.
-5. ☐ Replication on CMV / Persuasion-for-Good; synthetic-respondent calibration gate.
+2. ✅ `data/manifest.csv` (SHA-256) + NARPS ds001734 loader (CC0; 433 files).
+3. ✅ H1a + EV control + H2 on **NARPS** → honest null for CSI; EV control AUC 0.883 (`results/`).
+4. ☐ H1b: CSI on persuasive text (ChangeMyView, Persuasion-for-Good) — CSI's actual domain.
+5. ☐ Spiking decision model + energy benchmark vs. rate/Transformer controls.
+6. ☐ Learned (TRIBE) encoder for CSI; synthetic-respondent calibration gate.
 
 ## License
 Code: MIT (`LICENSE`). Data: each dataset retains its own license (`docs/DATA.md`).

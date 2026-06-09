@@ -2,7 +2,7 @@
   "instrument": "Cognitive Sovereignty Index (CSI)",
   "engine": "neurosignal",
   "pinned_commit": "e05bdb23eda998dd18acbcfccfe7463c05d87b74",
-  "local_source": "../../Sapient/neurosignal",
+  "local_source": "../../../Sapient/neurosignal",
   "encoder_default": "reference (deterministic, pinned by commit)",
   "csi_weights_sha256": "PENDING",
   "note": "CSI is computed by neurosignal at the pinned commit. The reference encoder is deterministic code, so the commit fully pins it. If the learned (TRIBE) encoder is used, the hash of its weight artifact MUST be recorded in csi_weights_sha256 and the pipeline must refuse to run on mismatch (mirrors data/manifest.csv checksum discipline). See PREREGISTRATION.md sec. 5-6."
