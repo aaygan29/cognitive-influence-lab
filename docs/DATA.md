@@ -27,7 +27,8 @@ in a confirmatory analysis. We do not assume licenses.
 - **Instance / outcome:** trial framing → accept/reject; (optional) group statistical maps.
 - **Source:** OpenNeuro `ds001734`. License **CC0** (confirmed on the OpenNeuro record); pin the
   exact dataset version in the manifest.
-- **Use here:** **H1/H2 primary confirmatory**; optional neural-side correlation (secondary).
+- **Use here:** **H1a (value-framing) + H2 primary confirmatory**; optional neural-side
+  correlation (secondary). Distinct construct from the persuasive-text datasets (H1b).
 
 ## 3. IBL decision-making task
 - **What/why:** standardized perceptual decision task in mice with a 0.2/0.8 **prior block** that
@@ -44,7 +45,7 @@ in a confirmatory analysis. We do not assume licenses.
 - **Instance / outcome:** argument text → opinion change (binary).
 - **Source:** ConvoKit (`convokit.cornell.edu/documentation/winning.html`). ⚠ confirm terms of
   use / Reddit content constraints; commit only derived non-identifying features.
-- **Use here:** H1/H2 (text), H4 (convergent, vs. winning-argument features).
+- **Use here:** **H1b/H2 (persuasive text)**, H4 (convergent, vs. winning-argument features).
 
 ## 5. Persuasion-for-Good
 - **What/why:** 1,017 MTurk persuasion dialogues; outcome = **actual donation amount**; 300 with
@@ -52,7 +53,7 @@ in a confirmatory analysis. We do not assume licenses.
 - **Instance / outcome:** persuasion dialogue → donation ($), a real behavioral outcome.
 - **Source:** ConvoKit (`convokit.cornell.edu/documentation/persuasionforgood.html`).
   ⚠ confirm license / participant-consent terms.
-- **Use here:** H1 (behavioral $ outcome), H4 (convergent, vs. strategy annotations).
+- **Use here:** **H1b (behavioral $ outcome)**, H4 (convergent, vs. strategy annotations).
 
 ---
 

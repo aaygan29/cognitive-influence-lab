@@ -44,19 +44,22 @@ class Finding:
     ci95: Optional[Tuple[float, float]] = None
     n: Optional[int] = None
     p_value: Optional[float] = None
+    null: float = 0.0  # the chance value for this metric (e.g. 0.0 for a difference, 0.5 for AUC)
     passed: bool = False
     notes: str = ""
 
-    def decide(self, null: float = 0.0) -> "Finding":
-        """Single-hypothesis primitive: pass iff the 95% CI excludes ``null``.
+    def decide(self, null: Optional[float] = None) -> "Finding":
+        """Single-hypothesis primitive: pass iff the 95% CI excludes the metric's null.
 
-        Requires both a CI and an n. NOTE: this does NOT apply the family-wise FDR correction;
-        for confirmatory reporting use :func:`decide_family`, which is the registered rule.
+        Uses this Finding's own ``null`` (e.g. 0.5 for AUC, 0.0 for a difference) unless an
+        override is passed. Requires both a CI and an n. NOTE: this does NOT apply the
+        family-wise FDR correction; for confirmatory reporting use :func:`decide_family`.
         """
+        nv = self.null if null is None else null
         ok = (
             self.ci95 is not None
             and self.n is not None
-            and (self.ci95[0] > null or self.ci95[1] < null)
+            and (self.ci95[0] > nv or self.ci95[1] < nv)
         )
         return replace(self, passed=bool(ok))
 
@@ -95,13 +98,14 @@ def benjamini_hochberg(pvalues: Sequence[float], alpha: float = 0.05) -> np.ndar
 
 
 def decide_family(
-    findings: Sequence[Finding], alpha: float = 0.05, null: float = 0.0
+    findings: Sequence[Finding], alpha: float = 0.05, null: Optional[float] = None
 ) -> List[Finding]:
     """Registered family-level decision.
 
-    A Finding passes iff (a) its 95% CI excludes ``null`` AND (b) it is rejected under
-    Benjamini-Hochberg FDR across the whole family at ``alpha``. Requires a p-value on every
-    Finding (otherwise the registered correction cannot be applied).
+    A Finding passes iff (a) its 95% CI excludes its metric's null AND (b) it is rejected under
+    Benjamini-Hochberg FDR across the whole family at ``alpha``. Each Finding's own ``null`` is
+    used (e.g. 0.5 for AUC, 0.0 for a difference), so metrics with different nulls can share a
+    family; pass ``null`` only to override all of them. Requires a p-value on every Finding.
     """
     items = list(findings)
     if not items:
@@ -113,8 +117,9 @@ def decide_family(
     rejected = benjamini_hochberg([f.p_value for f in items], alpha=alpha)
     out: List[Finding] = []
     for f, rej in zip(items, rejected):
+        nv = f.null if null is None else null
         ci_ok = (
-            f.ci95 is not None and f.n is not None and (f.ci95[0] > null or f.ci95[1] < null)
+            f.ci95 is not None and f.n is not None and (f.ci95[0] > nv or f.ci95[1] < nv)
         )
         out.append(replace(f, passed=bool(rej and ci_ok)))
     return out
