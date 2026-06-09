@@ -222,3 +222,56 @@ def incremental_validity(
     )
     # H2 is directional: CSI is incrementally valid only if it STRICTLY beats the baseline.
     return replace(f, passed=bool(f.ci95[0] > 0.0))
+
+
+def spearman(x: Sequence[float], y: Sequence[float]) -> float:
+    """Spearman rank correlation (tie-aware via average ranks)."""
+    rx = _rankdata(np.asarray(x, dtype=float))
+    ry = _rankdata(np.asarray(y, dtype=float))
+    return float(np.corrcoef(rx, ry)[0, 1])
+
+
+def correlation_validity(
+    name: str,
+    dataset: str,
+    x: Sequence[float],
+    y: Sequence[float],
+    n_boot: int = 10_000,
+    n_perm: int = 10_000,
+    alpha: float = 0.05,
+    seed: int = 0,
+) -> Finding:
+    """Subject-level association: Spearman correlation between paired x and y (e.g. CSI vs accept
+    rate across subjects). Bootstrap CI over the paired units; permutation p (shuffle y). The
+    Finding's null is 0 (no association). This is the contrast-agnostic CSI -> behavior test.
+    """
+    x = np.asarray(x, dtype=float)
+    y = np.asarray(y, dtype=float)
+    if x.shape != y.shape or x.ndim != 1 or x.size < 3:
+        raise ValueError("correlation_validity needs paired 1-D arrays with n >= 3")
+    r = spearman(x, y)
+    rng = np.random.default_rng(seed)
+    n = x.size
+    boots = []
+    for _ in range(n_boot):
+        idx = rng.integers(0, n, n)
+        if np.std(x[idx]) == 0 or np.std(y[idx]) == 0:
+            continue
+        boots.append(spearman(x[idx], y[idx]))
+    lo, hi = np.quantile(boots, [alpha / 2.0, 1.0 - alpha / 2.0])
+    eff = abs(r)
+    count = sum(abs(spearman(x, rng.permutation(y))) >= eff for _ in range(n_perm))
+    p = (count + 1) / (n_perm + 1)
+    f = Finding(
+        name=name,
+        value=r,
+        dataset=dataset,
+        metric="spearman_r",
+        baseline=0.0,
+        effect_size=r,
+        ci95=(float(lo), float(hi)),
+        n=int(n),
+        p_value=float(p),
+        null=0.0,
+    )
+    return f.decide()

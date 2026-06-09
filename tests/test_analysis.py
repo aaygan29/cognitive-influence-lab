@@ -1,7 +1,12 @@
 import numpy as np
 import pytest
 
-from spikeprint.analysis import auc, incremental_validity, predictive_validity
+from spikeprint.analysis import (
+    auc,
+    correlation_validity,
+    incremental_validity,
+    predictive_validity,
+)
 
 
 def test_auc_perfect_separation():
@@ -51,3 +56,22 @@ def test_incremental_validity_csi_beats_uninformative_baseline():
     baseline = rng.normal(size=n)  # uninformative
     f = incremental_validity("H2", "synthetic", csi, baseline, labels, groups=groups, n_boot=500)
     assert f.value > 0  # CSI AUC exceeds baseline AUC
+
+
+def test_correlation_validity_detects_association():
+    # the contrast-agnostic CSI->behavior test: subject CSI vs subject accept rate
+    rng = np.random.default_rng(0)
+    csi = rng.normal(size=40)
+    accept_rate = 0.8 * csi + rng.normal(scale=0.5, size=40)
+    f = correlation_validity("CSI~accept", "synthetic", csi, accept_rate, n_boot=500, n_perm=500)
+    assert f.value > 0.5
+    assert f.passed
+    assert f.ci95[0] > 0.0
+
+
+def test_correlation_validity_near_zero_for_independent():
+    rng = np.random.default_rng(3)
+    f = correlation_validity(
+        "null", "synthetic", rng.normal(size=40), rng.normal(size=40), n_boot=500, n_perm=500
+    )
+    assert abs(f.value) < 0.5
