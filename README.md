@@ -1,9 +1,7 @@
 # neuro_topology
 
-# neuro-ai-topology-pipeline
-
 **Brain-Like Topology is an Emergent Property, Not a Performance Driver**
-A preregistered, multi-phase experimental pipeline testing whether transformer attention graphs share structural properties with biological neural networks — and whether inducing brain-like topology improves language modeling performance.
+A pre-specified, multi-phase experimental pipeline testing whether transformer attention graphs share structural properties with biological neural networks — and whether inducing brain-like topology improves language modeling performance.
 
 > Brain-like topology in early transformer layers is real and partially robust, but it is an emergent byproduct of training, not a causal driver. Regularizing toward it hurts performance (Cohen's *d* = −1.20 across 20 seeds). The original single-run improvement was seed variance.
 
@@ -33,7 +31,7 @@ We test this with five independent experiments:
 | 1A | Is the SW regularization improvement real? | 20 seeds × 2 conditions |
 | 1B | Is the early/late topology split threshold-robust? | 7 density thresholds |
 | 2 | Is brain-like topology *specifically* better? | 20 seeds × 6 topology conditions |
-| 3 | Does GPT-2 layer 3 align with frontoparietal cortex? | Preregistered RSA, 48 layer×region tests |
+| 3 | Does GPT-2 layer 3 align with frontoparietal cortex? | Pre-specified RSA, 48 layer×region tests |
 | 4 | Do better models have more brain-like early layers? | 6 model families, cross-model correlation |
 | 5 | What is the mechanistic role of brain-like heads? | Trajectory analysis + head ablation |
 
@@ -42,7 +40,7 @@ We test this with five independent experiments:
 ## Repository Structure
 
 ```
-neuro-ai-topology-pipeline/
+neuro_topology/
 │
 ├── README.md                  ← You are here
 ├── PAPER.md                   ← Full paper with methods, math, results, citations
@@ -53,7 +51,7 @@ neuro-ai-topology-pipeline/
 │   ├── phase1a_multiseed.py   ← Multi-seed validation (20 seeds × 2 conditions)
 │   ├── phase1b_threshold.py   ← Threshold sensitivity analysis (7 thresholds)
 │   ├── phase2_specificity.py  ← Topology specificity ablation (6 conditions × 20 seeds)
-│   ├── phase3_real_rsa.py     ← Preregistered RSA vs. brain RSMs
+│   ├── phase3_real_rsa.py     ← Pre-specified RSA vs. brain RSMs
 │   ├── phase4_crossmodel.py   ← Cross-model correlation (Pythia + GPT-2 families)
 │   ├── phase5_mechanistic.py  ← Training trajectory + head ablation + rich-club
 │   ├── final_analysis.py      ← Unified statistical report from all phases
@@ -91,8 +89,8 @@ neuro-ai-topology-pipeline/
 ## Installation
 
 ```bash
-git clone https://github.com/yourusername/neuro-ai-topology-pipeline
-cd neuro-ai-topology-pipeline
+git clone https://github.com/aaygan29/neuro_topology
+cd neuro_topology
 pip install -r requirements.txt
 ```
 
@@ -232,7 +230,7 @@ Then add it to the `TOPO_FNS` dict and the `CONDITIONS` list in `phase2_specific
 
 ### Phase 3 — RSA
 
-Preregistered confirmatory test: GPT-2 layer 3 first-token representations vs. frontoparietal RSMs.
+Pre-specified confirmatory test: GPT-2 layer 3 first-token representations vs. frontoparietal RSMs.
 
 **What it does:**
 - Extracts GPT-2 representations at all 12 layers
@@ -302,7 +300,7 @@ Phase 1B: Early/late topological split is PARTIAL
 
 Phase 2: No topology regularizer beats baseline
   Ranking: none > lattice > small_world > degenerate > random_graph > scale_free
-  ANOVA F(5,106) = 64.9, p < 0.0001
+  ANOVA F(5,107) = 64.9, p < 0.0001
   SW vs. baseline: Δ = +0.066, p_corr = 0.003 (*** worse)
   → Brain-like topology is not specifically beneficial
 
@@ -344,13 +342,13 @@ The full paper is at [`PAPER.md`](PAPER.md). It includes:
 ```bibtex
 @misc{gandhi2026brainlike,
   title   = {Brain-Like Topology is an Emergent Property, Not a Performance Driver:
-             A Preregistered Multi-Phase Investigation of Transformer Attention
+             A Pre-Specified Multi-Phase Investigation of Transformer Attention
              Structure and Neural Alignment},
   author  = {Gandhi, Aayush},
   year    = {2026},
   month   = {June},
   note    = {Preprint},
-  url     = {https://github.com/yourusername/neuro-ai-topology-pipeline}
+  url     = {https://github.com/aaygan29/neuro_topology}
 }
 ```
 
