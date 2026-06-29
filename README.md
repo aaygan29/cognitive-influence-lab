@@ -28,13 +28,27 @@ builds no deployable persuasion optimizer. The output is scientific knowledge an
 ## What is here
 
 ```
-src/        the instrument: B(s) neural signature, content baseline, latent fusion, analysis
+src/        the instrument (B(s) signature, content baseline, latent fusion, analysis) and the formal
+            belief-dynamics model (belief_model.py)
 data/       loaders + a committed synthetic stand-in; raw public data pulled by script, never committed
 results/    analysis outputs (committed) + figures
-paper/      the manuscript
-docs/       method notes, provenance, the audit this is built on
-tests/      positive-and-negative-control tests on the instrument
+paper/      the manuscript, the formal model (MODEL.md), and figures
+docs/       method notes, provenance, the council reviews this passed through
+tests/      positive-and-negative-control tests on the instrument + the model's four predictions
 ```
+
+## Two parts
+
+1. **The instrument** (src/encoders, signature, baseline, fusion, analysis): measures whether the neural
+   belief signature B(s)=E+V-R adds predictive value over content alone, validated with positive,
+   content-only, and scrambled controls across 12 seeds.
+2. **The formal model** (paper/MODEL.md, src/belief_model.py): a synthesis of the persuasion,
+   opinion-dynamics, computational-neuroscience, and dynamical-systems literature. Belief is a state in a
+   cusp potential; the persuasive force carries the neural term B(s); belief robustness is a computable
+   functional (well stiffness and distance to the fold, scaling as involvement^1.5). Four predictions are
+   reproduced in code and locked by tests. Generalization is framed as a hierarchical-model statement
+   about the random-effects distribution of the neural loading, the honest answer to the large
+   between-study heterogeneity (I-squared = 76%) in the LLM-persuasion meta-analysis.
 
 ## The claim, and the kill criteria
 

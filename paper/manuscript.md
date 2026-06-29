@@ -141,6 +141,26 @@ already visible to existing tools, which is a clean, defense-relevant bound rath
 way the deliverable is the same: a demonstration of whether the risk is real, a quantification of its
 magnitude, and an instrument that can be pointed at detection and inoculation work.
 
+## 5b. A formal model that situates the instrument
+
+The instrument estimates one quantity, the neural loading on persuasion. To place that quantity inside a
+theory of how belief moves, and to state what generalization would mean, we develop a companion formal
+model (paper/MODEL.md). Belief is a state in a cusp potential whose minima are stable attitudes, following
+the established catastrophe model of attitudes (van der Maas et al. 2003). The persuasive force on that
+state decomposes into a content term and the neural-grounded term B(s) the instrument measures, gated by
+bounded confidence (Hegselmann and Krause) and asymmetric, confirmation-biased updating (Palminteri et al.
+2022), and anchored to the prior belief by a Friedkin-Johnsen susceptibility. Belief robustness is then a
+computable functional of the same dynamics: the stiffness of the belief well and the distance to the cusp
+fold, which scales with attitude involvement as alpha to the three-halves. The model yields four
+predictions to be tested, all reproduced in its implementation (hysteresis, sequential in-band persuasion
+beating a single large message, super-linear robustness scaling, and susceptibility divergence at the
+fold), and it casts the generalization question as a hierarchical-model statement: the neural loading must
+have a positive random-effects distribution across corpora, not merely a positive estimate in one corpus,
+which is the honest response to the large between-study heterogeneity in the persuasion meta-analysis
+(I-squared = 76%, Holbling et al. 2025). The model is a synthesis of existing components; its one new move
+is coupling the measured neural term into the persuasive force and reading robustness off the same
+equations.
+
 ## 6. Limitations
 
 The encoder predicts activation; it does not measure a brain. Predicted-state is not experienced-state.
