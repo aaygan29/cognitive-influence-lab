@@ -1,0 +1,20 @@
+# Raw third-party data is never committed (only the manifest + synthetic stand-in)
+data/raw/
+data/*.csv
+!data/synthetic_standin.csv
+*.npy
+!results/*.npy
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+
+.pytest_cache/

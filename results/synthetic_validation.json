@@ -1,0 +1,325 @@
+{
+  "program": "cultist",
+  "harness": "synthetic stand-in (positive + content-only + scrambled controls); NOT a real-data result",
+  "positive_control": {
+    "label": "positive_signal_present",
+    "neural_weight": 0.9,
+    "scramble": false,
+    "n": 1400,
+    "H_load": {
+      "name": "H_load_corr_B_latent",
+      "value": 0.3559499886029614,
+      "ci95": [
+        0.3116880816173044,
+        0.3997875531990368
+      ],
+      "n": 1400,
+      "passed": true,
+      "note": "min_r=0.15; loads on shared belief factor"
+    },
+    "H_incremental": {
+      "finding": {
+        "name": "H_incremental_deltaAUC[reference]",
+        "value": 0.06689947407554536,
+        "ci95": [
+          0.06219008963458931,
+          0.07150401073520411
+        ],
+        "n": 1400,
+        "passed": true,
+        "note": "content AUC=0.697, content+B AUC=0.764"
+      },
+      "auc_content": 0.6966710433037266,
+      "auc_content_plus_B": 0.763570517379272
+    },
+    "H_bound": {
+      "finding": {
+        "name": "H_bound_AUC_B_alone[reference]",
+        "value": 0.62813594468165,
+        "ci95": [
+          0.5997302573441318,
+          0.6567321989622593
+        ],
+        "n": 1400,
+        "passed": true,
+        "note": "magnitude of belief-imparting signal carried by B(s) alone"
+      }
+    },
+    "H_encoder": {
+      "per_encoder": {
+        "reference": {
+          "h_load": {
+            "name": "H_load_corr_B_latent",
+            "value": 0.3559499886029614,
+            "ci95": [
+              0.3116880816173044,
+              0.3997875531990368
+            ],
+            "n": 1400,
+            "passed": true,
+            "note": "min_r=0.15; loads on shared belief factor"
+          },
+          "h_incremental": {
+            "name": "H_incremental_deltaAUC[reference]",
+            "value": 0.06689947407554536,
+            "ci95": [
+              0.06219008963458931,
+              0.07150401073520411
+            ],
+            "n": 1400,
+            "passed": true,
+            "note": "content AUC=0.697, content+B AUC=0.764"
+          }
+        },
+        "perturbed_11": {
+          "h_load": {
+            "name": "H_load_corr_B_latent",
+            "value": 0.3951398041877609,
+            "ci95": [
+              0.35193197058750747,
+              0.4390757637205137
+            ],
+            "n": 1400,
+            "passed": true,
+            "note": "min_r=0.15; loads on shared belief factor"
+          },
+          "h_incremental": {
+            "name": "H_incremental_deltaAUC[perturbed_11]",
+            "value": 0.0665749625677629,
+            "ci95": [
+              0.0616601829831102,
+              0.07138673089879516
+            ],
+            "n": 1400,
+            "passed": true,
+            "note": "content AUC=0.697, content+B AUC=0.763"
+          }
+        },
+        "perturbed_29": {
+          "h_load": {
+            "name": "H_load_corr_B_latent",
+            "value": 0.2279496105041941,
+            "ci95": [
+              0.17922494495780916,
+              0.2754977889767054
+            ],
+            "n": 1400,
+            "passed": true,
+            "note": "min_r=0.15; loads on shared belief factor"
+          },
+          "h_incremental": {
+            "name": "H_incremental_deltaAUC[perturbed_29]",
+            "value": 0.0482049965557124,
+            "ci95": [
+              0.04525082865135497,
+              0.05116821288575061
+            ],
+            "n": 1400,
+            "passed": true,
+            "note": "content AUC=0.697, content+B AUC=0.745"
+          }
+        }
+      },
+      "encoder_stable": true,
+      "note": "stable = same qualitative verdict across all encoders"
+    },
+    "conformal": {
+      "target_coverage": 0.9,
+      "empirical_coverage": 0.8771428571428571,
+      "avg_set_size": 1.4657142857142857,
+      "passed": true,
+      "note": "coverage at or above nominal = honest abstention holds"
+    }
+  },
+  "content_only_world": {
+    "label": "content_only_no_neural_signal",
+    "neural_weight": 0.0,
+    "scramble": false,
+    "n": 1400,
+    "H_load": {
+      "name": "H_load_corr_B_latent",
+      "value": 0.1444863027409829,
+      "ci95": [
+        0.09746288275634449,
+        0.19422729049399734
+      ],
+      "n": 1400,
+      "passed": false,
+      "note": "min_r=0.15; does not load"
+    },
+    "H_incremental": {
+      "finding": {
+        "name": "H_incremental_deltaAUC[reference]",
+        "value": -0.0008022542833981738,
+        "ci95": [
+          -0.0014983933496025004,
+          -0.00014690058694586126
+        ],
+        "n": 1400,
+        "passed": false,
+        "note": "content AUC=0.728, content+B AUC=0.727"
+      },
+      "auc_content": 0.7280030567751882,
+      "auc_content_plus_B": 0.7272008024917899
+    },
+    "H_bound": {
+      "finding": {
+        "name": "H_bound_AUC_B_alone[reference]",
+        "value": 0.5551044237454554,
+        "ci95": [
+          0.524350937673804,
+          0.5835395296632181
+        ],
+        "n": 1400,
+        "passed": true,
+        "note": "magnitude of belief-imparting signal carried by B(s) alone"
+      }
+    },
+    "H_encoder": {
+      "per_encoder": {
+        "reference": {
+          "h_load": {
+            "name": "H_load_corr_B_latent",
+            "value": 0.1444863027409829,
+            "ci95": [
+              0.09746288275634449,
+              0.19422729049399734
+            ],
+            "n": 1400,
+            "passed": false,
+            "note": "min_r=0.15; does not load"
+          },
+          "h_incremental": {
+            "name": "H_incremental_deltaAUC[reference]",
+            "value": -0.0008022542833981738,
+            "ci95": [
+              -0.0014983933496025004,
+              -0.00014690058694586126
+            ],
+            "n": 1400,
+            "passed": false,
+            "note": "content AUC=0.728, content+B AUC=0.727"
+          }
+        },
+        "perturbed_11": {
+          "h_load": {
+            "name": "H_load_corr_B_latent",
+            "value": 0.16877824918585885,
+            "ci95": [
+              0.12137679682043404,
+              0.21848969572613802
+            ],
+            "n": 1400,
+            "passed": true,
+            "note": "min_r=0.15; loads on shared belief factor"
+          },
+          "h_incremental": {
+            "name": "H_incremental_deltaAUC[perturbed_11]",
+            "value": -0.0008390071554012258,
+            "ci95": [
+              -0.0016423377734290654,
+              -0.0001102053932392832
+            ],
+            "n": 1400,
+            "passed": false,
+            "note": "content AUC=0.728, content+B AUC=0.727"
+          }
+        },
+        "perturbed_29": {
+          "h_load": {
+            "name": "H_load_corr_B_latent",
+            "value": 0.10857417030867215,
+            "ci95": [
+              0.06075436989134135,
+              0.15937759828244585
+            ],
+            "n": 1400,
+            "passed": false,
+            "note": "min_r=0.15; does not load"
+          },
+          "h_incremental": {
+            "name": "H_incremental_deltaAUC[perturbed_29]",
+            "value": -0.0002551796402172291,
+            "ci95": [
+              -0.0007390520222026774,
+              0.00018480847445387068
+            ],
+            "n": 1400,
+            "passed": false,
+            "note": "content AUC=0.728, content+B AUC=0.728"
+          }
+        }
+      },
+      "encoder_stable": false,
+      "note": "stable = same qualitative verdict across all encoders"
+    },
+    "conformal": {
+      "target_coverage": 0.9,
+      "empirical_coverage": 0.8714285714285714,
+      "avg_set_size": 1.5485714285714285,
+      "passed": true,
+      "note": "coverage at or above nominal = honest abstention holds"
+    }
+  },
+  "scrambled_control": {
+    "label": "scrambled_B_negative_control",
+    "neural_weight": 0.9,
+    "scramble": true,
+    "n": 1400,
+    "H_load": {
+      "name": "H_load_corr_B_latent",
+      "value": 0.024937287871225546,
+      "ci95": [
+        -0.029001532576316137,
+        0.07694279641588139
+      ],
+      "n": 1400,
+      "passed": false,
+      "note": "min_r=0.15; does not load"
+    },
+    "H_incremental": {
+      "finding": {
+        "name": "H_incremental_deltaAUC[reference]",
+        "value": -0.001947075451910598,
+        "ci95": [
+          -0.002752257623745529,
+          -0.00125106663245967
+        ],
+        "n": 1400,
+        "passed": false,
+        "note": "content AUC=0.697, content+B AUC=0.695"
+      },
+      "auc_content": 0.6966710433037266,
+      "auc_content_plus_B": 0.694723967851816
+    },
+    "H_bound": {
+      "finding": {
+        "name": "H_bound_AUC_B_alone[reference]",
+        "value": 0.49695691928386576,
+        "ci95": [
+          0.46557638361467035,
+          0.5270617693429516
+        ],
+        "n": 1400,
+        "passed": false,
+        "note": "magnitude of belief-imparting signal carried by B(s) alone"
+      }
+    },
+    "H_encoder": null,
+    "conformal": {
+      "target_coverage": 0.9,
+      "empirical_coverage": 0.8771428571428571,
+      "avg_set_size": 1.4657142857142857,
+      "passed": true,
+      "note": "coverage at or above nominal = honest abstention holds"
+    }
+  },
+  "seed_stability": {
+    "n_seeds": 12,
+    "positive_H_load_pass_rate": 0.75,
+    "positive_H_incremental_pass_rate": 1.0,
+    "content_only_H_incremental_null_rate": 0.9166666666666666,
+    "scrambled_H_load_null_rate": 1.0,
+    "scrambled_H_incremental_null_rate": 1.0
+  }
+}
