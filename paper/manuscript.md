@@ -1,4 +1,4 @@
-# A Validated Instrument and Pre-Registration for Measuring Neural-Grounded Belief Imparting by AI-Generated Content
+# Measuring Neural-Grounded Belief Imparting by AI-Generated Content: a validated instrument and a first real-data test on ChangeMyView
 
 Aayush Gandhi
 
@@ -18,12 +18,17 @@ throughout. We build an auditable instrument that computes the signature, fuses 
 indicators into a latent belief factor, and states four hypotheses with pre-committed kill criteria. We
 validate the instrument on a synthetic stand-in with a known ground truth, across twelve data seeds, where
 it detects the neural signal when present, reports a null increment when belief is content-only, and
-returns chance when the signature is scrambled. The same pipeline, with a learned encoder in place of the
-reference encoder and public outcome corpora in place of the stand-in, is the registered next step. We
-release the instrument so that, if the neural increment turns out to be real, it can serve detection and
-inoculation research, and if it does not, the bound on the risk is itself useful. The framing is
-proof-of-risk: a risk must be demonstrated and measured before it can be categorized and defended against,
-and this paper builds and validates the measuring instrument.
+returns chance when the signature is scrambled. We then run it on real belief-change data: 3866 matched
+argument pairs from ChangeMyView (Tan et al. 2016), where an awarded delta marks a genuinely changed view.
+In a within-pair design that holds topic and audience fixed, the persuasion-neuroscience-grounded
+engagement channel of the signature is higher for the successful argument (win rate 0.579, Wilcoxon
+p = 9e-25, against a permutation null of 0.506); the affect channel is null and the resistance text-proxy
+does not behave as theorized, so the a priori composite is dominated by engagement. The signature does not
+add pooled predictive value over generic content features, which we report as a null. Two boundaries
+remain and we are explicit about both: the signature here is a text proxy for the neural quantity, not a
+learned brain encoder, and the pooled increment is null. Swapping in a learned encoder is the registered
+next step. The framing is proof-of-risk: a risk must be demonstrated and measured before it can be
+categorized and defended against, and this paper builds the instrument and gives it a first real-data test.
 
 ## 1. Introduction
 
@@ -140,6 +145,42 @@ has a measurable neural dimension. If B does not load or adds nothing, the risk 
 already visible to existing tools, which is a clean, defense-relevant bound rather than a failure. Either
 way the deliverable is the same: a demonstration of whether the risk is real, a quantification of its
 magnitude, and an instrument that can be pointed at detection and inoculation work.
+
+## 5a. Real-data result: ChangeMyView
+
+We ran the instrument on real belief-change outcomes. The ChangeMyView corpus (Tan et al. 2016, obtained
+through ConvoKit) records arguments challenging an original poster's stated view, each labeled by whether
+the poster awarded a delta, the community's marker that the argument changed their view. We use the
+corpus's matched-pair structure: 3866 pairs in which a successful and an unsuccessful challenger addressed
+the same original post. Within a pair, topic and audience are fixed, so a within-pair comparison isolates
+the argument from the confounds that dominate persuasion outcomes. We compute deterministic text features:
+a generic content baseline (length, lexical diversity, questions, links, numbers) and the three
+signature channels, engagement E, value V, and resistance R, from transparent lexical markers, giving the
+text-proxy signature B = z(E) + z(V) - z(R). Data, features, and the analysis are in the repository;
+n = 19571 labeled arguments, 12327 successful.
+
+Three results (results/realdata_cmv.json, Figure 3):
+
+1. Within-pair, the engagement channel is higher for the successful argument in 57.9% of pairs (Wilcoxon
+   p = 9e-25), against a label-permutation null of 0.506 (SD 0.008). This is the medial-prefrontal
+   engagement leg of the signature (Falk et al. 2010) recovered on real belief change, and it agrees with
+   the original study's finding that evidence and calibrated argumentation win deltas.
+2. The value channel is null (win rate 0.487, p = 0.07) and the resistance text-proxy runs opposite to
+   theory (successful arguments score higher on it), so the a priori composite B is dominated by
+   engagement and is weaker than E alone (composite win rate 0.535, p = 2e-5). We report the a priori
+   signature without re-weighting it to fit this outcome; the lesson is that the engagement channel
+   transfers to a text proxy and the other two do not.
+3. The signature adds no pooled predictive value over the content baseline (content AUC 0.569,
+   content plus B 0.569, delta not positive), with cross-validation grouped by pair. We report this as a
+   null. It is consistent with the large heterogeneity in the persuasion meta-analysis (I-squared = 76%,
+   Holbling et al. 2025): pooled prediction is weak because topic variance dominates, and the signal
+   appears only in the within-pair, context-controlled design.
+
+The honest reading is that one channel of the neural-grounded signature, engagement, carries a real,
+confound-controlled, highly significant relationship to genuine belief change, while the composite and the
+pooled increment do not yet. Two boundaries are explicit: this uses a text proxy rather than a learned
+brain encoder, and the pooled increment is null. Both are the reason the learned-encoder run is the next
+step rather than a closed result.
 
 ## 5b. A formal model that situates the instrument
 

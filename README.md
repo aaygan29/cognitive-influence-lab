@@ -75,9 +75,15 @@ is a one-line data path change documented in `docs/DATA.md`. Raw data is never c
 
 ## Status
 
-Scaffold + instrument + analysis on a committed synthetic stand-in that encodes a known ground truth, so
-the pipeline is shown to recover signal when present and report null when absent before it touches real
-data. This is the same positive-and-negative-control discipline used throughout the author's program.
+Instrument validated on a synthetic stand-in (positive, content-only, and scrambled controls, 12 seeds),
+plus a first real-data result on ChangeMyView (Tan et al. 2016, via ConvoKit). In 3866 matched argument
+pairs (topic held fixed), the engagement channel of the signature is higher for the argument that actually
+changed the poster's view (win rate 0.579, Wilcoxon p = 9e-25, permutation null 0.506). The affect and
+resistance text-proxies do not transfer, and the pooled increment over content features is null. See
+`docs/REAL_RESULT.md`. Two boundaries remain: this is a text proxy, not a learned brain encoder, and the
+pooled increment is null; the learned-encoder run is the next step (`docs/DATA.md`).
+
+Run it: `python -m src.run_real` (needs the corpus; see docs/DATA.md).
 
 ## License
 
