@@ -1,0 +1,95 @@
+{
+  "corpus1": {
+    "name": "ChangeMyView (Tan 2016)",
+    "n": 19571,
+    "coefs": {
+      "E": {
+        "coef": 0.0757311070888972,
+        "ci95": [
+          0.040975528469249525,
+          0.12131526411258874
+        ],
+        "significant": true,
+        "sign": 1
+      },
+      "V": {
+        "coef": -0.010524458250082379,
+        "ci95": [
+          -0.04020038720473374,
+          0.023220238876941475
+        ],
+        "significant": false,
+        "sign": -1
+      },
+      "R": {
+        "coef": 0.040194622458345326,
+        "ci95": [
+          0.008004205265186099,
+          0.0712113387077393
+        ],
+        "significant": true,
+        "sign": 1
+      }
+    }
+  },
+  "corpus2": {
+    "name": "Persuasion-for-Good (Wang 2019)",
+    "n": 1017,
+    "coefs": {
+      "E": {
+        "coef": 0.05891074453499467,
+        "ci95": [
+          -0.11739877607328317,
+          0.243251370769576
+        ],
+        "significant": false,
+        "sign": 1
+      },
+      "V": {
+        "coef": 0.033157251874707694,
+        "ci95": [
+          -0.1455798058224392,
+          0.22648469105526983
+        ],
+        "significant": false,
+        "sign": 1
+      },
+      "R": {
+        "coef": 0.1077149812648845,
+        "ci95": [
+          -0.07527695693458805,
+          0.2787170530376873
+        ],
+        "significant": false,
+        "sign": 1
+      }
+    }
+  },
+  "cross_corpus_verdict": {
+    "E": {
+      "generalizes": false,
+      "meta_coef": 0.07493588154593459,
+      "meta_ci95": [
+        0.035727076912610005,
+        0.11414468617925916
+      ]
+    },
+    "V": {
+      "generalizes": false,
+      "meta_coef": -0.009291110547573521,
+      "meta_ci95": [
+        -0.04055054981866756,
+        0.021968328723520524
+      ]
+    },
+    "R": {
+      "generalizes": false,
+      "meta_coef": 0.042280770997868755,
+      "meta_ci95": [
+        0.011169255925834239,
+        0.07339228606990328
+      ]
+    }
+  },
+  "note": "Two corpora only; sign+significance agreement and a fixed-effect meta, not a random-effects tau."
+}

@@ -182,6 +182,28 @@ pooled increment do not yet. Two boundaries are explicit: this uses a text proxy
 brain encoder, and the pooled increment is null. Both are the reason the learned-encoder run is the next
 step rather than a closed result.
 
+### 5a.1 Cross-domain generalization
+
+A single corpus cannot show generalization, so we ran the same channels on a second corpus in a different
+domain: Persuasion-for-Good (Wang et al. 2019), 1017 charity-solicitation dialogues where the outcome is
+whether the persuadee actually donated money. We fit the same model (success predicted by the content
+baseline plus the standardized channels) in each corpus and compared the engagement coefficient
+(results/multicorpus.json, Figure 4).
+
+The engagement coefficient is positive in both domains (ChangeMyView +0.076, 95% CI [0.041, 0.121],
+significant; Persuasion-for-Good +0.059, 95% CI [-0.117, 0.243], same sign but not individually
+significant), and the fixed-effect pooled estimate is positive and significant (+0.075, 95% CI
+[0.036, 0.114]). The value channel does not generalize (opposite signs, both null). The resistance
+text-proxy carries a positive coefficient in both corpora, confirming that its wrong-for-theory behavior
+is a stable property of the operationalization rather than a single-corpus artifact.
+
+The honest verdict is directional generalization, not established generalization: engagement points the
+same way in argument-delta and charity-donation and is significant when pooled, but the second corpus is
+individually underpowered (n = 1017, wide interval), so we do not claim the effect is confirmed in a
+second domain. With only two corpora we report sign-and-significance agreement and a fixed-effect meta
+estimate, not a random-effects heterogeneity variance, which needs more corpora. This is the measured
+answer to whether the signal transfers: partially and directionally, on present evidence.
+
 ## 5b. A formal model that situates the instrument
 
 The instrument estimates one quantity, the neural loading on persuasion. To place that quantity inside a
