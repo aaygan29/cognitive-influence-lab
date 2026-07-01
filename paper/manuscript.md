@@ -204,6 +204,25 @@ second domain. With only two corpora we report sign-and-significance agreement a
 estimate, not a random-effects heterogeneity variance, which needs more corpora. This is the measured
 answer to whether the signal transfers: partially and directionally, on present evidence.
 
+### 5a.2 Real neural data: the signature predicts choice out-of-sample
+
+The text arms use a proxy for the neural quantity. We also tested the signature on real fMRI. The Knutson
+neuroforecasting task (Kuhnen and Knutson 2005) records group-averaged BOLD in nucleus accumbens, medial
+prefrontal cortex, and anterior insula while participants decide whether to buy stocks, with the aggregate
+buy fraction as the behavioral outcome across two experiments. The regions map directly onto the signature
+channels (value, engagement, resistance), so we compute the same B = z(E) + z(V) - z(R) from real neural
+activity and predict aggregate choice out-of-sample, fitting on one experiment and testing on the other
+(results/neuralforecast.json, Figure 5).
+
+The signature predicts aggregate choice out-of-sample (cross-experiment Pearson r = 0.182, AUC 0.571,
+permutation p = 0.003). The composite is the only predictor that keeps its sign across both experiments;
+the single regions flip sign and do not generalize, which matches the neuroforecasting result that combined
+affective components generalize across contexts better than single regions (Genevsky et al. 2025). The
+honest caveat is that the effect is near-null in one experiment (r = 0.05) and strong in the other
+(r = 0.32), so it is real and out-of-sample but weak and experiment-dependent. This is the neural
+phenomenon predicting behavior, on real fMRI, with the same signature structure as the text instrument,
+and it is modest.
+
 ## 5b. A formal model that situates the instrument
 
 The instrument estimates one quantity, the neural loading on persuasion. To place that quantity inside a
