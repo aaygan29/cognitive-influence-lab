@@ -1,8 +1,13 @@
 # cultist
 
-**Demonstrating and quantifying a neural-grounded belief-imparting risk in AI-generated content.**
+**A neuroscience-grounded signature for belief imparting by content.**
 
-Aayush Gandhi. Preprint code and analysis. No em dashes.
+Aayush Gandhi (aaygan29@gmail.com). Preprint code and analysis. No em dashes.
+
+**Paper:** `paper/PAPER.pdf` (and `PAPER.md`, `PAPER.docx`). Submission package and instructions in
+`paper/SUBMISSION.md`; cover letter in `paper/COVER_LETTER.md`. Reproduce every number with the scripts in
+`src/` (`python -m src.run_analysis`, `run_real`, `multicorpus`, `neuralforecast`, `composite_model`,
+`insilico_brain`) and `python -m pytest tests/`.
 
 This repository accompanies the preprint *Neural-Grounded Belief Imparting by AI-Generated Content: a
 demonstration and quantification of risk on public data*. It establishes, on public data, that a neural
