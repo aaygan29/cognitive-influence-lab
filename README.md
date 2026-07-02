@@ -1,4 +1,4 @@
-# cultist
+# true_believer
 
 **A neuroscience-grounded signature for belief imparting by content.**
 
