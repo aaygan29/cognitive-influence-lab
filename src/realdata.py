@@ -86,7 +86,19 @@ def extract_features(text: str) -> dict:
         "links_per_k": links * scale,
         "numbers_per_k": numbers * scale,
     }
-    return {"content": content_baseline, "E": E, "V": V, "R": R}
+    # interpretable, alterable content factors (the levers an author could actually change)
+    factors = {
+        "evidence": evidence,
+        "framing": frame,
+        "affect": affect,
+        "social_proof": social,
+        "identity_threat": identity,
+        "concession": concession,
+    }
+    return {"content": content_baseline, "E": E, "V": V, "R": R, "factors": factors}
+
+
+FACTOR_NAMES = ["evidence", "framing", "affect", "social_proof", "identity_threat", "concession"]
 
 
 def load_labeled(corpus_dir: str):
@@ -109,6 +121,7 @@ def load_labeled(corpus_dir: str):
                 "pair_ids": m.get("pair_ids") or [],
                 "content": feats["content"],
                 "E": feats["E"], "V": feats["V"], "R": feats["R"],
+                "factors": feats["factors"],
             }
 
 

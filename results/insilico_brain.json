@@ -1,0 +1,183 @@
+{
+  "model": "in-silico brain-structured belief encoder (content factors -> approach-avoidance -> belief)",
+  "cross_domain": {
+    "CMV->P4G": {
+      "auc_full_factors": 0.5373250660861453,
+      "auc_brain_state": 0.5455858342403981
+    },
+    "P4G->CMV": {
+      "auc_full_factors": 0.5188089184126086,
+      "auc_brain_state": 0.5358746722222528
+    }
+  },
+  "factor_variance": {
+    "per_corpus": {
+      "CMV": {
+        "evidence": {
+          "coef": 0.05951692308924028,
+          "ci95": [
+            0.02947321051115949,
+            0.09365547141130748
+          ],
+          "significant": true
+        },
+        "framing": {
+          "coef": 0.09866327343950765,
+          "ci95": [
+            0.0613540959248319,
+            0.13635863352769495
+          ],
+          "significant": true
+        },
+        "affect": {
+          "coef": 0.017240175325416825,
+          "ci95": [
+            -0.011270508721475189,
+            0.052492134002998764
+          ],
+          "significant": false
+        },
+        "social_proof": {
+          "coef": -0.03817536654816945,
+          "ci95": [
+            -0.06580068116739157,
+            -0.009659688952933114
+          ],
+          "significant": true
+        },
+        "identity_threat": {
+          "coef": -0.04622170219687896,
+          "ci95": [
+            -0.0772698609303449,
+            -0.01872248471215511
+          ],
+          "significant": true
+        },
+        "concession": {
+          "coef": 0.11889904511456745,
+          "ci95": [
+            0.06595855641311403,
+            0.1784364619667003
+          ],
+          "significant": true
+        }
+      },
+      "P4G": {
+        "evidence": {
+          "coef": 0.19590995845960232,
+          "ci95": [
+            0.07335744673153245,
+            0.34338176045544433
+          ],
+          "significant": true
+        },
+        "framing": {
+          "coef": -0.08310248019330292,
+          "ci95": [
+            -0.2171018883581972,
+            0.036712303989812775
+          ],
+          "significant": false
+        },
+        "affect": {
+          "coef": 0.14402771884621618,
+          "ci95": [
+            0.02336949717317575,
+            0.264766532047502
+          ],
+          "significant": true
+        },
+        "social_proof": {
+          "coef": -0.08865315408998992,
+          "ci95": [
+            -0.20899104886518816,
+            0.043897627018043874
+          ],
+          "significant": false
+        },
+        "identity_threat": {
+          "coef": -0.18408046531679165,
+          "ci95": [
+            -0.34863693656536365,
+            -0.043000199671994234
+          ],
+          "significant": true
+        },
+        "concession": {
+          "coef": 0.029731853459156046,
+          "ci95": [
+            -0.11256082833275127,
+            0.21878908680209572
+          ],
+          "significant": false
+        }
+      }
+    },
+    "cross_corpus_robust": {
+      "evidence": {
+        "robust": true,
+        "cmv_coef": 0.05951692308924028,
+        "p4g_coef": 0.19590995845960232,
+        "brain_prior": "+",
+        "sign_matches_brain": true
+      },
+      "framing": {
+        "robust": false,
+        "cmv_coef": 0.09866327343950765,
+        "p4g_coef": -0.08310248019330292,
+        "brain_prior": "+",
+        "sign_matches_brain": true
+      },
+      "affect": {
+        "robust": false,
+        "cmv_coef": 0.017240175325416825,
+        "p4g_coef": 0.14402771884621618,
+        "brain_prior": "+",
+        "sign_matches_brain": true
+      },
+      "social_proof": {
+        "robust": false,
+        "cmv_coef": -0.03817536654816945,
+        "p4g_coef": -0.08865315408998992,
+        "brain_prior": "+",
+        "sign_matches_brain": false
+      },
+      "identity_threat": {
+        "robust": true,
+        "cmv_coef": -0.04622170219687896,
+        "p4g_coef": -0.18408046531679165,
+        "brain_prior": "-",
+        "sign_matches_brain": true
+      },
+      "concession": {
+        "robust": false,
+        "cmv_coef": 0.11889904511456745,
+        "p4g_coef": 0.029731853459156046,
+        "brain_prior": "+",
+        "sign_matches_brain": true
+      }
+    }
+  },
+  "optimization_CMV": {
+    "corpus": "CMV",
+    "n_low_belief_items": 5870,
+    "factors_moved": [
+      "evidence",
+      "identity_threat"
+    ],
+    "mean_belief_before": 0.6002660029040864,
+    "mean_belief_after": 0.6249865418484603,
+    "mean_lift": 0.024720538944373916
+  },
+  "optimization_P4G": {
+    "corpus": "P4G",
+    "n_low_belief_items": 305,
+    "factors_moved": [
+      "evidence",
+      "identity_threat"
+    ],
+    "mean_belief_before": 0.44992382837293987,
+    "mean_belief_after": 0.5410435038447471,
+    "mean_lift": 0.09111967547180708
+  }
+}
