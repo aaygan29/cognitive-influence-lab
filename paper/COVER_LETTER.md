@@ -5,11 +5,16 @@ Independent researcher
 aaygan29@gmail.com
 ORCID: 0009-0003-4649-0367
 
-To the Editors,
+To the Editors of Computational Brain & Behavior,
 
 I am submitting an original research article, "A Neuroscience-Grounded Signature for Belief Imparting by
 Content: convergent but modest evidence across text persuasion, real fMRI, and an in-silico encoder," for
 consideration.
+
+The work sits squarely in the journal's scope: it links a computational model of belief and choice to both
+real neural data and behavior, and it tests a formal, falsifiable account across text and fMRI. The
+combination of a dynamical model, an out-of-sample neural forecast, and an in-silico encoder is the kind of
+model-to-brain-to-behavior integration Computational Brain & Behavior publishes.
 
 The work asks a single question and answers it on public data: does one neuroscience-grounded signature,
 computed from content, predict real belief and choice outcomes, generalize across domains, hold on real

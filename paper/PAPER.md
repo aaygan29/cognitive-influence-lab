@@ -198,10 +198,10 @@ content is built to install belief, not a strong forecaster and not a deployed p
 
 ## Data and code availability
 
-All code, seeds, figures, and results files are released in the accompanying repository. All datasets are
-public: ChangeMyView / Winning Arguments (Tan et al. 2016) and Persuasion-for-Good (Wang et al. 2019) via
-ConvoKit, and the Knutson neuroforecasting data (Kuhnen and Knutson 2005). Raw data is not redistributed; a
-manifest records sources and access.
+All code, seeds, figures, and results files are released at https://github.com/aaygan29/true-believer. All
+datasets are public: ChangeMyView / Winning Arguments (Tan et al. 2016) and Persuasion-for-Good (Wang et
+al. 2019) via ConvoKit, and the Knutson neuroforecasting data (Kuhnen and Knutson 2005). Raw data is not
+redistributed; a manifest in the repository records sources and access.
 
 ## Author contributions
 

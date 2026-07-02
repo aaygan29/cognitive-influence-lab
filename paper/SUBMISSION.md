@@ -10,33 +10,34 @@ Aayush Gandhi. No em dashes. What is prepared, where to submit, and the steps on
   individually).
 - Author: Aayush Gandhi, aaygan29@gmail.com, ORCID 0009-0003-4649-0367.
 
-## Recommended venue and why
+## Target venue and why
 
-Primary target: PLOS ONE. It evaluates methodological soundness and reproducibility rather than novelty or
-effect size, accepts modest and negative results, is interdisciplinary (neuroscience, computational social
-science, NLP), and requires open data and code, which this work already satisfies. The honest,
-convergent-but-modest character of the results fits this venue better than a high-impact selective journal.
+Primary target: Computational Brain & Behavior (Springer). It publishes computational models linked to
+brain and behavior, which is exactly this work: a formal belief-dynamics model, an out-of-sample neural
+forecast on real fMRI, and an in-silico encoder tying content to behavior. It values model-to-data
+integration and reproducibility over effect magnitude, which fits the convergent-but-modest results.
 
-Reasonable alternatives:
-- Behavior Research Methods (methods and instruments focus).
-- Frontiers in Human Neuroscience or Frontiers in Psychology (interdisciplinary, methods-friendly).
+Reasonable alternatives if needed later:
+- Behavior Research Methods (frames it as a validated measurement instrument).
 - Collabra: Psychology (open science, values rigor over magnitude).
+- PLOS ONE (soundness and reproducibility, interdisciplinary).
 
-Priority preprint (do this first): post to a preprint server to timestamp the work before or at submission.
-- PsyArXiv (psychology) or arXiv (cs.CL or q-bio.NC) are appropriate.
-- This establishes priority of the idea, which is one of your stated goals, and PLOS ONE permits
-  preprints.
+Priority preprint (do this first): post to OSF Preprints to timestamp the work.
+- OSF Preprints (https://osf.io/preprints/), since PsyArXiv is not accepting at the moment.
+- This establishes priority of the idea, and Computational Brain & Behavior permits preprints.
 
 ## Steps only you can take (I cannot log in as you or submit on your behalf)
 
-1. Post the preprint: upload `PAPER.pdf` to PsyArXiv (https://osf.io/preprints/psyarxiv) or arXiv, with the
-   title, abstract, and your ORCID. Keep the DOI it returns.
-2. Create a PLOS ONE submission: https://journals.plos.org/plosone/s/submit-now, sign in with your ORCID.
-3. Upload the manuscript (PLOS accepts DOCX or PDF; if DOCX is preferred, convert with
-   `pandoc paper/PAPER.md -o paper/PAPER.docx`), the seven figure files, and paste the cover letter.
-4. Enter metadata: title, author (you, sole author), affiliation (independent researcher), the abstract,
-   and the data-availability statement (all code and data public; datasets cited; repository link).
-5. Add the competing-interests and funding statements (none), and the preprint DOI from step 1.
+1. Post the preprint on OSF: create a project (you already have the GitHub repo "true-believer" to link),
+   upload `PAPER.pdf`, add the title, abstract, and your ORCID, and submit as a preprint. Keep the OSF DOI.
+2. Submit to Computational Brain & Behavior through Springer Editorial Manager
+   (https://www.editorialmanager.com/, or the "Submit manuscript" link on the journal page at
+   https://link.springer.com/journal/42113). Sign in / register with your ORCID.
+3. Upload the manuscript (PDF or DOCX; both are in paper/), the seven figure files, and paste the cover
+   letter from COVER_LETTER.md.
+4. Enter metadata: title, sole author (you), affiliation (independent researcher), the abstract, and the
+   data-availability statement below.
+5. Add competing-interests and funding statements (none), and the OSF preprint DOI from step 1.
 6. Submit.
 
 ## Data-availability statement (ready to paste)
