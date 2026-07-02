@@ -186,6 +186,24 @@ by engagement. No single dataset closes the loop from content to a neural state 
 same people, which does not yet exist publicly at scale. The formal model's predictions are verified in
 code, not against human data. All of these bound the claim to convergent, modest, out-of-sample evidence.
 
+## 5.1 A confirmatory test to run next
+
+The formal model's predictions are verified in the implementation but not yet against human behavior, and
+the honest way to close that gap is a single pre-registered experiment. The sharpest target is the
+hysteresis prediction, because it is unique to the bistable account and is not implied by a linear model of
+attitude change. Participants would be randomly assigned to a persuasive-force schedule that first
+increases the advocated position in graded steps and then withdraws it symmetrically, with attitude
+measured at every step. A linear model predicts that attitudes retrace their path as the force is removed;
+the cusp model predicts a hysteresis loop, in which an attitude moved across the fold does not return when
+the force is withdrawn, so persuasion and de-persuasion are asymmetric in cost. The same design tests the
+foot-in-the-door prediction directly: a sequential arm that advances the advocated position in small
+in-band steps should produce a larger final shift than a single large-step arm of matched total content
+strength, because the bounded-confidence gate rejects the single large jump. Both predictions are
+falsifiable, need only attitude self-reports and a behavioral commitment measure, and would move the model
+from internally consistent to behaviorally confirmed or refuted. We flag this as the next study rather than
+claim it here, because the present contribution is the instrument and its cross-domain validation, not a
+test of the dynamical model on people.
+
 ## 6. Conclusion
 
 We asked whether one neuroscience-grounded signature, computed from content, predicts belief and choice,
