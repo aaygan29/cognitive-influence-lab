@@ -298,7 +298,7 @@ Scientific Reports.
 Maertens, R., et al. (2023). The Misinformation Susceptibility Test (MIST). Behavior Research Methods.
 
 Tan, C., et al. (2016). Winning arguments: interaction dynamics and persuasion strategies in
-good-faith online discussions. WWW.
+good-faith online discussions.
 
 Wang, X., et al. (2019). Persuasion for good: towards a personalized persuasive dialogue system for social
 good. ACL.
