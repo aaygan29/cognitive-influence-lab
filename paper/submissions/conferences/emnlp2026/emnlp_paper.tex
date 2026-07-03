@@ -1,0 +1,151 @@
+\documentclass[11pt]{article}
+\usepackage[review]{acl}
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{microtype}
+
+\title{A Neuroscience-Grounded Signature for Belief Imparting by Content:\\
+Convergent but Modest Evidence across Text Persuasion, Real fMRI, and an In-Silico Encoder}
+
+\author{Anonymous ACL submission}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Large language models can shift human attitudes, and human neuroscience shows that belief change and
+value-based choice have predictable neural signatures. These literatures have not been joined. We ask
+whether one neuroscience-grounded signature, computed from content, predicts real belief and choice,
+generalizes across domains, holds on real fMRI, and can serve as an in-silico instrument that scores
+content for belief-likelihood. We define the signature as $B = \text{engagement} + \text{value} -
+\text{resistance}$ and test it in five stages on public data. A synthetic control validates the apparatus.
+On ChangeMyView (3866 matched argument pairs), the engagement channel is higher for the argument that
+changed a view (Wilcoxon $p = 9\mathrm{e}{-25}$), though the composite adds no pooled value over content
+features. On Persuasion-for-Good, the effect points the same way and is significant when pooled
+(coefficient 0.075, 95\% CI [0.036, 0.114]). On real fMRI, the signature computed from brain activity
+predicts aggregate choice out-of-sample ($r = 0.182$, permutation $p = 0.003$), and a parsimonious
+approach-minus-avoidance composite generalizes where richer models overfit. An in-silico encoder
+generalizes across domains and isolates two robust levers (more evidence, less identity threat). The
+effects are consistent and out-of-sample but modest. The contribution is a validated, interpretable
+belief-scoring instrument, framed as a measurement and risk-characterization tool.
+\end{abstract}
+
+\section{Introduction}
+Conversational AI can change human attitudes. Model-written messages shift political attitudes about as
+much as human-written ones \citep{bai2025llm}, an effect driven mostly by post-training and prompting
+rather than personalization or scale \citep{hackenburg2025levers, argyle2025testing}, and a meta-analysis
+finds no mean difference between model and human persuasion but large heterogeneity, with study moderators
+explaining most of the variance \citep{holbling2025meta}. This literature measures behavioral outcome and
+carries no neural signal.
+
+Human neuroscience supplies the missing half. Neural responses to persuasive messages predict later
+behavior change beyond stated intention, with medial prefrontal cortex carrying the signal
+\citep{falk2010predicting}. Nucleus accumbens activity forecasts aggregate choice, in several settings
+better than choice itself \citep{genevsky2017when, knutson2018neuroforecasting, tong2020brain}. Belief
+resistance appears in default-mode and dorsomedial prefrontal cortex \citep{kaplan2016neural}. Each is a
+passive observation, and none asks whether such a signature, read from content, carries information that
+content analysis misses.
+
+We join the two. The research question is whether one neuroscience-grounded signature, computed from
+content, predicts real belief and choice, generalizes across domains, holds on real neural data, and can
+serve as an in-silico belief-scoring instrument. We answer it in five stages on public data. The aim is a
+validated measurement instrument, not a deployed persuasion system.
+
+\section{The Signature}
+For a piece of content we read three quantities, each tied to a published result: engagement $E$ (medial
+prefrontal cortex; \citealp{falk2010predicting}), value $V$ (nucleus accumbens;
+\citealp{genevsky2017when}), and resistance $R$ (default-mode and anterior insula;
+\citealp{kaplan2016neural}). The signature is $B = z(E) + z(V) - z(R)$. In the text arms $E, V, R$ are
+computed from transparent lexical channels; in the neural arm they are read from real regional activity;
+in the in-silico encoder they are intermediate variables constrained to the same structure.
+
+\section{Data and Methods}
+All data are public. ChangeMyView / Winning Arguments \citep{tan2016winning}, via ConvoKit: 19571 labeled
+challenger arguments in 3866 matched pairs, outcome a delta awarded (view changed). Persuasion-for-Good
+\citep{wang2019persuasion}: 1017 charity-donation dialogues, outcome the persuadee donated. A stock
+neuroforecasting task \citep{kuhnen2005neural}: group-averaged BOLD in nucleus accumbens, medial
+prefrontal cortex, and anterior insula, with aggregate buy fraction as outcome across two experiments.
+
+Synthetic validation uses a stand-in with a known ground truth and three conditions (signal present,
+content-only, scrambled). Text arms use within-pair sign tests, grouped cross-validation, bootstrap
+intervals, per-channel decomposition, and a fixed-effect cross-corpus combination. The neural arm uses
+cross-experiment out-of-sample prediction with permutation nulls and a six-model comparison. The in-silico
+encoder is evaluated by cross-domain training, bootstrap factor variance, and counterfactual optimization.
+All code and results will be released.
+
+\section{Results}
+\paragraph{Apparatus validity.} On the synthetic stand-in the instrument detects a planted signal
+(delta-AUC $+0.067$), reports null when belief is content-only, and returns chance when the signature is
+scrambled (AUC 0.497). Across twelve seeds the increment test detects the signal in 12 of 12
+positive-control seeds and reports the correct null in 11 of 12 content-only seeds.
+
+\paragraph{Real belief change.} On ChangeMyView, within matched pairs holding topic and audience fixed,
+the engagement channel is higher for the argument that changed a view in 57.9\% of pairs (Wilcoxon $p =
+9\mathrm{e}{-25}$) against a permutation null of 0.506. The value channel is null (0.487, $p = 0.07$); the
+resistance text-proxy runs opposite to theory, so the composite is dominated by engagement. The signature
+adds no pooled value over content features (content AUC 0.569, content plus $B$ 0.569), a null we read as
+consistent with the meta-analytic heterogeneity.
+
+\paragraph{Cross-domain generalization.} On Persuasion-for-Good, a different domain, the engagement
+coefficient points the same way (ChangeMyView $+0.076$, significant; Persuasion-for-Good $+0.059$, same
+sign, not individually significant), and the pooled estimate is significant ($+0.075$, 95\% CI [0.036,
+0.114]). Value does not generalize.
+
+\paragraph{Real neural data.} On real fMRI the signature predicts aggregate choice out-of-sample
+(cross-experiment $r = 0.182$, AUC 0.571, permutation $p = 0.003$). The composite is the only predictor
+sign-stable across experiments; single regions flip sign. The effect is near-null in one experiment
+($r = 0.05$) and strong in the other ($r = 0.32$).
+
+\paragraph{What generalizes best.} A six-model comparison, guided by the neuroforecasting and small-sample
+regularization literatures \citep{genevsky2017when, tong2020brain, mortazavi2025deconstructing}, shows the
+parsimonious approach-minus-avoidance composite (nucleus accumbens minus anterior insula) is the best
+generalizer ($r = 0.180$, permutation $p = 0.002$). Every multivariate or learned model generalizes worse
+(ridge on all features $r = 0.093$, not significant). The affect composite is positive across four
+anticipatory time windows.
+
+\paragraph{In-silico encoder.} A brain-structured encoder maps content factors through an
+approach-minus-avoidance layer to a belief score \citep{wang2025foundation, walters2022predicting,
+kriegeskorte2018interpreting}. Trained on one text corpus and applied to the other, the brain-state
+read-out generalizes slightly better than the unconstrained model both ways (AUC 0.546 and 0.536 versus
+0.537 and 0.519). Of six factors, only two are robust across both corpora: evidence raises belief and
+identity threat lowers it. Counterfactually altering these two on low-belief content raises the predicted
+belief score (ChangeMyView 0.600 to 0.625, Persuasion-for-Good 0.450 to 0.541).
+
+\section{A Formal Model}
+A companion model places the signature inside a dynamical account: belief is a state in a cusp potential
+\citep{vandermaas2003sudden}, the persuasive force carries the signature term, gated by bounded confidence
+\citep{hegselmann2002opinion} and asymmetric updating \citep{palminteri2022computational,
+lefebvre2017behavioural}. Belief robustness is a computable functional (well stiffness and distance to the
+fold, scaling as involvement to the three-halves). Four predictions are reproduced in the implementation:
+hysteresis, a foot-in-the-door advantage of sequential in-band messaging, super-linear robustness scaling,
+and susceptibility divergence at the fold. These are verified in code, not yet against human behavior.
+
+\section{Discussion}
+Three independent analyses converge on the same two levers. The ChangeMyView within-pair test, the real
+fMRI composite, and the in-silico encoder all point to an approach-and-engagement signal minus an
+avoidance-and-resistance signal. That the same structure carries a real, out-of-sample, permutation-
+validated signal across text persuasion and real neural choice, and isolates the same interpretable levers
+in an in-silico encoder, is the central finding. It is convergent but modest: an eight-point within-pair
+lift, a cross-experiment $r$ near 0.18, a cross-domain AUC near 0.54. The signature is best used to score
+content and characterize risk, not to forecast individual outcomes.
+
+\section*{Limitations}
+The text arms use lexical proxies for the neural quantity, not a learned brain encoder. The neural arm
+uses real fMRI but a different behavior (financial choice) than belief change, and its effect is
+experiment-dependent. The resistance channel runs opposite to theory in text. No single dataset closes the
+loop from content to a neural state to a belief outcome in the same people, which does not yet exist
+publicly at scale. The formal model's predictions are verified in code, not against human data. These bound
+the claim to convergent, modest, out-of-sample evidence.
+
+\section*{Ethics Statement}
+This work develops and releases a scoring and risk-characterization instrument, not a deployed persuasion
+system, and treats the optimization as a counterfactual sensitivity analysis rather than a generator
+pointed at people. All data are public; no new human-subjects data are collected. The interpretable belief
+levers support detection and inoculation research.
+
+\bibliography{refs}
+
+\end{document}

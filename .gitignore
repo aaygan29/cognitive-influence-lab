@@ -21,3 +21,10 @@ venv/
 
 # keep the submission PDF; docx is a build artifact
 paper/PAPER.docx
+
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
