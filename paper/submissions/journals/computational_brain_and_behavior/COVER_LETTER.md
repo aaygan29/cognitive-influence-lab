@@ -1,7 +1,6 @@
 # Cover letter
 
 Aayush Gandhi
-Independent researcher
 aayush@datumnd.com
 ORCID: 0009-0003-4649-0367
 

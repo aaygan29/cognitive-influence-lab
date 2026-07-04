@@ -35,7 +35,7 @@ Priority preprint (do this first): post to OSF Preprints to timestamp the work.
    https://link.springer.com/journal/42113). Sign in / register with your ORCID.
 3. Upload the manuscript (PDF or DOCX; both are in paper/), the seven figure files, and paste the cover
    letter from COVER_LETTER.md.
-4. Enter metadata: title, sole author (you), affiliation (independent researcher), the abstract, and the
+4. Enter metadata: title, sole author (you), affiliation (none; leave blank), the abstract, and the
    data-availability statement below.
 5. Add competing-interests and funding statements (none), and the OSF preprint DOI from step 1.
 6. Submit.

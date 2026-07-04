@@ -7,7 +7,7 @@ date: "2026"
 # A Neuroscience-Grounded Signature for Belief Imparting by Content: convergent but modest evidence across text persuasion, real fMRI, and an in-silico encoder
 
 **Aayush Gandhi**
-Independent researcher. Corresponding author: Aayush Gandhi (aayush@datumnd.com)
+Corresponding author: Aayush Gandhi (aayush@datumnd.com)
 ORCID: 0009-0003-4649-0367
 
 ## Abstract
