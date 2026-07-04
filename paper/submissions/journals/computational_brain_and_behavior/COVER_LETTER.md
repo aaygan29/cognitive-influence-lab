@@ -2,7 +2,7 @@
 
 Aayush Gandhi
 Independent researcher
-aaygan29@gmail.com
+aayush@datumnd.com
 ORCID: 0009-0003-4649-0367
 
 To the Editors of Computational Brain & Behavior,

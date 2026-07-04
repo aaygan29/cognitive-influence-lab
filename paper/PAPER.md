@@ -1,13 +1,13 @@
 ---
 title: "A Neuroscience-Grounded Signature for Belief Imparting by Content: convergent but modest evidence across text persuasion, real fMRI, and an in-silico encoder"
-author: "Aayush Gandhi (aaygan29@gmail.com)"
+author: "Aayush Gandhi (aayush@datumnd.com)"
 date: "2026"
 ---
 
 # A Neuroscience-Grounded Signature for Belief Imparting by Content: convergent but modest evidence across text persuasion, real fMRI, and an in-silico encoder
 
 **Aayush Gandhi**
-Independent researcher. Correspondence: aaygan29@gmail.com
+Independent researcher. Corresponding author: Aayush Gandhi (aayush@datumnd.com)
 ORCID: 0009-0003-4649-0367
 
 ## Abstract
@@ -214,20 +214,29 @@ neural-data confirmation of its structure, and a formal model that situates it, 
 reproducible from released code. The signature is a measurement tool for characterizing how strongly
 content is built to install belief, not a strong forecaster and not a deployed persuader.
 
-## Data and code availability
+## Statements and Declarations
 
-All code, seeds, figures, and results files are released at https://github.com/aaygan29/true-believer. All
-datasets are public: ChangeMyView / Winning Arguments (Tan et al. 2016) and Persuasion-for-Good (Wang et
-al. 2019) via ConvoKit, and the Knutson neuroforecasting data (Kuhnen and Knutson 2005). Raw data is not
-redistributed; a manifest in the repository records sources and access.
+**Funding:** The author received no funding for this work.
 
-## Author contributions
+**Conflicts of interest/Competing interests:** The author declares no competing interests.
 
-A.G. designed the study, wrote the code, performed the analyses, and wrote the manuscript.
+**Availability of data and material:** All datasets are public: ChangeMyView / Winning Arguments (Tan et
+al. 2016) and Persuasion-for-Good (Wang et al. 2019) via ConvoKit, and the Knutson neuroforecasting data
+(Kuhnen and Knutson 2005). Raw data is not redistributed; a manifest in the repository records sources and
+access.
 
-## Competing interests
+**Code availability:** All code, seeds, figures, and results files are available at
+https://github.com/aaygan29/true_believer and archived at https://osf.io/hnx75.
 
-The author declares no competing interests.
+**Authors' contributions:** A.G. is the sole author and designed the study, wrote the code, performed the
+analyses, and wrote the manuscript.
+
+**Ethics approval:** Not applicable. This study collected no new human-subjects data; all analyses used
+existing public datasets.
+
+**Consent to participate:** Not applicable.
+
+**Consent for publication:** Not applicable.
 
 ## References
 
