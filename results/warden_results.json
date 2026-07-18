@@ -1,0 +1,119 @@
+{
+  "H1_brain_beats_behavior": {
+    "r2_behavior_only": 0.1338,
+    "r2_full": 0.32,
+    "delta": 0.1863,
+    "delta_ci95": [
+      0.1289,
+      0.2279
+    ],
+    "delta_ci_includes_zero": false,
+    "S_sensitivity": 0.5396
+  },
+  "H1_operator_class_fragility": {
+    "r2_benign_to_hostile_transfer": -0.2155,
+    "interpretation": "near zero or negative = benign-trained M does NOT transfer to hostile operator (P1.3 confirmed)"
+  },
+  "H1_state_moderator_sweep": {
+    "sweep": [
+      {
+        "state": -1.0,
+        "S_sensitivity": 0.3528,
+        "r2_full": 0.2039
+      },
+      {
+        "state": -0.5,
+        "S_sensitivity": 0.446,
+        "r2_full": 0.2674
+      },
+      {
+        "state": 0.0,
+        "S_sensitivity": 0.5396,
+        "r2_full": 0.32
+      },
+      {
+        "state": 0.5,
+        "S_sensitivity": 0.6334,
+        "r2_full": 0.3623
+      },
+      {
+        "state": 1.0,
+        "S_sensitivity": 0.7274,
+        "r2_full": 0.3959
+      }
+    ],
+    "S_at_baseline": 0.5396,
+    "S_range_over_state": [
+      0.3528,
+      0.7274
+    ],
+    "S_relative_swing": 0.6941,
+    "state_elasticity": 0.1873,
+    "interpretation": "corpus Axis B: a bounded drug/arousal state moves manipulability sensitivity by ~S_relative_swing; the RANGE is the finding, not a point estimate (P1.4). Covertly induced state -> C8 refusal."
+  },
+  "H2_naturalistic": {
+    "coverage": 0.3542,
+    "sim_precision_at_sim_prev": 0.5,
+    "simulator_ppv_at_1pct_prior": 0.023,
+    "interpretation": "low coverage is the honest headline (P2.1); PPV at 1% prior is low (P2.2)"
+  },
+  "H2_countermeasure_collapse": {
+    "coverage_under_covert_cm": 0.2723,
+    "sim_precision_under_cm": 0.3333,
+    "interpretation": "coverage/precision collapse under covert probe_suppression (P2.3 confirmed)"
+  },
+  "H3_minimax_floor": {
+    "d_star": {
+      "defense": [
+        "z_choice",
+        "z_rt"
+      ],
+      "n_blocked": 2,
+      "max_manipulability_adaptive": 0.4111111111111111
+    },
+    "top5_orderings": [
+      {
+        "defense": [
+          "z_choice",
+          "z_rt"
+        ],
+        "n_blocked": 2,
+        "max_manipulability_adaptive": 0.4111111111111111
+      },
+      {
+        "defense": [
+          "z_prederr"
+        ],
+        "n_blocked": 1,
+        "max_manipulability_adaptive": 0.41333333333333333
+      },
+      {
+        "defense": [
+          "z_eda",
+          "z_prederr"
+        ],
+        "n_blocked": 2,
+        "max_manipulability_adaptive": 0.41333333333333333
+      },
+      {
+        "defense": [
+          "z_prederr",
+          "z_pupil"
+        ],
+        "n_blocked": 2,
+        "max_manipulability_adaptive": 0.41444444444444445
+      },
+      {
+        "defense": [
+          "z_eda",
+          "z_pupil"
+        ],
+        "n_blocked": 2,
+        "max_manipulability_adaptive": 0.4172222222222222
+      }
+    ],
+    "no_defense_manipulability": 0.41833333333333333,
+    "interpretation": "d* minimizes worst-case manipulability under an adaptive reallocating adversary (P3.1)"
+  },
+  "C8_scope_enforcement": "refused as designed: context 'employment' is an asymmetric-power setting; per-individual H1/H2 output..."
+}
