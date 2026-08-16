@@ -1,0 +1,44 @@
+=== Training 10 independent RNN 'individuals' on the same 3-condition integration task ===
+  individual 0 (seed 20260816): overall acc=0.772  by-cond={'0.15': 0.575, '0.35': 0.845, '0.65': 0.895}
+  individual 1 (seed 20260817): overall acc=0.865  by-cond={'0.15': 0.745, '0.35': 0.86, '0.65': 0.99}
+  individual 2 (seed 20260818): overall acc=0.875  by-cond={'0.15': 0.725, '0.35': 0.92, '0.65': 0.98}
+  individual 3 (seed 20260819): overall acc=0.872  by-cond={'0.15': 0.72, '0.35': 0.91, '0.65': 0.985}
+  individual 4 (seed 20260820): overall acc=0.887  by-cond={'0.15': 0.76, '0.35': 0.9, '0.65': 1.0}
+  individual 5 (seed 20260821): overall acc=0.897  by-cond={'0.15': 0.765, '0.35': 0.93, '0.65': 0.995}
+  individual 6 (seed 20260822): overall acc=0.887  by-cond={'0.15': 0.76, '0.35': 0.91, '0.65': 0.99}
+  individual 7 (seed 20260823): overall acc=0.727  by-cond={'0.15': 0.63, '0.35': 0.705, '0.65': 0.845}
+  individual 8 (seed 20260824): overall acc=0.888  by-cond={'0.15': 0.73, '0.35': 0.935, '0.65': 1.0}
+  individual 9 (seed 20260825): overall acc=0.885  by-cond={'0.15': 0.765, '0.35': 0.9, '0.65': 0.99}
+
+Mean task accuracy across individuals: 0.855 (chance=0.5; task learned = YES)
+
+=== Experiment A: per-individual FIM (Gauss-Newton) spectrum ===
+n_theta=305, n_fim_probes=1500 (oversampling ratio=4.92x)
+
+=== PREDICTIONS (from FIM spectrum alone, before Experiment B) ===
+  [decade_range] Vanilla tanh RNN unrolled over T=24 steps with strong recurrent coupling (products of weights compounded across timesteps) is architecturally the kind of highly nonlinear multiparameter model the sloppy-model literature (Transtrum/Machta/Sethna) finds to be STRONGLY sloppy, typically >>3-4 decades, often 5-10+. Predict >= 4 decades, plausibly >= 6, i.e. sloppier than both the apparatus's engineered-linear spectrum (1.7 decades) and the ReLU-MLP case.
+  [kernel_size] tanh is odd but NOT positive-homogeneous (tanh(c*z) != c*tanh(z) for continuous c != 1), unlike ReLU's exact positive-homogeneity that gives the H-dimensional continuous rescaling symmetry in Section 3. The only exact symmetry a generic tanh RNN has is DISCRETE: hidden-unit permutation composed with per-unit sign flip (c in {-1,+1} only), the hyperoctahedral group S_H sxi (Z_2)^H. A discrete group (isolated equivalent points) does NOT manifest as a continuous flat direction in the LOCAL FIM at a generic weight point (same reasoning exp_fim_spectrum.py used for the ReLU permutation piece). PREDICT: the continuous FIM kernel dimension is 0 (no eigenvalues numerically exact-zero relative to lambda_max), in contrast to Section 3's H=24 ReLU-apparatus kernel. This is itself a test of whether the framework's Section-3 kernel machinery is generic or ReLU-specific -- predicting ZERO here is the honest, falsifiable call, not an attempt to force a match to the ReLU case.
+  [alpha_star_analog] If the spectrum is as sloppy as predicted above (many decades, mass concentrated in a few stiff directions), the cumulative-eigenvalue-mass 50%-crossing fraction should be SMALL, well under the engineered-linear apparatus's alpha*=0.642 (P2a's explicit prediction: 'a genuinely sloppy substrate... predicts alpha* strictly smaller than 0.64'). Predict a FIM-only crossing fraction in the ballpark of 0.05-0.20 (i.e., the top 5-20% of weight-space eigendirections carry half the Fisher information).
+
+=== MEASURED Experiment A ===
+n_theta=305, decades mean=7.35 +/- 0.65
+numerically-zero eigs per individual: [22, 0, 0, 0, 0, 7, 0, 169, 0, 1] (mean=19.90)
+50%-mass crossing fraction: 0.006 +/- 0.002
+discrete symmetry check: max |output diff| under a random group element = 1.788e-07 (should be ~1e-6, float32 precision)
+
+=== Experiment B: leave-one-condition-out identity classification (response space) ===
+  held-out condition (coh=0.15): chance=0.100 full_acc=0.200 half=0.150 alpha_hat=0.208  [in-condition oracle full_acc=0.200]
+  held-out condition (coh=0.35): chance=0.100 full_acc=0.500 half=0.300 alpha_hat=0.958  [in-condition oracle full_acc=0.500]
+  held-out condition (coh=0.65): chance=0.100 full_acc=0.100 half=0.100 alpha_hat=0.042  [in-condition oracle full_acc=0.100]
+
+=== VERDICT ===
+  kernel_prediction: MIXED/FAILED-AS-STATED: mean 19.9 near-zero eigs per individual at threshold 1e-08*lambda_max, but heterogeneous across individuals ([22, 0, 0, 0, 0, 7, 0, 169, 0, 1]), NOT the fixed, instance-independent count ReLU's H would give. Corr(near-zero count, task accuracy) = -0.8480848253943032: worse-trained individuals have MORE near-zero eigenvalues, consistent with near-degenerate 'under-used hidden unit' directions in imperfectly-optimized instances (a training artifact), not a fixed architectural gauge like Section 3's ReLU symmetry. The qualitative claim (no CONTINUOUS Lie-group kernel the way ReLU has one) still holds by construction/derivation and is independently confirmed by the exact discrete-symmetry check below; the naive quantitative prediction 'kernel dim = 0 eigs below threshold, for every generic instance' does not hold uniformly because 'generic' (non-degenerate weights) is not guaranteed by BPTT training.
+  decade_range_prediction: CONFIRMED
+  fim_alpha_analog_self_consistency: prediction range [0.05,0.20] MISSES the measured FIM-only crossing 0.006
+  fim_predicted_vs_identification_measured_abs_diff: 0.39720400728597455
+
+OVERALL: PARTIALLY GENERALIZES (1/3 predictions held). See per-prediction verdicts above; do not average this into a single number, report which specific link broke.
+
+Runtime: 122.16s
+Saved figure -> /Users/aayushgandhi/Desktop/Research/Neuro-AI/_program_docs/RIGOR_REANALYSIS/figures/flyvis_rnn_generalization.png
+Saved results -> /Users/aayushgandhi/Desktop/Research/Neuro-AI/_program_docs/RIGOR_REANALYSIS/exp_flyvis_rnn_generalization/results.json

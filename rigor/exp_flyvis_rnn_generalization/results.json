@@ -1,0 +1,558 @@
+{
+  "substrate": "task-trained tanh RNN ensemble (Beiran/Litwin-Kumar-style; NOT flyvis -- disclosed substitution, see module docstring), R=10 individuals, same 3-condition perceptual-decision integration task, different random seeds",
+  "config": {
+    "H": 16,
+    "T": 24,
+    "conditions": [
+      0.15,
+      0.35,
+      0.65
+    ],
+    "noise_std": 1.0,
+    "train_steps": 400,
+    "lr": 0.02,
+    "n_fim_probes": 1500,
+    "n_rep_battery": 120,
+    "master_seed": 20260816,
+    "r_individuals": 10
+  },
+  "task_performance": {
+    "per_individual": [
+      {
+        "overall_acc": 0.7716666666666666,
+        "acc_by_condition": {
+          "0.15": 0.575,
+          "0.35": 0.845,
+          "0.65": 0.895
+        }
+      },
+      {
+        "overall_acc": 0.865,
+        "acc_by_condition": {
+          "0.15": 0.745,
+          "0.35": 0.86,
+          "0.65": 0.99
+        }
+      },
+      {
+        "overall_acc": 0.875,
+        "acc_by_condition": {
+          "0.15": 0.725,
+          "0.35": 0.92,
+          "0.65": 0.98
+        }
+      },
+      {
+        "overall_acc": 0.8716666666666667,
+        "acc_by_condition": {
+          "0.15": 0.72,
+          "0.35": 0.91,
+          "0.65": 0.985
+        }
+      },
+      {
+        "overall_acc": 0.8866666666666667,
+        "acc_by_condition": {
+          "0.15": 0.76,
+          "0.35": 0.9,
+          "0.65": 1.0
+        }
+      },
+      {
+        "overall_acc": 0.8966666666666666,
+        "acc_by_condition": {
+          "0.15": 0.765,
+          "0.35": 0.93,
+          "0.65": 0.995
+        }
+      },
+      {
+        "overall_acc": 0.8866666666666667,
+        "acc_by_condition": {
+          "0.15": 0.76,
+          "0.35": 0.91,
+          "0.65": 0.99
+        }
+      },
+      {
+        "overall_acc": 0.7266666666666667,
+        "acc_by_condition": {
+          "0.15": 0.63,
+          "0.35": 0.705,
+          "0.65": 0.845
+        }
+      },
+      {
+        "overall_acc": 0.8883333333333333,
+        "acc_by_condition": {
+          "0.15": 0.73,
+          "0.35": 0.935,
+          "0.65": 1.0
+        }
+      },
+      {
+        "overall_acc": 0.885,
+        "acc_by_condition": {
+          "0.15": 0.765,
+          "0.35": 0.9,
+          "0.65": 0.99
+        }
+      }
+    ],
+    "mean_overall_acc": 0.8553333333333333,
+    "task_learned": true
+  },
+  "experiment_A_fim": {
+    "n_individuals": 10,
+    "n_theta": 305,
+    "n_fim_probes": 1500,
+    "oversampling_ratio": 4.918032786885246,
+    "zero_threshold_relative_to_lambda_max": 1e-08,
+    "n_numerically_zero_eigs_per_individual": [
+      22,
+      0,
+      0,
+      0,
+      0,
+      7,
+      0,
+      169,
+      0,
+      1
+    ],
+    "n_numerically_zero_eigs_mean": 19.9,
+    "decades_per_individual": [
+      7.974765300750732,
+      7.8525800704956055,
+      6.470276832580566,
+      6.4731831550598145,
+      6.705010414123535,
+      7.913668632507324,
+      7.484994888305664,
+      7.997724533081055,
+      6.6494622230529785,
+      7.950098037719727
+    ],
+    "decades_mean": 7.3471764087677,
+    "decades_sd": 0.6486859585394794,
+    "ks_log_uniform_nonzero_pool": {
+      "n": 2851,
+      "ks_stat": 0.28626642556242343,
+      "p_value": 2.7085723255187073e-207,
+      "log10_range": [
+        -7.009833812713623,
+        1.7290706634521484
+      ],
+      "decades": 8.73890495300293
+    },
+    "stiff_crossing_fraction_50pct_per_individual": [
+      0.003278688524590164,
+      0.006557377049180328,
+      0.006557377049180328,
+      0.006557377049180328,
+      0.006557377049180328,
+      0.003278688524590164,
+      0.006557377049180328,
+      0.003278688524590164,
+      0.006557377049180328,
+      0.006557377049180328
+    ],
+    "stiff_crossing_fraction_50pct_mean": 0.005573770491803279,
+    "stiff_crossing_fraction_50pct_sd": 0.0015024838344117508,
+    "discrete_symmetry_check": {
+      "max_abs_output_diff_under_group_element": 1.7881393432617188e-07,
+      "group": "S_H semidirect (Z_2)^H (hyperoctahedral B_H)",
+      "group_order_log2": 60.25014046988262
+    }
+  },
+  "predictions_made_before_experiment_B": {
+    "reasoning": {
+      "decade_range": "Vanilla tanh RNN unrolled over T=24 steps with strong recurrent coupling (products of weights compounded across timesteps) is architecturally the kind of highly nonlinear multiparameter model the sloppy-model literature (Transtrum/Machta/Sethna) finds to be STRONGLY sloppy, typically >>3-4 decades, often 5-10+. Predict >= 4 decades, plausibly >= 6, i.e. sloppier than both the apparatus's engineered-linear spectrum (1.7 decades) and the ReLU-MLP case.",
+      "kernel_size": "tanh is odd but NOT positive-homogeneous (tanh(c*z) != c*tanh(z) for continuous c != 1), unlike ReLU's exact positive-homogeneity that gives the H-dimensional continuous rescaling symmetry in Section 3. The only exact symmetry a generic tanh RNN has is DISCRETE: hidden-unit permutation composed with per-unit sign flip (c in {-1,+1} only), the hyperoctahedral group S_H sxi (Z_2)^H. A discrete group (isolated equivalent points) does NOT manifest as a continuous flat direction in the LOCAL FIM at a generic weight point (same reasoning exp_fim_spectrum.py used for the ReLU permutation piece). PREDICT: the continuous FIM kernel dimension is 0 (no eigenvalues numerically exact-zero relative to lambda_max), in contrast to Section 3's H=24 ReLU-apparatus kernel. This is itself a test of whether the framework's Section-3 kernel machinery is generic or ReLU-specific -- predicting ZERO here is the honest, falsifiable call, not an attempt to force a match to the ReLU case.",
+      "alpha_star_analog": "If the spectrum is as sloppy as predicted above (many decades, mass concentrated in a few stiff directions), the cumulative-eigenvalue-mass 50%-crossing fraction should be SMALL, well under the engineered-linear apparatus's alpha*=0.642 (P2a's explicit prediction: 'a genuinely sloppy substrate... predicts alpha* strictly smaller than 0.64'). Predict a FIM-only crossing fraction in the ballpark of 0.05-0.20 (i.e., the top 5-20% of weight-space eigendirections carry half the Fisher information)."
+    },
+    "decade_range_predicted": "4 to 10 decades (best guess ~6)",
+    "kernel_size_predicted_dims": 0,
+    "alpha_star_analog_predicted_range": [
+      0.05,
+      0.2
+    ]
+  },
+  "experiment_B_identification": {
+    "folds": [
+      {
+        "held_out_condition": 0.15,
+        "s_t": [
+          0.006214768160134554,
+          0.005932936444878578,
+          0.00769750215113163,
+          0.0112586859613657,
+          0.013451514765620232,
+          0.012057003565132618,
+          0.01075353380292654,
+          0.009914284572005272,
+          0.010575216263532639,
+          0.012265428900718689,
+          0.011499756947159767,
+          0.00994165614247322,
+          0.009535253047943115,
+          0.010978514328598976,
+          0.010039430111646652,
+          0.00960836187005043,
+          0.00930318608880043,
+          0.010530326515436172,
+          0.009592990390956402,
+          0.009260506369173527,
+          0.010480653494596481,
+          0.011159982532262802,
+          0.01107631903141737,
+          0.010871998965740204
+        ],
+        "timepoint_rank": [
+          4,
+          9,
+          5,
+          10,
+          3,
+          21,
+          22,
+          13,
+          23,
+          6,
+          8,
+          17,
+          20,
+          14,
+          11,
+          7,
+          15,
+          18,
+          12,
+          16,
+          19,
+          2,
+          0,
+          1
+        ],
+        "acc_curve": [
+          0.3,
+          0.4,
+          0.1,
+          0.1,
+          0.2,
+          0.3,
+          0.3,
+          0.3,
+          0.3,
+          0.3,
+          0.3,
+          0.3,
+          0.3,
+          0.3,
+          0.2,
+          0.3,
+          0.3,
+          0.3,
+          0.2,
+          0.2,
+          0.2,
+          0.2,
+          0.3,
+          0.2
+        ],
+        "chance": 0.1,
+        "full_acc": 0.2,
+        "half": 0.15000000000000002,
+        "alpha_hat": 0.20833333333333334,
+        "in_condition_oracle_acc_curve": [
+          0.4,
+          0.2,
+          0.3,
+          0.2,
+          0.2,
+          0.2,
+          0.3,
+          0.3,
+          0.1,
+          0.2,
+          0.2,
+          0.2,
+          0.2,
+          0.2,
+          0.2,
+          0.3,
+          0.2,
+          0.2,
+          0.2,
+          0.2,
+          0.2,
+          0.2,
+          0.2,
+          0.2
+        ],
+        "in_condition_oracle_full_acc": 0.2
+      },
+      {
+        "held_out_condition": 0.35,
+        "s_t": [
+          0.00580705888569355,
+          0.006817219778895378,
+          0.008966445922851562,
+          0.011063296347856522,
+          0.010986154899001122,
+          0.0089203380048275,
+          0.011625660583376884,
+          0.010573046281933784,
+          0.011013670824468136,
+          0.010385893285274506,
+          0.012879133224487305,
+          0.011229466646909714,
+          0.012408093549311161,
+          0.01246681995689869,
+          0.012058166787028313,
+          0.013799965381622314,
+          0.011549158953130245,
+          0.014974799007177353,
+          0.014969603158533573,
+          0.01675444282591343,
+          0.017020385712385178,
+          0.018343254923820496,
+          0.016887350007891655,
+          0.01428151037544012
+        ],
+        "timepoint_rank": [
+          21,
+          20,
+          22,
+          19,
+          17,
+          18,
+          23,
+          15,
+          10,
+          13,
+          12,
+          14,
+          6,
+          16,
+          11,
+          3,
+          8,
+          4,
+          7,
+          9,
+          2,
+          5,
+          1,
+          0
+        ],
+        "acc_curve": [
+          0.3,
+          0.5,
+          0.5,
+          0.3,
+          0.3,
+          0.3,
+          0.3,
+          0.3,
+          0.3,
+          0.3,
+          0.3,
+          0.3,
+          0.2,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.2,
+          0.2,
+          0.4,
+          0.5
+        ],
+        "chance": 0.1,
+        "full_acc": 0.5,
+        "half": 0.30000000000000004,
+        "alpha_hat": 0.9583333333333334,
+        "in_condition_oracle_acc_curve": [
+          0.1,
+          0.4,
+          0.3,
+          0.5,
+          0.4,
+          0.4,
+          0.4,
+          0.4,
+          0.4,
+          0.4,
+          0.4,
+          0.3,
+          0.4,
+          0.3,
+          0.3,
+          0.4,
+          0.4,
+          0.3,
+          0.1,
+          0.1,
+          0.2,
+          0.2,
+          0.4,
+          0.5
+        ],
+        "in_condition_oracle_full_acc": 0.5
+      },
+      {
+        "held_out_condition": 0.65,
+        "s_t": [
+          0.005701513960957527,
+          0.007327334955334663,
+          0.011631589382886887,
+          0.014569027349352837,
+          0.014298724010586739,
+          0.01331763993948698,
+          0.01366485096514225,
+          0.013018818572163582,
+          0.014571905136108398,
+          0.014870624989271164,
+          0.015274671837687492,
+          0.012856969609856606,
+          0.014314020983874798,
+          0.01576213538646698,
+          0.014879858121275902,
+          0.015230035409331322,
+          0.013603282161056995,
+          0.017409436404705048,
+          0.016747310757637024,
+          0.01734425500035286,
+          0.01802925392985344,
+          0.01763725094497204,
+          0.018695537000894547,
+          0.016879696398973465
+        ],
+        "timepoint_rank": [
+          22,
+          20,
+          21,
+          17,
+          19,
+          23,
+          18,
+          13,
+          10,
+          15,
+          14,
+          9,
+          8,
+          3,
+          12,
+          4,
+          6,
+          16,
+          5,
+          7,
+          11,
+          2,
+          1,
+          0
+        ],
+        "acc_curve": [
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1
+        ],
+        "chance": 0.1,
+        "full_acc": 0.1,
+        "half": 0.1,
+        "alpha_hat": 0.041666666666666664,
+        "in_condition_oracle_acc_curve": [
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1
+        ],
+        "in_condition_oracle_full_acc": 0.1
+      }
+    ],
+    "alpha_hat_mean": 0.40277777777777785,
+    "alpha_hat_sd": 0.3986861137335368,
+    "full_accuracy_mean": 0.26666666666666666,
+    "chance": 0.1
+  },
+  "comparison": {
+    "fim_predicted_alpha_analog_range": [
+      0.05,
+      0.2
+    ],
+    "fim_measured_crossing_fraction_mean": 0.005573770491803279,
+    "identification_measured_alpha_hat_mean": 0.40277777777777785,
+    "identification_measured_alpha_hat_sd": 0.3986861137335368,
+    "identification_full_accuracy_mean": 0.26666666666666666,
+    "identification_chance": 0.1,
+    "kernel_predicted_dims": 0,
+    "kernel_measured_mean_zero_eigs": 19.9,
+    "kernel_zero_count_vs_task_accuracy_corr": -0.8480848253943032,
+    "decades_predicted_range": [
+      4,
+      10
+    ],
+    "decades_measured_mean": 7.3471764087677
+  },
+  "verdict": {
+    "kernel_prediction": "MIXED/FAILED-AS-STATED: mean 19.9 near-zero eigs per individual at threshold 1e-08*lambda_max, but heterogeneous across individuals ([22, 0, 0, 0, 0, 7, 0, 169, 0, 1]), NOT the fixed, instance-independent count ReLU's H would give. Corr(near-zero count, task accuracy) = -0.8480848253943032: worse-trained individuals have MORE near-zero eigenvalues, consistent with near-degenerate 'under-used hidden unit' directions in imperfectly-optimized instances (a training artifact), not a fixed architectural gauge like Section 3's ReLU symmetry. The qualitative claim (no CONTINUOUS Lie-group kernel the way ReLU has one) still holds by construction/derivation and is independently confirmed by the exact discrete-symmetry check below; the naive quantitative prediction 'kernel dim = 0 eigs below threshold, for every generic instance' does not hold uniformly because 'generic' (non-degenerate weights) is not guaranteed by BPTT training.",
+    "decade_range_prediction": "CONFIRMED",
+    "fim_alpha_analog_self_consistency": "prediction range [0.05,0.20] MISSES the measured FIM-only crossing 0.006",
+    "fim_predicted_vs_identification_measured_abs_diff": 0.39720400728597455
+  },
+  "overall_call": "PARTIALLY GENERALIZES (1/3 predictions held). See per-prediction verdicts above; do not average this into a single number, report which specific link broke.",
+  "caveats": [
+    "Substrate substitution: flyvis (real Drosophila connectome) and the literal Beiran connectome-constrained RNN were not used -- both are heavier dependencies than fit a <5 min zero-friction budget. This is a task-trained vanilla RNN ensemble, which is the tractable half of Section 9's 'flyvis OR the Beiran RNN' either/or, and is a genuinely different substrate from the program's scanner data and from the linear/ReLU synthetic apparatus (real BPTT-trained nonlinear recurrent dynamics), but it is NOT a connectome-constrained (anatomically fixed) ensemble the way flyvis/Beiran are; individuals here differ only in training-seed-induced weight variability under a shared architecture, not in a fixed wiring diagram with free synaptic weights.",
+    "The FIM (Experiment A, weight-space, n_theta=305 dims) and the identification sufficiency curve (Experiment B, response/readout-space, only T=24 timepoint-dims) live in different, non-isomorphic bases. Comparing their rank-fraction crossings is an ANALOGY across two different measurement instruments (same convention exp_fim_spectrum.py used for alpha*), not a literal shared computation. A close numerical match is evidence FOR the unification claim; a mismatch localizes to 'the two resolution scales are not obviously the same object on this substrate', not necessarily a framework failure.",
+    "Identity classification was deliberately done in readout/response space (not raw weight space) because the hidden-unit permutation+sign-flip symmetry (verified exactly above) means raw weights of different individuals are not directly comparable without an alignment step this script does not attempt.",
+    "R=10 individuals and 3 conditions is a small ensemble; per-fold identification accuracy curves are consequently step-functions with real sampling noise (visible in the figure), not smooth logistic curves like the much larger apparatus sweeps."
+  ],
+  "runtime_s": 122.16
+}

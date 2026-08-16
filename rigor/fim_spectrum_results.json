@@ -1,0 +1,146 @@
+{
+  "config": {
+    "linear": {
+      "d": 64,
+      "k": 40,
+      "p": 32,
+      "n_fim": 2000,
+      "pop_scale": 1.0
+    },
+    "relu": {
+      "d": 16,
+      "H": 12,
+      "p": 8,
+      "n_fim": 1500,
+      "indiv_scale": 1.0
+    },
+    "n_seeds": 24,
+    "master_seed": 20260619
+  },
+  "approximation_notes": [
+    "FIM = Gauss-Newton J^T J of the noiseless read-out map, exact for Gaussian-noise observation model at fixed sigma (matches the apparatus's SNR-based noise).",
+    "Local + empirical: evaluated at one weight draw per seed, finite stimulus ensemble (n_fim draws), not a global landscape statement.",
+    "ReLU Jacobian is exact (closed-form chain rule per sample) but summed over a subsample (n_jac_samples) of the stimulus ensemble for tractability.",
+    "KS-vs-log-uniform tested only on the analytically-nonzero ('stiff') eigenvalue block for the linear case; the null block is excluded from that test by construction (reported separately) since it is not sloppy, it is EXACTLY zero.",
+    "alpha* is NOT recomputed here; imported from exp03a_curve_results.json and exp06_seed_robustness.json (original ridge-regression identity-accuracy sweep, run at different N/d/k than this script's smaller FIM-tractable configs). The alpha*-vs-stiff-fraction comparison is a cross-instrument analogy, not a shared recomputation on identical configs -- flagged explicitly, not claimed as identity."
+  ],
+  "linear": {
+    "null_space_summary": {
+      "mean": 0.0,
+      "max": 0.0,
+      "stiff_min": 0.7293868355746456,
+      "stiff_max": 1.315534837239828
+    },
+    "null_max_over_stiff_min_ratio": 0.0,
+    "null_numerically_zero": true,
+    "ks_log_uniform_stiff_block": {
+      "n": 960,
+      "ks_stat": 0.08286002553252744,
+      "p_value": 3.5038959231783243e-06,
+      "log10_range": [
+        -0.13704207936729187,
+        0.11910235331164441
+      ],
+      "decades": 0.2561444326789363
+    },
+    "stiff_eigval_decades": 0.2561444326789363,
+    "cumulative_stiff_fraction_at_50pct": {
+      "mean": 0.2748616536458333,
+      "sd": 0.0009446766574091715,
+      "per_seed": [
+        0.27587890625,
+        0.27587890625,
+        0.27392578125,
+        0.27490234375,
+        0.2734375,
+        0.27587890625,
+        0.2734375,
+        0.2734375,
+        0.27490234375,
+        0.27490234375,
+        0.27490234375,
+        0.27392578125,
+        0.275390625,
+        0.27587890625,
+        0.27294921875,
+        0.2744140625,
+        0.27587890625,
+        0.2744140625,
+        0.275390625,
+        0.27587890625,
+        0.275390625,
+        0.2744140625,
+        0.27490234375,
+        0.2763671875
+      ]
+    }
+  },
+  "relu": {
+    "eigval_decades": 20.3649387194015,
+    "ks_log_uniform_full_spectrum": {
+      "n": 6764,
+      "ks_stat": 0.859728222755934,
+      "p_value": 0.0,
+      "log10_range": [
+        -19.73757023947896,
+        0.6273684799225416
+      ],
+      "decades": 20.3649387194015
+    },
+    "symmetry_curvature_normalized": {
+      "mean": -1.1947851089217301e-17,
+      "max": 7.893862029685651e-16,
+      "sd": 2.576627724044348e-16,
+      "note": "v^T FIM v / (trace(FIM)/n_theta) along each hidden unit's exact positive-rescaling generator, pooled over seeds and units; should be ~0 if the exact symmetry is correctly a flat FIM direction."
+    },
+    "cumulative_stiff_fraction_at_50pct": {
+      "mean": 0.13585069444444445,
+      "sd": 0.008464469025642409,
+      "per_seed": [
+        0.1284722222222222,
+        0.13541666666666666,
+        0.13194444444444445,
+        0.13194444444444445,
+        0.14583333333333334,
+        0.1284722222222222,
+        0.1284722222222222,
+        0.13194444444444445,
+        0.14930555555555555,
+        0.14930555555555555,
+        0.1527777777777778,
+        0.1284722222222222,
+        0.13541666666666666,
+        0.12152777777777778,
+        0.14583333333333334,
+        0.14583333333333334,
+        0.12152777777777778,
+        0.13541666666666666,
+        0.1423611111111111,
+        0.13194444444444445,
+        0.13541666666666666,
+        0.1388888888888889,
+        0.13194444444444445,
+        0.13194444444444445
+      ]
+    }
+  },
+  "alpha_star": {
+    "exp03a_value": 0.8,
+    "exp06_seed_robustness": {
+      "mean": 0.6416094790625246,
+      "sd": 0.007669163273925015,
+      "min": 0.6304232804232804,
+      "max": 0.6571180555555556
+    },
+    "used_mean": 0.6416094790625246,
+    "match_to_linear_stiff_crossing_abs_diff": 0.3667478254166913,
+    "match_to_relu_stiff_crossing_abs_diff": 0.5057587846180802,
+    "interpretation": "alpha* (~0.64, from the ORIGINAL apparatus's identity-accuracy-vs-retained-individual-weight-fraction curve) is compared to the FIM's eigenvalue-mass 50%-crossing fraction computed HERE on a related but smaller/different-dimensioned reimplementation. A close match is consistent with (not proof of) 'alpha* tracks the stiff/sloppy split', since crossing-fraction is sensitive to d/k/H choice and the specific eigenvalue decay profile, which differ between the original exp03a config and this script's FIM-tractable config."
+  },
+  "sloppiness_verdict": {
+    "linear_stiff_block_is_log_uniform_ks_p": 3.5038959231783243e-06,
+    "relu_full_spectrum_is_log_uniform_ks_p": 0.0,
+    "note": "Standard sloppy-model convention treats p>0.05 against log-uniform as 'consistent with sloppy' and a spectrum spanning >=3-4 decades as the qualitative hallmark regardless of the formal KS result (KS on log10-eigs vs a uniform null is a weak test with these sample sizes; decade-span is the more robust indicator)."
+  },
+  "runtime_s": 1.08
+}
