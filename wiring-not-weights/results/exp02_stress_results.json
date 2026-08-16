@@ -1,0 +1,266 @@
+{
+  "chance": 0.025,
+  "chance_band_hi": 0.059910600109422354,
+  "regimes": [
+    {
+      "snr_db": 0.0,
+      "indiv_scale": 0.3,
+      "ordering_replication_rate": 1.0,
+      "FULL_vs_OUTSIDE_d": 136.0920370484786,
+      "within_vs_full_absdiff": 0.08531250000000001,
+      "FULL": {
+        "mean": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      },
+      "WITHIN_APPROX": {
+        "mean": 0.915,
+        "ci95": [
+          0.902,
+          0.927
+        ]
+      },
+      "OUTSIDE": {
+        "mean": 0.028,
+        "ci95": [
+          0.022,
+          0.034
+        ]
+      },
+      "WIRING": {
+        "mean": 0.025,
+        "ci95": [
+          0.025,
+          0.025
+        ]
+      },
+      "NULL_FULL": {
+        "mean": 0.027,
+        "ci95": [
+          0.022,
+          0.031
+        ]
+      },
+      "regime_pass": true
+    },
+    {
+      "snr_db": 0.0,
+      "indiv_scale": 0.7,
+      "ordering_replication_rate": 1.0,
+      "FULL_vs_OUTSIDE_d": 170.10427652047076,
+      "within_vs_full_absdiff": 0.0,
+      "FULL": {
+        "mean": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      },
+      "WITHIN_APPROX": {
+        "mean": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      },
+      "OUTSIDE": {
+        "mean": 0.026,
+        "ci95": [
+          0.021,
+          0.031
+        ]
+      },
+      "WIRING": {
+        "mean": 0.025,
+        "ci95": [
+          0.025,
+          0.025
+        ]
+      },
+      "NULL_FULL": {
+        "mean": 0.031,
+        "ci95": [
+          0.025,
+          0.037
+        ]
+      },
+      "regime_pass": true
+    },
+    {
+      "snr_db": 3.0,
+      "indiv_scale": 0.3,
+      "ordering_replication_rate": 1.0,
+      "FULL_vs_OUTSIDE_d": 173.74248182065367,
+      "within_vs_full_absdiff": 0.047812500000000036,
+      "FULL": {
+        "mean": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      },
+      "WITHIN_APPROX": {
+        "mean": 0.952,
+        "ci95": [
+          0.944,
+          0.959
+        ]
+      },
+      "OUTSIDE": {
+        "mean": 0.029,
+        "ci95": [
+          0.025,
+          0.034
+        ]
+      },
+      "WIRING": {
+        "mean": 0.025,
+        "ci95": [
+          0.025,
+          0.025
+        ]
+      },
+      "NULL_FULL": {
+        "mean": 0.026,
+        "ci95": [
+          0.022,
+          0.03
+        ]
+      },
+      "regime_pass": true
+    },
+    {
+      "snr_db": 3.0,
+      "indiv_scale": 0.7,
+      "ordering_replication_rate": 1.0,
+      "FULL_vs_OUTSIDE_d": 125.14267395746927,
+      "within_vs_full_absdiff": 0.0,
+      "FULL": {
+        "mean": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      },
+      "WITHIN_APPROX": {
+        "mean": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      },
+      "OUTSIDE": {
+        "mean": 0.024,
+        "ci95": [
+          0.018,
+          0.031
+        ]
+      },
+      "WIRING": {
+        "mean": 0.025,
+        "ci95": [
+          0.025,
+          0.025
+        ]
+      },
+      "NULL_FULL": {
+        "mean": 0.027,
+        "ci95": [
+          0.024,
+          0.031
+        ]
+      },
+      "regime_pass": true
+    },
+    {
+      "snr_db": 6.0,
+      "indiv_scale": 0.3,
+      "ordering_replication_rate": 1.0,
+      "FULL_vs_OUTSIDE_d": 149.64129081474917,
+      "within_vs_full_absdiff": 0.04031249999999997,
+      "FULL": {
+        "mean": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      },
+      "WITHIN_APPROX": {
+        "mean": 0.96,
+        "ci95": [
+          0.954,
+          0.965
+        ]
+      },
+      "OUTSIDE": {
+        "mean": 0.023,
+        "ci95": [
+          0.018,
+          0.029
+        ]
+      },
+      "WIRING": {
+        "mean": 0.025,
+        "ci95": [
+          0.025,
+          0.025
+        ]
+      },
+      "NULL_FULL": {
+        "mean": 0.019,
+        "ci95": [
+          0.014,
+          0.026
+        ]
+      },
+      "regime_pass": true
+    },
+    {
+      "snr_db": 6.0,
+      "indiv_scale": 0.7,
+      "ordering_replication_rate": 1.0,
+      "FULL_vs_OUTSIDE_d": 241.50436733022605,
+      "within_vs_full_absdiff": 0.0,
+      "FULL": {
+        "mean": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      },
+      "WITHIN_APPROX": {
+        "mean": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      },
+      "OUTSIDE": {
+        "mean": 0.024,
+        "ci95": [
+          0.021,
+          0.028
+        ]
+      },
+      "WIRING": {
+        "mean": 0.025,
+        "ci95": [
+          0.025,
+          0.025
+        ]
+      },
+      "NULL_FULL": {
+        "mean": 0.027,
+        "ci95": [
+          0.022,
+          0.033
+        ]
+      },
+      "regime_pass": true
+    }
+  ],
+  "all_regimes_pass": true,
+  "runtime_s": 18.51
+}

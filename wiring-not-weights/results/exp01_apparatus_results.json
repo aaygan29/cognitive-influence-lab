@@ -1,0 +1,77 @@
+{
+  "config": {
+    "N": 40,
+    "d": 64,
+    "k": 40,
+    "p": 128,
+    "n_train": 400,
+    "n_test": 200,
+    "snr_db": 6.0,
+    "pop_scale": 1.0,
+    "indiv_scale": 0.7,
+    "ridge": 1.0,
+    "R": 20,
+    "S": 10,
+    "master_seed": 20260619
+  },
+  "chance": 0.025,
+  "param_counts": {
+    "FULL": 8192,
+    "WITHIN": 8192,
+    "OUTSIDE": 8192,
+    "WIRING": 8192
+  },
+  "n_cohorts": 20,
+  "ordering_replication_rate": 1.0,
+  "FULL": {
+    "mean": 1.0,
+    "ci95": [
+      1.0,
+      1.0
+    ]
+  },
+  "WITHIN": {
+    "mean": 1.0,
+    "ci95": [
+      1.0,
+      1.0
+    ]
+  },
+  "OUTSIDE": {
+    "mean": 0.0,
+    "ci95": [
+      0.0,
+      0.0
+    ]
+  },
+  "WIRING": {
+    "mean": 0.025000000000000005,
+    "ci95": [
+      0.025000000000000005,
+      0.025000000000000005
+    ]
+  },
+  "NULL_FULL": {
+    "mean": 0.021875000000000006,
+    "ci95": [
+      0.018375000000000002,
+      0.025875000000000002
+    ]
+  },
+  "primary_contrast_FULL_vs_OUTSIDE": {
+    "cohens_d": 1000000000000.0,
+    "mean_diff": 1.0
+  },
+  "within_vs_full_abs_diff": 0.0,
+  "runtime_s": 7.45,
+  "checks": {
+    "null_at_chance": true,
+    "full_beats_chance": true,
+    "within_approx_full": true,
+    "outside_at_chance": true,
+    "wiring_at_chance": true,
+    "replicates_90pct": true,
+    "equal_param_count": true
+  },
+  "APPARATUS_VALID": true
+}

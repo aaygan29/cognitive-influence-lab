@@ -1,0 +1,31 @@
+{
+  "dataset": "ABIDE cpac/filt_global/rois_cc200 (public fcp-indi)",
+  "atlas": "CC200",
+  "n_subjects": 248,
+  "n_rois": 200,
+  "n_edges": 19900,
+  "density": 0.1,
+  "chance": 0.004032258064516129,
+  "within_session_split": true,
+  "arms": {
+    "FULL_weighted": {
+      "id_acc": 0.9798387096774194,
+      "margin": 0.28048715998108065,
+      "perm_p": 0.0004997501249375312
+    },
+    "WIRING_binarized": {
+      "id_acc": 0.9717741935483871,
+      "margin": 0.17545821521726807,
+      "perm_p": 0.0004997501249375312
+    },
+    "NODE_STRENGTH": {
+      "id_acc": 0.44556451612903225,
+      "margin": 0.293169441278051,
+      "perm_p": 0.0004997501249375312
+    }
+  },
+  "weighted_minus_binarized": 0.008064516129032251,
+  "thesis_supported": false,
+  "kill_topology_sufficient": true,
+  "runtime_s": 6.85
+}
