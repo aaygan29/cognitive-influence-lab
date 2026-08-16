@@ -1,0 +1,8 @@
+torch>=2.0
+transformers>=4.35
+numpy>=1.24
+scipy>=1.11
+networkx>=3.0
+statsmodels>=0.14
+pingouin>=0.5
+scikit-learn>=1.3
