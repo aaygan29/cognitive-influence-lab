@@ -1,30 +1,30 @@
 {
   "experiment": "REAL_narps_fmri_affective_grounding",
-  "n_subjects": 12,
-  "power_note": "UNDERPOWERED at n=12: minimum detectable correlation (MDES) is 0.73; only correlations larger than that are resolvable. Directions below are descriptive; the neural-behavioral correlation is gated (abstained).",
+  "n_subjects": 40,
+  "power_note": "UNDERPOWERED at n=40: minimum detectable correlation (MDES) is 0.44; only correlations larger than that are resolvable. Directions below are descriptive; the neural-behavioral correlation is gated (abstained).",
   "NAcc_tracks_gain": {
-    "mean": 0.0066121638017656,
-    "t": 1.3409556090586867,
-    "p": 0.20696789652429035,
-    "n": 12
+    "mean": 0.003456893266570849,
+    "t": 1.4682795638053874,
+    "p": 0.15004816841115715,
+    "n": 40
   },
   "NAcc_response_to_loss": {
-    "mean": -0.007415246235820114,
-    "t": -1.3758321018249489,
-    "p": 0.19623935201003606,
-    "n": 12
+    "mean": -0.006052858022546277,
+    "t": -2.1212380860707127,
+    "p": 0.04031175355778735,
+    "n": 40
   },
   "aIns_tracks_gain": {
-    "mean": -0.0014908403985835726,
-    "t": -0.39496136638392404,
-    "p": 0.700422318910678,
-    "n": 12
+    "mean": -0.0013869281620590384,
+    "t": -0.48504855226835164,
+    "p": 0.6303554390347703,
+    "n": 40
   },
   "aIns_response_to_loss": {
-    "mean": 0.006749072735695232,
-    "t": 1.377659275245591,
-    "p": 0.19569031144822413,
-    "n": 12
+    "mean": 0.005453530691434951,
+    "t": 2.3245063021747616,
+    "p": 0.025397083750502904,
+    "n": 40
   },
   "AIM_direction_consistency": {
     "NAcc_gain>0": true,
@@ -32,9 +32,9 @@
     "aIns_loss>0": true
   },
   "neural_vs_behavioral_loss_aversion": {
-    "observed_pearson_r": -0.009162919552919917,
-    "n": 12,
-    "mdes_at_n": 0.732389290340833,
+    "observed_pearson_r": -0.40126574219618283,
+    "n": 39,
+    "mdes_at_n": 0.43571618300127096,
     "gate": {
       "name": "neural_vs_behavioral_loss_aversion",
       "value": null,
@@ -42,14 +42,14 @@
       "null_p": null,
       "score": null,
       "provenance": {
-        "n": 12,
+        "n": 39,
         "alpha": 0.05,
         "power": 0.8,
         "kind": "correlation"
       },
       "abstained": true,
-      "reason": "|effect|=0.009 < MDES=0.732 at n=12; underpowered to license a claim of this size",
-      "mdes": 0.732389290340833
+      "reason": "|effect|=0.401 < MDES=0.436 at n=39; underpowered to license a claim of this size",
+      "mdes": 0.43571618300127096
     },
     "verdict": "ABSTAIN (|r| below MDES: underpowered)"
   },

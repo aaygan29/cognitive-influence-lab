@@ -120,9 +120,14 @@ already on disk (no new downloads).
   The phenotype is a stable individual trait — the AIM "integrative individuates" half, on real data.
 Added as claim C7; abstract + paper 5.3 + README claims table + claims.tex updated. 13 tests green.
 
-### fMRI n=40 scale-up (background, resumable)
-`nohup python3 src/real_narps_fmri.py 40` running; roi json accumulates. Goal: MDES 0.73->0.43 to
-power the group-level NAcc-gain/insula-loss grounding. Re-analyze + report when it lands.
+### fMRI n=40 scale-up DONE — loss-channel grounding now SIGNIFICANT
+`results/real_narps_fmri.json` (n=40), Fig 9. Two AIM effects significant on real data:
+**NAcc decreases to loss (t=-2.12, p=0.040), anterior insula increases to loss (t=+2.32, p=0.025)**.
+NAcc gain-tracking positive but NS (t=+1.47, p=0.15); insula-gain null (correct). All 3 AIM directions
+consistent in sign. Neural-vs-behavioral loss aversion r jumped -0.01 (n12) -> -0.40 (n40), but MDES
+at n=40 is 0.44, so |r|=0.40 sits just under the bar -> **gate still ABSTAINS** (boundary behavior,
++ ratio sign-instability). Loss-channel neural grounding = real significant result; individual
+neural->behavioral link needs larger n or multi-run per-subject estimates. Honest win.
 
 ### Remaining deployment work (real data)
 1. Wire the estimator to the harness NARPS (fMRI) + DEAP (EEG) loaders and run E3 on real neural data

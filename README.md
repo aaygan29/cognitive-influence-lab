@@ -99,9 +99,11 @@ Steps 1-5 complete on controlled data; step 6 (real-data deployment) is scoped a
 **Real data (NARPS ds001734, 108 subjects, 27,454 real choices):** C1/C2/C4 validated on real human
 decisions. Loss aversion λ=1.45 (equalIndifference) / 1.00 (equalRange, range-adapted); held-out
 choice prediction AUC=0.96; conformal coverage holds; RT shows the DDM evidence-accumulation signature
-(r=−0.30). See `src/real_narps.py`, `results/real_narps.json`, Fig 8. The real fMRI affective-grounding
-arm (`src/real_narps_fmri.py`, NAcc/insula betas) streams the fmriprep volumes and is being brought
-online. A coded decision corpus (C5/C6 real) remains future work (paper Section 10).
+(r=−0.30). See `src/real_narps.py`, `results/real_narps.json`, Fig 8. **Real fMRI grounding (n=40, `src/real_narps_fmri.py`, Fig 9):** the loss/threat channel is grounded
+on real neural data — NAcc decreases to loss (p=0.040) and anterior insula increases to loss (p=0.025),
+both AIM-consistent. The neural↔behavioral loss-aversion correlation strengthened to r=−0.40 but sits
+just under MDES (0.44) at n=40, so the honesty gate abstains at the boundary. A coded decision corpus
+(C5/C6 real) remains future work (paper Section 10).
 
 ## Checkpoint protocol (so nothing is lost)
 
