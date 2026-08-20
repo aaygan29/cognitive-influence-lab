@@ -1,0 +1,92 @@
+{
+  "experiment": "E6_attribution_scale_ladder",
+  "design": {
+    "n_entities": 50,
+    "n_seeds": 8,
+    "gate_z": 1.96,
+    "scopes": [
+      "S1_exec+agencies",
+      "S2_WH+Pentagon",
+      "S3_WhiteHouse",
+      "S4_Pres+cabinet",
+      "S5_Pres+advisors",
+      "S6_President"
+    ]
+  },
+  "framing": "simulation of the inverse-identifiability dose-response across attribution scopes; latent = affective posture with a neural interpretation, never measured firing; real president decision corpus (2 blind coders + kappa) is the deployment",
+  "per_scope": {
+    "S1_exec+agencies": {
+      "K": 150,
+      "D": 400,
+      "abstention_rate": 0.1625,
+      "identifiability_r_all_loss_aversion": 0.312525490258036,
+      "identifiability_r_kept_loss_aversion": 0.5868254021152502,
+      "identifiability_r_all_threat": 0.3911235173700379,
+      "identifiability_r_kept_threat": 0.543163148286868
+    },
+    "S2_WH+Pentagon": {
+      "K": 60,
+      "D": 300,
+      "abstention_rate": 0.27,
+      "identifiability_r_all_loss_aversion": 0.381548743797172,
+      "identifiability_r_kept_loss_aversion": 0.5794314465394375,
+      "identifiability_r_all_threat": 0.2939953991138841,
+      "identifiability_r_kept_threat": 0.5136357307426234
+    },
+    "S3_WhiteHouse": {
+      "K": 25,
+      "D": 200,
+      "abstention_rate": 0.46,
+      "identifiability_r_all_loss_aversion": 0.27084253739273345,
+      "identifiability_r_kept_loss_aversion": 0.5577602223761231,
+      "identifiability_r_all_threat": 0.1975988687736374,
+      "identifiability_r_kept_threat": 0.4924849586200697
+    },
+    "S4_Pres+cabinet": {
+      "K": 10,
+      "D": 140,
+      "abstention_rate": 0.5975,
+      "identifiability_r_all_loss_aversion": 0.20345299011299853,
+      "identifiability_r_kept_loss_aversion": 0.4546349394888455,
+      "identifiability_r_all_threat": 0.21281526618295687,
+      "identifiability_r_kept_threat": 0.3948161438727412
+    },
+    "S5_Pres+advisors": {
+      "K": 4,
+      "D": 90,
+      "abstention_rate": 0.695,
+      "identifiability_r_all_loss_aversion": 0.13971998028908786,
+      "identifiability_r_kept_loss_aversion": 0.417879033668036,
+      "identifiability_r_all_threat": 0.09667377742864042,
+      "identifiability_r_kept_threat": 0.3512250443732107
+    },
+    "S6_President": {
+      "K": 1,
+      "D": 50,
+      "abstention_rate": 0.8625,
+      "identifiability_r_all_loss_aversion": 0.14773009806135246,
+      "identifiability_r_kept_loss_aversion": 0.22554987846249538,
+      "identifiability_r_all_threat": 0.07618936411215313,
+      "identifiability_r_kept_threat": 0.3564876288381342
+    }
+  },
+  "identifiability_curve": [
+    0.35182450381403696,
+    0.33777207145552807,
+    0.23422070308318543,
+    0.20813412814797771,
+    0.11819687885886414,
+    0.11195973108675279
+  ],
+  "abstention_curve": [
+    0.1625,
+    0.27,
+    0.46,
+    0.5975,
+    0.695,
+    0.8625
+  ],
+  "identifiability_decreases_toward_individual": true,
+  "abstention_increases_toward_individual": true,
+  "dose_response_holds": true
+}

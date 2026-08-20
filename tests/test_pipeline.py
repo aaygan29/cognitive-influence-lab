@@ -63,6 +63,16 @@ def test_transfer_negative_control_is_null():
     assert np.mean(r2s) < 0.1  # no predictive signal when the market is noise
 
 
+def test_scale_ladder_dose_response():
+    import inverse as I
+    res = I.run_scale_ladder(n_entities=30, n_seeds=3)
+    idc = res["identifiability_curve"]; abc = res["abstention_curve"]
+    # identifiability higher at aggregate than individual; abstention lower at aggregate
+    assert idc[0] > idc[-1]
+    assert abc[0] < abc[-1]
+    assert abc[-1] > 0.5  # individual scope mostly abstains
+
+
 if __name__ == "__main__":
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_") and callable(v)]
     for fn in fns:

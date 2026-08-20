@@ -189,6 +189,19 @@ the permutation null is not rejected (brain R2 = -0.05, permutation p = 0.90, br
 includes 0). The pipeline detects the dissociation only when it exists. This is a synthetic
 positive/negative control on operating characteristics, not the empirical claim.
 
+**E6 (C5, C6) Inverse inference is scale-dependent (Fig 7).** Running the estimator in reverse to
+recover the latent affective posture, evaluated across nested attribution scopes S1 (executive plus
+agencies, 150 contributors) to S6 (the individual, one contributor), yields the predicted
+dose-response (50 entities, 8 seeds). Identifiability of the posture falls monotonically from r = 0.35
+at the aggregate scope to r = 0.11 at the individual scope, while the abstention rate rises from 0.16
+to 0.86. On the subset the gate does not abstain, recovery stays higher than on the full set at every
+scope (for example 0.57 vs 0.35 at S1), so abstention keeps what is reported more reliable. The
+individual scope is where inference is mostly not licensed: the framework abstains on 86 percent of
+entities there, exactly the behavior the attribution confound predicts and the safety property C5
+asserts. The latent is a computational affective posture with a neural interpretation, never a claim
+of measured firing; this simulation establishes the mechanism, and the real US-president decision
+corpus (two blind coders and Cohen's kappa) is the deployment.
+
 ## 6. Discussion (Step 5)
 Operating characteristics: where the method works, at what n, with what coverage. Extension to state
 (sad/angry as transient theta shift) and role (trader/cop/doctor as prior + weighting) phenotypes.

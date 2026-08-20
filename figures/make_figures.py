@@ -183,6 +183,30 @@ def fig3_recovery():
     return _save(fig, "fig3_recovery")
 
 
+def fig7_scale_ladder_result():
+    """Identifiability + abstention vs attribution scope, from e6_scale_ladder.json (C5, C6)."""
+    p = os.path.join(RESULTS, "e6_scale_ladder.json")
+    if not os.path.exists(p):
+        return None
+    with open(p) as fh:
+        res = json.load(fh)
+    labels = res["design"]["scopes"]
+    short = [l.split("_", 1)[0] for l in labels]
+    idc = res["identifiability_curve"]
+    abc = res["abstention_curve"]
+    x = np.arange(len(labels))
+    fig, ax = plt.subplots(figsize=(5.2, 3.2))
+    ax.plot(x, idc, "-o", color=CB["blue"], label="identifiability $r$ (all entities)")
+    ax.plot(x, abc, "--s", color=CB["red"], label="abstention rate")
+    ax.axhline(0.5, color=CB["grey"], lw=0.8, ls=":")
+    ax.set_xticks(x); ax.set_xticklabels(short, fontsize=7)
+    ax.set_xlabel("attribution scope (aggregate S1 $\\to$ individual S6)")
+    ax.set_ylabel("rate"); ax.set_ylim(0, 1)
+    ax.legend(frameon=False, fontsize=7, loc="center left")
+    fig.tight_layout()
+    return _save(fig, "fig7_scale_ladder_result")
+
+
 def fig6_pooling():
     """Unpooled vs pooled recovery r at the smallest decisions/agent, from e4_pooling.json (C4)."""
     p = os.path.join(RESULTS, "e4_pooling.json")
@@ -235,14 +259,11 @@ def fig5_transfer():
 
 def _result_figs():
     made = []
-    for fn in (fig3_recovery, fig6_pooling, fig5_transfer):
+    for fn in (fig3_recovery, fig6_pooling, fig5_transfer, fig7_scale_ladder_result):
         r = fn()
         if r:
             made.append(r)
-    mapping = {  # renderers added as these experiments land (Step 4+)
-        "e5_abstention.json": "fig7_abstention",
-        "e6_scale_ladder.json": "fig8_scale_ladder_result",
-    }
+    mapping = {}  # renderers added as further experiments land
     for src, stem in mapping.items():  # noqa
         p = os.path.join(RESULTS, src)
         if os.path.exists(p):

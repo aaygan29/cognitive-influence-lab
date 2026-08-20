@@ -55,12 +55,23 @@ Step 3.
   operating characteristics on synthetic data; the empirical claim runs on real NARPS/DEAP.
 - Tests: 10 green (6 honesty + 4 pipeline). Estimator, pooling, transfer all covered.
 
-### Next action (Step 4: C5 + C6)
-Build the inverse-inference + attribution-scale ladder (C6) and the abstention-on-confounded-targets
-demonstration (C5) as simulations: nested attribution scopes S1..S6, show inverse identifiability
-degrades and abstention rises as scope narrows (the predicted dose-response), with the gate firing at
-the individual scope. Real president decision corpus (2 blind coders + kappa) remains the deployment.
-Real NARPS/DEAP wiring to the harness loaders also remains the empirical deployment for C3.
+### Step 4 DONE (C5, C6 mechanism)
+- **E6 attribution-scale ladder** `results/e6_scale_ladder.json`, Fig 7 (`src/inverse.py`): inverse
+  identifiability of the affective posture falls monotonically S1->S6 (r 0.35 -> 0.11) while abstention
+  rises (0.16 -> 0.86). Gate keeps the non-abstained subset more reliable (e.g. 0.57 vs 0.35 at S1).
+  At the individual scope the framework abstains on 86% of entities: the C5 safety property, and the
+  attribution-confound prediction, both borne out. dose_response_holds = True.
+- Latent = affective posture with a neural interpretation, never measured firing (GUIDELINES inverse
+  clause). Simulation of the mechanism; real president corpus (2 blind coders + kappa) = deployment.
+- Tests: 11 green (6 honesty + 5 pipeline incl. scale-ladder dose-response).
+
+### Remaining deployment work (real data)
+1. Wire the estimator to the harness NARPS (fMRI) + DEAP (EEG) loaders and run E3 on real neural data
+   (the empirical neuroforecasting test, vs the synthetic operating-characteristic control done here).
+2. Curate the US-president decision corpus (2 blind coders + Cohen's kappa) and run E6 on it.
+3. Add the RT/DDM path to identify the decision temperature tau (E1 currently identifies ratios only).
+Next in-repo step: a Discussion/operating-characteristics synthesis pass + coherence check so the
+paper reads end to end for a reviewer.
 
 ### Open risks being tracked
 - Gate 3 specificity: affective/integrative split must beat content-blind 2-factor PCA.
