@@ -45,6 +45,12 @@ def main():
     _run("inverse.py")
     # E7 state-shift
     _run("states.py")
+    # real data (behavioral) if the NARPS events are present
+    if os.path.isdir(os.path.join(ROOT, "data", "narps", "events")) and \
+       len(os.listdir(os.path.join(ROOT, "data", "narps", "events"))) > 0:
+        _run("real_narps.py")
+    else:
+        print("\n(skipping real_narps.py: NARPS events not downloaded)")
 
     # regenerate figures + tables from the fresh results
     print("\n=== regenerating figures + tables ===", flush=True)
@@ -73,6 +79,12 @@ def main():
         ("C5/C6 scale-ladder dose-response", e6["dose_response_holds"]),
         ("ext. state-shift recovered", e7["valid"]),
     ]
+    rn_path = os.path.join(RESULTS, "real_narps.json")
+    if os.path.exists(rn_path):
+        rn = _load("real_narps.json")
+        rows.append(("REAL C1 loss aversion recovered (NARPS)", rn["RN1_loss_aversion"]["frac_loss_averse_gt1"] > 0.5))
+        rows.append(("REAL C1 held-out choice beats base-rate", rn["RN1_prediction"]["beats_baserate"]))
+        rows.append(("REAL C2 conformal coverage >= nominal", rn["RN2_honesty"]["median_conformal_coverage"] >= rn["RN2_honesty"]["nominal"]))
     for name, ok in rows:
         print(f"  [{'PASS' if ok else 'FAIL'}]  {name}")
     all_ok = all(ok for _, ok in rows)

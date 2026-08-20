@@ -249,10 +249,22 @@ over 50/50 gain-vs-loss gambles, with reaction times (OpenNeuro ds001734, CC0, e
   magnitude (median r = -0.30 across 107 subjects): larger value magnitude, faster choice, the
   evidence-accumulation signature the DDM predicts, motivating the reaction-time DDM for tau.
 
-So C1, C2, and C4 hold on real human decisions, not only in simulation. The real fMRI affective arm
-(does NAcc track gain and insula track loss, and does neural loss aversion correlate with the
-behavioral phenotype) uses the fmriprep-preprocessed NARPS volumes and is reported separately as it
-comes online; it grounds the affective channel but is a subset-of-subjects, single-run analysis.
+So C1, C2, and C4 hold on real human decisions, not only in simulation.
+
+### 5.2 Real fMRI: affective grounding, and the framework abstaining on its own neural arm (Fig 9)
+We fit per-subject first-level GLMs with gain and loss parametric regressors on the fmriprep-
+preprocessed NARPS BOLD (MNI152, one run, 12 subjects) and extracted NAcc and anterior-insula betas
+(6mm spheres). The group directions are AIM-consistent: NAcc tracks gain (mean beta +0.007), NAcc
+decreases to loss (-0.007), and anterior insula responds to loss (+0.007). None reaches significance
+at this sample (all p ~ 0.2), and the cross-subject correlation between neural and behavioral loss
+aversion is essentially zero (r = -0.01).
+
+The honest reading is not "grounding fails" but "this arm is underpowered", and the framework says so
+itself: at n = 12 the minimum detectable correlation is 0.73, so an observed r of -0.01 is
+uninformative, and the honesty gate abstains on the neural-behavioral correlation rather than
+reporting a null. Establishing the grounding correlation (an expected r ~ 0.3-0.4, Tom et al. 2007)
+needs n >= 40 (MDES < 0.45). This is the same abstention logic the paper applies everywhere, now
+turned on our own neural result: directionally consistent, not yet established, and reported as such.
 
 ## 6. Discussion
 

@@ -68,40 +68,44 @@ def extract_subject(sub: str) -> Dict[str, float]:
     import nibabel as nib
 
     os.makedirs(TMP, exist_ok=True)
-    bold = os.path.join(TMP, f"{sub}_bold.nii.gz")
-    conf = os.path.join(TMP, f"{sub}_conf.tsv")
-    burl = f"{BASE}/derivatives/fmriprep/{sub}/func/{sub}_task-MGT_run-01_bold_space-MNI152NLin2009cAsym_preproc.nii.gz"
-    curl_ok = _curl(burl, bold) and _curl(
-        f"{BASE}/derivatives/fmriprep/{sub}/func/{sub}_task-MGT_run-01_bold_confounds.tsv", conf)
-    if not curl_ok:
-        return {}
+    cache = os.path.join(ROOT, "data", "narps", "fmri_cache")
+    fp = f"{BASE}/derivatives/fmriprep/{sub}/func"
+    cached = os.path.join(cache, f"{sub}_bold.nii.gz")
+    from_cache = os.path.exists(cached)
+    bold = cached if from_cache else os.path.join(TMP, f"{sub}_bold.nii.gz")
+    conf = os.path.join(cache if from_cache else TMP, f"{sub}_conf.tsv")
+    mask = os.path.join(cache if from_cache else TMP, f"{sub}_mask.nii.gz")
+    suf = "_bold_space-MNI152NLin2009cAsym"
+    if not from_cache:
+        ok = (_curl(f"{fp}/{sub}_task-MGT_run-01{suf}_preproc.nii.gz", bold)
+              and _curl(f"{fp}/{sub}_task-MGT_run-01_bold_confounds.tsv", conf)
+              and _curl(f"{fp}/{sub}_task-MGT_run-01{suf}_brainmask.nii.gz", mask))
+        if not ok:
+            return {}
     try:
         img = nib.load(bold)
-        n_scans = img.shape[3]
-        frame_times = np.arange(n_scans) * TR
+        frame_times = np.arange(img.shape[3]) * TR
         cf = pd.read_csv(conf, sep="\t")
         motion = cf[["X", "Y", "Z", "RotX", "RotY", "RotZ"]].fillna(0.0).to_numpy()
-        events = _subject_events(sub)
-        dm = make_first_level_design_matrix(frame_times, events=events, hrf_model="spm",
-                                            drift_model="cosine", high_pass=0.01,
-                                            add_regs=motion,
+        dm = make_first_level_design_matrix(frame_times, events=_subject_events(sub), hrf_model="spm",
+                                            drift_model="cosine", high_pass=0.01, add_regs=motion,
                                             add_reg_names=[f"m{i}" for i in range(6)])
-        model = FirstLevelModel(t_r=TR, minimize_memory=True)
+        model = FirstLevelModel(t_r=TR, mask_img=mask, minimize_memory=True)
         model.fit(img, design_matrices=dm)
         out = {}
         for cname in ("gain", "loss"):
             emap = model.compute_contrast(cname, output_type="effect_size")
             for roi, seeds in (("nacc", NACC), ("ains", AINS)):
-                masker = NiftiSpheresMasker(seeds=seeds, radius=6.0, allow_overlap=True)
-                vals = masker.fit_transform(emap)  # (1, n_seeds)
-                out[f"{roi}_{cname}"] = float(np.mean(vals))
+                masker = NiftiSpheresMasker(seeds=seeds, radius=6.0, mask_img=mask, allow_overlap=True)
+                out[f"{roi}_{cname}"] = float(np.mean(masker.fit_transform(emap)))
         return out
     except Exception as e:  # pragma: no cover
         return {"error": str(e)}
     finally:
-        for f in (bold, conf):
-            if os.path.exists(f):
-                os.remove(f)
+        if not from_cache:
+            for f in (bold, conf, mask):
+                if os.path.exists(f):
+                    os.remove(f)
 
 
 def run(subject_list: List[str]) -> Dict[str, object]:
@@ -139,23 +143,41 @@ def analyze(roi: Dict[str, dict]) -> Dict[str, object]:
     real, _, per_subject = RN.run_real()
     beh = np.array([per_subject.get(s, {}).get("loss_aversion", np.nan) for s in good.keys()])
     both = fin & np.isfinite(beh)
-    corr = stats.pearsonr(neural_la[both], beh[both]) if both.sum() >= 6 else (None, None)
+    n_corr = int(both.sum())
+    corr = stats.pearsonr(neural_la[both], beh[both]) if n_corr >= 6 else (None, None)
+    # the honesty gate: is the neural-behavioral correlation identifiable at this N?
+    mdes = H.mdes_correlation(n_corr) if n_corr > 3 else float("nan")
+    gated = H.gate_effect("neural_vs_behavioral_loss_aversion",
+                          effect=float(corr[0]) if corr[0] is not None else 0.0,
+                          n=n_corr, kind="correlation")
+
+    # AIM direction consistency (descriptive): expected signs NAcc+gain, NAcc-loss, aIns+loss
+    aim_dirs = {"NAcc_gain>0": bool(np.mean(nacc_gain) > 0),
+                "NAcc_loss<0": bool(np.mean(nacc_loss) < 0),
+                "aIns_loss>0": bool(np.mean(ains_loss) > 0)}
 
     return {
         "experiment": "REAL_narps_fmri_affective_grounding",
         "n_subjects": len(good),
+        "power_note": (f"UNDERPOWERED at n={len(good)}: minimum detectable correlation (MDES) is "
+                       f"{mdes:.2f}; only correlations larger than that are resolvable. Directions below "
+                       f"are descriptive; the neural-behavioral correlation is gated (abstained)."),
         "NAcc_tracks_gain": ttest(nacc_gain),
         "NAcc_response_to_loss": ttest(nacc_loss),
         "aIns_tracks_gain": ttest(ains_gain),
         "aIns_response_to_loss": ttest(ains_loss),
+        "AIM_direction_consistency": aim_dirs,
         "neural_vs_behavioral_loss_aversion": {
-            "pearson_r": (float(corr[0]) if corr[0] is not None else None),
-            "p": (float(corr[1]) if corr[1] is not None else None),
-            "n": int(both.sum()),
+            "observed_pearson_r": (float(corr[0]) if corr[0] is not None else None),
+            "n": n_corr, "mdes_at_n": (float(mdes) if np.isfinite(mdes) else None),
+            "gate": gated.to_dict(),
+            "verdict": ("ABSTAIN (|r| below MDES: underpowered)" if gated.abstained
+                        else "resolvable at this N"),
         },
         "provenance": {"dataset": "ds001734 fmriprep", "run": "run-01", "TR": TR,
                        "rois_mni": {"nacc": NACC, "ains": AINS}, "sphere_mm": 6.0},
-        "caveats": "single run per subject, ROI-sphere GLM on a subset; grounding test, not the market forecast",
+        "caveats": ("single run per subject, ROI-sphere GLM on a subset; grounding test, not the market "
+                    "forecast; establishing the neural-behavioral correlation needs n>=40 (MDES < 0.45)"),
     }
 
 
@@ -169,8 +191,11 @@ if __name__ == "__main__":
     with open(os.path.join(ROOT, "results", "real_narps_fmri.json"), "w") as fh:
         json.dump(res, fh, indent=2)
     print("\nREAL fMRI affective grounding (NARPS, n=%d subjects, run-01)" % res["n_subjects"])
+    print("  " + res["power_note"])
     for k in ("NAcc_tracks_gain", "NAcc_response_to_loss", "aIns_tracks_gain", "aIns_response_to_loss"):
         e = res[k]
         print(f"  {k:22s} mean={e['mean']:+.3f}  t={e['t']:+.2f}  p={e['p']:.3f}  (n={e['n']})")
+    print(f"  AIM direction consistency: {res['AIM_direction_consistency']}")
     nb = res["neural_vs_behavioral_loss_aversion"]
-    print(f"  neural vs behavioral loss aversion: r={nb['pearson_r']} p={nb['p']} (n={nb['n']})")
+    print(f"  neural vs behavioral loss aversion: observed r={nb['observed_pearson_r']:.3f} "
+          f"MDES@n={nb['mdes_at_n']:.2f} -> {nb['verdict']}")

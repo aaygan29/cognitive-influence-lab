@@ -97,9 +97,15 @@ Step 3.
   choice, the evidence-accumulation signature; motivates full-DDM tau.
 C1/C2/C4 now validated on REAL human decisions.
 
-**fMRI affective-grounding arm** `src/real_narps_fmri.py`: streams fmriprep MNI BOLD per subject,
-GLM with gain/loss regressors, NAcc/insula spheres. First pass had NAcc reading 0.0 (mask/FOV issue);
-being fixed with a cached volume before reporting. NOT yet a reported result (honesty: no buggy number).
+**fMRI affective-grounding arm DONE (n=12, honest underpowered result)** `src/real_narps_fmri.py`,
+`results/real_narps_fmri.json`, Fig 9. Fixed the NAcc-reads-0.0 bug (pass fmriprep brainmask to both
+GLM and sphere masker). 12 subjects, run-01, gain/loss parametric GLM, NAcc/aIns 6mm spheres.
+- AIM directions all consistent: NAcc +gain (+0.007), NAcc -loss (-0.007), aIns +loss (+0.007); none
+  significant (p~0.2, n=12).
+- Neural-vs-behavioral loss aversion r=-0.01 -> **honesty gate ABSTAINS** (MDES at n=12 is 0.73;
+  observed |r| far below -> unidentifiable). Establishing grounding needs n>=40 (MDES<0.45).
+- This is the framework applying its own abstention discipline to its own neural arm. Scaling the
+  subject count is the power fix (roi json `results/narps_fmri_roi.json` is resumable).
 
 ### Remaining deployment work (real data)
 1. Wire the estimator to the harness NARPS (fMRI) + DEAP (EEG) loaders and run E3 on real neural data

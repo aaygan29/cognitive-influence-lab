@@ -186,6 +186,45 @@ def fig3_recovery():
     return _save(fig, "fig3_recovery")
 
 
+def fig9_real_narps_fmri():
+    """Real neural grounding: NAcc/insula gain & loss betas + neural-vs-behavioral loss aversion."""
+    roi_p = os.path.join(RESULTS, "narps_fmri_roi.json")
+    beh_p = os.path.join(RESULTS, "real_narps.json")
+    if not (os.path.exists(roi_p) and os.path.exists(beh_p)):
+        return None
+    with open(roi_p) as fh:
+        roi = json.load(fh)
+    with open(beh_p) as fh:
+        beh = json.load(fh)["per_subject"]
+    good = {s: r for s, r in roi.items() if r and "nacc_gain" in r}
+    if len(good) < 4:
+        return None
+    keys = ["nacc_gain", "nacc_loss", "ains_gain", "ains_loss"]
+    arr = {k: np.array([r[k] for r in good.values()]) for k in keys}
+    fig, (axL, axR) = plt.subplots(1, 2, figsize=(6.5, 3.0))
+    means = [arr[k].mean() for k in keys]
+    sems = [arr[k].std(ddof=1) / np.sqrt(len(arr[k])) for k in keys]
+    labels = ["NAcc\ngain", "NAcc\nloss", "aIns\ngain", "aIns\nloss"]
+    cols = [CB["blue"], CB["blue"], CB["red"], CB["red"]]
+    axL.bar(range(4), means, yerr=sems, color=cols, alpha=0.8, capsize=3,
+            edgecolor=CB["black"], linewidth=0.6)
+    axL.axhline(0, color=CB["black"], lw=0.8)
+    axL.set_xticks(range(4)); axL.set_xticklabels(labels, fontsize=7)
+    axL.set_ylabel("ROI effect size (beta)"); axL.set_title("real NARPS fMRI (n=%d)" % len(good), fontsize=8)
+    # scatter: neural loss aversion vs behavioral lambda
+    nla, bla = [], []
+    for s, r in good.items():
+        if abs(r["nacc_gain"]) > 1e-6 and not beh.get(s, {}).get("abstained", True):
+            nla.append(-r["nacc_loss"] / r["nacc_gain"]); bla.append(beh[s]["loss_aversion"])
+    if len(nla) >= 4:
+        axR.scatter(bla, nla, color=CB["purple"], s=18, edgecolor=CB["black"], linewidth=0.4)
+        r = np.corrcoef(bla, nla)[0, 1]
+        axR.set_title(f"neural vs behavioral $\\lambda$ (r={r:.2f})", fontsize=8)
+    axR.set_xlabel("behavioral loss aversion"); axR.set_ylabel("neural loss aversion (NAcc)")
+    fig.tight_layout()
+    return _save(fig, "fig9_real_narps_fmri")
+
+
 def fig8_real_narps():
     """Real NARPS results: loss-aversion distribution by group + held-out prediction summary."""
     p = os.path.join(RESULTS, "real_narps.json")
@@ -298,7 +337,8 @@ def fig5_transfer():
 
 def _result_figs():
     made = []
-    for fn in (fig3_recovery, fig6_pooling, fig5_transfer, fig7_scale_ladder_result, fig8_real_narps):
+    for fn in (fig3_recovery, fig6_pooling, fig5_transfer, fig7_scale_ladder_result,
+               fig8_real_narps, fig9_real_narps_fmri):
         r = fn()
         if r:
             made.append(r)
