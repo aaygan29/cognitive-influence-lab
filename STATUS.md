@@ -107,6 +107,23 @@ GLM and sphere masker). 12 subjects, run-01, gain/loss parametric GLM, NAcc/aIns
 - This is the framework applying its own abstention discipline to its own neural arm. Scaling the
   subject count is the power fix (roi json `results/narps_fmri_roi.json` is resumable).
 
+### Three-lens evaluation on real data (structure / function / individuation) DONE — C7
+`src/real_narps_individuation.py`, `results/real_narps_individuation.json`, Fig 10. Uses the 4 runs
+already on disk (no new downloads).
+- **STRUCTURE:** across 108 subjects the affective coordinates are strongly coupled (gain-loss
+  r=-0.92) and the 6-feature phenotype has effective dimensionality 4.4 (participation ratio) — real
+  low-dim manifold geometry, as C1 assumes.
+- **FUNCTION:** behavioral prediction AUC 0.96 (real_narps) + neural NAcc+gain/insula+loss directions
+  (real_narps_fmri, underpowered).
+- **INDIVIDUATION:** cross-run fingerprinting (db=run-01, target=mean runs 02-04, DB-standardized,
+  leakage-safe) identifies subjects at 13% vs 0.9% chance (14x, permutation p=0.0005, I_diff=1.10).
+  The phenotype is a stable individual trait — the AIM "integrative individuates" half, on real data.
+Added as claim C7; abstract + paper 5.3 + README claims table + claims.tex updated. 13 tests green.
+
+### fMRI n=40 scale-up (background, resumable)
+`nohup python3 src/real_narps_fmri.py 40` running; roi json accumulates. Goal: MDES 0.73->0.43 to
+power the group-level NAcc-gain/insula-loss grounding. Re-analyze + report when it lands.
+
 ### Remaining deployment work (real data)
 1. Wire the estimator to the harness NARPS (fMRI) + DEAP (EEG) loaders and run E3 on real neural data
    (the empirical neuroforecasting test, vs the synthetic operating-characteristic control done here).

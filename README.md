@@ -42,6 +42,7 @@ about their private neurology or psychology. See `GUIDELINES.md` §Ethics.
 | **C4** | Hierarchical cross-dataset pooling lowers MDES and per-individual posterior width | T4 | NARPS + DEAP joint fit |
 | **C5** | On genuinely confounded targets the framework predicts where identifiable and *provably abstains* where not | T4 | public-figure decision corpora (preregistered) |
 | **C6** *(ext.)* | Inverse inference (decision -> latent affective posture) is *scale-dependent*: identifiable at aggregate attribution scope, abstaining at the individual scope | T4 | US-president decision corpus across scopes S1..S6 |
+| **C7** *(real)* | The phenotype has **structure** (low-dim manifold geometry), **function** (predicts choice), and **individuates** (stable person-specific trait) | T3→T4 | NARPS: gain-loss coupling r=−0.92 / eff.dim 4.4; AUC 0.96; cross-run fingerprint 14× chance, p=5e-4 |
 
 These five are the project's central claims (scoping rationale in
 `checkpoints/design_rationale_2026-08-20.md`, an internal engineering note, not a paper artifact).

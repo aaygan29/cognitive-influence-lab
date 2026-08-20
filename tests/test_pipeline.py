@@ -80,6 +80,18 @@ def test_state_shift_recovers_direction():
     assert res["negative_control"]["detects_shift"] is False
 
 
+def test_individuation_machinery():
+    import numpy as np
+    import real_narps_individuation as I
+    # distinct phenotype vectors -> perfect self-identification; structure runs
+    rng = np.random.default_rng(0)
+    db = rng.normal(0, 1, (20, 6)); tg = db + rng.normal(0, 0.01, (20, 6))
+    acc, matches = I._identify(db, tg)
+    assert acc > 0.9  # near-perfect when target is each subject's own vector + tiny noise
+    st = I.structure_analysis(db, tg)
+    assert 0 < st["participation_ratio_effective_dim"] <= 6
+
+
 if __name__ == "__main__":
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_") and callable(v)]
     for fn in fns:

@@ -30,8 +30,11 @@ reverse, inferring the latent affective posture most consistent with a documente
 show that this inverse inference is scale-dependent: identifiable at aggregate attribution scopes
 and degrading to abstention at the individual scope, a dose-response that turns the attribution
 confound into a measured axis. The estimator, honesty layer, and pooling (C1, C2, C4) are then validated on real human
-decisions from the NARPS mixed-gambles fMRI dataset; the real neural and coded-corpus arms are the
-remaining deployment.
+decisions from the NARPS mixed-gambles fMRI dataset (108 subjects, 27,454 choices), and the phenotype
+is evaluated through three lenses on that data (C7): it has low-dimensional structure, predicts
+held-out choice at AUC 0.96, and individuates (cross-run fingerprinting at 14x chance, p = 5e-4). The
+real neural-grounding arm is directionally consistent but underpowered, and the framework abstains on
+it accordingly.
 
 ## 1. Introduction
 
@@ -265,6 +268,30 @@ uninformative, and the honesty gate abstains on the neural-behavioral correlatio
 reporting a null. Establishing the grounding correlation (an expected r ~ 0.3-0.4, Tom et al. 2007)
 needs n >= 40 (MDES < 0.45). This is the same abstention logic the paper applies everywhere, now
 turned on our own neural result: directionally consistent, not yet established, and reported as such.
+
+### 5.3 The phenotype through three lenses: structure, function, individuation (Fig 10)
+A decision phenotype earns the name only if it has geometric structure, predicts behavior (function),
+and identifies the individual. We evaluate all three on real NARPS data and fold them into the claims.
+
+- **Structure (the manifold has real geometry).** Across 108 subjects the affective coordinates are
+  strongly coupled: gain sensitivity and loss sensitivity correlate at r = -0.92, and the six-feature
+  phenotype has an effective dimensionality of 4.4 (participation ratio), below its feature count.
+  The population phenotype occupies a low-dimensional structure, as the manifold model (C1) assumes,
+  rather than filling the feature space.
+- **Function (it predicts choice, and grounds in reward circuitry).** The phenotype forecasts real
+  held-out choices at AUC 0.96 (Section 5.1), and its affective coordinates align in direction with
+  NAcc gain-tracking and insula loss-tracking (Section 5.2, underpowered). This is the affective->choice
+  function the estimator is built on (C1, C3).
+- **Individuation (it is an individual trait).** Cross-run fingerprinting identifies a subject in
+  held-out runs from their run-01 phenotype at 13% accuracy versus 0.9% chance (14x, permutation
+  p = 0.0005, differential identifiability I_diff = 1.10). The phenotype is stable and person-specific,
+  which is exactly the "integrative component individuates" half of the AIM split the framework rests
+  on, and the property the C5/C6 individual-scope analysis depends on.
+
+Read together, the three lenses say the phenotype is a real, low-dimensional, behavior-predictive,
+individuating object on real human data, not a curve-fit. Each lens strengthens a specific claim:
+structure and function under-write C1/C3, individuation under-writes the AIM split and the C5/C6
+individual-scope reasoning.
 
 ## 6. Discussion
 

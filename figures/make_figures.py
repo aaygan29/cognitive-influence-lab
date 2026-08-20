@@ -132,6 +132,8 @@ def table_claims():
         ("C5", "Predict where identifiable; abstain where confounded", "public-record decision corpus"),
         ("C6", "Inverse inference is scale-dependent (aggregate identifiable, individual abstains)",
          "attribution-scale ladder S1--S6"),
+        ("C7", "The phenotype has structure, function, and individuates (real data)",
+         "NARPS: coupling/eff.-dim, AUC, cross-run fingerprint"),
     ]
     lines = [r"\begin{table}[t]", r"\centering",
              r"\caption{Central claims and where each is evaluated.}",
@@ -184,6 +186,32 @@ def fig3_recovery():
     ax.set_ylim(0, 1); ax.legend(frameon=False, fontsize=7, loc="lower right")
     fig.tight_layout()
     return _save(fig, "fig3_recovery")
+
+
+def fig10_individuation():
+    """Individuation + structure: identification vs null, and the phenotype-coordinate coupling."""
+    p = os.path.join(RESULTS, "real_narps_individuation.json")
+    if not os.path.exists(p):
+        return None
+    with open(p) as fh:
+        res = json.load(fh)
+    fig, (axL, axR) = plt.subplots(1, 2, figsize=(6.5, 3.0))
+    null = np.array(res["_null_distribution"])
+    axL.hist(null, bins=20, color=CB["grey"], alpha=0.6, edgecolor="none", label="permutation null")
+    axL.axvline(res["identification_accuracy"], color=CB["red"], lw=1.6,
+               label=f"observed {res['identification_accuracy']:.2f}")
+    axL.axvline(res["chance"], color=CB["black"], lw=0.9, ls=":", label=f"chance {res['chance']:.3f}")
+    axL.set_xlabel("cross-run identification accuracy"); axL.set_ylabel("permutations")
+    axL.set_title(f"individuation ({res['fold_over_chance']:.0f}x, p={res['permutation_p']:.4f})", fontsize=8)
+    axL.legend(frameon=False, fontsize=6.5)
+    coords = np.array(res["_coords_gain_loss"])
+    axR.scatter(coords[:, 0], coords[:, 1], s=14, color=CB["blue"], edgecolor=CB["black"], linewidth=0.3)
+    axR.set_xlabel("gain sensitivity $b_{gain}$"); axR.set_ylabel("loss sensitivity $b_{loss}$")
+    s = res["structure"]
+    axR.set_title(f"structure (r={s['gain_loss_coordinate_corr']:.2f}, eff.dim {s['participation_ratio_effective_dim']:.1f})",
+                  fontsize=8)
+    fig.tight_layout()
+    return _save(fig, "fig10_individuation")
 
 
 def fig9_real_narps_fmri():
@@ -338,7 +366,7 @@ def fig5_transfer():
 def _result_figs():
     made = []
     for fn in (fig3_recovery, fig6_pooling, fig5_transfer, fig7_scale_ladder_result,
-               fig8_real_narps, fig9_real_narps_fmri):
+               fig8_real_narps, fig9_real_narps_fmri, fig10_individuation):
         r = fn()
         if r:
             made.append(r)
