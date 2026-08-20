@@ -76,6 +76,14 @@ Step 3.
   list fixed to match generated assets; Tables 1-2 include C6/E6/E7. 12 tests green.
 - Paper now maps cleanly: C1->E1, C2->E2, C3->E3, C4->E4, C5->E5(deploy)+E6, C6->E6, ext->E7.
 
+### Step 6 DONE (reproduce + future work)
+- **`reproduce.py`**: one command runs all experiments, regenerates figures + LaTeX tables from fresh
+  results, runs the suite, prints a per-claim gate summary. Full end-to-end run: **all 6 gates PASS**
+  (~100s). This is the reproducibility capstone.
+- Paper §10 Future work written (real neural data + RT/DDM for tau + real president corpus + per-person
+  calibration). README + ROADMAP status banners added. Steps 1-5 done on controlled data; step 6 =
+  real-data deployment scoped as future work.
+
 ### Remaining deployment work (real data)
 1. Wire the estimator to the harness NARPS (fMRI) + DEAP (EEG) loaders and run E3 on real neural data
    (the empirical neuroforecasting test, vs the synthetic operating-characteristic control done here).

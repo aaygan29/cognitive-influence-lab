@@ -276,7 +276,24 @@ inference stops being licensed.
 
 ## 9. Reproducibility
 Seeds, configs, split hashes, code commit, dataset versions released; leakage guards
-(subject-/stimulus-grouped CV) inherited from the `behavioral_decoding` harness.
+(subject-/stimulus-grouped CV) inherited from the `behavioral_decoding` harness. Every result and
+figure regenerates with one command (`python reproduce.py`), which runs all experiments, rebuilds the
+vector figures and LaTeX tables from the fresh `results/*.json`, runs the test suite, and prints a
+per-claim gate summary.
+
+## 10. Future work (deployment)
+1. **Real neural data.** Wire the estimator to the NARPS (fMRI) and DEAP (EEG) loaders in the
+   `behavioral_decoding` harness and run E3 on real recordings, with the content-blind two-factor
+   specificity ablation and the brain-beyond-behavior and brain-beyond-content baselines. This is the
+   empirical neuroforecasting test that the synthetic controls here only validate the instrument for.
+2. **Reaction-time DDM.** Add the first-passage-time likelihood so the decision temperature tau and
+   response style are identified, beyond the choice-only affective ratios recovered now.
+3. **Real decision corpus.** Curate the US-president decision corpus with two blind coders and a
+   reported Cohen's kappa, preregister the temporal split and kill criteria, and run E5/E6 on it; the
+   expectation, from E1 and E6, is that most individual-scope cases land in the abstention regime.
+4. **Per-person calibration.** Connect to enrollable personal-brain and idiographic-affect pipelines
+   for few-shot per-person priors, and run a preregistered replication on a held-out figure and a
+   held-out market.
 
 ## Appendix A — Preregistration
 Temporal split, arms, kill criteria for C3 and C5, committed to `checkpoints/` before fitting.

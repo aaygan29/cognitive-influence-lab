@@ -10,6 +10,11 @@ finds the advanced application; step 3 replicates and advances in new data and f
 step 4 evaluates a genuinely new method; step 5 concludes and extends; step 6 opens future
 directions.
 
+**Status (2026-08-20):** Steps 1-5 complete on controlled data; all six headline gates pass
+(`python reproduce.py`). Step 6 (real fMRI/EEG deployment + coded decision corpus) is scoped as
+future work in the paper. The synthetic/simulation work establishes the instrument's operating
+characteristics; real-data results are the remaining deployment, not new machinery.
+
 ---
 
 ## Step 1 — Ground in what is known  *(status: ~80% done)*

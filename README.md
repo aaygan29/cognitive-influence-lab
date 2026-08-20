@@ -71,6 +71,32 @@ question C6 (extension).
 - `figures/` — figure plan (`FIGURES.md`) + generated figures + the script that makes them.
 - `checkpoints/` — dated snapshots of decisions, reviews, and reproducible result bundles.
 
+## Reproduce everything
+
+```bash
+python reproduce.py
+```
+
+Runs all experiments (honesty positive control, E1 recovery, E4 pooling, E3 transfer controls, E6
+attribution-scale ladder, E7 state shift), regenerates the vector figures and LaTeX tables from the
+fresh `results/*.json`, runs the test suite, and prints a per-claim gate summary. Full run is a few
+minutes (E3 does permutation nulls). All six headline gates currently pass.
+
+## Status (2026-08-20)
+
+Steps 1-5 complete on controlled data; step 6 (real-data deployment) is scoped as future work.
+
+| Claim | Experiment | Result | Status |
+|---|---|---|---|
+| C1 | E1 recovery curve | affective ratios reach r>=0.6 by ~1-2k decisions/agent | PASS (controlled) |
+| C2 | E2 honesty self-check | coverage on target, ECE 0.018, gate abstains when underpowered | PASS |
+| C3 | E3 transfer controls | brain>behavior on +control (ΔR2=+0.11, p=0.003), null on -control | PASS (controlled) |
+| C4 | E4 pooling | pooled > unpooled recovery at low n, CI excludes 0 | PASS |
+| C5/C6 | E6 scale ladder | identifiability falls (0.35->0.11), abstention rises (0.16->0.86) S1->S6 | PASS |
+| ext. | E7 state shift | threat-elevated state recovered (+0.73, CI>0), null control | PASS |
+
+Real fMRI/EEG (NARPS, DEAP) and a coded decision corpus are the deployment step (see paper Section 10).
+
 ## Checkpoint protocol (so nothing is lost)
 
 - **Git commit at every checkpoint.** No Claude co-author trailer (per user convention). Never push to `main` without explicit ask.
