@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.DS_Store
+data/raw/
+data/downloads/
+*.nii
+*.nii.gz
+*.edf
+*.bdf
+*.dat

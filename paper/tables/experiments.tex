@@ -1,0 +1,16 @@
+\begin{table}[t]
+\centering
+\caption{Experiments, the claim each tests, its metric, and its pass criterion.}
+\label{tab:experiments}
+\begin{tabular}{lllp{3.4cm}}
+\toprule
+Exp. & Claim & Metric & Pass criterion \\
+\midrule
+E1 & C1 & recovered vs.\ true $\theta$, 20 seeds & recovery $r \ge 0.6$ (affective) \\
+E2 & C2 & conformal coverage vs.\ nominal; ECE & $|\text{cov}-\text{nom}|\le 0.03$ \\
+E3 & C3 & affective vs.\ behavioral $\Delta$CRPS & CI excludes 0, stimulus-grouped CV \\
+E4 & C4 & MDES / posterior width, joint vs.\ single & pooled width $<$ single \\
+E5 & C5 & abstention rate vs.\ attribution scope & gate fires as scope narrows \\
+\bottomrule
+\end{tabular}
+\end{table}
