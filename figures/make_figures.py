@@ -11,6 +11,7 @@ from __future__ import annotations
 import json
 import os
 
+import numpy as np
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -182,17 +183,65 @@ def fig3_recovery():
     return _save(fig, "fig3_recovery")
 
 
+def fig6_pooling():
+    """Unpooled vs pooled recovery r at the smallest decisions/agent, from e4_pooling.json (C4)."""
+    p = os.path.join(RESULTS, "e4_pooling.json")
+    if not os.path.exists(p):
+        return None
+    with open(p) as fh:
+        res = json.load(fh)
+    sm = str(res["design"]["trials_grid"][0])
+    params = ["loss_aversion", "threat", "risk", "discount"]
+    unp = [res["curve"][sm][k]["unpooled_r"] for k in params]
+    poo = [res["curve"][sm][k]["pooled_r"] for k in params]
+    x = np.arange(len(params)); w = 0.38
+    fig, ax = plt.subplots(figsize=(4.6, 3.0))
+    ax.bar(x - w / 2, unp, w, label="unpooled", color=CB["grey"], edgecolor=CB["black"], linewidth=0.6)
+    ax.bar(x + w / 2, poo, w, label="pooled", color=CB["green"], edgecolor=CB["black"], linewidth=0.6)
+    ax.set_xticks(x); ax.set_xticklabels([k.replace("_", "\n") for k in params], fontsize=7)
+    ax.set_ylabel("recovery $r$"); ax.set_ylim(0, 1)
+    ax.set_title(f"{sm} decisions/agent", fontsize=8)
+    ax.legend(frameon=False, fontsize=7, loc="upper left")
+    fig.tight_layout()
+    return _save(fig, "fig6_pooling")
+
+
+def fig5_transfer():
+    """Affective-vs-behavioral forecast arms, positive vs negative control, from e3_transfer.json."""
+    p = os.path.join(RESULTS, "e3_transfer.json")
+    if not os.path.exists(p):
+        return None
+    with open(p) as fh:
+        res = json.load(fh)
+    arms = ["content_only", "behavior_only", "brain_only"]
+    labels = ["content", "behavior", "brain"]
+    colors = [CB["grey"], CB["orange"], CB["blue"]]
+    fig, axes = plt.subplots(1, 2, figsize=(6.5, 3.0), sharey=True)
+    for ax, cond, title in [(axes[0], "positive_control", "market tracks affect (positive control)"),
+                            (axes[1], "negative_control", "market is noise (negative control)")]:
+        c = res[cond]
+        means = [c["arms_r2"][a]["mean"] for a in arms]
+        los = [c["arms_r2"][a]["mean"] - c["arms_r2"][a]["ci95"][0] for a in arms]
+        his = [c["arms_r2"][a]["ci95"][1] - c["arms_r2"][a]["mean"] for a in arms]
+        ax.bar(range(len(arms)), means, yerr=[los, his], color=colors, alpha=0.85,
+               capsize=3, edgecolor=CB["black"], linewidth=0.6)
+        ax.axhline(0, color=CB["black"], lw=0.8)
+        ax.set_xticks(range(len(arms))); ax.set_xticklabels(labels, fontsize=8)
+        ax.set_title(title, fontsize=8)
+    axes[0].set_ylabel("out-of-sample $R^2$ (held-out stimuli)")
+    fig.tight_layout()
+    return _save(fig, "fig5_transfer")
+
+
 def _result_figs():
     made = []
-    r = fig3_recovery()
-    if r:
-        made.append(r)
-    mapping = {
-        "e2_coverage.json": "fig4_coverage",
-        "e2_coverage.json": "fig4_coverage",
-        "e3_transfer_narps.json": "fig5_transfer",
-        "e4_pooling.json": "fig6_pooling",
+    for fn in (fig3_recovery, fig6_pooling, fig5_transfer):
+        r = fn()
+        if r:
+            made.append(r)
+    mapping = {  # renderers added as these experiments land (Step 4+)
         "e5_abstention.json": "fig7_abstention",
+        "e6_scale_ladder.json": "fig8_scale_ladder_result",
     }
     for src, stem in mapping.items():  # noqa
         p = os.path.join(RESULTS, src)

@@ -1,0 +1,140 @@
+{
+  "experiment": "E3_affective_vs_behavioral_transfer",
+  "design": {
+    "n_subjects": 30,
+    "n_stim": 80,
+    "n_seeds": 20,
+    "cv": "stimulus-grouped",
+    "scoring": "oos R2 + CRPS + permutation null"
+  },
+  "framing": "synthetic positive/negative control on the pipeline's operating characteristics; real NARPS (fMRI) + DEAP (EEG) is the empirical deployment",
+  "positive_control": {
+    "dissociation": true,
+    "arms_r2": {
+      "content_only": {
+        "mean": 0.8442642979249204,
+        "ci95": [
+          0.8339071271361579,
+          0.8546328016654761
+        ]
+      },
+      "behavior_only": {
+        "mean": 0.7305805807789566,
+        "ci95": [
+          0.7053292115569781,
+          0.7540515821544768
+        ]
+      },
+      "brain_only": {
+        "mean": 0.8448483847207976,
+        "ci95": [
+          0.8355472858619478,
+          0.853836448735758
+        ]
+      },
+      "brain_plus_content": {
+        "mean": 0.8414920153801377,
+        "ci95": [
+          0.8309202571525796,
+          0.8523959220571616
+        ]
+      },
+      "all": {
+        "mean": 0.842421894268111,
+        "ci95": [
+          0.8311704930800173,
+          0.8532009964883112
+        ]
+      }
+    },
+    "arms_crps": {
+      "content_only": 0.23873886422226728,
+      "behavior_only": 0.3135283754771822,
+      "brain_only": 0.23829297109155534,
+      "brain_plus_content": 0.24083719097780537,
+      "all": 0.24015319843338795
+    },
+    "brain_minus_behavior_r2": {
+      "mean": 0.114267803941841,
+      "ci95": [
+        0.0922603942361029,
+        0.13695679284352066
+      ]
+    },
+    "brain_minus_content_r2": {
+      "mean": -0.002772282544782634,
+      "ci95": [
+        -0.004495573377626685,
+        -0.0011884320005309565
+      ]
+    },
+    "brain_permutation_p_median": 0.0033222591362126247,
+    "brain_beats_behavior": true,
+    "brain_significant_vs_null": true
+  },
+  "negative_control": {
+    "dissociation": false,
+    "arms_r2": {
+      "content_only": {
+        "mean": -0.1272249898493095,
+        "ci95": [
+          -0.15163167665917773,
+          -0.10268037037800286
+        ]
+      },
+      "behavior_only": {
+        "mean": -0.04477022443977802,
+        "ci95": [
+          -0.056630654467812784,
+          -0.03212449125950021
+        ]
+      },
+      "brain_only": {
+        "mean": -0.051193917524268454,
+        "ci95": [
+          -0.06397219089642686,
+          -0.03989968370823344
+        ]
+      },
+      "brain_plus_content": {
+        "mean": -0.13634393499570313,
+        "ci95": [
+          -0.163731057994641,
+          -0.10923082111549423
+        ]
+      },
+      "all": {
+        "mean": -0.1296727453361062,
+        "ci95": [
+          -0.15536767782824953,
+          -0.10281233547896847
+        ]
+      }
+    },
+    "arms_crps": {
+      "content_only": 0.5898176333696721,
+      "behavior_only": 0.5689461560465555,
+      "brain_only": 0.5705975797239591,
+      "brain_plus_content": 0.5924384698790843,
+      "all": 0.5901833742758413
+    },
+    "brain_minus_behavior_r2": {
+      "mean": -0.006423693084490434,
+      "ci95": [
+        -0.013439091298855076,
+        -0.0003560819693103963
+      ]
+    },
+    "brain_minus_content_r2": {
+      "mean": -0.00911894514639362,
+      "ci95": [
+        -0.017892841238431243,
+        -0.0023623916673800004
+      ]
+    },
+    "brain_permutation_p_median": 0.9036544850498338,
+    "brain_beats_behavior": false,
+    "brain_significant_vs_null": false
+  },
+  "pipeline_valid": true
+}

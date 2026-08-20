@@ -130,6 +130,50 @@ def fit_agent(X: np.ndarray, y: np.ndarray, l2: float = 1e-2) -> np.ndarray:
     return res.x
 
 
+def fit_agents_pooled(Xs: List[np.ndarray], ys: List[np.ndarray], n_iter: int = 6,
+                      shrink_floor: float = 1e-3) -> List[np.ndarray]:
+    """Empirical-Bayes partial pooling of the logistic coefficients across agents (C4).
+
+    Each agent's beta is fit with a Gaussian prior N(mu_pop, diag(sigma2_pop)); the population mean
+    and variance are re-estimated across agents each iteration (an EM-style loop). At low
+    decisions-per-agent this borrows strength across the population and lowers per-agent estimate
+    variance, which is the mechanism the paper claims lowers the effective MDES. The affective
+    coefficients, which genuinely share a tight population, are shrunk more than the idiosyncratic
+    integrative ones, exactly as the AIM split predicts.
+    """
+    n_agents = len(Xs)
+    d = Xs[0].shape[1]
+    # init: unpooled fits
+    betas = [fit_agent(Xs[i], ys[i]) for i in range(n_agents)]
+    B = np.array(betas)
+    mu = B.mean(axis=0)
+    sig2 = np.clip(B.var(axis=0), shrink_floor, None)
+    for _ in range(n_iter):
+        # E-step: MAP fit of each agent under the current population prior
+        new = []
+        for i in range(n_agents):
+            lam = 1.0 / sig2  # per-coordinate prior precision
+            new.append(_map_agent(Xs[i], ys[i], mu, lam))
+        B = np.array(new)
+        # M-step: update population mean/var
+        mu = B.mean(axis=0)
+        sig2 = np.clip(B.var(axis=0), shrink_floor, None)
+    return [B[i] for i in range(n_agents)]
+
+
+def _map_agent(X: np.ndarray, y: np.ndarray, mu: np.ndarray, lam: np.ndarray) -> np.ndarray:
+    """MAP logistic fit with a Gaussian prior N(mu, diag(1/lam)) on beta."""
+    def obj(beta):
+        z = X @ beta
+        logp = -np.logaddexp(0.0, -z); logq = -np.logaddexp(0.0, z)
+        nll = -np.sum(y * logp + (1 - y) * logq) + 0.5 * np.sum(lam * (beta - mu) ** 2)
+        p = 1.0 / (1.0 + np.exp(-z))
+        grad = X.T @ (p - y) + lam * (beta - mu)
+        return nll, grad
+    res = optimize.minimize(obj, mu.copy(), jac=True, method="L-BFGS-B")
+    return res.x
+
+
 def recover_ratios(beta: np.ndarray) -> Dict[str, float]:
     """Map logistic coefficients back to affective/integrative ratios.
 
@@ -219,6 +263,58 @@ def run_e1(n_agents: int = 60, trials_grid: Tuple[int, ...] = (200, 500, 1000, 2
     }
 
 
+def _recovery_r_for_betas(betas: List[np.ndarray], truth: Dict[str, np.ndarray],
+                          params: List[str]) -> Dict[str, float]:
+    rec = {k: np.empty(len(betas)) for k in params}
+    for i, b in enumerate(betas):
+        rr = recover_ratios(b)
+        for k in params:
+            rec[k][i] = rr[k]
+    return {k: float(stats.pearsonr(truth[k], rec[k])[0]) for k in params}
+
+
+def run_e4(n_agents: int = 60, trials_grid: Tuple[int, ...] = (150, 300, 600),
+           n_seeds: int = 20) -> Dict[str, object]:
+    """C4: hierarchical pooling lifts low-n recovery. Compares unpooled vs pooled recovery r."""
+    pop = Population()
+    params = ["loss_aversion", "threat", "risk", "discount"]
+    out: Dict[str, object] = {"experiment": "E4_pooling", "design": {
+        "n_agents": n_agents, "trials_grid": list(trials_grid), "n_seeds": n_seeds}}
+    curve = {}
+    for nt in trials_grid:
+        unp = {k: [] for k in params}; poo = {k: [] for k in params}
+        for s in range(n_seeds):
+            rng = np.random.default_rng(1000 + s)
+            theta = pop.sample_theta(rng, n_agents)
+            truth = true_ratios(theta)
+            Xs, ys = [], []
+            for i in range(n_agents):
+                ti = {k: float(theta[k][i]) for k in theta}
+                X = sample_contexts(rng, nt); Xs.append(X)
+                ys.append(simulate_agent_choices(rng, X, ti))
+            betas_unp = [fit_agent(Xs[i], ys[i]) for i in range(n_agents)]
+            betas_poo = fit_agents_pooled(Xs, ys)
+            ru = _recovery_r_for_betas(betas_unp, truth, params)
+            rp = _recovery_r_for_betas(betas_poo, truth, params)
+            for k in params:
+                unp[k].append(ru[k]); poo[k].append(rp[k])
+        entry = {}
+        for k in params:
+            u = np.array(unp[k]); p = np.array(poo[k])
+            delta = H.bootstrap_ci(p - u, statistic=np.mean, seed=0)
+            entry[k] = {"channel": "affective" if k in AFFECTIVE else "integrative",
+                        "unpooled_r": float(u.mean()), "pooled_r": float(p.mean()),
+                        "delta_r": float((p - u).mean()), "delta_ci95": [delta["lo"], delta["hi"]],
+                        "pooling_helps": bool(delta["lo"] > 0)}
+        curve[str(nt)] = entry
+    out["curve"] = curve
+    # summary: does pooling help affective recovery at the smallest n (CI excludes 0)?
+    smallest = str(trials_grid[0])
+    out["affective_pooling_helps_at_min_n"] = bool(all(
+        curve[smallest][k]["pooling_helps"] for k in AFFECTIVE))
+    return out
+
+
 if __name__ == "__main__":
     import json
 
@@ -241,3 +337,16 @@ if __name__ == "__main__":
     print("affective kill criterion (at n=%d):" % max(grid),
           "PASS" if res["affective_kill_criterion_pass"] else "FAIL")
     print("->", path)
+
+    # E4 pooling
+    e4 = run_e4()
+    p4 = os.path.join(root, "results", "e4_pooling.json")
+    with open(p4, "w") as fh:
+        json.dump(e4, fh, indent=2)
+    print("\nE4 pooling (unpooled -> pooled recovery r), smallest n = %d/agent:" % e4["design"]["trials_grid"][0])
+    sm = str(e4["design"]["trials_grid"][0])
+    for k, e in e4["curve"][sm].items():
+        star = "  (CI>0)" if e["pooling_helps"] else ""
+        print(f"  {k:<14s} [{e['channel']:<11s}] {e['unpooled_r']:.3f} -> {e['pooled_r']:.3f}"
+              f"  d={e['delta_r']:+.3f}{star}")
+    print("affective pooling helps at min n:", e4["affective_pooling_helps_at_min_n"], "->", p4)

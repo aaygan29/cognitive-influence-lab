@@ -44,10 +44,23 @@ abstention on sparse records (C5) matter, and it is the reason a single presiden
 confident one. Identifiability of the decision temperature tau needs reaction times (DDM), added in
 Step 3.
 
-### Next action (Step 3)
-Wire the estimator to the real NARPS/DEAP loaders in the `behavioral_decoding` harness; add the
-hierarchical-pooling variant and show it lifts low-n recovery (previews C4); run E3 affective-vs-
-behavioral transfer with the harness permutation null. Every number through the honesty layer.
+### Step 3 DONE (C3, C4 operating characteristics)
+- **E4 pooling (C4)** `results/e4_pooling.json`, Fig 6: empirical-Bayes partial pooling lifts low-n
+  recovery, CI on improvement excludes 0 for all ratios at 150 decisions/agent (loss aversion
+  0.10->0.30, threat 0.15->0.27, risk 0.09->0.44, discount 0.15->0.44). Mechanism for lower MDES.
+- **E3 transfer (C3)** `results/e3_transfer.json`, Fig 5: positive/negative control on the pipeline.
+  Positive control (market tracks affect): brain arm oosR2 0.845 > behavior 0.731, Delta R2 +0.114
+  CI[+0.092,+0.137], permutation p=0.003. Negative control (market = noise): all arms at chance,
+  permutation p=0.90, no arm beats another. **pipeline_valid = True.** Honest framing: this validates
+  operating characteristics on synthetic data; the empirical claim runs on real NARPS/DEAP.
+- Tests: 10 green (6 honesty + 4 pipeline). Estimator, pooling, transfer all covered.
+
+### Next action (Step 4: C5 + C6)
+Build the inverse-inference + attribution-scale ladder (C6) and the abstention-on-confounded-targets
+demonstration (C5) as simulations: nested attribution scopes S1..S6, show inverse identifiability
+degrades and abstention rises as scope narrows (the predicted dose-response), with the gate firing at
+the individual scope. Real president decision corpus (2 blind coders + kappa) remains the deployment.
+Real NARPS/DEAP wiring to the harness loaders also remains the empirical deployment for C3.
 
 ### Open risks being tracked
 - Gate 3 specificity: affective/integrative split must beat content-blind 2-factor PCA.

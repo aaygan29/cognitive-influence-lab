@@ -150,8 +150,44 @@ ones are dominated by the integrative (individuating) component.
   interpretation, never measured firing. `[TBD-Ex6]`
 
 ## 5. Results
-`[populated from results/*.json as experiments land; every number carries seed, CI, null, score,
-provenance stamp]`
+
+The results below are validations of the estimator and the honesty layer on controlled data:
+parameter recovery against known ground truth (E1), the coverage/calibration/abstention guarantees
+of the honesty layer (E2), pooling's effect on low-data recovery (E4), and positive/negative
+controls on the transfer pipeline's operating characteristics (E3). They establish that the
+instrument measures what it claims and does not manufacture effects; the empirical neuroforecasting
+claim itself is evaluated on real fMRI/EEG (NARPS, DEAP), the deployment step (Section 7).
+
+**E1 (C1) Identifiability, and its data requirement (Fig 3, Table 2).** Recovery of the affective
+phenotype ratios rises with decisions per agent (20 seeds, 60 agents). Raw logistic coefficients
+recover at r = 0.53 to 0.88 across 200 to 2000 decisions/agent, confirming the model is well
+specified. The scale-free affective ratios reach the r >= 0.6 criterion by roughly 1000 to 2000
+decisions/agent (threat r = 0.60 at 1000 and 0.73 at 2000; loss aversion r = 0.69 at 2000) and are
+underdetermined at 200. This data requirement is the quantitative motivation for pooling (C4) and for
+abstention on sparse records (C5). The decision temperature tau is not identifiable from choice alone
+and is recovered from reaction times with the full DDM (future work, Section 7).
+
+**E2 (C2) Honest-by-construction (positive control, `results/e2_honesty_selfcheck.json`).**
+Split-conformal intervals achieve nominal coverage (empirical 0.90 at nominal 0.90 on a
+heteroscedastic problem, within 0.03); a well-specified probability model has expected calibration
+error 0.018; the MDES gate abstains on an underpowered effect (r = 0.15 at n = 50) and reports a
+powered one (r = 0.30 at n = 500). The layer delivers coverage, calibration, and abstention as
+designed.
+
+**E4 (C4) Pooling buys power (Fig 6).** Empirical-Bayes partial pooling lifts low-data recovery: at
+150 decisions/agent, recovery r improves for every ratio with a bootstrap CI on the improvement
+excluding zero (loss aversion 0.10 to 0.30, threat 0.15 to 0.27, risk 0.09 to 0.44, discount 0.15 to
+0.44; 20 seeds). Borrowing strength across the population reduces per-agent estimate variance, the
+mechanism behind a lower effective MDES.
+
+**E3 (C3) Transfer pipeline operating characteristics (Fig 5).** On the positive control, where the
+aggregate market outcome tracks the affective latent by construction, the aggregate affective (brain)
+arm forecasts held-out stimuli better than the aggregate behavioral arm (out-of-sample R2 0.845 vs
+0.731; brain-minus-behavior Delta R2 = +0.114, 95% CI [+0.092, +0.137]; stimulus-grouped permutation
+p = 0.003). On the negative control, where the market is independent noise, no arm exceeds chance and
+the permutation null is not rejected (brain R2 = -0.05, permutation p = 0.90, brain-minus-behavior CI
+includes 0). The pipeline detects the dissociation only when it exists. This is a synthetic
+positive/negative control on operating characteristics, not the empirical claim.
 
 ## 6. Discussion (Step 5)
 Operating characteristics: where the method works, at what n, with what coverage. Extension to state
