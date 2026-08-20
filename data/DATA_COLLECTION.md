@@ -7,7 +7,7 @@ one gotcha. Provenance stamps (id + version + split hash) go into every `results
 
 | id | route | license | modality | grounds | status |
 |---|---|---|---|---|---|
-| **NARPS ds001734** | OpenNeuro (public) | CC0 | fMRI, mixed-gambles reward | affective channel via NAcc/vmPFC/AIns betas; individual accept/reject | loader BUILT in harness (`io/narps.py`); not yet run on real download here |
+| **NARPS ds001734** | OpenNeuro (public) | CC0 | fMRI, mixed-gambles reward | affective channel via NAcc/AIns betas; individual accept/reject | **DOWNLOADED + RUN**: 432 events.tsv (behavioral, all 108 subj) used in `src/real_narps.py`; fmriprep MNI BOLD streamed per-subject in `src/real_narps_fmri.py` (neural grounding arm) |
 | **DEAP** | licensed download (request) | academic EULA | EEG + peripheral + face + self-report | AIM-EEG affective features (Cue-P3, CNV per Fernandes 2022); YouTube view-count aggregate outcome | loader BUILT in harness (`io/deap.py`); download pending |
 
 Gotchas (from harness docs, already handled): DEAP 4–45Hz bandpass (no delta), label order

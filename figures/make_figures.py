@@ -186,6 +186,42 @@ def fig3_recovery():
     return _save(fig, "fig3_recovery")
 
 
+def fig8_real_narps():
+    """Real NARPS results: loss-aversion distribution by group + held-out prediction summary."""
+    p = os.path.join(RESULTS, "real_narps.json")
+    if not os.path.exists(p):
+        return None
+    with open(p) as fh:
+        res = json.load(fh)
+    lams = {"equalRange": [], "equalIndifference": []}
+    for s, v in res["per_subject"].items():
+        if not v.get("abstained") and v.get("group") in lams:
+            lams[v["group"]].append(v["loss_aversion"])
+    fig, (axL, axR) = plt.subplots(1, 2, figsize=(6.5, 3.0), gridspec_kw={"width_ratios": [1.3, 1.0]})
+    bins = np.linspace(0, 4, 25)
+    for g, c in [("equalIndifference", CB["blue"]), ("equalRange", CB["orange"])]:
+        v = np.array(lams[g])
+        axL.hist(v, bins=bins, alpha=0.55, color=c, label=f"{g} (md {np.median(v):.2f})", edgecolor="none")
+        axL.axvline(np.median(v), color=c, lw=1.2, ls="--")
+    axL.axvline(1.0, color=CB["grey"], lw=0.9, ls=":")
+    axL.text(1.02, axL.get_ylim()[1] * 0.9, "$\\lambda=1$", fontsize=6.5, color=CB["grey"])
+    axL.set_xlabel("loss aversion $\\lambda = |b_{loss}|/|b_{gain}|$"); axL.set_ylabel("subjects")
+    axL.legend(frameon=False, fontsize=6.5, loc="upper right")
+    axL.set_title("real NARPS choices (n=%d)" % res["n_subjects_used"], fontsize=8)
+    # right panel: held-out prediction + coverage summary as a small bar
+    pr = res["RN1_prediction"]; h = res["RN2_honesty"]
+    metrics = ["oos AUC", "coverage", "1-ECE", "brier vs\nbase"]
+    vals = [pr["mean_oos_auc"], h["median_conformal_coverage"], 1 - h["median_ece"],
+            1 - pr["median_oos_brier"] / pr["median_baserate_brier"]]
+    axR.bar(range(len(metrics)), vals, color=[CB["green"], CB["blue"], CB["purple"], CB["orange"]],
+            edgecolor=CB["black"], linewidth=0.6)
+    axR.set_xticks(range(len(metrics))); axR.set_xticklabels(metrics, fontsize=6.5)
+    axR.set_ylim(0, 1.05); axR.axhline(0.5, color=CB["grey"], lw=0.8, ls=":")
+    axR.set_title("held-out prediction + honesty", fontsize=8)
+    fig.tight_layout()
+    return _save(fig, "fig8_real_narps")
+
+
 def fig7_scale_ladder_result():
     """Identifiability + abstention vs attribution scope, from e6_scale_ladder.json (C5, C6)."""
     p = os.path.join(RESULTS, "e6_scale_ladder.json")
@@ -262,7 +298,7 @@ def fig5_transfer():
 
 def _result_figs():
     made = []
-    for fn in (fig3_recovery, fig6_pooling, fig5_transfer, fig7_scale_ladder_result):
+    for fn in (fig3_recovery, fig6_pooling, fig5_transfer, fig7_scale_ladder_result, fig8_real_narps):
         r = fn()
         if r:
             made.append(r)

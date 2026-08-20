@@ -84,6 +84,23 @@ Step 3.
   calibration). README + ROADMAP status banners added. Steps 1-5 done on controlled data; step 6 =
   real-data deployment scoped as future work.
 
+### REAL DATA run (NARPS ds001734) — behavioral arm DONE
+`src/real_narps.py`, `results/real_narps.json`, Fig 8. Downloaded all 432 events.tsv (108 subjects,
+27,454 real accept/reject choices + RTs) from OpenNeuro (CC0).
+- **RN1 (C1 real):** loss aversion recovered from real choices; by the study's range manipulation:
+  equalIndifference median lambda=1.45 (matches Tom 2007), equalRange median=1.00 (range adaptation).
+  Held-out choice prediction mean AUC=0.958 CI[0.951,0.964], Brier 0.061 vs base 0.233.
+- **RN2 (C2 real):** conformal coverage 1.00 (>=0.90, conservative), ECE 0.034, gate abstains 1%.
+- **RN3 (C4 real):** pooling barely moves lambda SD (0.80->0.78) because every subject has ~256
+  trials (high-n regime where synthetic E4 predicted little pooling gain — controlled + real agree).
+- **RN4 (DDM signature real):** median corr(|net value|, RT) = -0.30 (n=107); bigger value -> faster
+  choice, the evidence-accumulation signature; motivates full-DDM tau.
+C1/C2/C4 now validated on REAL human decisions.
+
+**fMRI affective-grounding arm** `src/real_narps_fmri.py`: streams fmriprep MNI BOLD per subject,
+GLM with gain/loss regressors, NAcc/insula spheres. First pass had NAcc reading 0.0 (mask/FOV issue);
+being fixed with a cached volume before reporting. NOT yet a reported result (honesty: no buggy number).
+
 ### Remaining deployment work (real data)
 1. Wire the estimator to the harness NARPS (fMRI) + DEAP (EEG) loaders and run E3 on real neural data
    (the empirical neuroforecasting test, vs the synthetic operating-characteristic control done here).

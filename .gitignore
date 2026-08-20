@@ -10,3 +10,7 @@ data/downloads/
 *.edf
 *.bdf
 *.dat
+
+# NARPS large volumes (keep events tsv, ignore niftis + tmp)
+data/narps/fmri_cache/
+data/narps/fmri_tmp/

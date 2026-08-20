@@ -95,7 +95,12 @@ Steps 1-5 complete on controlled data; step 6 (real-data deployment) is scoped a
 | C5/C6 | E6 scale ladder | identifiability falls (0.35->0.11), abstention rises (0.16->0.86) S1->S6 | PASS |
 | ext. | E7 state shift | threat-elevated state recovered (+0.73, CI>0), null control | PASS |
 
-Real fMRI/EEG (NARPS, DEAP) and a coded decision corpus are the deployment step (see paper Section 10).
+**Real data (NARPS ds001734, 108 subjects, 27,454 real choices):** C1/C2/C4 validated on real human
+decisions. Loss aversion λ=1.45 (equalIndifference) / 1.00 (equalRange, range-adapted); held-out
+choice prediction AUC=0.96; conformal coverage holds; RT shows the DDM evidence-accumulation signature
+(r=−0.30). See `src/real_narps.py`, `results/real_narps.json`, Fig 8. The real fMRI affective-grounding
+arm (`src/real_narps_fmri.py`, NAcc/insula betas) streams the fmriprep volumes and is being brought
+online. A coded decision corpus (C5/C6 real) remains future work (paper Section 10).
 
 ## Checkpoint protocol (so nothing is lost)
 

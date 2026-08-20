@@ -29,8 +29,9 @@ turning a failure mode into a tested safety property. As an extension (C6) we ru
 reverse, inferring the latent affective posture most consistent with a documented decision, and we
 show that this inverse inference is scale-dependent: identifiable at aggregate attribution scopes
 and degrading to abstention at the individual scope, a dose-response that turns the attribution
-confound into a measured axis. All results here are validations on controlled data with known ground
-truth; application to real fMRI/EEG and a coded decision corpus is the deployment step.
+confound into a measured axis. The estimator, honesty layer, and pooling (C1, C2, C4) are then validated on real human
+decisions from the NARPS mixed-gambles fMRI dataset; the real neural and coded-corpus arms are the
+remaining deployment.
 
 ## 1. Introduction
 
@@ -62,6 +63,9 @@ truth; application to real fMRI/EEG and a coded decision corpus is the deploymen
   discipline (Huys, Montague); neural latent-state inference (Schiereck et al. 2025; Blanco-Pozo et al.
   2024). Prospect theory in foreign-policy decision-making (McDermott; Levy), where leaders' latent
   risk postures are explicitly *inferred* from choices, motivates the attribution-scale ladder.
+- **Real-data paradigm:** the mixed-gambles reward task (Tom, Fox, Trepel & Poldrack 2007) and its
+  large public replication dataset NARPS (Botvinik-Nezer et al. 2019 Sci Data; 2020 Nature) supply real
+  human loss-aversion choices and reward-anticipation fMRI.
 - **Gap we fill:** no prior work unifies AIM decomposition + a choice-process likelihood +
   distribution-free coverage + an identifiability-linked abstention gate in one estimator, nor
   evaluates abstention as a safety property on confounded real-world decision records.
@@ -224,6 +228,32 @@ excluding zero, tracking the true shift at r = 0.35 across 60 entities, 10 seeds
 negative control recovers no shift (mean +0.002, CI includes zero). The same estimator that fits a
 stable phenotype also detects its transient displacement under a state.
 
+### 5.1 Real data: the phenotype on NARPS ds001734 (Fig 8)
+We ran the estimator on real human choices from the NARPS mixed-gambles task (Botvinik-Nezer et al.
+2019; the Tom, Fox, Trepel & Poldrack 2007 paradigm): 108 subjects, 27,454 accept/reject decisions
+over 50/50 gain-vs-loss gambles, with reaction times (OpenNeuro ds001734, CC0, events only).
+
+- **RN1 (C1 on real data).** Per-subject loss aversion lambda = |b_loss|/|b_gain| recovered from real
+  choices, split by the study's range manipulation: the equalIndifference group (asymmetric gain/loss
+  range, as in Tom 2007) has median lambda = 1.45, while the equalRange group (symmetric range) has
+  median lambda = 1.00, the known range-adaptation of loss aversion. Within-subject held-out choice
+  prediction: mean out-of-sample AUC = 0.958 (95% CI [0.951, 0.964]), Brier 0.061 vs a base-rate Brier
+  of 0.233.
+- **RN2 (C2 on real data).** Split-conformal coverage on real held-out choices is 1.00 (>= the 0.90
+  nominal, conservative because the label set is small and predictions are confident), expected
+  calibration error 0.034; the identifiability gate abstains on 1% of subjects.
+- **RN3 (C4 on real data).** Empirical-Bayes pooling reduces the loss-aversion SD only slightly
+  (0.80 -> 0.78), because every NARPS subject has ~256 trials, the high-n regime where the synthetic
+  E4 predicted pooling helps least. The controlled and real results agree on when pooling matters.
+- **RN4 (DDM signature on real data).** Reaction time correlates negatively with net decision-value
+  magnitude (median r = -0.30 across 107 subjects): larger value magnitude, faster choice, the
+  evidence-accumulation signature the DDM predicts, motivating the reaction-time DDM for tau.
+
+So C1, C2, and C4 hold on real human decisions, not only in simulation. The real fMRI affective arm
+(does NAcc track gain and insula track loss, and does neural loss aversion correlate with the
+behavioral phenotype) uses the fmriprep-preprocessed NARPS volumes and is reported separately as it
+comes online; it grounds the affective channel but is a subset-of-subjects, single-run analysis.
+
 ## 6. Discussion
 
 **Operating characteristics, in one place.** The experiments jointly map where the instrument works.
@@ -304,6 +334,7 @@ See `figures/FIGURES.md`. All figures are vector PDF; Tables 1-2 are `booktabs` 
 predicted dose-response, schematic hypothesis (`fig2_scale_ladder`); Fig 3 parameter-recovery curve
 (`fig3_recovery`); Fig 5 transfer arms, positive vs negative control (`fig5_transfer`); Fig 6
 unpooled vs pooled recovery (`fig6_pooling`); Fig 7 attribution-scale ladder result, identifiability
-and abstention vs scope (`fig7_scale_ladder_result`). Table 1 central claims (`claims.tex`); Table 2
+and abstention vs scope (`fig7_scale_ladder_result`); Fig 8 real NARPS loss-aversion by group +
+held-out prediction and honesty (`fig8_real_narps`). Table 1 central claims (`claims.tex`); Table 2
 experiments and pass criteria (`experiments.tex`). A calibration figure for E2 renders from the
 honesty self-check when its coverage sweep is exported.
