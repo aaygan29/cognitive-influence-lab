@@ -73,6 +73,13 @@ def test_scale_ladder_dose_response():
     assert abc[-1] > 0.5  # individual scope mostly abstains
 
 
+def test_state_shift_recovers_direction():
+    import states as S
+    res = S.run_e7(n_entities=25, n_trials=1200, n_seeds=2)
+    assert res["positive_control"]["detects_shift"] is True
+    assert res["negative_control"]["detects_shift"] is False
+
+
 if __name__ == "__main__":
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_") and callable(v)]
     for fn in fns:

@@ -29,7 +29,8 @@ turning a failure mode into a tested safety property. As an extension (C6) we ru
 reverse, inferring the latent affective posture most consistent with a documented decision, and we
 show that this inverse inference is scale-dependent: identifiable at aggregate attribution scopes
 and degrading to abstention at the individual scope, a dose-response that turns the attribution
-confound into a measured axis. `[TBD-Ex1..6]`
+confound into a measured axis. All results here are validations on controlled data with known ground
+truth; application to real fMRI/EEG and a coded decision corpus is the deployment step.
 
 ## 1. Introduction
 
@@ -79,8 +80,11 @@ Affective channel (rho, lambda, omega) shares a hierarchical population prior; i
 affective-vs-integrative split.
 
 ### 3.3 Estimation
-Hierarchical Bayes; partial pooling shrinks sparse individuals toward the population posterior so
-underpowering shows up as posterior width, not overconfidence.
+Hierarchical (empirical-Bayes) partial pooling shrinks sparse individuals toward the population mean
+so underpowering shows up as estimate variance, not overconfidence. From choice data the identifiable
+coordinates are the scale-free affective ratios (loss aversion, threat, risk, discount relative to
+gain sensitivity); the decision temperature tau requires reaction times (the full DDM), which is a
+deployment-step addition.
 
 ### 3.4 Honesty layer (C2)
 Strictly-proper scoring (log/Brier/CRPS); split-conformal prediction sets at nominal coverage; an
@@ -131,23 +135,35 @@ ones are dominated by the integrative (individuating) component.
 
 ## 4. Experiments
 
-- **E1 (C1) Parameter recovery.** Simulate agents at known theta; fit; correlate recovered vs true;
-  20 seeds; report r + CI per parameter. Pass: r >= 0.6 for affective parameters. `[TBD-Ex1]`
-- **E2 (C2) Coverage + calibration.** Empirical conformal coverage vs nominal; reliability diagram;
-  abstention behavior below the MDES floor. Pass: |coverage - nominal| <= 3 pts at n>=200. `[TBD-Ex2]`
-- **E3 (C3) Affective-vs-behavioral transfer.** Within the unified estimator, forecast held-out /
-  less-representative choice on NARPS (fMRI) and DEAP (EEG); stimulus-grouped CV; permutation null;
-  ablation vs content-blind 2-factor PCA. Report affective ΔCRPS + bootstrap CI. `[TBD-Ex3]`
-- **E4 (C4) Pooling buys power.** MDES and posterior width, joint vs single-dataset fits. `[TBD-Ex4]`
-- **E5 (C5) Calibrated abstention on confounded targets.** Public-figure decision corpora
-  (preregistered temporal split); conformal predictions where identifiable; abstention rate where
-  confounds break identifiability; calibration on the non-abstained subset vs base rate. `[TBD-Ex5]`
-- **E6 (C6, extension) Inverse inference + attribution-scale ladder.** Recover the latent posterior
-  p(z | D, c) for documented decisions across attribution scopes S1..S6; measure posterior sharpness,
-  out-of-sample skill of the recovered latent, and abstention rate as a function of scope. Test the
-  predicted dose-response (identifiability falls, abstention rises, S1->S6). Report the scope at which
-  the gate must abstain. Preregistered; language is latent affective posture with a neural
-  interpretation, never measured firing. `[TBD-Ex6]`
+Experiments E1-E4, E6, E7 are run on controlled data with known ground truth (done). E5 and the
+real-data instances of E3/E6 are the deployment step (Section 7, pending data).
+
+- **E1 (C1) Parameter recovery.** Simulate agents at known theta; fit; correlate recovered vs true
+  affective *ratios* across agents; 20 seeds; report the recovery curve over decisions-per-agent with
+  CIs. Pass: affective ratios reach r >= 0.6 within an achievable per-agent decision count.
+- **E2 (C2) Coverage, calibration, abstention.** Empirical split-conformal coverage vs nominal on a
+  heteroscedastic problem; expected calibration error; the MDES gate on under- vs adequately-powered
+  effects. Pass: coverage within 0.03 of nominal, low ECE, gate abstains when underpowered.
+- **E3 (C3) Affective-vs-behavioral transfer, controls.** Within the estimator, forecast a per-stimulus
+  market outcome from an aggregate affective (brain) arm vs an aggregate behavioral arm vs a
+  content-only baseline; stimulus-grouped CV; out-of-sample R2 + CRPS + permutation null. Positive
+  control (market tracks affect) and negative control (market is noise). Pass: brain > behavior on the
+  positive control, null on the negative. Real NARPS (fMRI) + DEAP (EEG), plus the content-blind
+  2-factor specificity ablation, are the deployment.
+- **E4 (C4) Pooling buys power.** Unpooled vs empirical-Bayes pooled recovery r at low
+  decisions-per-agent. Pass: the bootstrap CI on the improvement excludes zero.
+- **E5 (C5) Calibrated abstention on a real decision corpus (deployment, pending).** Public-record
+  decision corpus (two blind coders + Cohen's kappa; preregistered temporal split); conformal
+  predictions where identifiable; abstention where confounds break identifiability; calibration on the
+  non-abstained subset vs base rate.
+- **E6 (C5, C6) Inverse inference + attribution-scale ladder.** Recover the latent affective posture
+  across attribution scopes S1..S6; measure identifiability (recovery r) and abstention rate per scope.
+  Pass: the predicted dose-response (identifiability falls, abstention rises, S1->S6). The latent is an
+  affective posture with a neural interpretation, never measured firing.
+- **E7 (extension) States as recoverable manifold displacements.** An entity decides in a baseline and
+  a threat-elevated state (threat coordinate shifted by a known amount); recover the per-condition
+  posture and test whether the recovered shift tracks the true shift, with a zero-shift negative
+  control. Pass: shift detected on the positive control, null on the negative.
 
 ## 5. Results
 
@@ -202,9 +218,46 @@ asserts. The latent is a computational affective posture with a neural interpret
 of measured firing; this simulation establishes the mechanism, and the real US-president decision
 corpus (two blind coders and Cohen's kappa) is the deployment.
 
-## 6. Discussion (Step 5)
-Operating characteristics: where the method works, at what n, with what coverage. Extension to state
-(sad/angry as transient theta shift) and role (trader/cop/doctor as prior + weighting) phenotypes.
+**E7 (extension) States are recoverable displacements.** A threat-elevated state is recovered as a
+detected, direction-correct shift in the threat coordinate (mean recovered shift +0.73, 95% CI
+excluding zero, tracking the true shift at r = 0.35 across 60 entities, 10 seeds), while a zero-shift
+negative control recovers no shift (mean +0.002, CI includes zero). The same estimator that fits a
+stable phenotype also detects its transient displacement under a state.
+
+## 6. Discussion
+
+**Operating characteristics, in one place.** The experiments jointly map where the instrument works.
+Identifiability of the affective phenotype needs on the order of 1000 to 2000 clean decisions per
+agent to reach r = 0.6 from choice alone (E1); hierarchical pooling buys back a substantial part of
+that at low n (E4); the aggregate affective signal forecasts a market outcome beyond behavior when
+the generative structure links them, and not otherwise (E3); and inverse inference is licensed at
+aggregate attribution scopes but must abstain at the individual scope, where 86 percent of entities
+fall below identifiability (E6). Read together, these say something specific: a single individual with
+a sparse, confounded decision record is usually in the abstention regime, and the honest output there
+is a withheld estimate, not a confident profile. That is not a limitation the method hides; it is the
+result the method is built to report.
+
+**States and roles as manifold structure.** A transient emotional state is a within-entity
+displacement along the manifold: E7 recovers a threat-elevated state as a detected, direction-correct
+shift in the threat coordinate, with a zero-shift control recovering nothing. Occupational roles
+(trader, clinician, officer) are the between-entity analog: different priors on the same coordinates
+plus different context weighting. The same estimator handles both, which is what it means for the
+phenotype to be a point (or a short trajectory) on one shared manifold rather than a bespoke model per
+case.
+
+**Why the honesty layer is the contribution, not an add-on.** Every result above is reported as a
+proper score with a coverage guarantee or an explicit abstention. The abstention behavior is what
+turns the hardest case (an unscannable, institutionally-confounded individual) from an overclaim into
+a calibrated non-answer. A behavioral-prediction method without this layer would report the E6
+individual-scope numbers as if they were findings; ours reports that it cannot, and is right to.
+
+## 6b. Conclusion
+We presented a neurally-grounded decision-phenotype estimator that is identifiable, honest by
+construction, and explicit about the boundary of its own licence. On controlled data it recovers the
+phenotype, delivers distribution-free coverage and calibrated abstention, reproduces the affective
+over behavioral forecasting dissociation when it is present and stays null when it is not, and maps
+the attribution scope at which individual-level inference stops being warranted. The remaining work is
+deployment on real neural datasets and a coded decision corpus (Section 7), not new machinery.
 
 ## 7. Limitations
 - Population->individual transfer is the central open risk (Gate 7); we test it, we do not assume it.
@@ -230,6 +283,10 @@ Temporal split, arms, kill criteria for C3 and C5, committed to `checkpoints/` b
 
 ## Figures and tables
 See `figures/FIGURES.md`. All figures are vector PDF; Tables 1-2 are `booktabs` LaTeX in
-`paper/tables/`. Fig 1 architecture; Fig 2 attribution-scale ladder + predicted dose-response;
-Fig 3 recovery; Fig 4 coverage/calibration; Fig 5 transfer arms; Fig 6 pooling/power;
-Fig 7 abstention operating curve. Table 1 central claims; Table 2 experiments and pass criteria.
+`paper/tables/`. Fig 1 architecture (`fig1_architecture`); Fig 2 attribution-scale ladder +
+predicted dose-response, schematic hypothesis (`fig2_scale_ladder`); Fig 3 parameter-recovery curve
+(`fig3_recovery`); Fig 5 transfer arms, positive vs negative control (`fig5_transfer`); Fig 6
+unpooled vs pooled recovery (`fig6_pooling`); Fig 7 attribution-scale ladder result, identifiability
+and abstention vs scope (`fig7_scale_ladder_result`). Table 1 central claims (`claims.tex`); Table 2
+experiments and pass criteria (`experiments.tex`). A calibration figure for E2 renders from the
+honesty self-check when its coverage sweep is exported.

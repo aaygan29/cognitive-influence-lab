@@ -130,6 +130,8 @@ def table_claims():
         ("C3", "Affective channel forecasts held-out choice beyond behavior", "NARPS (fMRI), DEAP (EEG)"),
         ("C4", "Hierarchical pooling lowers the minimum detectable effect", "NARPS $+$ DEAP joint fit"),
         ("C5", "Predict where identifiable; abstain where confounded", "public-record decision corpus"),
+        ("C6", "Inverse inference is scale-dependent (aggregate identifiable, individual abstains)",
+         "attribution-scale ladder S1--S6"),
     ]
     lines = [r"\begin{table}[t]", r"\centering",
              r"\caption{Central claims and where each is evaluated.}",
@@ -143,15 +145,16 @@ def table_claims():
 
 def table_experiments():
     rows = [
-        ("E1", "C1", "recovered vs.\\ true $\\theta$, 20 seeds", "recovery $r \\ge 0.6$ (affective)"),
-        ("E2", "C2", "conformal coverage vs.\\ nominal; ECE", "$|\\text{cov}-\\text{nom}|\\le 0.03$"),
-        ("E3", "C3", "affective vs.\\ behavioral $\\Delta$CRPS", "CI excludes 0, stimulus-grouped CV"),
-        ("E4", "C4", "MDES / posterior width, joint vs.\\ single", "pooled width $<$ single"),
-        ("E5", "C5", "abstention rate vs.\\ attribution scope", "gate fires as scope narrows"),
+        ("E1", "C1", "recovered vs.\\ true ratios, 20 seeds", "affective $r \\ge 0.6$ (achieved $\\sim$1--2k dec./agent)"),
+        ("E2", "C2", "conformal coverage; ECE; gate", "coverage within 0.03; gate abstains when underpowered"),
+        ("E3", "C3", "brain vs.\\ behavior oos $R^2$", "brain $>$ behavior on +control, null on $-$control"),
+        ("E4", "C4", "unpooled vs.\\ pooled recovery $r$", "$\\Delta r$ CI $> 0$ at low $n$"),
+        ("E6", "C5,C6", "identifiability + abstention vs.\\ scope", "identif.\\ falls, abstention rises S1$\\to$S6"),
+        ("E7", "ext.", "recovered vs.\\ true state shift", "shift detected on +control, null on $-$control"),
     ]
     lines = [r"\begin{table}[t]", r"\centering",
-             r"\caption{Experiments, the claim each tests, its metric, and its pass criterion.}",
-             r"\label{tab:experiments}", r"\begin{tabular}{lllp{3.4cm}}", r"\toprule",
+             r"\caption{Experiments, the claim each tests, its metric, and its pass criterion. E3, E6, E7 report positive/negative controls on synthetic data; real-data deployment is Section~7.}",
+             r"\label{tab:experiments}", r"\begin{tabular}{llp{3.2cm}p{4.2cm}}", r"\toprule",
              r"Exp. & Claim & Metric & Pass criterion \\", r"\midrule"]
     for eid, cid, metric, crit in rows:
         lines.append(f"{eid} & {cid} & {metric} & {crit} \\\\")

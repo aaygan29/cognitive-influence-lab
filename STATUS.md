@@ -65,6 +65,17 @@ Step 3.
   clause). Simulation of the mechanism; real president corpus (2 blind coders + kappa) = deployment.
 - Tests: 11 green (6 honesty + 5 pipeline incl. scale-ladder dose-response).
 
+### Step 5 DONE (extend + coherence)
+- **E7 state-shift extension** `results/e7_state_shift.json` (`src/states.py`): a threat-elevated
+  state is recovered as a detected, direction-correct posture shift (+0.73, CI>0, tracks true at
+  r=0.35); zero-shift control detects nothing. States = recoverable within-entity manifold
+  displacements; roles = between-entity prior shifts (discussed).
+- **Paper coherence pass:** Discussion (operating-characteristics synthesis) + Conclusion written;
+  abstract/experiments/results reconciled; stale [TBD] markers removed; E1/E3 descriptions aligned to
+  what was actually run; E5 marked as real-corpus deployment (pending), E6 as the simulation; figure
+  list fixed to match generated assets; Tables 1-2 include C6/E6/E7. 12 tests green.
+- Paper now maps cleanly: C1->E1, C2->E2, C3->E3, C4->E4, C5->E5(deploy)+E6, C6->E6, ext->E7.
+
 ### Remaining deployment work (real data)
 1. Wire the estimator to the harness NARPS (fMRI) + DEAP (EEG) loaders and run E3 on real neural data
    (the empirical neuroforecasting test, vs the synthetic operating-characteristic control done here).

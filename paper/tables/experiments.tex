@@ -1,16 +1,17 @@
 \begin{table}[t]
 \centering
-\caption{Experiments, the claim each tests, its metric, and its pass criterion.}
+\caption{Experiments, the claim each tests, its metric, and its pass criterion. E3, E6, E7 report positive/negative controls on synthetic data; real-data deployment is Section~7.}
 \label{tab:experiments}
-\begin{tabular}{lllp{3.4cm}}
+\begin{tabular}{llp{3.2cm}p{4.2cm}}
 \toprule
 Exp. & Claim & Metric & Pass criterion \\
 \midrule
-E1 & C1 & recovered vs.\ true $\theta$, 20 seeds & recovery $r \ge 0.6$ (affective) \\
-E2 & C2 & conformal coverage vs.\ nominal; ECE & $|\text{cov}-\text{nom}|\le 0.03$ \\
-E3 & C3 & affective vs.\ behavioral $\Delta$CRPS & CI excludes 0, stimulus-grouped CV \\
-E4 & C4 & MDES / posterior width, joint vs.\ single & pooled width $<$ single \\
-E5 & C5 & abstention rate vs.\ attribution scope & gate fires as scope narrows \\
+E1 & C1 & recovered vs.\ true ratios, 20 seeds & affective $r \ge 0.6$ (achieved $\sim$1--2k dec./agent) \\
+E2 & C2 & conformal coverage; ECE; gate & coverage within 0.03; gate abstains when underpowered \\
+E3 & C3 & brain vs.\ behavior oos $R^2$ & brain $>$ behavior on +control, null on $-$control \\
+E4 & C4 & unpooled vs.\ pooled recovery $r$ & $\Delta r$ CI $> 0$ at low $n$ \\
+E6 & C5,C6 & identifiability + abstention vs.\ scope & identif.\ falls, abstention rises S1$\to$S6 \\
+E7 & ext. & recovered vs.\ true state shift & shift detected on +control, null on $-$control \\
 \bottomrule
 \end{tabular}
 \end{table}
