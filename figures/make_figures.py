@@ -188,6 +188,39 @@ def fig3_recovery():
     return _save(fig, "fig3_recovery")
 
 
+def fig11_crossdataset():
+    """Cross-dataset: per-dataset loss aversion + out-of-dataset transfer AUC (NARPS + Tom 2007)."""
+    p = os.path.join(RESULTS, "real_crossdataset.json")
+    if not os.path.exists(p):
+        return None
+    with open(p) as fh:
+        res = json.load(fh)
+    ln = np.array(res["_lambda_narps"]); ld = np.array(res["_lambda_ds5"])
+    fig, (axL, axR) = plt.subplots(1, 2, figsize=(6.5, 3.0), gridspec_kw={"width_ratios": [1.1, 1.0]})
+    # left: lambda distributions (strip + median) per dataset
+    for i, (lam, name, c) in enumerate([(ln, "NARPS", CB["blue"]), (ld, "Tom 2007", CB["orange"])]):
+        x = np.full(len(lam), i) + np.random.default_rng(i).normal(0, 0.05, len(lam))
+        axL.scatter(x, lam, s=10, color=c, alpha=0.6, edgecolor="none")
+        axL.hlines(np.median(lam), i - 0.2, i + 0.2, color=CB["black"], lw=1.6)
+        axL.text(i, np.median(lam) + 0.15, f"md {np.median(lam):.2f}", ha="center", fontsize=7)
+    axL.axhline(1.0, color=CB["grey"], lw=0.8, ls=":")
+    axL.set_xticks([0, 1]); axL.set_xticklabels(["NARPS\n(n=108)", "Tom 2007\n(n=16)"], fontsize=7)
+    axL.set_ylabel("loss aversion $\\lambda$"); axL.set_ylim(0, 4)
+    axL.set_title("loss aversion, two datasets", fontsize=8)
+    # right: out-of-dataset transfer AUC
+    t = res["cross_dataset_transfer"]
+    vals = [t["narps_model_predicts_ds000005_auc"], t["ds000005_model_predicts_narps_auc"]]
+    axR.bar([0, 1], vals, color=[CB["blue"], CB["orange"]], edgecolor=CB["black"], linewidth=0.6, width=0.6)
+    axR.axhline(0.5, color=CB["grey"], lw=0.9, ls=":"); axR.text(1.4, 0.51, "chance", fontsize=6.5, color=CB["grey"])
+    for i, v in enumerate(vals):
+        axR.text(i, v + 0.01, f"{v:.2f}", ha="center", fontsize=7)
+    axR.set_xticks([0, 1]); axR.set_xticklabels(["NARPS$\\to$\nTom", "Tom$\\to$\nNARPS"], fontsize=7)
+    axR.set_ylim(0, 1); axR.set_ylabel("out-of-dataset choice AUC")
+    axR.set_title("phenotype transfers across labs", fontsize=8)
+    fig.tight_layout()
+    return _save(fig, "fig11_crossdataset")
+
+
 def fig10_individuation():
     """Individuation + structure: identification vs null, and the phenotype-coordinate coupling."""
     p = os.path.join(RESULTS, "real_narps_individuation.json")
@@ -366,7 +399,7 @@ def fig5_transfer():
 def _result_figs():
     made = []
     for fn in (fig3_recovery, fig6_pooling, fig5_transfer, fig7_scale_ladder_result,
-               fig8_real_narps, fig9_real_narps_fmri, fig10_individuation):
+               fig8_real_narps, fig9_real_narps_fmri, fig10_individuation, fig11_crossdataset):
         r = fn()
         if r:
             made.append(r)

@@ -49,6 +49,8 @@ def main():
     if os.path.isdir(os.path.join(ROOT, "data", "narps", "events")) and \
        len(os.listdir(os.path.join(ROOT, "data", "narps", "events"))) > 0:
         _run("real_narps.py")
+        if os.path.isdir(os.path.join(ROOT, "data", "ds000005", "events")):
+            _run("real_crossdataset.py")
     else:
         print("\n(skipping real_narps.py: NARPS events not downloaded)")
 

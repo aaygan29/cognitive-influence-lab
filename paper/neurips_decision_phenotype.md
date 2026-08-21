@@ -296,6 +296,18 @@ individuating object on real human data, not a curve-fit. Each lens strengthens 
 structure and function under-write C1/C3, individuation under-writes the AIM split and the C5/C6
 individual-scope reasoning.
 
+### 5.4 Cross-dataset generalization: the phenotype transfers across labs (Fig 11)
+We pooled a second, independent mixed-gambles dataset, Tom, Fox, Trepel & Poldrack (2007) (ds000005,
+16 subjects, the original loss-aversion study), with NARPS. Two results. First, replication: the
+Tom-2007 loss aversion median is lambda = 1.94, reproducing the classic value, while NARPS is 1.12
+(diluted by its symmetric-range equalRange group); the distributions legitimately differ (KS
+p = 0.004) because of the range manipulation, not a failure of the estimator. Second, and more
+important, cross-dataset transfer: a valuation model fit on NARPS predicts Tom-2007 choices
+out-of-dataset at AUC 0.86, and a model fit on Tom-2007 predicts NARPS choices at AUC 0.89. The
+affective valuation the estimator recovers is not a per-dataset artifact; trained in one lab it
+forecasts choices collected in another, years apart. This is the strongest real form of the pooling
+and external-validity claims (C4, Gate 7): the phenotype generalizes across datasets.
+
 ## 6. Discussion
 
 **Operating characteristics, in one place.** The experiments jointly map where the instrument works.
@@ -353,6 +365,20 @@ figure regenerates with one command (`python reproduce.py`), which runs all expe
 vector figures and LaTeX tables from the fresh `results/*.json`, runs the test suite, and prints a
 per-claim gate summary.
 
+## 9b. Extension: a temporal-difference front-end for the affective channel
+Our affective channel rests on *anticipatory* affect: NAcc gain-anticipation is a signal about a
+future reward, not the reward itself. Recent work shows how such reward-predictive representations
+form: over learning, hippocampal reward representations shift backward in time from the reward to the
+cues that predict it, a dynamic recapitulated by a temporal-difference (TD) model (Brandon, Williams &
+Pehlevan et al., 2026, predictive coding of reward in the hippocampus). This suggests a principled
+extension: treat the affective value that feeds the drift-diffusion valuation as a *learned* TD
+predictive value rather than a fixed quantity, with our temporal-discount coordinate delta_time
+identified with the TD discount gamma. Individual differences in TD learning (rate, discount) would
+then ground both individual differences in the phenotype and its formation over experience, and would
+give the individuation result (C7) a temporal axis: does a subject's phenotype stabilize as their
+reward representation becomes predictive? This is a modeling extension grounded in a mechanistic
+result, not a claim we test here.
+
 ## 10. Future work (deployment)
 1. **Real neural data.** Wire the estimator to the NARPS (fMRI) and DEAP (EEG) loaders in the
    `behavioral_decoding` harness and run E3 on real recordings, with the content-blind two-factor
@@ -366,6 +392,10 @@ per-claim gate summary.
 4. **Per-person calibration.** Connect to enrollable personal-brain and idiographic-affect pipelines
    for few-shot per-person priors, and run a preregistered replication on a held-out figure and a
    held-out market.
+5. **Power the gain-channel grounding.** Acquire a large Monetary Incentive Delay reward-anticipation
+   fMRI dataset with preprocessed derivatives (many public instances) to bring the NAcc gain-tracking
+   effect (currently p = 0.15) across significance and to push the neural-to-behavioral loss-aversion
+   correlation past its identifiability bound.
 
 ## Appendix A — Preregistration
 Temporal split, arms, kill criteria for C3 and C5, committed to `checkpoints/` before fitting.

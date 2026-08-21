@@ -129,6 +129,23 @@ at n=40 is 0.44, so |r|=0.40 sits just under the bar -> **gate still ABSTAINS** 
 + ratio sign-instability). Loss-channel neural grounding = real significant result; individual
 neural->behavioral link needs larger n or multi-run per-subject estimates. Honest win.
 
+### Cross-dataset generalization DONE (real C4 / external validity)
+`src/real_crossdataset.py`, `results/real_crossdataset.json`, Fig 11. Pooled Tom 2007 ds000005 (16
+subj, PDDL, events only — no fmriprep derivatives so behavioral only).
+- Tom-2007 median lambda=1.94 (replicates the original loss-aversion value); NARPS 1.12 (equalRange
+  dilution); distributions differ by design (KS p=0.004), honestly.
+- TRANSFER: NARPS-trained valuation predicts Tom-2007 choices out-of-dataset AUC=0.86; Tom->NARPS 0.89.
+  The phenotype generalizes across labs -- strongest real form of C4 / Gate-7 external validity.
+
+### TD/predictive-coding extension (paper §9b)
+Folded the Nature 2026 hippocampal predictive-coding-of-reward paper (Brandon/Williams/Pehlevan) in as
+a modeling extension: affective value = a LEARNED TD predictive signal, delta_time <-> TD gamma; gives
+individuation a temporal axis. Honest framing: proposed extension, not tested here.
+
+### Next dataset (to power underpowered neural gain-channel)
+Search term given to user: "monetary incentive delay fMRI" (with fmriprep/MNI derivatives +
+individual-subject). MID isolates NAcc gain-anticipation = the affective coordinate still NS (p=0.15).
+
 ### Remaining deployment work (real data)
 1. Wire the estimator to the harness NARPS (fMRI) + DEAP (EEG) loaders and run E3 on real neural data
    (the empirical neuroforecasting test, vs the synthetic operating-characteristic control done here).

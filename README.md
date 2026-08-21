@@ -105,6 +105,14 @@ both AIM-consistent. The neural↔behavioral loss-aversion correlation strengthe
 just under MDES (0.44) at n=40, so the honesty gate abstains at the boundary. A coded decision corpus
 (C5/C6 real) remains future work (paper Section 10).
 
+**Cross-dataset generalization (`src/real_crossdataset.py`, Fig 11):** pooled a second real dataset,
+Tom et al. 2007 (ds000005, 16 subjects). Tom-2007 median λ=1.94 (replicates the original); a valuation
+model trained on NARPS predicts Tom-2007 choices out-of-dataset at AUC=0.86, and Tom→NARPS at 0.89 —
+the phenotype transfers across labs (C4 / external validity on real data). A TD/predictive-coding
+front-end (Brandon/Williams/Pehlevan 2026, hippocampal reward prediction) is proposed as a modeling
+extension (paper §9b). Next dataset to power the neural gain-channel: a large **MID
+reward-anticipation** fMRI set with derivatives.
+
 ## Checkpoint protocol (so nothing is lost)
 
 - **Git commit at every checkpoint.** No Claude co-author trailer (per user convention). Never push to `main` without explicit ask.

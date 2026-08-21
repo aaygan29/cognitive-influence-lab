@@ -10,6 +10,15 @@ one gotcha. Provenance stamps (id + version + split hash) go into every `results
 | **NARPS ds001734** | OpenNeuro (public) | CC0 | fMRI, mixed-gambles reward | affective channel via NAcc/AIns betas; individual accept/reject | **DOWNLOADED + RUN**: 432 events.tsv (behavioral, all 108 subj) used in `src/real_narps.py`; fmriprep MNI BOLD streamed per-subject in `src/real_narps_fmri.py` (neural grounding arm) |
 | **DEAP** | licensed download (request) | academic EULA | EEG + peripheral + face + self-report | AIM-EEG affective features (Cue-P3, CNV per Fernandes 2022); YouTube view-count aggregate outcome | loader BUILT in harness (`io/deap.py`); download pending |
 
+| **Tom 2007 ds000005** | OpenNeuro (public) | PDDL public domain | fMRI, mixed-gambles | 16 subj, gain/loss/respcat (accept=1/reject=0); **behavioral only used** (no fmriprep MNI derivatives, 404) | **DOWNLOADED + RUN**: events in `src/real_crossdataset.py`; median lambda=1.94 (replicates Tom 2007); phenotype transfers NARPS<->Tom out-of-dataset AUC 0.86/0.89 |
+
+**Next dataset to acquire (to power the underpowered neural gain-channel):** a large **Monetary
+Incentive Delay (MID)** reward-anticipation fMRI dataset **with fmriprep/MNI derivatives** and
+individual-subject data (search term: "monetary incentive delay fMRI"). MID isolates NAcc
+gain-anticipation directly, which is the affective coordinate whose neural grounding is not yet
+significant (NAcc-gain p=0.15 at n=40). A large mixed-gambles set with derivatives, if found, pools
+directly with NARPS for the neural loss-aversion correlation.
+
 Gotchas (from harness docs, already handled): DEAP 4–45Hz bandpass (no delta), label order
 valence/arousal/dominance/liking, latin1 Python-2 pickles, peripheral chans 33–40 not EEG; NARPS
 economic baseline (gain/loss) dominates the aggregate arm by construction, so NARPS is an
