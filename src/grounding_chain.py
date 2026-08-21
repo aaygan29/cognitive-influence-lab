@@ -97,11 +97,20 @@ def build_chain() -> Dict[str, object]:
                       "stat": f"r={nb['observed_pearson_r']:.2f}, MDES={nb['mdes_at_n']:.2f}",
                       "status": "abstained"})
 
-    # ---- cross-modal links, pending data ----
-    links.append({"id": "L7", "a": "neural", "b": "construct",
-                  "claim": "EEG Cue-P3/CNV index anticipatory affect (AIM-EEG)",
-                  "modality": "EEG", "dataset": "DEAP / Fernandes 2022 (pending)",
-                  "stat": "not yet run", "status": "pending"})
+    # ---- EEG link (L7): populated from the Reward Positivity analysis when present ----
+    eeg = _load("real_eeg.json")
+    if eeg and "mean_rewp_uV" in eeg:
+        present = eeg.get("reward_positivity_present", False)
+        links.append({"id": "L7", "a": "neural", "b": "construct",
+                      "claim": "EEG Reward Positivity: win-positive frontocentral ERP (reward processing)",
+                      "modality": "EEG", "dataset": f"ds003458 n={eeg['n_subjects']}",
+                      "stat": f"RewP={eeg['mean_rewp_uV']:+.2f}uV, p={eeg['p']:.3f}",
+                      "status": "established" if present else "abstained"})
+    else:
+        links.append({"id": "L7", "a": "neural", "b": "construct",
+                      "claim": "EEG Reward Positivity indexes reward processing",
+                      "modality": "EEG", "dataset": "ds003458 (pending)",
+                      "stat": "not yet run", "status": "pending"})
     links.append({"id": "L8", "a": "neural", "b": "construct",
                   "claim": "fNIRS PFC tracks reward anticipation",
                   "modality": "fNIRS", "dataset": "(pending)", "stat": "no data", "status": "pending"})

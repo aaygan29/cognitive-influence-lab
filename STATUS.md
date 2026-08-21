@@ -146,6 +146,16 @@ individuation a temporal axis. Honest framing: proposed extension, not tested he
 Search term given to user: "monetary incentive delay fMRI" (with fmriprep/MNI derivatives +
 individual-subject). MID isolates NAcc gain-anticipation = the affective coordinate still NS (p=0.15).
 
+### EEG link L7 DONE (real, strong) + full coherence pass
+- **EEG Reward Positivity** `src/real_eeg.py`, `results/real_eeg.json`, Fig 14: OpenNeuro ds003458
+  (23 subj, open; DEAP is licence-gated + not usable non-interactively). Win-feedback frontocentral
+  ERP more positive than loss by +3.0uV, paired t=6.58, **p<1e-6, d=1.37**. Establishes L7 -> the
+  grounding chain now spans TWO neural modalities (fMRI + EEG). Chain verdict still TRIANGULATED
+  (5 established, 2 abstained, 1 pending L8 fNIRS).
+- **Coherence pass:** abstract + §3.5 + §5.6/5.6b + figure list updated for EEG; stale DEAP refs
+  fixed to ds003458 (open); README claims table de-jargoned (removed T3/T4/T5 tiers -> plain
+  real/simulation); README status section condensed; fig13 simplified; byline comma fixed.
+
 ### Grounding by triangulation + statistical validation DONE
 - **External NAcc gain confirmation** `src/neurovault_grounding.py`, `results/neurovault_grounding.json`,
   Fig 12: sampled NAcc/insula in independent NeuroVault reward group maps. NAcc gain-anticipation

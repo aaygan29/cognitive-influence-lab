@@ -3,7 +3,7 @@
 **A honest-by-construction estimator that predicts decisions from a neurally-grounded
 parameter profile, and provably abstains when it cannot.**
 
-Anonymous,(harness lineage: `behavioral_decoding`).
+Anonymous (harness lineage: `behavioral_decoding`).
 Status document. Living. Updated every time a result lands. Last update: 2026-08-20.
 
 ---
@@ -17,7 +17,7 @@ Knutson's Affect-Integration-Motivation (AIM) framework says a choice is built f
 **affective** component that generalizes across people and an **integrative** component
 that individuates. We estimate that manifold with a drift-diffusion likelihood under
 AIM-structured valuation, calibrate the affective component on populations we can
-actually scan (fMRI: NARPS; EEG: DEAP), fit the integrative component from a target's own
+actually scan (fMRI: NARPS; EEG: open dataset ds003458), fit the integrative component from a target's own
 documented decisions, and wrap every prediction in distribution-free conformal coverage
 plus a strictly-proper score. The system's defining property is that it **knows when it
 cannot predict**: below the identifiability floor it abstains rather than guesses.
@@ -58,7 +58,7 @@ a *measured* claim: no individual is ever scanned, so it is not identifiable. It
 
 1. **Ground** — literature + AIM math + audit the `behavioral_decoding` harness + synthetic positive control. *(mostly done)*
 2. **Advance the application** — build the unified AIM-DDM estimator + honesty layer onto the harness; prove C1 (recovery) and C2 (coverage) on synthetic ground truth.
-3. **Replicate in new data / new formats** — port to real fMRI (NARPS) and EEG (DEAP); replicate affective>behavioral transfer (C3) and cross-dataset pooling (C4).
+3. **Replicate in new data / new formats** — port to real fMRI (NARPS) and EEG (open ds003458; DEAP is licence-gated); replicate affective>behavioral transfer (C3) and cross-dataset pooling (C4).
 4. **A genuinely new method** — calibrated abstention on confounded real-world targets (C5): the public-figure decision corpus, preregistered temporal split, the abstention gate evaluated as a *safety property*, not a storytelling device.
 5. **Conclude and extend** — characterize operating characteristics; extend to state (sad/angry) and role (trader/cop/doctor) phenotypes as manifold shifts.
 6. **Future directions** — real all-modality + market data; active enrollment; links to `cortex-of-anyone` and `affectprint`.
@@ -86,33 +86,25 @@ minutes (E3 does permutation nulls). All six headline gates currently pass.
 
 ## Status (2026-08-20)
 
-Steps 1-5 complete on controlled data; step 6 (real-data deployment) is scoped as future work.
+The method (C1–C7) is established on controlled data, and validated on real public data where the data
+exist. What is on real data vs simulation is in the claims table above. In short:
 
-| Claim | Experiment | Result | Status |
-|---|---|---|---|
-| C1 | E1 recovery curve | affective ratios reach r>=0.6 by ~1-2k decisions/agent | PASS (controlled) |
-| C2 | E2 honesty self-check | coverage on target, ECE 0.018, gate abstains when underpowered | PASS |
-| C3 | E3 transfer controls | brain>behavior on +control (ΔR2=+0.11, p=0.003), null on -control | PASS (controlled) |
-| C4 | E4 pooling | pooled > unpooled recovery at low n, CI excludes 0 | PASS |
-| C5/C6 | E6 scale ladder | identifiability falls (0.35->0.11), abstention rises (0.16->0.86) S1->S6 | PASS |
-| ext. | E7 state shift | threat-elevated state recovered (+0.73, CI>0), null control | PASS |
+**Real-data results (all from committed scripts + result files):**
+- **Behavior** — NARPS (108 subjects, 27,454 choices): loss aversion recovered (λ=1.45 vs 1.00 by the
+  range manipulation, matching the literature), held-out choice AUC=0.96, conformal coverage holds.
+  A second dataset (Tom 2007) replicates λ=1.94, and a model trained on one lab predicts the other's
+  choices out-of-dataset (AUC 0.86/0.89) — the phenotype transfers across labs.
+- **Neural grounding, two modalities** — fMRI (NARPS, n=40): NAcc decreases to loss (p=0.040), insula
+  increases to loss (p=0.025); NAcc gain-anticipation confirmed in independent NeuroVault maps. EEG
+  (ds003458, n=23): the Reward Positivity is large and significant (p<10⁻⁶).
+- **Grounded by triangulation** — the affective channel is grounded through a chain (neural→construct→
+  behavior) whose links live in whichever dataset has each pair. Verdict: **triangulated**. The one
+  direct within-subject neural↔behavior link is underpowered, so the model **abstains** on it — and
+  the transitivity-bound math shows the chain does not require it.
 
-**Real data (NARPS ds001734, 108 subjects, 27,454 real choices):** C1/C2/C4 validated on real human
-decisions. Loss aversion λ=1.45 (equalIndifference) / 1.00 (equalRange, range-adapted); held-out
-choice prediction AUC=0.96; conformal coverage holds; RT shows the DDM evidence-accumulation signature
-(r=−0.30). See `src/real_narps.py`, `results/real_narps.json`, Fig 8. **Real fMRI grounding (n=40, `src/real_narps_fmri.py`, Fig 9):** the loss/threat channel is grounded
-on real neural data — NAcc decreases to loss (p=0.040) and anterior insula increases to loss (p=0.025),
-both AIM-consistent. The neural↔behavioral loss-aversion correlation strengthened to r=−0.40 but sits
-just under MDES (0.44) at n=40, so the honesty gate abstains at the boundary. A coded decision corpus
-(C5/C6 real) remains future work (paper Section 10).
-
-**Cross-dataset generalization (`src/real_crossdataset.py`, Fig 11):** pooled a second real dataset,
-Tom et al. 2007 (ds000005, 16 subjects). Tom-2007 median λ=1.94 (replicates the original); a valuation
-model trained on NARPS predicts Tom-2007 choices out-of-dataset at AUC=0.86, and Tom→NARPS at 0.89 —
-the phenotype transfers across labs (C4 / external validity on real data). A TD/predictive-coding
-front-end (Brandon/Williams/Pehlevan 2026, hippocampal reward prediction) is proposed as a modeling
-extension (paper §9b). Next dataset to power the neural gain-channel: a large **MID
-reward-anticipation** fMRI set with derivatives.
+**Honestly not yet done:** the direct individual neural↔behavior correlation (needs a dataset with
+per-subject fMRI *and* choices together), a coded real decision corpus for C5/C6, and reaction-time
+identification of the decision temperature τ. See paper Section 10.
 
 ## Checkpoint protocol (so nothing is lost)
 

@@ -1,9 +1,9 @@
 # Neural-Grounded Computational Decision Phenotypes: Honest-by-Construction Prediction of Choice, with Provable Abstention
 
-*NeurIPS-form working draft. Venue chosen after results land. Numbers marked `[TBD-Ex]` are
-produced by the experiment named, never written before the run. Figures are vector PDF and tables
-are `booktabs` LaTeX (see `figures/`, `paper/tables/`), so this converts to a NeurIPS LaTeX
-template directly (e.g. via pandoc for the prose).*
+*NeurIPS-form working draft. Every number traces to a committed script and a result file; simulation
+results are positive/negative controls on the method, real-data results are measured on public human
+datasets. Figures are vector PDF and tables are `booktabs` LaTeX (see `figures/`, `paper/tables/`), so
+this converts to a NeurIPS LaTeX template directly (e.g. via pandoc for the prose).*
 
 ---
 
@@ -33,8 +33,9 @@ confound into a measured axis. The estimator, honesty layer, and pooling (C1, C2
 decisions from the NARPS mixed-gambles fMRI dataset (108 subjects, 27,454 choices), and the phenotype
 is evaluated through three lenses on that data (C7): it has low-dimensional structure, predicts
 held-out choice at AUC 0.96, and individuates (cross-run fingerprinting at 14x chance, p = 5e-4). The
-real neural-grounding arm is directionally consistent but underpowered, and the framework abstains on
-it accordingly.
+affective channel is grounded in real neural data across two modalities (fMRI loss channel, p<0.05;
+EEG Reward Positivity, p<10^-6), and where a single within-subject neural-to-behavior link is
+underpowered the framework abstains on it accordingly.
 
 ## 1. Introduction
 
@@ -99,9 +100,9 @@ MDES gate that abstains when the identifiable-event count puts the minimum detec
 the claimed effect. Abstention is a first-class output.
 
 ### 3.5 Neural grounding
-Affective-channel priors and the valuation form are calibrated on populations with real recordings:
-NAcc/insula betas (fMRI, NARPS) and AIM-EEG correlates (Cue-P3, CNV; DEAP). No individual target is
-scanned.
+Affective-channel priors and the valuation form are grounded in real recordings across two neural
+modalities: NAcc/insula betas (fMRI, NARPS) and the EEG Reward Positivity (open dataset ds003458;
+DEAP, the licence-gated alternative, is not required). No individual target is scanned.
 
 ### 3.6 Inverse inference: from a decision to the latent state that best explains it
 The forward model predicts a decision from theta and c. The **inverse** problem runs it backward:
@@ -155,7 +156,7 @@ real-data instances of E3/E6 are the deployment step (Section 7, pending data).
   market outcome from an aggregate affective (brain) arm vs an aggregate behavioral arm vs a
   content-only baseline; stimulus-grouped CV; out-of-sample R2 + CRPS + permutation null. Positive
   control (market tracks affect) and negative control (market is noise). Pass: brain > behavior on the
-  positive control, null on the negative. Real NARPS (fMRI) + DEAP (EEG), plus the content-blind
+  positive control, null on the negative. Real NARPS (fMRI) + an open EEG dataset (ds003458), plus the content-blind
   2-factor specificity ablation, are the deployment.
 - **E4 (C4) Pooling buys power.** Unpooled vs empirical-Bayes pooled recovery r at low
   decisions-per-agent. Pass: the bootstrap CI on the improvement excludes zero.
@@ -179,7 +180,7 @@ parameter recovery against known ground truth (E1), the coverage/calibration/abs
 of the honesty layer (E2), pooling's effect on low-data recovery (E4), and positive/negative
 controls on the transfer pipeline's operating characteristics (E3). They establish that the
 instrument measures what it claims and does not manufacture effects; the empirical neuroforecasting
-claim itself is evaluated on real fMRI/EEG (NARPS, DEAP), the deployment step (Section 7).
+claim itself is evaluated on real fMRI + EEG (NARPS; ds003458), the deployment step (Section 7).
 
 **E1 (C1) Identifiability, and its data requirement (Fig 3, Table 2).** Recovery of the affective
 phenotype ratios rises with decisions per agent (20 seeds, 60 agents). Raw logistic coefficients
@@ -319,15 +320,24 @@ larger reward-anticipation samples. This is group-level external confirmation of
 grounding, not per-subject power; it strengthens the channel claim while the individual
 neural-to-behavioral correlation still awaits a dataset with per-subject fMRI and choices together.
 
+### 5.6b EEG cross-modal grounding: the Reward Positivity (Fig 14)
+To ground the affective channel in a second neural modality, we computed the Reward Positivity on an
+open EEG gambling dataset (ds003458, 23 subjects; DEAP is licence-gated and not required). The
+frontocentral ERP to win feedback is more positive than to loss feedback by +3.0 microvolts (paired
+t = 6.58, p < 10^-6, Cohen's d = 1.37): a large, well-established EEG signature of reward processing.
+So the neural -> construct half of the grounding chain now holds across fMRI (loss channel) and EEG
+(reward channel), in independent datasets and modalities.
+
 ### 5.6 Grounding by triangulation, and its statistical validation (Fig 13)
 No single public dataset carries per-subject neural signal and per-subject behavior in a form that
 resolves the individual neural-to-behavioral link. Rather than force one dataset to carry a direct
 causal claim, we ground the affective channel by triangulation: each link in the chain neural ->
 affective construct -> behavior is established in whichever dataset or modality has that pair, and the
 honesty layer marks each link established / abstained / pending (Fig 13). Neural -> construct is
-established (NAcc gain-anticipation positive across three independent reward maps; NARPS loss channel
-significant), and construct -> behavior is established (held-out and cross-dataset choice prediction),
-so the construct is grounded even though the direct within-subject link is not.
+established across two modalities (fMRI: NARPS loss channel significant, and NAcc gain-anticipation
+positive across three independent reward maps; EEG: the Reward Positivity, p < 10^-6), and construct
+-> behavior is established (held-out and cross-dataset choice prediction), so the construct is grounded
+even though the direct within-subject link is not.
 
 We put this on a formal footing three ways. (i) The correlation-transitivity bound: a 3x3 correlation
 matrix is positive semidefinite, so given r(neural,construct) and r(construct,behavior) the direct
@@ -418,7 +428,7 @@ reward representation becomes predictive? This is a modeling extension grounded 
 result, not a claim we test here.
 
 ## 10. Future work (deployment)
-1. **Real neural data.** Wire the estimator to the NARPS (fMRI) and DEAP (EEG) loaders in the
+1. **Real neural data.** Wire the estimator to the NARPS (fMRI) loader and the open EEG dataset (ds003458; DEAP optional) in the
    `behavioral_decoding` harness and run E3 on real recordings, with the content-blind two-factor
    specificity ablation and the brain-beyond-behavior and brain-beyond-content baselines. This is the
    empirical neuroforecasting test that the synthetic controls here only validate the instrument for.
@@ -444,7 +454,10 @@ See `figures/FIGURES.md`. All figures are vector PDF; Tables 1-2 are `booktabs` 
 predicted dose-response, schematic hypothesis (`fig2_scale_ladder`); Fig 3 parameter-recovery curve
 (`fig3_recovery`); Fig 5 transfer arms, positive vs negative control (`fig5_transfer`); Fig 6
 unpooled vs pooled recovery (`fig6_pooling`); Fig 7 attribution-scale ladder result, identifiability
-and abstention vs scope (`fig7_scale_ladder_result`); Fig 8 real NARPS loss-aversion by group +
-held-out prediction and honesty (`fig8_real_narps`). Table 1 central claims (`claims.tex`); Table 2
-experiments and pass criteria (`experiments.tex`). A calibration figure for E2 renders from the
-honesty self-check when its coverage sweep is exported.
+and abstention vs scope (`fig7_scale_ladder_result`). Real-data figures: Fig 8 NARPS loss-aversion by
+group + held-out prediction (`fig8_real_narps`); Fig 9 fMRI NAcc/insula betas (`fig9_real_narps_fmri`);
+Fig 10 individuation + structure (`fig10_individuation`); Fig 11 cross-dataset transfer
+(`fig11_crossdataset`); Fig 12 external NeuroVault gain-channel confirmation
+(`fig12_neurovault_grounding`); Fig 13 grounding-by-triangulation chain (`fig13_grounding_chain`);
+Fig 14 EEG Reward Positivity (`fig14_eeg_rewp`). Table 1 central claims (`claims.tex`); Table 2
+experiments and pass criteria (`experiments.tex`).

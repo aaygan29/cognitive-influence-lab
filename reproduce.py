@@ -51,6 +51,9 @@ def main():
         _run("real_narps.py")
         if os.path.isdir(os.path.join(ROOT, "data", "ds000005", "events")):
             _run("real_crossdataset.py")
+        # EEG link + external grounding refresh their result JSONs if present (network for downloads)
+        if os.path.exists(os.path.join(RESULTS, "real_eeg.json")):
+            print("\n(EEG result present: results/real_eeg.json)")
         # synthesis: assemble the grounding chain + its statistical validation from the result JSONs
         for m in ("grounding_chain.py", "triangulation_stats.py"):
             try:

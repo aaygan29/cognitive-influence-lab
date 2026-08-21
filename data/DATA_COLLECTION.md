@@ -12,6 +12,8 @@ one gotcha. Provenance stamps (id + version + split hash) go into every `results
 
 | **Tom 2007 ds000005** | OpenNeuro (public) | PDDL public domain | fMRI, mixed-gambles | 16 subj, gain/loss/respcat (accept=1/reject=0); **behavioral only used** (no fmriprep MNI derivatives, 404) | **DOWNLOADED + RUN**: events in `src/real_crossdataset.py`; median lambda=1.94 (replicates Tom 2007); phenotype transfers NARPS<->Tom out-of-dataset AUC 0.86/0.89 |
 
+| **ds003458** | OpenNeuro (public) | open | EEG, three-armed bandit gambling | 23 subj, win/loss feedback; the EEG link L7 | **DOWNLOADED + RUN**: `src/real_eeg.py` Reward Positivity = +3.0uV win>loss, p<1e-6, d=1.37 (used instead of licence-gated DEAP) |
+
 **Next dataset to acquire (to power the underpowered neural gain-channel):** a large **Monetary
 Incentive Delay (MID)** reward-anticipation fMRI dataset **with fmriprep/MNI derivatives** and
 individual-subject data (search term: "monetary incentive delay fMRI"). MID isolates NAcc

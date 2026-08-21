@@ -188,6 +188,36 @@ def fig3_recovery():
     return _save(fig, "fig3_recovery")
 
 
+def fig14_eeg_rewp():
+    """EEG Reward Positivity: per-subject win vs loss frontocentral amplitude (ds003458)."""
+    subj_p = os.path.join(RESULTS, "eeg_rewp_subjects.json")
+    sum_p = os.path.join(RESULTS, "real_eeg.json")
+    if not (os.path.exists(subj_p) and os.path.exists(sum_p)):
+        return None
+    with open(subj_p) as fh:
+        roi = json.load(fh)
+    with open(sum_p) as fh:
+        summ = json.load(fh)
+    good = [r for r in roi.values() if r and "win_uV" in r]
+    if len(good) < 3:
+        return None
+    win = np.array([r["win_uV"] for r in good]); loss = np.array([r["loss_uV"] for r in good])
+    fig, ax = plt.subplots(figsize=(4.2, 3.2))
+    for w, l in zip(win, loss):
+        ax.plot([0, 1], [w, l], "-", color=CB["grey"], lw=0.5, alpha=0.5)
+    ax.plot(np.zeros_like(win), win, "o", color=CB["green"], markersize=4, label="win")
+    ax.plot(np.ones_like(loss), loss, "o", color=CB["red"], markersize=4, label="loss")
+    ax.hlines(win.mean(), -0.2, 0.2, color=CB["black"], lw=1.6)
+    ax.hlines(loss.mean(), 0.8, 1.2, color=CB["black"], lw=1.6)
+    ax.set_xticks([0, 1]); ax.set_xticklabels(["win", "loss"], fontsize=8)
+    ax.set_ylabel("frontocentral amplitude 250–350 ms (µV)")
+    pstr = "p<0.001" if summ["p"] < 0.001 else f"p={summ['p']:.3f}"
+    ax.set_title(f"EEG Reward Positivity (n={summ['n_subjects']}, {pstr})", fontsize=8)
+    ax.set_xlim(-0.4, 1.4)
+    fig.tight_layout()
+    return _save(fig, "fig14_eeg_rewp")
+
+
 def fig13_grounding_chain():
     """Triangulation chain: one summarizing arrow per segment, links listed as short text."""
     p = os.path.join(RESULTS, "grounding_chain.json")
@@ -475,7 +505,7 @@ def _result_figs():
     made = []
     for fn in (fig3_recovery, fig6_pooling, fig5_transfer, fig7_scale_ladder_result,
                fig8_real_narps, fig9_real_narps_fmri, fig10_individuation, fig11_crossdataset,
-               fig12_neurovault_grounding, fig13_grounding_chain):
+               fig12_neurovault_grounding, fig14_eeg_rewp, fig13_grounding_chain):
         r = fn()
         if r:
             made.append(r)
