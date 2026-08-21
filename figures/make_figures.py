@@ -189,46 +189,51 @@ def fig3_recovery():
 
 
 def fig13_grounding_chain():
-    """Triangulation chain: NEURAL -- affective construct -- BEHAVIOR, links colored by status."""
+    """Triangulation chain: one summarizing arrow per segment, links listed as short text."""
     p = os.path.join(RESULTS, "grounding_chain.json")
     if not os.path.exists(p):
         return None
     with open(p) as fh:
         res = json.load(fh)
-    pos = {"neural": (0.5, 3.0), "construct": (5.0, 3.0), "behavior": (9.5, 3.0)}
-    stat_col = {"established": CB["green"], "established_external": CB["blue"],
-                "abstained": CB["grey"], "pending": CB["orange"]}
-    fig, ax = plt.subplots(figsize=(6.5, 3.6))
-    ax.set_xlim(-0.5, 10.5); ax.set_ylim(0, 6); ax.axis("off")
-    # nodes
-    for name, (x, y) in pos.items():
-        ax.add_patch(FancyBboxPatch((x - 0.85, y - 0.4), 1.7, 0.8,
-                     boxstyle="round,pad=0.02,rounding_size=0.05", linewidth=1.4,
+    def est(l):
+        return l["status"] in ("established", "established_external")
+    n2c = [l for l in res["links"] if l["a"] == "neural" and l["b"] == "construct"]
+    c2b = [l for l in res["links"] if l["a"] == "construct" and l["b"] == "behavior"]
+
+    fig, ax = plt.subplots(figsize=(6.5, 3.2))
+    ax.set_xlim(0, 10); ax.set_ylim(0, 5); ax.axis("off")
+    nodes = {"NEURAL": 1.5, "CONSTRUCT": 5.0, "BEHAVIOR": 8.5}
+    for name, x in nodes.items():
+        ax.add_patch(FancyBboxPatch((x - 1.0, 2.4), 2.0, 0.9,
+                     boxstyle="round,pad=0.02,rounding_size=0.05", linewidth=1.3,
                      edgecolor=CB["black"], facecolor=CB["grey"], alpha=0.2))
-        ax.text(x, y, name.upper(), ha="center", va="center", fontsize=8, weight="bold")
-    ax.text(5.0, 5.5, "grounding by triangulation: " + res["verdict"].upper(),
+        ax.text(x, 2.85, name, ha="center", va="center", fontsize=8.5, weight="bold")
+    # segment arrows, green if that half is established
+    for (x0, x1, seg) in [(2.5, 4.0, n2c), (6.0, 7.5, c2b)]:
+        col = CB["green"] if any(est(l) for l in seg) else CB["grey"]
+        ax.annotate("", xy=(x1, 2.85), xytext=(x0, 2.85),
+                    arrowprops=dict(arrowstyle="-|>", color=col, lw=2.4))
+    # the direct neural->behavior link, drawn as an abstained arc below
+    ax.annotate("", xy=(7.5, 1.4), xytext=(2.5, 1.4),
+                arrowprops=dict(arrowstyle="-|>", color=CB["grey"], lw=1.4, linestyle="--",
+                                connectionstyle="arc3,rad=-0.15"))
+    ax.text(5.0, 0.95, "direct link (L6): abstained, and not required", ha="center",
+            fontsize=7, color=CB["grey"], style="italic")
+    # short link lists under each half
+    def summarize(seg):
+        e = [l["id"] for l in seg if est(l)]
+        a = [l["id"] for l in seg if l["status"] == "abstained"]
+        pnd = [l["id"] for l in seg if l["status"] == "pending"]
+        parts = []
+        if e: parts.append(("established " + ",".join(e), CB["green"]))
+        if a: parts.append(("abstained " + ",".join(a), CB["grey"]))
+        if pnd: parts.append(("pending " + ",".join(pnd), CB["orange"]))
+        return parts
+    for xc, seg in [(3.25, n2c), (6.75, c2b)]:
+        for j, (txt, c) in enumerate(summarize(seg)):
+            ax.text(xc, 3.75 + j * 0.32, txt, ha="center", fontsize=6.5, color=c)
+    ax.text(5.0, 4.65, "Grounding by triangulation: " + res["verdict"].upper(),
             ha="center", fontsize=10, weight="bold")
-    # links, fanned vertically by index within each node-pair
-    groups = {}
-    for l in res["links"]:
-        groups.setdefault((l["a"], l["b"]), []).append(l)
-    for (a, b), ls in groups.items():
-        (x0, y0), (x1, y1) = pos[a], pos[b]
-        for i, l in enumerate(ls):
-            off = (i - (len(ls) - 1) / 2) * 0.75
-            style = "--" if l["status"] == "abstained" else (":" if l["status"] == "pending" else "-")
-            col = stat_col[l["status"]]
-            xa = x0 + 0.85 if x1 > x0 else x0 - 0.85
-            xb = x1 - 0.85 if x1 > x0 else x1 + 0.85
-            ax.annotate("", xy=(xb, y1 + off), xytext=(xa, y0 + off),
-                        arrowprops=dict(arrowstyle="-|>", color=col, lw=1.6, linestyle=style,
-                                        connectionstyle="arc3,rad=0.0"))
-            ax.text((xa + xb) / 2, y0 + off + 0.13, f"{l['id']}: {l['stat'][:26]}",
-                    ha="center", fontsize=5.5, color=col)
-    # legend
-    for i, (lab, c) in enumerate([("established", CB["green"]), ("external", CB["blue"]),
-                                  ("abstained", CB["grey"]), ("pending", CB["orange"])]):
-        ax.text(0.2 + i * 2.6, 0.4, "● " + lab, color=c, fontsize=7)
     fig.tight_layout()
     return _save(fig, "fig13_grounding_chain")
 

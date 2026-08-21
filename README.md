@@ -32,24 +32,25 @@ about their private neurology or psychology. See `GUIDELINES.md` §Ethics.
 
 ---
 
-## The five central claims (the paper's contributions)
+## The central claims (C1–C7)
 
-| # | Claim | Evidence tier target | Where it is tested |
-|---|---|---|---|
-| **C1** | AIM-structured DDM phenotype is *identifiable*: recovers known parameters | T4/T5 | synthetic ground truth (parameter recovery) |
-| **C2** | Conformal + proper-scoring + MDES abstention = distribution-free coverage, calibration, provable withholding | T4/T5 | math + simulation |
-| **C3** | Affective component forecasts held-out / non-representative choice above and beyond behavior, inside one estimator | T3→T4 | NARPS + DEAP (real neural data) |
-| **C4** | Hierarchical cross-dataset pooling lowers MDES and per-individual posterior width | T4 | NARPS + DEAP joint fit |
-| **C5** | On genuinely confounded targets the framework predicts where identifiable and *provably abstains* where not | T4 | public-figure decision corpora (preregistered) |
-| **C6** *(ext.)* | Inverse inference (decision -> latent affective posture) is *scale-dependent*: identifiable at aggregate attribution scope, abstaining at the individual scope | T4 | US-president decision corpus across scopes S1..S6 |
-| **C7** *(real)* | The phenotype has **structure** (low-dim manifold geometry), **function** (predicts choice), and **individuates** (stable person-specific trait) | T3→T4 | NARPS: gain-loss coupling r=−0.92 / eff.dim 4.4; AUC 0.96; cross-run fingerprint 14× chance, p=5e-4 |
+Each claim states one plain idea and lists the strongest evidence we have for it so far. "Real"
+means measured on real human data; "simulation" means shown on controlled data with known ground
+truth (a positive/negative control on the method itself).
 
-These five are the project's central claims (scoping rationale in
-`checkpoints/design_rationale_2026-08-20.md`, an internal engineering note, not a paper artifact).
-The direction "predict an individual's actions from their neurology" is out of scope as a measured
-claim: there is no neural ground truth for any individual and the target decisions are
-researcher-coded, so it is not identifiable. It is reformulated as C5, and as the attribution-scale
-question C6 (extension).
+| # | In one sentence | Strongest evidence so far |
+|---|---|---|
+| **C1** | The model recovers a person's decision parameters (e.g. their loss aversion) from their choices. | **Real**: loss aversion recovered on NARPS (108 subjects), matching the classic value; plus simulation recovery. |
+| **C2** | Every prediction is calibrated with a coverage guarantee, or the model says "I don't know" (abstains). | **Real + proof**: conformal coverage holds on NARPS; the abstention gate fires when a sample is underpowered. |
+| **C3** | The affective (reward-anticipation) signal forecasts choice beyond behavior alone. | **Simulation** (positive/negative control); the loss channel is grounded on real fMRI; the individual link is still underpowered. |
+| **C4** | Pooling across people and datasets buys statistical power. | **Real**: the phenotype transfers across labs (NARPS↔Tom 2007, out-of-dataset AUC 0.86/0.89). |
+| **C5** | On confounded targets it predicts where it can and abstains where it can't. | **Simulation** (the attribution-scale ladder). |
+| **C6** *(ext.)* | Running the model in reverse works at the group scale and abstains at the individual scale. | **Simulation** (identifiability falls, abstention rises, group→individual). |
+| **C7** *(real)* | The phenotype has geometric **structure**, predicts choice (**function**), and identifies the **individual**. | **Real** NARPS: gain–loss coupling r=−0.92; choice AUC 0.96; cross-run fingerprint 14× chance (p=5e-4). |
+
+The direction "predict an individual's actions from their neurology" is deliberately out of scope as
+a *measured* claim: no individual is ever scanned, so it is not identifiable. It is reformulated as C5
+(predict-or-abstain) and the attribution-scale question C6.
 
 ---
 
@@ -65,8 +66,8 @@ question C6 (extension).
 ## Documents
 
 - `ROADMAP.md` — the six-step plan, each step with goal / method / dataset / deliverable / the gate it must pass / **kill criterion** / checkpoint.
-- `GUIDELINES.md` — the rules every result must obey (gate ladder, evidence tiers, seed mandate, leakage guards, honesty layer, preregistration, ethics, checkpoint discipline).
-- `paper/neurips_decision_phenotype.md` — the paper in NeurIPS form, built only on C1–C5.
+- `GUIDELINES.md` — the rules every result must obey (gate ladder, evidence standards, seed mandate, leakage guards, honesty layer, preregistration, ethics, checkpoint discipline).
+- `paper/neurips_decision_phenotype.md` — the paper in NeurIPS form, built on the claims C1–C7.
 - `STATUS.md` — the living log. Dated entries. Updated on every result. **This is the file to read first each session.**
 - `data/DATA_COLLECTION.md` — datasets, provenance, licenses, access status, coding protocol.
 - `figures/` — figure plan (`FIGURES.md`) + generated figures + the script that makes them.

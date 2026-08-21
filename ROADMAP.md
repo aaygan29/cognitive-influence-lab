@@ -113,7 +113,7 @@ characteristics; real-data results are the remaining deployment, not new machine
 ## Step 5 — Conclusions and extension
 
 - **Goal:** state what actually transfers and what does not; extend the manifold to states and roles.
-- **Method:** synthesize operating characteristics across C1–C5 (where does the method work, at
+- **Method:** synthesize operating characteristics across C1–C7 (where does the method work, at
   what n, with what coverage). Extend: model an emotional **state** (sad/angry) as a transient
   theta shift with directions the affect literature specifies, testable on DEAP-style induced
   affect; model **roles** (trader/cop/doctor) as different priors + context weighting.

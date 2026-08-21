@@ -1,0 +1,25 @@
+{
+  "experiment": "REAL_eeg_reward_positivity",
+  "dataset": "OpenNeuro ds003458 (three-armed bandit, EEG)",
+  "n_subjects": 1,
+  "cluster": [
+    "FCz",
+    "Cz",
+    "FC1",
+    "FC2"
+  ],
+  "rewp_window_s": [
+    0.25,
+    0.35
+  ],
+  "mean_rewp_uV": 2.204871160723749,
+  "rewp_ci95": [
+    2.204871160723749,
+    2.204871160723749
+  ],
+  "win_vs_loss_paired_t": NaN,
+  "p": NaN,
+  "cohens_d": NaN,
+  "reward_positivity_present": false,
+  "note": "win-positive frontocentral RewP = EEG signature of reward processing; grounds L7"
+}
