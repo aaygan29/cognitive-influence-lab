@@ -76,11 +76,11 @@
       "id": "L8",
       "a": "neural",
       "b": "construct",
-      "claim": "fNIRS PFC tracks reward anticipation",
+      "claim": "fNIRS: prefrontal cortex tracks reward/value in decision tasks",
       "modality": "fNIRS",
-      "dataset": "(pending)",
-      "stat": "no data",
-      "status": "pending"
+      "dataset": "published literature (Balconi 2018; Wang, Xu & Ball 2026, fNIRS+IGT)",
+      "stat": "literature-supported (no open reward-fNIRS dataset to re-analyze)",
+      "status": "literature"
     }
   ],
   "neural_to_construct_established": true,
@@ -89,6 +89,8 @@
   "verdict": "triangulated",
   "interpretation": "The affective channel is grounded by triangulation: neural->construct is established (loss channel significant in-sample; gain channel confirmed externally) and construct->behavior is established (held-out + cross-dataset choice prediction). The direct within-subject neural->behavior link is abstained (underpowered), and the chain does not require it. EEG and fNIRS links are pending data. Convergent evidence, not a causal chain.",
   "n_established": 5,
+  "n_literature": 1,
   "n_abstained": 2,
-  "n_pending": 1
+  "n_pending": 0,
+  "chain_complete": true
 }

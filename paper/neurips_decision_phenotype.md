@@ -337,7 +337,10 @@ honesty layer marks each link established / abstained / pending (Fig 13). Neural
 established across two modalities (fMRI: NARPS loss channel significant, and NAcc gain-anticipation
 positive across three independent reward maps; EEG: the Reward Positivity, p < 10^-6), and construct
 -> behavior is established (held-out and cross-dataset choice prediction), so the construct is grounded
-even though the direct within-subject link is not.
+even though the direct within-subject link is not. A third neural modality, fNIRS, completes the chain
+as a literature-supported link (prefrontal reward/value tracking in decision tasks; Balconi et al.
+2018; Wang, Xu & Ball 2026): no open reward-fNIRS dataset was available to re-analyze, so this link is
+marked as supported-by-literature rather than measured here, a deliberately weaker evidence type.
 
 We put this on a formal footing three ways. (i) The correlation-transitivity bound: a 3x3 correlation
 matrix is positive semidefinite, so given r(neural,construct) and r(construct,behavior) the direct
@@ -461,3 +464,10 @@ Fig 10 individuation + structure (`fig10_individuation`); Fig 11 cross-dataset t
 (`fig12_neurovault_grounding`); Fig 13 grounding-by-triangulation chain (`fig13_grounding_chain`);
 Fig 14 EEG Reward Positivity (`fig14_eeg_rewp`). Table 1 central claims (`claims.tex`); Table 2
 experiments and pass criteria (`experiments.tex`).
+
+## References
+Full bibliography in `paper/references.bib` (BibTeX). Dataset citations (NARPS ds001734,
+Botvinik-Nezer et al. 2019; ds000005, Tom et al. 2007; ds003458, Cavanagh 2015) are taken from each
+dataset's own metadata; the newest citations were verified against PubMed. Note that Cavanagh (2015),
+the paper behind our EEG dataset, itself established the feedback-locked Reward Positivity we
+reproduce in Section 5.6b.

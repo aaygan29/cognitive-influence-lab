@@ -146,6 +146,21 @@ individuation a temporal axis. Honest framing: proposed extension, not tested he
 Search term given to user: "monetary incentive delay fMRI" (with fmriprep/MNI derivatives +
 individual-subject). MID isolates NAcc gain-anticipation = the affective coordinate still NS (p=0.15).
 
+### fNIRS link L8 DONE (literature) + bibliography + source verification
+- **L8 fNIRS**: reviewed the 16 openfnirs.org datasets — NONE is a reward/value/decision task (all
+  motor/sensory/auditory/resting/imagery), and no open reward-fNIRS dataset is downloadable to
+  re-analyze. So L8 is a **literature-supported** link (new status "literature", distinct + weaker
+  than measured): fNIRS prefrontal reward/value tracking, cited Balconi et al. 2018 (10.3233/JPD-171290)
+  + Wang/Xu/Ball 2026 (10.1016/j.neuroimage.2026.121942), both fNIRS+IGT verified via PubMed. Chain
+  now has **0 pending** — complete. Verdict still TRIANGULATED (5 measured, 1 external, 1 literature,
+  2 abstained). Fig 13 updated (measured/literature/abstained legend).
+- **Bibliography** `paper/references.bib` (BibTeX): all refs; datasets from their dataset_description.json,
+  newest citations verified via PubMed. Key: Cavanagh 2015 (the ds003458 EEG paper, PubMed-verified)
+  is itself about the feedback-locked Reward Positivity we reproduce -> perfect provenance for L7.
+- **Source verification**: NARPS ds001734 = Botvinik-Nezer 2019 (10.1038/s41597-019-0113-7),
+  Tom 2007 ds000005 = Science 315:515, ds003458 = Cavanagh 2015 NeuroImage — all confirmed from
+  dataset metadata / PubMed. Paper §References + provenance note added.
+
 ### EEG link L7 DONE (real, strong) + full coherence pass
 - **EEG Reward Positivity** `src/real_eeg.py`, `results/real_eeg.json`, Fig 14: OpenNeuro ds003458
   (23 subj, open; DEAP is licence-gated + not usable non-interactively). Win-feedback frontocentral

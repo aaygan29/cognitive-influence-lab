@@ -253,9 +253,11 @@ def fig13_grounding_chain():
     def summarize(seg):
         e = [l["id"] for l in seg if est(l)]
         a = [l["id"] for l in seg if l["status"] == "abstained"]
+        lit = [l["id"] for l in seg if l["status"] == "literature"]
         pnd = [l["id"] for l in seg if l["status"] == "pending"]
         parts = []
-        if e: parts.append(("established " + ",".join(e), CB["green"]))
+        if e: parts.append(("measured " + ",".join(e), CB["green"]))
+        if lit: parts.append(("literature " + ",".join(lit), CB["blue"]))
         if a: parts.append(("abstained " + ",".join(a), CB["grey"]))
         if pnd: parts.append(("pending " + ",".join(pnd), CB["orange"]))
         return parts

@@ -10,17 +10,13 @@ Status document. Living. Updated every time a result lands. Last update: 2026-08
 
 ## The idea in one paragraph
 
-A decision-maker is not a black box; they are a low-dimensional point on a decision
-manifold whose coordinates are neuroeconomic parameters (reward sensitivity, loss
-aversion, risk curvature, temporal discount, threat sensitivity, decision temperature).
-Knutson's Affect-Integration-Motivation (AIM) framework says a choice is built from an
-**affective** component that generalizes across people and an **integrative** component
-that individuates. We estimate that manifold with a drift-diffusion likelihood under
-AIM-structured valuation, calibrate the affective component on populations we can
-actually scan (fMRI: NARPS; EEG: open dataset ds003458), fit the integrative component from a target's own
-documented decisions, and wrap every prediction in distribution-free conformal coverage
-plus a strictly-proper score. The system's defining property is that it **knows when it
-cannot predict**: below the identifiability floor it abstains rather than guesses.
+We describe a person's decision-making with a short list of numbers — how much they weigh
+gains, losses, risk, delay, and threat, and how deterministically they act. Following Knutson's
+Affect-Integration-Motivation (AIM) framework, we split a choice into an **affective** part that
+is similar across people (so we can learn it from groups we *can* record, via fMRI and EEG) and an
+**integrative** part that is specific to the individual (so we learn it from their own choices).
+Every prediction comes with a calibrated uncertainty, and — the key feature — when the data are too
+thin to support a prediction, the model **says so and abstains** instead of guessing.
 
 ## What this is NOT
 
@@ -68,6 +64,7 @@ a *measured* claim: no individual is ever scanned, so it is not identifiable. It
 - `ROADMAP.md` — the six-step plan, each step with goal / method / dataset / deliverable / the gate it must pass / **kill criterion** / checkpoint.
 - `GUIDELINES.md` — the rules every result must obey (gate ladder, evidence standards, seed mandate, leakage guards, honesty layer, preregistration, ethics, checkpoint discipline).
 - `paper/neurips_decision_phenotype.md` — the paper in NeurIPS form, built on the claims C1–C7.
+- `paper/references.bib` — bibliography (BibTeX); dataset citations from each dataset's own metadata, newest citations PubMed-verified.
 - `STATUS.md` — the living log. Dated entries. Updated on every result. **This is the file to read first each session.**
 - `data/DATA_COLLECTION.md` — datasets, provenance, licenses, access status, coding protocol.
 - `figures/` — figure plan (`FIGURES.md`) + generated figures + the script that makes them.

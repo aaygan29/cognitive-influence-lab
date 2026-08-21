@@ -111,9 +111,14 @@ def build_chain() -> Dict[str, object]:
                       "claim": "EEG Reward Positivity indexes reward processing",
                       "modality": "EEG", "dataset": "ds003458 (pending)",
                       "stat": "not yet run", "status": "pending"})
+    # L8 (fNIRS): no open reward-fNIRS dataset is downloadable for re-analysis, so this link is
+    # supported by the published literature rather than measured here (a distinct, weaker evidence type).
     links.append({"id": "L8", "a": "neural", "b": "construct",
-                  "claim": "fNIRS PFC tracks reward anticipation",
-                  "modality": "fNIRS", "dataset": "(pending)", "stat": "no data", "status": "pending"})
+                  "claim": "fNIRS: prefrontal cortex tracks reward/value in decision tasks",
+                  "modality": "fNIRS",
+                  "dataset": "published literature (Balconi 2018; Wang, Xu & Ball 2026, fNIRS+IGT)",
+                  "stat": "literature-supported (no open reward-fNIRS dataset to re-analyze)",
+                  "status": "literature"})
 
     # ---- triangulation verdict ----
     def est(link):
@@ -143,8 +148,10 @@ def build_chain() -> Dict[str, object]:
             "does not require it. EEG and fNIRS links are pending data. Convergent evidence, not a "
             "causal chain."),
         "n_established": sum(1 for l in links if est(l)),
+        "n_literature": sum(1 for l in links if l["status"] == "literature"),
         "n_abstained": sum(1 for l in links if l["status"] == "abstained"),
         "n_pending": sum(1 for l in links if l["status"] == "pending"),
+        "chain_complete": bool(sum(1 for l in links if l["status"] == "pending") == 0),
     }
 
 
@@ -154,7 +161,7 @@ if __name__ == "__main__":
         json.dump(res, fh, indent=2)
     print("GROUNDING BY TRIANGULATION -- construct:", res["construct"])
     for l in res["links"]:
-        mark = {"established": "[OK ]", "established_external": "[OK*]",
+        mark = {"established": "[OK ]", "established_external": "[OK*]", "literature": "[LIT]",
                 "abstained": "[ABS]", "pending": "[...]"}[l["status"]]
         print(f"  {mark} {l['id']} {l['a']:>9} -> {l['b']:<9} | {l['claim'][:46]:46s} | {l['stat']}")
     print(f"\n  neural->construct established: {res['neural_to_construct_established']} | "

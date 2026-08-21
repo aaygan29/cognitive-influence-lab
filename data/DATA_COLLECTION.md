@@ -77,6 +77,19 @@ the EEG arm and the AIM MID-task:
 - McDermott (1998) Risk-Taking in International Politics: Prospect Theory in American Foreign Policy, Univ Michigan Press.
 - Levy (1997/2003) Prospect theory and foreign-policy decision-making (leaders' risk postures inferred from choices).
 
+## Source verification (checked 2026-08-20)
+
+Every dataset used was verified from its own OpenNeuro `dataset_description.json`, and the newest
+literature citations against PubMed:
+- **ds001734 (NARPS)**: Botvinik-Nezer et al. 2019, Sci Data 6:106 (10.1038/s41597-019-0113-7). CC0.
+- **ds000005 (Tom 2007)**: Tom, Fox, Trepel & Poldrack 2007, Science 315:515 (10.1126/science.1134239). PDDL.
+- **ds003458 (EEG bandit)**: Cavanagh 2015, NeuroImage 110:205 (10.1016/j.neuroimage.2015.02.007) — the
+  paper itself establishes the feedback-locked Reward Positivity we reproduce. Open.
+- **fNIRS (L8, literature link)**: no open reward-fNIRS dataset exists to re-analyze (the 16
+  openfnirs.org datasets are motor/sensory/auditory/resting/imagery, none reward). L8 is grounded in
+  Balconi et al. 2018 (10.3233/JPD-171290) and Wang, Xu & Ball 2026 (10.1016/j.neuroimage.2026.121942),
+  both fNIRS+IGT prefrontal reward, PubMed-verified. Full list in `paper/references.bib`.
+
 ## Access status summary
 
 - Public + wired: NARPS loader (needs the OpenNeuro fetch).
