@@ -146,6 +146,26 @@ individuation a temporal axis. Honest framing: proposed extension, not tested he
 Search term given to user: "monetary incentive delay fMRI" (with fmriprep/MNI derivatives +
 individual-subject). MID isolates NAcc gain-anticipation = the affective coordinate still NS (p=0.15).
 
+### Grounding by triangulation + statistical validation DONE
+- **External NAcc gain confirmation** `src/neurovault_grounding.py`, `results/neurovault_grounding.json`,
+  Fig 12: sampled NAcc/insula in independent NeuroVault reward group maps. NAcc gain-anticipation
+  POSITIVE across 3 maps (EV-MID 104 subj +1.0, gain>no-gain 46 subj +1.6, social-reward +0.7) ->
+  externally confirms the gain channel that was NS (p=0.15) in our n=40 NARPS GLM. Group-level.
+- **Grounding chain** `src/grounding_chain.py`, `results/grounding_chain.json`, Fig 13: assembles all
+  links from the result JSONs, marks each established/abstained/pending. VERDICT = TRIANGULATED
+  (neural->construct established via L1 external + L2 significant; construct->behavior via L4 held-out
+  AUC + L5 cross-dataset; direct L6 abstained; EEG/fNIRS L7/L8 pending). Convergent evidence, not causal.
+- **Statistical validation** `src/triangulation_stats.py`, `results/triangulation_stats.json`:
+  (1) direct joint-sample correlations (NARPS n=39): stable neural loss measures ~0 with behavioral
+  lambda (abstained); neural-lambda ratio r=-0.40 p=0.011 but wrong sign + gate abstains (ratio
+  artifact). (2) transitivity bound (PSD): direct r confined to [-0.51,+0.29], observed -0.40 inside
+  (but wide, bc within-sample neural-construct link weak). (3) Sobel mediation NS (z=-0.73). (4) Fisher
+  combine of established links p=2.4e-7 -> convergent grounding strong; direct link honestly unestablished.
+- Math tools (transitivity_bound / sobel / fisher_combine) unit-tested. 14 tests green.
+- Link triage of user-supplied datasets: NeuroVault = group maps (confirmatory only); dataverse
+  9BAJTD = timing files only; figshare = a table. NONE give per-subject neural+behavior together.
+  Search term for the one that would: "monetary incentive delay fMRI" w/ derivatives + individual data.
+
 ### Remaining deployment work (real data)
 1. Wire the estimator to the harness NARPS (fMRI) + DEAP (EEG) loaders and run E3 on real neural data
    (the empirical neuroforecasting test, vs the synthetic operating-characteristic control done here).

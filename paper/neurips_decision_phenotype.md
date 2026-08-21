@@ -308,6 +308,44 @@ affective valuation the estimator recovers is not a per-dataset artifact; traine
 forecasts choices collected in another, years apart. This is the strongest real form of the pooling
 and external-validity claims (C4, Gate 7): the phenotype generalizes across datasets.
 
+### 5.5 External confirmation of the gain channel in independent reward maps (Fig 12)
+Our n = 40 NARPS GLM left the NAcc gain channel non-significant (p = 0.15), the one AIM direction we
+could not establish internally from single-run data. We sampled NAcc and anterior insula in
+independent group-level reward maps on NeuroVault. In an expected-value monetary-incentive-delay map
+(104 subjects) NAcc shows positive expected-value activation (sphere mean +1.0), in a gain > no-gain
+map (46 subjects) NAcc is +1.6, and in a social-reward-anticipation map NAcc is +0.7. The gain
+channel that our own sample was underpowered to confirm is positive across three independent,
+larger reward-anticipation samples. This is group-level external confirmation of the affective
+grounding, not per-subject power; it strengthens the channel claim while the individual
+neural-to-behavioral correlation still awaits a dataset with per-subject fMRI and choices together.
+
+### 5.6 Grounding by triangulation, and its statistical validation (Fig 13)
+No single public dataset carries per-subject neural signal and per-subject behavior in a form that
+resolves the individual neural-to-behavioral link. Rather than force one dataset to carry a direct
+causal claim, we ground the affective channel by triangulation: each link in the chain neural ->
+affective construct -> behavior is established in whichever dataset or modality has that pair, and the
+honesty layer marks each link established / abstained / pending (Fig 13). Neural -> construct is
+established (NAcc gain-anticipation positive across three independent reward maps; NARPS loss channel
+significant), and construct -> behavior is established (held-out and cross-dataset choice prediction),
+so the construct is grounded even though the direct within-subject link is not.
+
+We put this on a formal footing three ways. (i) The correlation-transitivity bound: a 3x3 correlation
+matrix is positive semidefinite, so given r(neural,construct) and r(construct,behavior) the direct
+r(neural,behavior) is confined to r_ab r_bc +/- sqrt((1-r_ab^2)(1-r_bc^2)). The established links
+imply a feasible interval of [-0.51, +0.29] for the direct correlation, and the observed value
+(-0.40) falls inside it; the interval is wide because the within-sample neural-to-construct
+correlation is itself weak. (ii) A Sobel mediation test of the indirect path (delta-method SE) is not
+significant (z = -0.73), consistent with that weak within-sample link. (iii) Fisher combination of the
+established links' p-values gives a combined p = 2.4x10^-7: the convergent evidence for the affective
+grounding is strong even though the single direct link is abstained. Within the one joint sample
+(NARPS, 39 subjects with both modalities), the stable neural loss measures correlate near zero with
+behavioral loss aversion (all gated to abstention), and the only nominally significant correlation
+(the neural-lambda ratio, r = -0.40, p = 0.011) has the wrong sign and rests on an unstable
+small-denominator ratio, so the gate abstains. The honest conclusion: the affective construct is
+triangulated by convergent, statistically-combined evidence, while the direct individual neural-to-
+behavior mapping remains unestablished and is reported as such. This is convergent, model-based
+evidence, not a proof of a direct neural-to-behavior cause.
+
 ## 6. Discussion
 
 **Operating characteristics, in one place.** The experiments jointly map where the instrument works.

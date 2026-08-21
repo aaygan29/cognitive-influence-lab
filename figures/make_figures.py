@@ -188,6 +188,76 @@ def fig3_recovery():
     return _save(fig, "fig3_recovery")
 
 
+def fig13_grounding_chain():
+    """Triangulation chain: NEURAL -- affective construct -- BEHAVIOR, links colored by status."""
+    p = os.path.join(RESULTS, "grounding_chain.json")
+    if not os.path.exists(p):
+        return None
+    with open(p) as fh:
+        res = json.load(fh)
+    pos = {"neural": (0.5, 3.0), "construct": (5.0, 3.0), "behavior": (9.5, 3.0)}
+    stat_col = {"established": CB["green"], "established_external": CB["blue"],
+                "abstained": CB["grey"], "pending": CB["orange"]}
+    fig, ax = plt.subplots(figsize=(6.5, 3.6))
+    ax.set_xlim(-0.5, 10.5); ax.set_ylim(0, 6); ax.axis("off")
+    # nodes
+    for name, (x, y) in pos.items():
+        ax.add_patch(FancyBboxPatch((x - 0.85, y - 0.4), 1.7, 0.8,
+                     boxstyle="round,pad=0.02,rounding_size=0.05", linewidth=1.4,
+                     edgecolor=CB["black"], facecolor=CB["grey"], alpha=0.2))
+        ax.text(x, y, name.upper(), ha="center", va="center", fontsize=8, weight="bold")
+    ax.text(5.0, 5.5, "grounding by triangulation: " + res["verdict"].upper(),
+            ha="center", fontsize=10, weight="bold")
+    # links, fanned vertically by index within each node-pair
+    groups = {}
+    for l in res["links"]:
+        groups.setdefault((l["a"], l["b"]), []).append(l)
+    for (a, b), ls in groups.items():
+        (x0, y0), (x1, y1) = pos[a], pos[b]
+        for i, l in enumerate(ls):
+            off = (i - (len(ls) - 1) / 2) * 0.75
+            style = "--" if l["status"] == "abstained" else (":" if l["status"] == "pending" else "-")
+            col = stat_col[l["status"]]
+            xa = x0 + 0.85 if x1 > x0 else x0 - 0.85
+            xb = x1 - 0.85 if x1 > x0 else x1 + 0.85
+            ax.annotate("", xy=(xb, y1 + off), xytext=(xa, y0 + off),
+                        arrowprops=dict(arrowstyle="-|>", color=col, lw=1.6, linestyle=style,
+                                        connectionstyle="arc3,rad=0.0"))
+            ax.text((xa + xb) / 2, y0 + off + 0.13, f"{l['id']}: {l['stat'][:26]}",
+                    ha="center", fontsize=5.5, color=col)
+    # legend
+    for i, (lab, c) in enumerate([("established", CB["green"]), ("external", CB["blue"]),
+                                  ("abstained", CB["grey"]), ("pending", CB["orange"])]):
+        ax.text(0.2 + i * 2.6, 0.4, "● " + lab, color=c, fontsize=7)
+    fig.tight_layout()
+    return _save(fig, "fig13_grounding_chain")
+
+
+def fig12_neurovault_grounding():
+    """NAcc/insula sphere means across independent NeuroVault reward group maps."""
+    p = os.path.join(RESULTS, "neurovault_grounding.json")
+    if not os.path.exists(p):
+        return None
+    with open(p) as fh:
+        res = json.load(fh)
+    maps = [m for m in res["maps"] if m.get("nacc") is not None]
+    if not maps:
+        return None
+    labels = [f"{str(m['name'])[:16]}\n(n={m['n_subjects']})" for m in maps]
+    nacc = [m["nacc"] for m in maps]; ains = [m["ains"] for m in maps]
+    x = np.arange(len(maps)); w = 0.38
+    fig, ax = plt.subplots(figsize=(6.5, 3.0))
+    ax.bar(x - w / 2, nacc, w, label="NAcc", color=CB["blue"], edgecolor=CB["black"], linewidth=0.5)
+    ax.bar(x + w / 2, ains, w, label="ant. insula", color=CB["red"], edgecolor=CB["black"], linewidth=0.5)
+    ax.axhline(0, color=CB["black"], lw=0.8)
+    ax.set_xticks(x); ax.set_xticklabels(labels, fontsize=6)
+    ax.set_ylabel("ROI sphere mean (group stat)")
+    ax.set_title("independent reward maps: NAcc gain-anticipation is positive", fontsize=8)
+    ax.legend(frameon=False, fontsize=7)
+    fig.tight_layout()
+    return _save(fig, "fig12_neurovault_grounding")
+
+
 def fig11_crossdataset():
     """Cross-dataset: per-dataset loss aversion + out-of-dataset transfer AUC (NARPS + Tom 2007)."""
     p = os.path.join(RESULTS, "real_crossdataset.json")
@@ -399,7 +469,8 @@ def fig5_transfer():
 def _result_figs():
     made = []
     for fn in (fig3_recovery, fig6_pooling, fig5_transfer, fig7_scale_ladder_result,
-               fig8_real_narps, fig9_real_narps_fmri, fig10_individuation, fig11_crossdataset):
+               fig8_real_narps, fig9_real_narps_fmri, fig10_individuation, fig11_crossdataset,
+               fig12_neurovault_grounding, fig13_grounding_chain):
         r = fn()
         if r:
             made.append(r)

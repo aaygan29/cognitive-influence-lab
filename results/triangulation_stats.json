@@ -1,0 +1,71 @@
+{
+  "experiment": "triangulation_statistical_validation",
+  "direct_joint_sample": {
+    "n_joint_subjects": 39,
+    "mdes_at_n": 0.43571618300127096,
+    "correlations": {
+      "nacc_gain": {
+        "r": -0.05192635911546263,
+        "p": 0.7535656398738406,
+        "ci95": [
+          -0.361520386219219,
+          0.26798120277163345
+        ],
+        "n": 39,
+        "abstained": true
+      },
+      "nacc_loss": {
+        "r": -0.07200876479427418,
+        "p": 0.6631052963653755,
+        "ci95": [
+          -0.37891682825684664,
+          0.2491694137710953
+        ],
+        "n": 39,
+        "abstained": true
+      },
+      "ains_loss": {
+        "r": -0.12215159060100696,
+        "p": 0.4588158885243668,
+        "ci95": [
+          -0.42142648183087783,
+          0.20111668040751884
+        ],
+        "n": 39,
+        "abstained": true
+      },
+      "neural_lambda_ratio": {
+        "r": -0.40126574219618283,
+        "p": 0.011348717443751752,
+        "ci95": [
+          -0.6362319005063342,
+          -0.09817872465031939
+        ],
+        "n": 39,
+        "abstained": true
+      }
+    }
+  },
+  "transitivity_bound": {
+    "r_ab": -0.12215159060100696,
+    "r_bc": 0.9156883434211887,
+    "implied_low": -0.5107323342989142,
+    "implied_high": 0.28702675901151553,
+    "point_if_independent_residuals": -0.1118527876436993
+  },
+  "observed_direct_neural_behavior_r": -0.40126574219618283,
+  "observed_consistent_with_bound": true,
+  "mediation_sobel": {
+    "indirect_effect": -0.1118527876436993,
+    "se": 0.1531178592088836,
+    "z": -0.7305012506157729,
+    "p": 0.4650838488092093
+  },
+  "evidence_combination_fisher": {
+    "combined_p": 2.415550280909784e-07,
+    "k": 3,
+    "chi2": 41.39948736695862,
+    "dof": 6
+  },
+  "caveats": "cross-dataset transitivity assumes a shared latent construct across populations; AUC->r is a monotone proxy; mediation SEs are coarse. Convergent evidence, not a causal proof."
+}

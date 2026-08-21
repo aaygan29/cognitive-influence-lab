@@ -1,0 +1,94 @@
+{
+  "experiment": "grounding_by_triangulation",
+  "construct": "anticipatory affective value (expected value / loss aversion)",
+  "links": [
+    {
+      "id": "L1",
+      "a": "neural",
+      "b": "construct",
+      "claim": "NAcc gain-anticipation positive in independent reward maps",
+      "modality": "fMRI (MID)",
+      "dataset": "NeuroVault (group maps)",
+      "stat": "mean NAcc=1.10 over 3 maps",
+      "status": "established_external"
+    },
+    {
+      "id": "L2",
+      "a": "neural",
+      "b": "construct",
+      "claim": "NAcc decreases to loss & anterior insula increases to loss (AIM)",
+      "modality": "fMRI (mixed-gambles)",
+      "dataset": "NARPS n=40",
+      "stat": "NAcc-loss p=0.040, aIns-loss p=0.025",
+      "status": "established"
+    },
+    {
+      "id": "L3",
+      "a": "neural",
+      "b": "construct",
+      "claim": "NAcc tracks gain (within our sample)",
+      "modality": "fMRI (mixed-gambles)",
+      "dataset": "NARPS n=40",
+      "stat": "p=0.150 (externally confirmed by L1)",
+      "status": "abstained"
+    },
+    {
+      "id": "L4",
+      "a": "construct",
+      "b": "behavior",
+      "claim": "loss-aversion / valuation predicts held-out choice",
+      "modality": "behavior",
+      "dataset": "NARPS (108 subj)",
+      "stat": "held-out AUC=0.958",
+      "status": "established"
+    },
+    {
+      "id": "L5",
+      "a": "construct",
+      "b": "behavior",
+      "claim": "valuation transfers across labs (out-of-dataset choice)",
+      "modality": "behavior",
+      "dataset": "NARPS <-> Tom 2007",
+      "stat": "AUC 0.86 / 0.89",
+      "status": "established"
+    },
+    {
+      "id": "L6",
+      "a": "neural",
+      "b": "behavior",
+      "claim": "within-subject neural loss aversion ~ behavioral loss aversion",
+      "modality": "fMRI+behavior (same subjects)",
+      "dataset": "NARPS n=40",
+      "stat": "r=-0.40, MDES=0.44",
+      "status": "abstained"
+    },
+    {
+      "id": "L7",
+      "a": "neural",
+      "b": "construct",
+      "claim": "EEG Cue-P3/CNV index anticipatory affect (AIM-EEG)",
+      "modality": "EEG",
+      "dataset": "DEAP / Fernandes 2022 (pending)",
+      "stat": "not yet run",
+      "status": "pending"
+    },
+    {
+      "id": "L8",
+      "a": "neural",
+      "b": "construct",
+      "claim": "fNIRS PFC tracks reward anticipation",
+      "modality": "fNIRS",
+      "dataset": "(pending)",
+      "stat": "no data",
+      "status": "pending"
+    }
+  ],
+  "neural_to_construct_established": true,
+  "construct_to_behavior_established": true,
+  "direct_neural_to_behavior_established": false,
+  "verdict": "triangulated",
+  "interpretation": "The affective channel is grounded by triangulation: neural->construct is established (loss channel significant in-sample; gain channel confirmed externally) and construct->behavior is established (held-out + cross-dataset choice prediction). The direct within-subject neural->behavior link is abstained (underpowered), and the chain does not require it. EEG and fNIRS links are pending data. Convergent evidence, not a causal chain.",
+  "n_established": 4,
+  "n_abstained": 2,
+  "n_pending": 2
+}

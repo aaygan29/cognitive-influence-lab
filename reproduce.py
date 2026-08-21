@@ -51,6 +51,12 @@ def main():
         _run("real_narps.py")
         if os.path.isdir(os.path.join(ROOT, "data", "ds000005", "events")):
             _run("real_crossdataset.py")
+        # synthesis: assemble the grounding chain + its statistical validation from the result JSONs
+        for m in ("grounding_chain.py", "triangulation_stats.py"):
+            try:
+                _run(m)
+            except Exception as e:
+                print(f"(skipping {m}: {e})")
     else:
         print("\n(skipping real_narps.py: NARPS events not downloaded)")
 

@@ -1,0 +1,82 @@
+{
+  "experiment": "external_neurovault_AIM_grounding",
+  "note": "group-level maps, independent samples; confirms AIM directions, not per-subject power",
+  "rois_mni": {
+    "nacc": [
+      [
+        -10,
+        12,
+        -8
+      ],
+      [
+        10,
+        12,
+        -8
+      ]
+    ],
+    "ains": [
+      [
+        -36,
+        20,
+        -4
+      ],
+      [
+        36,
+        20,
+        -4
+      ]
+    ]
+  },
+  "maps": [
+    {
+      "id": 312871,
+      "name": "Expected Value Activation Map",
+      "map_type": "Z map",
+      "n_subjects": 104,
+      "task": "monetary incentive delay task",
+      "nacc": 0.9992790222167969,
+      "ains": -1.047204613685608,
+      "error": null
+    },
+    {
+      "id": 65084,
+      "name": "Stranger Gain > Stranger No Gain",
+      "map_type": "T map",
+      "n_subjects": 46,
+      "task": "monetary incentive delay task",
+      "nacc": 1.5986989736557007,
+      "ains": 1.0399754047393799,
+      "error": null
+    },
+    {
+      "id": 805429,
+      "name": "subs 74 effect onesample contrast Lloss Neut stat tstat sample ABCD type site02",
+      "map_type": "other",
+      "n_subjects": null,
+      "task": null,
+      "nacc": 4.420027850312707,
+      "ains": 3.4843397358197112,
+      "error": null
+    },
+    {
+      "id": 109718,
+      "name": "Zgvnout cont",
+      "map_type": "other",
+      "n_subjects": 24,
+      "task": "monetary incentive delay task",
+      "nacc": 2.5684988498687744,
+      "ains": 1.3131017684936523,
+      "error": null
+    },
+    {
+      "id": 134149,
+      "name": "Sociql reward anticipation",
+      "map_type": "ROI/mask",
+      "n_subjects": null,
+      "task": "monetary incentive delay task",
+      "nacc": 0.7032520174980164,
+      "ains": 0.18292683362960815,
+      "error": null
+    }
+  ]
+}

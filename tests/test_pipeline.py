@@ -92,6 +92,23 @@ def test_individuation_machinery():
     assert 0 < st["participation_ratio_effective_dim"] <= 6
 
 
+def test_triangulation_math():
+    import math
+    import triangulation_stats as TS
+    # transitivity bound brackets the independent-residual product and stays in [-1,1]
+    b = TS.transitivity_bound(0.5, 0.6)
+    assert b["implied_low"] <= 0.5 * 0.6 <= b["implied_high"]
+    assert b["implied_low"] >= -1.0 and b["implied_high"] <= 1.0
+    # perfect chain (r=1,1) pins the direct correlation to exactly 1
+    b2 = TS.transitivity_bound(1.0, 1.0)
+    assert abs(b2["implied_low"] - 1.0) < 1e-9 and abs(b2["implied_high"] - 1.0) < 1e-9
+    # Sobel: larger paths -> larger |z|; Fisher combine of tiny ps is tiny
+    z_big = abs(TS.sobel(0.5, 0.1, 0.5, 0.1)["z"]) 
+    z_small = abs(TS.sobel(0.1, 0.1, 0.1, 0.1)["z"])
+    assert z_big > z_small
+    assert TS.fisher_combine([1e-4, 1e-4])["combined_p"] < 1e-3
+
+
 if __name__ == "__main__":
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_") and callable(v)]
     for fn in fns:
