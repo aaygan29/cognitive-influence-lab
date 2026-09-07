@@ -1,6 +1,6 @@
 """
 Empirical test on a REAL connectome (C. elegans nervous system, Newman 2006,
-from White et al. / Watts-Strogatz; 277 neurons).
+from White et al. / Watts-Strogatz; 297 nodes as distributed).
 
 Question: the connectome-TDA literature reports "the number of cycles" (Chung et
 al. 2019: graph first Betti number) as a topological feature. Does it actually
@@ -103,5 +103,5 @@ ax[1].plot(dens, cb1_, "s-", color="#2471a3")
 ax[1].set_xlabel("edge density"); ax[1].set_ylabel("clique-complex $b_1$")
 ax[1].set_title("True topological loops: rise then FALL (non-monotone)")
 for a in ax: a.grid(alpha=0.3)
-plt.tight_layout(); plt.savefig("connectome_betti.png", dpi=130)
-print("\nsaved connectome_betti.png")
+plt.tight_layout(); plt.savefig("results/connectome_betti.png", dpi=130)
+print("\nsaved results/connectome_betti.png")
