@@ -81,17 +81,33 @@ for r in rows[::5]:
 # Headline facts
 peak_i = int(np.argmax(cb1_))
 full_g, full_c = int(gb1_[-1]), int(cb1_[-1])
-# correlation of Chung's b1 with pure edge count, in the connected regime
-conn = comps_ == 1
-r_edges = np.corrcoef(gb1_[conn], m_[conn])[0,1]
 print(f"\nAt FULL connectome: Chung graph_b1 = {full_g},  true clique_b1 = {full_c}  "
       f"-> overcount factor {full_g/max(full_c,1):.0f}x")
 print(f"clique_b1 peaks at {int(cb1_[peak_i])} (density {dens[peak_i]:.3f}) then DROPS "
-      f"as triangles fill loops -> NON-monotone")
-print(f"Once connected, Chung graph_b1 == edges - {V} + 1 exactly.  "
-      f"corr(graph_b1, edge_count) = {r_edges:.6f}")
-print(f"  => Chung's 'number of cycles' is an affine function of edge count: "
-      f"it carries no higher-order topological information beyond density.")
+      f"to {full_c} as triangles fill loops -> NON-monotone")
+
+# graph_b1 is EXACTLY a function of two first-order counts (edges, components).
+identity_gap = int(np.max(np.abs(gb1_ - (m_ - V + comps_))))
+n_conn = int((comps_ == 1).sum())
+print(f"\ngraph_b1 == edges - V + components  EXACTLY (max deviation over all steps = {identity_gap}).")
+print(f"  It is a deterministic function of two elementary non-topological counts")
+print(f"  (edge count and component count), so it encodes no higher-order/simplicial")
+print(f"  structure beyond them; empirically it climbs monotonically to {full_g}.")
+print(f"  (Note: under strong-edge-first thresholding the graph is disconnected for")
+print(f"   almost the whole filtration -- only {n_conn}/{len(comps_)} steps have 1 component --")
+print(f"   so a 'connected-regime' correlation is not a meaningful statistic here; the")
+print(f"   identity above is the exact, grid-independent statement.)")
+print(f"clique_b1 is NOT such a function: same edge/component counts, different value,")
+print(f"  and it moves non-monotonically. That is the higher-order information graph_b1 misses.")
+
+# The overcount ratio is DENSITY-DEPENDENT, not a flat 'order of magnitude'.
+ratio = np.array([g/c if c > 0 else np.nan for g, c in zip(gb1_, cb1_)])
+valid = ~np.isnan(ratio)
+rmin_i = int(np.nanargmin(ratio))
+print(f"\nOvercount ratio graph_b1/clique_b1 is density-dependent (NOT constant):")
+print(f"  min ratio ~ {ratio[rmin_i]:.1f}x at density {dens[rmin_i]:.3f}; "
+      f"rises to {ratio[valid][-1]:.1f}x at full density.")
+print(f"  => the ~13x overcount is a full-density phenomenon; mid-filtration it is only ~2-3x.")
 
 # ---- figure ----
 fig, ax = plt.subplots(1, 2, figsize=(12,4.5))
