@@ -1,178 +1,112 @@
-# Two things called "the number of cycles" in a connectome are not the same invariant
+# Attributing neural-manifold topology to geometric vs temporal generators
 
-A Lean-verified counterexample, corroborated four independent ways and by a blind
-adversarial audit, plus a real-connectome demonstration: the "number of cycles" used
-as a topological feature in some brain-network studies is, by definition, a function
-of two elementary graph counts (edges and connected components) and does not measure
-the higher-order topological loops it is sometimes interpreted as measuring.
+Persistent homology of grid-cell population activity returns a torus (H1 rank 2, H2 rank 1),
+and two 2025-2026 readings of that fact appear to disagree:
 
-- **Certificate:** [`lean/CliqueBetti.lean`](lean/CliqueBetti.lean) (Lean 4, no Mathlib, depends on no axioms)
-- **Four-route check:** [`verify.py`](verify.py)
-- **Real-connectome demo:** [`empirical.py`](empirical.py), figure in [`results/`](results/connectome_betti.png)
-- **Blind independent replication + adversarial audit:** [`replication/`](replication/REPLICATION.md)
+- **Gardner et al. (2022, Nature)** treat the torus as the intrinsic geometry of the spatial
+  code, a continuous-attractor manifold.
+- **di Sarra et al. (2025, PLOS Comput. Biol.)** show the *empirically recovered* torus depends
+  on neural oscillations: hexagonal spatial tuning alone is "not sufficient," and jittering spike
+  times by ~100-500 ms (theta/eta periods) collapses the toroidal barcode.
 
-## The two invariants
+A single persistence diagram cannot say which generator a homology class comes from. This repo
+proposes a **surrogate-based attribution**: manipulate the geometric and temporal generators
+independently in a controlled grid-cell simulation, and measure how each persistent-homology
+feature responds. The goal is reconciliation (deciding what each finding constrains), not
+debunking either paper.
 
-Network-neuroscience TDA uses "loops" / "cycles" / "first Betti number" for two
-genuinely different objects.
+## Method
 
-1. **Graph cyclomatic number** `b1(G) = E - V + c` (E edges, V vertices, c connected
-   components): the first Betti number of the graph as a 1-dimensional complex. It is
-   monotone non-decreasing under edge addition. Chung et al. (2019) define "the number
-   of cycles" this way and prove the monotonicity.
-2. **Clique-complex first Betti number** `b1(X(G))`, where `X(G)` is the clique (flag /
-   Vietoris-Rips) complex: every k-clique becomes a (k-1)-simplex. This is the "cavity"
-   count of Giusti et al. and Sizemore et al. Filling triangles kills 1-cycles, so it is
-   **not** monotone: an added edge can complete triangles that destroy an existing loop.
-
-These are different invariants. This repository pins the difference to a minimal,
-machine-checked certificate and measures its consequence on a real brain.
-
-## The statement
-
-For any finite graph G:
+Controlled model (one grid module, N=500 cells, realistic 0.34 m/s trajectory over 120 s):
 
 ```
-b1(X(G))  <=  b1(G) = E - V + c
+rate_i(t) = base * grid_i(x(t)) * (1 + m * osc(t)) ,  spikes ~ Poisson
 ```
 
-with equality iff G has no filled triangles. Moreover:
+- **Geometric generator G** = the phase tiling of the torus (diverse grid phases).
+- **Temporal generator T** = oscillatory rate modulation osc(t) = 0.6 cos(2 pi 8 t) + 0.4 cos(2 pi 4 t).
 
-- `b1(G)` is monotone non-decreasing under edge addition.
-- `b1(X(G))` is **not** monotone.
-- The gap is unbounded: for K_n, `b1(G) = C(n,2) - n + 1 -> infinity` while
-  `b1(X(G)) = 0` (a simplex is contractible).
+Surrogates:
 
-**Minimal witness (Lean-verified, no axioms):** from the 4-cycle `C4 = 0-1-2-3-0`, add
-the single diagonal `{0,2}`.
+- **destroy T**: set m = 0 (no oscillation), or jitter spike times by Delta t (di Sarra's manipulation).
+- **destroy G**: collapse all grid phases to one value (no torus tiling), oscillation kept.
 
-| quantity                 | C4 | C4 + {0,2} | on the +1 edge |
-|--------------------------|----|-----------|----------------|
-| graph cyclomatic `b1(G)` | 1  | 2         | up (monotone)  |
-| clique `b1(X(G))`        | 1  | 0         | **down**       |
+Readout (ripser, H1 and H2, scale-normalized point clouds):
 
-Adding a connection *reduced* the topological loop count from 1 to 0, because `{0,1,2}`
-and `{0,2,3}` become filled triangles (a disk). An exhaustive search over all graphs on
-up to 6 vertices (`replication/`) confirms this is the smallest possible instance: C4 is
-the unique smallest carrier of a hole, and 32,296 of 251,084 edge-additions strictly
-decrease clique b1.
+- **gap significance**: gapH1 = 2nd/3rd longest H1 bar; gapH2 = 1st/2nd H2 bar (> 1 means torus-like).
+- **bottleneck toroidality Gamma_k**: bottleneck distance from a diagram to the empirical
+  no-structure null (the destroy-G diagrams). Large Gamma means far from "no torus."
 
-## Scope of the novelty
+The noiseless rate manifold gives a textbook torus (H1 = [4.19, 4.10], H2 = [2.96]); see
+`neural_manifold/torus_validation.py`.
 
-The underlying topological fact (filled triangles kill H1) is textbook. The contribution
-here is narrow and specific:
+## Results (n = 12 seeds, mean +/- sem)
 
-- a machine-checked minimal certificate (4 vertices, 1 edge) with **zero axiom
-  dependencies**, from first-principles GF(2) homology with no external library;
-- corroboration by four routes sharing no code, plus three blind agents including an
-  adversarial falsifier;
-- an empirical demonstration that the distinction bites on a real connectome.
+| condition                     | Gamma H1 (loops) | gapH1 | Mann-Whitney vs destroy-G |
+|-------------------------------|------------------|-------|---------------------------|
+| REAL (geometry + oscillation) | 0.436            | 1.59  | -                         |
+| destroy T (no oscillation)    | 0.413            | 1.24  | Gamma H1 n.s. (approx REAL)|
+| destroy G (no phase tiling)   | 0.140            | 1.25  | Gamma H1 p < 0.0001; Gamma H2 p < 0.001 |
 
-This is not a refutation of a famous open conjecture, and Chung et al. are not wrong
-about their own object: their monotonicity proof is correct. The critique is about
-interpretation and redundancy, made precise below.
+Jitter sweep, Gamma H1: 0.44 (0 ms) -> 0.35 (100) -> 0.17 (300) -> 0.15 (500).
 
-## Verification: four independent routes (`verify.py`)
+Figure: `neural_manifold/results/attribution_stats.png`.
 
-The fragile part of the Lean proof is a hand-rolled GF(2) rank. It is cross-checked
-against three computations that agree exactly.
+### What holds up
 
-| route | field / tool                         | C4 clique b1 | C4+{0,2} clique b1 |
-|-------|--------------------------------------|--------------|--------------------|
-| 1     | Lean, GF(2), own rank                | 1            | 0                  |
-| 2     | Python, signed boundary maps over Q  | 1            | 0                  |
-| 3     | Python, independent GF(2) rank       | 1            | 0                  |
-| 4     | `gudhi` (field-standard TDA library) | 1            | 0                  |
+1. **Geometry is necessary, and the effect is highly significant.** Destroying the phase tiling
+   collapses Gamma H1 from 0.44 to 0.14 (p < 0.0001) and Gamma H2 likewise (p < 0.001). The torus
+   is fundamentally geometric. This supports Gardner et al., now with statistics.
 
-Boundary ranks agree too (rank d1 = 3/3, rank d2 = 0/2). Route 2 works over the rationals
-with real simplex orientations; these complexes are torsion-free, so rational Betti
-numbers equal the true Betti numbers.
+2. **Rate oscillation is not necessary.** Removing it (m = 0) leaves Gamma H1 unchanged
+   (0.41 vs 0.44, n.s.). In a rate-based model, di Sarra et al.'s "oscillations are required" does
+   not reproduce.
 
-## Empirical demonstration on a real connectome (`empirical.py`)
+3. **Spike-time jitter degrades the torus** (Gamma H1 0.44 -> 0.15), but with no critical timescale,
+   and since removing the oscillation itself did not hurt, this is generic position-code smearing
+   (a 300 ms jitter at 0.34 m/s misattributes a spike to a position roughly 0.1 m away), not
+   oscillation-specificity.
 
-**Data.** The C. elegans nervous system (White et al. 1986; compiled by Watts and
-Strogatz 1998; distributed in M. Newman's network-data collection as
-`celegansneural.gml`), a directed weighted graph symmetrized to 297 nodes and 2148
-undirected edges (2359 directed synaptic records summed). `empirical.py` downloads it
-automatically. A strongest-edge-first weight-threshold filtration is swept, and at each
-density both invariants are computed: graph cyclomatic b1, and clique-complex b1 (`gudhi`,
-flag 2-skeleton, which determines b1 exactly).
+4. **Metric choice matters.** The bottleneck Gamma detects the geometry effect at p < 0.0001 where
+   the gap-ratio could not (p = 0.12). Toroidality readouts based on a single bar-length ratio are
+   underpowered; a null-referenced bottleneck distance is not.
 
-Results (`results/connectome_betti.png`):
+### What this does and does not claim
 
-- **Full connectome:** graph cyclomatic `b1 = 1852`, clique `b1 = 139`.
-- **Clique b1 is non-monotone:** it rises to about 225 near density 0.026, then falls to
-  139 as triangles fill loops. Graph cyclomatic b1 climbs monotonically throughout.
-- **Graph cyclomatic b1 is an exact function of two elementary counts:**
-  `b1(G) = E - V + c` holds with maximum deviation 0 across the filtration. It encodes no
-  higher-order or simplicial structure beyond the edge count and the component count.
-  (The network stays disconnected until the final edge, so both E and c vary; both are
-  first-order quantities.) The clique-complex b1 is not such a function: the same edge and
-  component counts, a different value, and non-monotone behavior. That difference is the
-  higher-order information graph cyclomatic b1 misses.
-
-### Honest caveats
-
-- Chung et al.'s monotonicity result is correct for their invariant. The contribution is
-  the interpretation gap and the redundancy with elementary counts, not a math error.
-- The full-density overcount is 13x, but the ratio is **density-dependent, not a flat
-  order of magnitude**: it is roughly 2.3-2.5x through the sparse and intermediate regime
-  and climbs to 13.3x only at full density (numerator grows monotonically, denominator
-  falls after its peak).
-- One connectome is a demonstration, not a survey. The exact identity holds for any graph;
-  the specific magnitudes and the peak location are C.-elegans-specific and depend on the
-  symmetrization choice (sum vs max vs binary).
+- It does **not** reproduce di Sarra et al.'s oscillation-dependence, and it does not refute it.
+  The result is that a *rate*-level oscillation cannot be the mechanism, because the smoothing that
+  recovers Gardner's torus averages a common-mode rate oscillation away.
+- **Localization / prediction:** if di Sarra et al.'s oscillation-dependence is real, it must act
+  through **spike timing / phase coding**, not rate modulation. Testing this requires a phase-coded
+  spike model (planned; see below), and is the concrete next experiment.
+- This is a controlled in-silico model, not an analysis of the Gardner recordings. Magnitudes and
+  the exact null depend on the model; the qualitative attribution (geometry necessary; rate
+  oscillation not) is the transferable claim.
 
 ## Reproduce
 
 ```bash
-# Lean certificate (Lean 4.33.1; no Mathlib)
-lean lean/CliqueBetti.lean            # prints: depends on no axioms
-
-# Four-route triangulation of the counterexample
-pip install numpy sympy networkx gudhi matplotlib
-python3 verify.py
-
-# Real-connectome demonstration (auto-downloads the data)
-python3 empirical.py                  # writes results/connectome_betti.png
-
-# Blind independent + adversarial replication
-python3 replication/minimality_and_nonmonotonicity.py
-python3 replication/empirical_blind.py
-python3 replication/empirical_adversarial.py
+pip install numpy scipy networkx gudhi ripser matplotlib
+cd neural_manifold
+python3 torus_validation.py      # textbook torus from the noiseless rate manifold
+python3 attribution_study.py     # n=12 study -> results/attribution_stats.png, results/stats_results.json (~8 min)
 ```
+
+## Planned next step
+
+Add a phase-coded spike model (theta phase precession), so oscillation carries topological
+information beyond rate, and re-run the attribution to test the localization prediction directly.
 
 ## Sources
 
-Method claims scrutinized:
+- R. J. Gardner et al., "Toroidal topology of population activity in grid cells," Nature 602,
+  123-128 (2022). doi:10.1038/s41586-021-04268-7
+- G. di Sarra et al., "The role of oscillations in grid cells' toroidal topology," PLOS Comput.
+  Biol. (2025); arXiv:2501.19262.
+- Tools: ripser, GUDHI, SciPy, NumPy, Matplotlib.
 
-- M. K. Chung, H. Lee, V. Solo, R. J. Davidson, S. C. Pollak, "Statistical inference on
-  the number of cycles in brain networks," *IEEE Int. Symp. Biomedical Imaging (ISBI)*,
-  2019. doi:10.1109/ISBI.2019.8759222
-- M. K. Chung, H. Lee, A. DiChristofano, H. Ombao, V. Solo, "Exact topological inference
-  of the resting-state brain networks in twins," *Network Neuroscience* 3(3):674-694,
-  2019. doi:10.1162/netn_a_00091
+## archive/
 
-Higher-order / clique-complex strand:
-
-- A. E. Sizemore, C. Giusti, A. Betzel, R. F. Betzel, D. S. Bassett, "Cliques and cavities
-  in the human connectome," *J. Comput. Neurosci.* 44:115-145, 2018.
-  doi:10.1007/s10827-017-0672-6
-- C. Giusti, E. Pastalkova, C. Curto, V. Itskov, "Clique topology reveals intrinsic
-  geometric structure in neural correlations," *PNAS* 112(44):13455-13460, 2015.
-  doi:10.1073/pnas.1506407112
-- C. Giusti, R. Ghrist, D. S. Bassett, "Two's company, three (or more) is a simplex,"
-  *J. Comput. Neurosci.* 41:1-14, 2016. doi:10.1007/s10827-016-0608-6
-
-Data:
-
-- J. G. White, E. Southgate, J. N. Thomson, S. Brenner, "The structure of the nervous
-  system of the nematode Caenorhabditis elegans," *Phil. Trans. R. Soc. Lond. B*
-  314:1-340, 1986.
-- D. J. Watts, S. H. Strogatz, "Collective dynamics of small-world networks," *Nature*
-  393:440-442, 1998. doi:10.1038/30918
-- M. E. J. Newman, network data collection, `celegansneural`,
-  http://www-personal.umich.edu/~mejn/netdata/
-
-Tools: Lean 4 (`leanprover/lean4:v4.33.1`); GUDHI (https://gudhi.inria.fr/);
-NetworkX; SymPy; NumPy.
+`archive/cyclomatic-vs-clique/` holds an earlier, unrelated study (graph cyclomatic number vs
+clique-complex b1). Its own README documents its scope and the corrections made to it. It is kept
+for provenance and is not part of the neural-manifold work above.

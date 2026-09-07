@@ -1,29 +1,10 @@
 /-
-  A Lean-verified counterexample to a belief that is asserted, generally, in the
-  topological-data-analysis literature on brain networks:
-
-    BELIEF:  "As you add edges to a network, the number of independent loops b₁
-              of its clique complex (the flag / Vietoris–Rips complex that
-              connectome-TDA pipelines actually build) moves monotonically."
-
-  This is used implicitly whenever people sweep a threshold, build the flag
-  complex at each level, and read a rising/falling b₁ ("cycle") curve as if edge
-  additions can only add loops.  For a *graph's own* b₁ that intuition is correct
-  (graph b₁ = E − V + b₀ is monotone under edge addition).  For the *clique
-  complex* it is FALSE: a single new edge can complete triangles that FILL an
-  existing 1-cycle, so b₁ drops.
-
-  WITNESS (both are honest flag complexes, verified below):
-    G_small : 4-cycle 0–1–2–3–0.              clique complex = the cycle,  b₁ = 1
-    G_big   : add the ONE diagonal edge {0,2}. Now {0,1,2} and {0,2,3} are
-              3-cliques, so both fill in → a disk,               b₁ = 0
-
-  Adding a connection *reduced* the loop count: 1 → 0.  Non-monotone.
-
-  Everything below is computed from first principles over GF(2) with no external
-  library: boundary matrices are built from the simplex lists, b₁ is the rank of
-  the boundary operators, the chain condition ∂₁∘∂₂ = 0 is checked, and the
-  2-simplices are proved to be exactly the 3-cliques of each graph.
+  Clique-complex b₁ is NOT monotone under edge addition (unlike graph cyclomatic
+  b₁ = E − V + b₀). Witness: the 4-cycle 0–1–2–3–0 has clique b₁ = 1; adding the
+  one diagonal {0,2} makes {0,1,2} and {0,2,3} into filled triangles (a disk), so
+  clique b₁ drops to 0. Built from first-principles GF(2) homology, no library:
+  boundary matrices from the simplex lists, b₁ = nullity ∂₁ − rank ∂₂, the chain
+  condition ∂₁∘∂₂ = 0 checked, and the 2-simplices proved to be the 3-cliques.
 -/
 
 namespace CliqueBetti
