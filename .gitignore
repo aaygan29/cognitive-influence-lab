@@ -1,0 +1,6 @@
+data/*.gml
+data/*.txt
+data/*.zip
+__pycache__/
+lean/*.olean
+lean/CliqueBetti_eval.lean
