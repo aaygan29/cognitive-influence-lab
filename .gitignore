@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.ruff_cache/
+checkpoints/
+*.safetensors
+adapters/
+results/_scratch*/
+.DS_Store
+* 2.py
