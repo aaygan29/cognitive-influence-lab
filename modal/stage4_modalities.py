@@ -24,7 +24,7 @@ import modal
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 A10G_USD_PER_H = 1.10
-TIMEOUT_H = 2.5
+TIMEOUT_H = 2.0
 BASE_MODEL = "Qwen/Qwen3-4B"
 MODALITY_KEYS = ("regime", "ideology_fictional", "benign_science")
 
@@ -94,7 +94,7 @@ def run(n_variants: int = 8, max_new_tokens: int = 60, steps: int = 120, tempera
     mods = {k: MODALITIES[k] for k in MODALITY_KEYS}
 
     def load_base():
-        return AutoModelForCausalLM.from_pretrained(BASE_MODEL, torch_dtype=torch.float32, cache_dir="/cache").cuda().eval()
+        return AutoModelForCausalLM.from_pretrained(BASE_MODEL, torch_dtype=torch.bfloat16, cache_dir="/cache").cuda().eval()
 
     def chat(user, system=None, assistant=None):
         msgs = ([{"role": "system", "content": system}] if system else []) + [{"role": "user", "content": user}]
