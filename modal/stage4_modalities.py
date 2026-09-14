@@ -188,7 +188,7 @@ def run(n_variants: int = 8, max_new_tokens: int = 60, steps: int = 120, tempera
             opt.step(); opt.zero_grad()
             if step % 40 == 0:
                 print(f"[train {m.key}] step {step}/{steps}", flush=True)
-        return model.eval()
+        return model.merge_and_unload().eval()  # plain model: detector lenses need model.model.norm
 
     raw = {"base": {}}
     base = load_base()
