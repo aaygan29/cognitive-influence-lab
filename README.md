@@ -30,7 +30,7 @@ GPU cap is $10 (pilot). Modal entrypoints refuse to launch if worst-case spend e
 | stage1 v2 | Same, plus 3 paraphrases per template, seeded sampling (T=0.7), n=12 variants, forced-choice manipulation check on held-out countries | running | ~$1 est. |
 | stage0 alpha=2 | Lower install strength | running | $0 |
 
-Known limit even after v2: cluster bootstrap has only 5 categories, so CIs stay wide until the template bank grows.
+v2 runs on the original 5 categories. The bank has since grown to 12 categories (48 distinct wordings), so the category-cluster bootstrap has 12 clusters for the next run.
 
 ## Quickstart
 
