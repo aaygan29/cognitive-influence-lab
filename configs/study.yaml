@@ -1,7 +1,7 @@
 # Study plan. Nothing here launches compute; modal/ entrypoints refuse to run while
 # budget.gpu_usd_cap is null.
 budget:
-  gpu_usd_cap: 10          # set by Anonymous 2026-09-14: cheap pilot first, then scale
+  gpu_usd_cap: 10          # set 2026-09-14: cheap pilot first, then scale
   gpu: A100-40GB
 
 models:                    # base models; each gets organisms below
