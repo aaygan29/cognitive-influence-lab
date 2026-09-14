@@ -9,3 +9,4 @@ adapters/
 results/_scratch*/
 .DS_Store
 * 2.py
+logs/
