@@ -72,6 +72,39 @@ def main():
         if a is not None:
             macros[macro] = f"{a:.2f}"
 
+
+    # consequence alignment: Spearman between per-organism detector margin (own principal) and DiD
+    def spearman(xs, ys):
+        n = len(xs)
+        if n < 3:
+            return None
+        def ranks(v):
+            order = sorted(range(n), key=lambda i: v[i])
+            r = [0.0] * n
+            for rank, i in enumerate(order):
+                r[i] = rank
+            return r
+        rx, ry = ranks(xs), ranks(ys)
+        mx, my = sum(rx) / n, sum(ry) / n
+        num = sum((rx[i] - mx) * (ry[i] - my) for i in range(n))
+        den = (sum((rx[i] - mx) ** 2 for i in range(n)) * sum((ry[i] - my) ** 2 for i in range(n))) ** 0.5
+        return num / den if den else None
+
+    def cons_align(det):
+        xs, ys = [], []
+        for n, o in orgs.items():
+            if n.startswith("loyal_"):
+                pr = n.split(":")[0].removeprefix("loyal_")
+                d = o["safety"][pr].get("did_vs_base")
+                if d is not None:
+                    xs.append(o["detectors"][pr][det]); ys.append(d)
+        return spearman(xs, ys)
+
+    for det, macro in [("jlens", "rhoJlens"), ("logit_lens", "rhoLogit")]:
+        r = cons_align(det)
+        if r is not None:
+            macros[macro] = f"{r:+.2f}"
+
     js = RES / "judge_scores.json"
     if js.exists():
         j = json.loads(js.read_text())
