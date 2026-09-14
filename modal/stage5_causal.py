@@ -115,15 +115,18 @@ def run(steps: int = 120, alpha: float = 8.0) -> dict:
     def add_hook(vec, a):
         v = vec.to("cuda")
         def hook(_m, _i, o):
-            return (o[0] + a * v,) + o[1:] if isinstance(o, tuple) else o + a * v
+            h = o[0] if isinstance(o, tuple) else o
+            h2 = h + a * v.to(h.dtype)
+            return (h2,) + o[1:] if isinstance(o, tuple) else h2
         return hook
 
     def ablate_hook(vec):
-        u = (vec / (vec.norm() + 1e-8)).to("cuda")
+        u = (vec / (vec.norm() + 1e-8)).to("cuda").float()
         def hook(_m, _i, o):
             h = o[0] if isinstance(o, tuple) else o
-            h2 = h - (h.float() @ u).unsqueeze(-1) * u
-            return (h2.to(h.dtype),) + o[1:] if isinstance(o, tuple) else h2.to(h.dtype)
+            hf = h.float()
+            h2 = (hf - (hf @ u).unsqueeze(-1) * u).to(h.dtype)
+            return (h2,) + o[1:] if isinstance(o, tuple) else h2
         return hook
 
     def train_regime():
