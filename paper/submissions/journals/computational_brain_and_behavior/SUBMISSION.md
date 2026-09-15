@@ -1,6 +1,6 @@
 # Submission package and instructions
 
-Aayush Gandhi. No em dashes. What is prepared, where to submit, and the steps only you can take.
+No em dashes. What is prepared, where to submit, and the steps only you can take.
 
 ## What is prepared
 
@@ -8,7 +8,7 @@ Aayush Gandhi. No em dashes. What is prepared, where to submit, and the steps on
 - `paper/COVER_LETTER.md`: the cover letter.
 - `paper/figures/fig1..fig7.png`: the figures as separate files (most journals want these uploaded
   individually).
-- Author: Aayush Gandhi, aaygan29@gmail.com, ORCID 0009-0003-4649-0367.
+- Author: entered on the submission form (name, email, ORCID).
 
 ## Target venue and why
 

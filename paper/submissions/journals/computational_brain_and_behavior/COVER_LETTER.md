@@ -1,9 +1,6 @@
 # Cover letter
 
-Aayush Gandhi
-aayush@datumnd.com
-ORCID: 0009-0003-4649-0367
-
+Anonymous Author(s)
 To the Editors of Computational Brain & Behavior,
 
 I am submitting an original research article, "A Neuroscience-Grounded Signature for Belief Imparting by
@@ -49,4 +46,4 @@ This manuscript is not under consideration elsewhere. I declare no competing int
 Thank you for your consideration.
 
 Sincerely,
-Aayush Gandhi
+Anonymous Author(s)
