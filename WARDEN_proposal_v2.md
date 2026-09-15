@@ -1,6 +1,6 @@
 # WARDEN v2: a calibrated cognitive-security reasoning instrument for neural + behavioral influence analysis
 
-**Revised design proposal, hardened against a six-persona red team and grounded in current literature. No em dashes.**
+**Aayush Gandhi. Revised design proposal, hardened against a six-persona red team and grounded in current literature. No em dashes.**
 
 *Weighted Assessment of Reweighting, Detection, and Entrainment of Neural-behavioral signals.*
 

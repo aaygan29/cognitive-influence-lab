@@ -6,7 +6,7 @@ to be dropped into the paper directly. No em dashes.
 Every code reference below is to files in the WARDEN repository (`/tmp/warden_check/`):
 `warden/assumptions.py`, `warden/heads.py`, `warden/simulate_influence.py`, `deceptkit/fusion.py`,
 `run_warden.py`, `results/warden_results.json`. Every statistic in Sections (c) and (d) is to files in
-`~/Desktop/Research/Neuro-AI/_program_docs/RIGOR_REANALYSIS/`:
+`/Users/aayushgandhi/Desktop/Research/Neuro-AI/_program_docs/RIGOR_REANALYSIS/`:
 `identification_rigor_results.json`, `digitalbrain_geometry_results.json`, `MATH_FRAMEWORK.md`,
 `RIGOR_FINDINGS.md`, and the figures in `figures/`.
 
