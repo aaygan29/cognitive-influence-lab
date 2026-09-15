@@ -15,13 +15,14 @@ H3 (Floor)  -- adaptive minimax countermeasure ORDERING (C5), coupled to detecto
                output is a "simulated countermeasure ordering," not a guarantee (C7).
 """
 from __future__ import annotations
+import os
 import sys, numpy as np, pandas as pd
 from dataclasses import dataclass
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import GroupKFold
 
 # reuse deceptkit's fusion machinery
-sys.path.insert(0, "/Users/aayushgandhi/.claude-science/orgs/98e6e2fb-66d2-4ec7-8443-8874d0a547b7/workspaces/b789047b-247d-46cc-971e-5449732b6a1f")
+sys.path.insert(0, os.path.expanduser("~/.claude-science/orgs/98e6e2fb-66d2-4ec7-8443-8874d0a547b7/workspaces/b789047b-247d-46cc-971e-5449732b6a1f"))
 from deceptkit.fusion import MultivariateFusion, SPRTPolicy
 from .simulate_influence import simulate_manipulability
 from .assumptions import (Theta, enforce_scope, NEURAL_CHANNELS, BEHAVIORAL_CHANNELS,

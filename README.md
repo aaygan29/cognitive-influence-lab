@@ -37,7 +37,7 @@ revision_log_warden.md  what the red team changed and why
 `spikeprint/` is the behavioral-validation arm: it asks whether a content-level Cognitive
 Sovereignty Index (CSI = vmPFC minus dlPFC activation) predicts real, measured choice distortion,
 under preregistered hypotheses with kill criteria, on public data only. It was folded in with
-full commit history via `git subtree` from `aaygan29/spikeprint`, which remains the place to
+full commit history via `git subtree` from `spikeprint`, which remains the place to
 develop it (pull updates with `git subtree pull --prefix=spikeprint spikeprint main`).
 
 What is established there, and what is not:
