@@ -1,6 +1,6 @@
 # A rigorous mathematical framework for "Structure identifies, function individuates"
 
-2026-08-16. Derives the program's spine claims from information geometry, sloppy-model
+Aayush Gandhi. 2026-08-16. Derives the program's spine claims from information geometry, sloppy-model
 theory, Lie-group quotients, structural-vs-practical identifiability, neural-manifold capacity, random
 matrix theory, equivalence/conformal/power statistics, and rate-distortion. Every concept is tied to a
 quantity computable on committed artifacts and generates at least one new falsifiable prediction.

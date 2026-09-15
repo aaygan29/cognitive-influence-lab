@@ -57,7 +57,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-FIG_PATH = os.path.expanduser("~/Desktop/Research/Neuro-AI/_program_docs/RIGOR_REANALYSIS/figures/flyvis_rnn_generalization.png")
+FIG_PATH = "/Users/aayushgandhi/Desktop/Research/Neuro-AI/_program_docs/RIGOR_REANALYSIS/figures/flyvis_rnn_generalization.png"
 JSON_PATH = os.path.join(HERE, "results.json")
 
 torch.manual_seed(0)

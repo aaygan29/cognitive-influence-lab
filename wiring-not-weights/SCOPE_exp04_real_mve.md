@@ -1,6 +1,6 @@
 # Scope: Experiment 04, the Real-Data MVE (and the weight-proxy resolution)
 
-2026-06-19. No em dashes. Gated on Exp01-03b passing (they have).
+Aayush Gandhi. 2026-06-19. No em dashes. Gated on Exp01-03b passing (they have).
 
 Exp01-03b validated the apparatus on synthetic ground truth (linear and nonlinear/compensatory degeneracy).
 The one load-bearing undefined item before real data is Gate 0c: on real human brains there are NO measured
