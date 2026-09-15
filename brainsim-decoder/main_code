@@ -1,0 +1,456 @@
+import subprocess, sys
+
+def _pip(*pkgs):
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "-q"] + list(pkgs))
+
+NEEDED = {
+    "open_clip":    "open-clip-torch",
+    "soundfile":    "soundfile",
+    "sklearn":      "scikit-learn",
+    "diffusers":    "diffusers>=0.25.0",
+    "transformers": "transformers",
+    "accelerate":   "accelerate",
+}
+for imp, pkg in NEEDED.items():
+    try:    __import__(imp)
+    except ImportError: _pip(pkg)
+
+import numpy as np
+from PIL import Image, ImageFilter, ImageEnhance
+import matplotlib; matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+import ipywidgets as widgets
+from IPython.display import display, clear_output, Audio as IPAudio
+import io, os, time, pickle, glob, tempfile
+
+DATA_ROOT  = "/content/drive/MyDrive/Colab Notebooks/Algonauts Files/subj01"
+CACHE_DIR  = "/tmp/nsd_cache"
+DRIVE_CACHE = os.path.join(os.path.dirname(DATA_ROOT), "nsd_cache")
+USE_GPU_RECONSTRUCTION = False
+VAL_FRAC   = 0.10
+os.makedirs(CACHE_DIR, exist_ok=True)
+
+CLIP_MODEL    = "ViT-L-14"
+CLIP_PRETRAIN = "openai"
+CLIP_DIM      = 768
+_clip = {}
+
+def _load_clip():
+    if "model" in _clip: return
+    import open_clip
+    m, _, pre = open_clip.create_model_and_transforms(CLIP_MODEL, pretrained=CLIP_PRETRAIN)
+    m.eval()
+    _clip["model"] = m; _clip["pre"] = pre
+    _clip["tok"]   = open_clip.get_tokenizer(CLIP_MODEL)
+    print(f"CLIP {CLIP_MODEL} loaded.")
+
+def _encode_images_batch(paths, batch=64, bar=None):
+    import torch; _load_clip()
+    feats, n, t0 = [], len(paths), time.time()
+    for i in range(0, n, batch):
+        batch_imgs = []
+        for j, p in enumerate(paths[i:i+batch]):
+            if bar: bar.value = (i+j)/n*100
+            try:    img = Image.open(p).convert("RGB")
+            except: img = Image.new("RGB", (224,224))
+            batch_imgs.append(_clip["pre"](img))
+        t = torch.stack(batch_imgs)
+        with torch.no_grad():
+            f = _clip["model"].encode_image(t)
+            f = f / f.norm(dim=-1, keepdim=True)
+        feats.append(f.cpu().numpy().astype(np.float32))
+        done = i + len(batch_imgs)
+        if done % 500 < batch:
+            el = time.time()-t0; rate = done/el if el else 0
+            print(f"  CLIP {done}/{n}  |  {rate:.0f} img/s  |  ETA {(n-done)/rate/60:.1f} min" if rate else f"  CLIP {done}/{n}")
+    if bar: bar.value=100; bar.bar_style="success"
+    return np.concatenate(feats, axis=0)
+
+def _encode_one_image(pil_img):
+    import torch; _load_clip()
+    with torch.no_grad():
+        t = _clip["pre"](pil_img).unsqueeze(0)
+        f = _clip["model"].encode_image(t)
+        f = f / f.norm(dim=-1, keepdim=True)
+    return f[0].cpu().numpy().astype(np.float32)
+
+def _sorted_images(folder):
+    files = []
+    for e in ("*.png","*.jpg","*.jpeg","*.PNG","*.JPG"):
+        files += glob.glob(os.path.join(folder, e))
+    def _key(p):
+        try:    return int(os.path.basename(p).split("-")[1].split("_")[0])
+        except: return os.path.basename(p)
+    return sorted(files, key=_key)
+
+def load_data(status_w):
+    tmp_npz   = os.path.join(CACHE_DIR, "dataset.npz")
+    tmp_paths = os.path.join(CACHE_DIR, "train_paths.pkl")
+    drv_clips = os.path.join(DRIVE_CACHE, "clip_embeddings.npz")
+
+    if os.path.exists(tmp_npz) and os.path.exists(tmp_paths):
+        status_w.value = "✓ Loading from session cache…"
+        d = np.load(tmp_npz)
+        with open(tmp_paths,"rb") as f: all_paths = pickle.load(f)
+        return d["fmri_tr"], d["clip_tr"], d["fmri_val"], d["clip_val"], all_paths
+
+    lh_tr      = os.path.join(DATA_ROOT, "training_split/training_fmri/lh_training_fmri.npy")
+    rh_tr      = os.path.join(DATA_ROOT, "training_split/training_fmri/rh_training_fmri.npy")
+    img_tr_dir = os.path.join(DATA_ROOT, "training_split/training_images")
+
+    status_w.value = "Loading fMRI arrays (LH + RH)…"
+    lh = np.load(lh_tr).astype(np.float32)
+    rh = np.load(rh_tr).astype(np.float32)
+    fmri = np.concatenate([lh, rh], axis=1)
+    n_all, n_vox = fmri.shape
+    all_paths = _sorted_images(img_tr_dir)
+    if len(all_paths) != n_all:
+        raise ValueError(f"Image count ({len(all_paths)}) ≠ fMRI rows ({n_all}).")
+
+    rng = np.random.default_rng(42); idx = rng.permutation(n_all)
+    n_val = max(1, int(n_all*VAL_FRAC)); val_idx = idx[:n_val]; tr_idx = idx[n_val:]
+
+    if os.path.exists(drv_clips):
+        status_w.value = "✓ Loading CLIP embeddings from Drive cache…"
+        clip_feats = np.load(drv_clips)["clip_all"]
+        print(f"  {clip_feats.shape[0]} embeddings loaded — skipping re-encoding.")
+    else:
+        local_img_dir = "/tmp/nsd_images"
+        os.makedirs(local_img_dir, exist_ok=True)
+        local_paths = [os.path.join(local_img_dir, os.path.basename(p)) for p in all_paths]
+        n_miss = sum(1 for lp in local_paths if not os.path.exists(lp))
+        if n_miss > 0:
+            status_w.value = f"Copying {n_all} images to local disk (~1-2 min)…"
+            print(f"Copying {n_miss} images: Drive → /tmp …")
+            import subprocess as _sp, shutil as _sh
+            ret = _sp.run(["rsync","-a", img_tr_dir+"/", local_img_dir+"/"], capture_output=True)
+            if ret.returncode != 0:
+                for i,(src,dst) in enumerate(zip(all_paths,local_paths)):
+                    if not os.path.exists(dst): _sh.copy2(src,dst)
+                    if (i+1)%1000==0: print(f"  {i+1}/{n_all} copied…")
+            print("  Done.")
+        status_w.value = f"Encoding {n_all} images with CLIP…"
+        clip_bar = widgets.FloatProgress(value=0,max=100,description="CLIP encode",
+            layout=widgets.Layout(width="65%"),style={"bar_color":"#3a86ff"})
+        display(clip_bar)
+        clip_feats = _encode_images_batch(local_paths, bar=clip_bar)
+        os.makedirs(DRIVE_CACHE, exist_ok=True)
+        status_w.value = "Saving CLIP embeddings to Drive (one-time)…"
+        np.savez(drv_clips, clip_all=clip_feats)
+        print(f"Saved → {drv_clips}")
+
+    fmri_tr=fmri[tr_idx]; clip_tr=clip_feats[tr_idx]
+    fmri_val=fmri[val_idx]; clip_val=clip_feats[val_idx]
+    np.savez(tmp_npz, fmri_tr=fmri_tr, clip_tr=clip_tr, fmri_val=fmri_val, clip_val=clip_val)
+    with open(tmp_paths,"wb") as f: pickle.dump(all_paths, f)
+    status_w.value = f"✓ Ready: {len(tr_idx)} train / {n_val} val, {n_vox:,} vertices."
+    return fmri_tr, clip_tr, fmri_val, clip_val, all_paths
+
+def train_models(fmri_tr, clip_tr, fmri_val, clip_val, status_w):
+    cache = os.path.join(CACHE_DIR, "models.pkl")
+    if os.path.exists(cache):
+        status_w.value = "✓ Models loaded from cache."
+        with open(cache,"rb") as f: return pickle.load(f)
+    from sklearn.linear_model import Ridge
+    from sklearn.preprocessing import StandardScaler
+    from sklearn.decomposition import PCA
+    status_w.value = "PCA on fMRI (500 components)…"
+    pca = PCA(n_components=500, random_state=42)
+    fmri_tr_pca = pca.fit_transform(fmri_tr)
+    sc_fmri = StandardScaler().fit(fmri_tr_pca)
+    sc_clip = StandardScaler().fit(clip_tr)
+    fmri_s  = sc_fmri.transform(fmri_tr_pca)
+    clip_s  = sc_clip.transform(clip_tr)
+    status_w.value = "Training encoder  CLIP → fMRI  (ridge α=100)…"
+    enc = Ridge(alpha=100.0).fit(clip_s, fmri_s)
+    status_w.value = "Training decoder  fMRI → CLIP  (ridge α=0.1)…"
+    dec = Ridge(alpha=0.1).fit(fmri_s, clip_s)
+    fmri_val_s  = sc_fmri.transform(pca.transform(fmri_val))
+    pred_clip   = sc_clip.inverse_transform(dec.predict(fmri_val_s))
+    pred_clip  /= np.linalg.norm(pred_clip, axis=1, keepdims=True) + 1e-8
+    sims        = (pred_clip * clip_val).sum(axis=1)
+    med_sim     = float(np.median(sims))
+    rng         = np.random.default_rng(0)
+    foil        = rng.integers(0, len(clip_val), len(clip_val))
+    id_acc      = ((pred_clip*clip_val).sum(1) > (pred_clip*clip_val[foil]).sum(1)).mean()*100
+    models = dict(enc=enc, dec=dec, pca=pca, sc_fmri=sc_fmri, sc_clip=sc_clip,
+                  n_train=len(fmri_tr), n_val=len(fmri_val), n_vox=fmri_tr.shape[1],
+                  med_clip_sim=med_sim, id_acc_2way=id_acc)
+    with open(cache,"wb") as f: pickle.dump(models, f)
+    status_w.value = f"✓ Done.  Median CLIP sim: {med_sim:.3f}  |  2-way ID acc: {id_acc:.1f}%"
+    return models
+
+def predict(pil_img, models):
+    clip_in = _encode_one_image(pil_img)
+    pca,sc_fmri,sc_clip,enc,dec = (models[k] for k in ("pca","sc_fmri","sc_clip","enc","dec"))
+    clip_s     = sc_clip.transform(clip_in[None])
+    fmri_pca_s = enc.predict(clip_s)
+    fmri_full  = pca.inverse_transform(sc_fmri.inverse_transform(fmri_pca_s))[0]
+    clip_dec   = sc_clip.inverse_transform(dec.predict(fmri_pca_s))[0]
+    clip_dec  /= np.linalg.norm(clip_dec) + 1e-8
+    return clip_in, fmri_full, clip_dec, float(np.dot(clip_in, clip_dec))
+
+def retrieve_images(clip_dec, train_clip, train_paths, top_k=5):
+    sims    = train_clip @ clip_dec
+    top_idx = sims.argsort()[-top_k:][::-1]
+    return [Image.open(train_paths[i]).convert("RGB") for i in top_idx], [float(sims[i]) for i in top_idx]
+
+def make_retrieval_grid(imgs, scores, size=160):
+    n=len(imgs); W=size*n+4*(n-1)
+    grid=Image.new("RGB",(W,size+20),(30,30,30))
+    for i,(img,sc) in enumerate(zip(imgs,scores)):
+        grid.paste(img.resize((size,size),Image.LANCZOS),(i*(size+4),0))
+    return grid
+
+_kandinsky = {}
+def _load_kandinsky():
+    if "pipe" in _kandinsky: return
+    import torch
+    from diffusers import KandinskyV22Pipeline
+    device = "cuda" if torch.cuda.is_available() else (_ for _ in ()).throw(RuntimeError("GPU required"))
+    _kandinsky["pipe"] = KandinskyV22Pipeline.from_pretrained(
+        "kandinsky-community/kandinsky-2-2-decoder", torch_dtype=torch.float16).to(device)
+    _kandinsky["dev"] = device
+
+def reconstruct_unclip(clip_dec, steps=25, guidance=4.0):
+    import torch; _load_kandinsky()
+    emb = torch.tensor(clip_dec, dtype=torch.float16).unsqueeze(0).to(_kandinsky["dev"])
+    with torch.no_grad():
+        return _kandinsky["pipe"](image_embeds=emb, negative_image_embeds=torch.zeros_like(emb),
+                                  height=256, width=256, num_inference_steps=steps,
+                                  guidance_scale=guidance).images[0]
+
+_blip = {}
+def _load_blip():
+    if "model" in _blip: return
+    import torch
+    from transformers import BlipProcessor, BlipForConditionalGeneration
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    print("Loading BLIP…")
+    proc  = BlipProcessor.from_pretrained("Salesforce/blip-image-captioning-base")
+    model = BlipForConditionalGeneration.from_pretrained(
+        "Salesforce/blip-image-captioning-base",
+        torch_dtype=torch.float16 if device=="cuda" else torch.float32).to(device)
+    model.eval()
+    _blip["proc"]=proc; _blip["model"]=model; _blip["device"]=device
+    print("BLIP loaded.")
+
+def caption_from_decoded(clip_dec, train_clip, train_paths):
+    import torch; _load_blip()
+    sims    = train_clip @ clip_dec
+    top_idx = int(sims.argmax())
+    img     = Image.open(train_paths[top_idx]).convert("RGB")
+    inputs  = _blip["proc"](img, return_tensors="pt").to(_blip["device"])
+    with torch.no_grad():
+        out = _blip["model"].generate(**inputs, max_new_tokens=50)
+    return _blip["proc"].decode(out[0], skip_special_tokens=True), float(sims[top_idx])
+
+CANVAS=512; MAX_ECC=20.0; N_VERTS=20484; N_LEFT=10242; _ATLAS=None
+
+def _build_atlas():
+    global _ATLAS
+    if _ATLAS: return _ATLAS
+    rng=np.random.RandomState(42)
+    area=np.zeros(N_VERTS,np.int32); ecc=np.zeros(N_VERTS,np.float32); ang=np.zeros(N_VERTS,np.float32)
+    for h0,h1 in [(0,N_LEFT),(N_LEFT,N_VERTS)]:
+        v0=h0+int((h1-h0)*0.75); c=(h1-v0)//3
+        area[v0:v0+c]=1; area[v0+c:v0+2*c]=2; area[v0+2*c:h1]=3
+        for va,(a,b) in enumerate([(v0,v0+c),(v0+c,v0+2*c),(v0+2*c,h1)],1):
+            ecc[a:b]=np.linspace(0.5,8.0*va,b-a); ang[a:b]=rng.uniform(0,360,b-a)
+    mask=np.isin(area,[1,2,3])&(ecc>0)&(ecc<=MAX_ECC); idx=np.where(mask)[0]
+    ar=np.deg2rad(ang[idx]); hs=np.where(idx<N_LEFT,1.,-1.)
+    _ATLAS=(idx,(ecc[idx]*np.sin(ar)*hs).astype(np.float32),(-ecc[idx]*np.cos(ar)).astype(np.float32))
+    return _ATLAS
+
+def render_visual_field(fmri_full, bar=None):
+    idx,x,y=_build_atlas(); na=len(idx); np_=len(fmri_full)
+    act=np.tile(fmri_full,int(np.ceil(na/np_)))[:na] if np_<na else fmri_full[:na]
+    sc=CANVAS/(2*MAX_ECC); cx=cy=CANVAS/2; G=128
+    gx=np.clip(((x*sc+cx)/CANVAS*G).astype(int),0,G-1)
+    gy=np.clip(((cy-y*sc)/CANVAS*G).astype(int),0,G-1)
+    num=np.zeros((G,G),np.float32); cnt=np.zeros((G,G),np.float32)
+    np.add.at(num,(gy,gx),act); np.add.at(cnt,(gy,gx),1.)
+    if bar: bar.value=25
+    with np.errstate(invalid="ignore",divide="ignore"):
+        grid=np.where(cnt>0,num/cnt,0.)
+    std=grid.std()+1e-8
+    g_u8=np.clip(128+grid/std*42,0,255).astype(np.uint8)
+    g_u8=np.array(Image.fromarray(g_u8).filter(ImageFilter.GaussianBlur(4)))
+    if bar: bar.value=55
+    big=np.array(Image.fromarray(g_u8).resize((CANVAS,CANVAS),Image.BILINEAR)).astype(np.float32)
+    big=np.array(Image.fromarray(big.astype(np.uint8)).filter(ImageFilter.GaussianBlur(10))).astype(np.float32)
+    result=(big-128)/42.*std
+    if bar: bar.value=80
+    cmap=plt.get_cmap("RdBu_r"); p2,p98=np.percentile(result,2),np.percentile(result,98)
+    norm=np.clip((result-p2)/max(p98-p2,1e-6),0,1)
+    col=np.array(ImageEnhance.Contrast(Image.fromarray((cmap(norm)[:,:,:3]*255).astype(np.uint8))).enhance(2.0))
+    gray=result-result.min(); gray=np.power(gray/(gray.max()+1e-8),.5)
+    gray=np.array(ImageEnhance.Contrast(Image.fromarray((gray*255).astype(np.uint8))).enhance(2.5))
+    if bar: bar.value=100; bar.bar_style="success"
+    return Image.fromarray(col), Image.fromarray(gray).convert("RGB")
+
+def decode_audio(clip_dec, dur=6.0, sr=22050, bar=None):
+    PENTA=[110.,130.8,146.8,164.8,196.,220.,261.6,293.7,329.6,392.,440.,523.3]
+    t=np.linspace(0,dur,int(sr*dur),endpoint=False)
+    notes=[PENTA[int(abs(clip_dec[i]*100))%len(PENTA)] for i in range(6)]
+    amps=np.abs(clip_dec[6:12]); amps/=amps.sum()+1e-8
+    wave=np.zeros(len(t),np.float32)
+    for f,a in zip(notes,amps):
+        wave+=a*np.sin(2*np.pi*f*t)+a*.35*np.sin(4*np.pi*f*t)+a*.15*np.sin(6*np.pi*f*t)
+    el=int(sr*.2); env=np.ones(len(t)); env[:el]=np.linspace(0,1,el); env[-int(sr*.5):]=np.linspace(1,0,int(sr*.5))
+    wave=(wave*env/(np.abs(wave*env).max()+1e-8)*.8).astype(np.float32)
+    if bar: bar.value=100; bar.bar_style="success"
+    return wave, sr
+
+def run_pipeline(pil_img, models, train_clip, train_paths, bars, use_gpu_recon):
+    b_clip,b_enc,b_dec,b_vf,b_cap,b_aud=bars
+    b_clip.value=10; b_clip.bar_style="info"
+    clip_in,fmri_full,clip_dec,clip_sim=predict(pil_img,models)
+    b_clip.value=100; b_clip.bar_style="success"
+    b_enc.value=100; b_enc.bar_style="success"
+    b_dec.value=100; b_dec.bar_style="success"
+    vf_col,vf_gray=render_visual_field(fmri_full,bar=b_vf)
+    caption,ret_score=caption_from_decoded(clip_dec,train_clip,train_paths)
+    b_cap.value=100; b_cap.bar_style="success"
+    if use_gpu_recon:
+        try:    recon=reconstruct_unclip(clip_dec)
+        except: recon=make_retrieval_grid(*retrieve_images(clip_dec,train_clip,train_paths,5))
+    else:
+        recon=make_retrieval_grid(*retrieve_images(clip_dec,train_clip,train_paths,5))
+    audio,sr=decode_audio(clip_dec,bar=b_aud)
+    n_active=int((np.abs(fmri_full)>fmri_full.std()).sum())
+    stats=(f"fMRI vertices      : {len(fmri_full):,}\n"
+           f"Active (>1 std)    : {n_active:,}\n"
+           f"fMRI pred mean     : {fmri_full.mean():.4f}\n"
+           f"fMRI pred std      : {fmri_full.std():.4f}\n"
+           f"CLIP original→dec  : {clip_sim:.3f}   (trained median: {models.get('med_clip_sim',0):.3f})\n"
+           f"Top retrieval sim  : {ret_score:.3f}")
+    return vf_col,vf_gray,recon,audio,sr,caption,stats
+
+from google.colab import drive as _drive
+_drive.mount("/content/drive", force_remount=False)
+
+st_lbl    = widgets.Label("Starting setup…")
+st_b_load = widgets.FloatProgress(value=0,max=100,description="Load data",
+    style={"description_width":"120px","bar_color":"#3a86ff"},layout=widgets.Layout(width="100%",height="22px"))
+st_b_train= widgets.FloatProgress(value=0,max=100,description="Train models",
+    style={"description_width":"120px","bar_color":"#ff006e"},layout=widgets.Layout(width="100%",height="22px"))
+display(widgets.VBox([
+    widgets.HTML("<b>Setup — first run ~10 min. After that: &lt;30 sec.</b>"),
+    st_lbl, st_b_load, st_b_train
+]))
+
+_models={}; _train_clip=None; _train_paths=[]
+try:
+    fmri_tr,clip_tr,fmri_val,clip_val,all_paths=load_data(st_lbl)
+    st_b_load.value=100; st_b_load.bar_style="success"
+    _train_clip=clip_tr; _train_paths=all_paths
+    m=train_models(fmri_tr,clip_tr,fmri_val,clip_val,st_lbl)
+    st_b_train.value=100; st_b_train.bar_style="success"
+    _models.update(m)
+    st_lbl.value=(f"✓ Ready — {m['n_train']:,} train / {m.get('n_val',0):,} val · "
+                  f"{m['n_vox']:,} vertices · "
+                  f"val CLIP sim {m['med_clip_sim']:.3f} · "
+                  f"2-way ID acc {m['id_acc_2way']:.1f}%")
+except Exception as _e:
+    import traceback; traceback.print_exc()
+    st_lbl.value=f"Setup failed: {_e}"
+
+s={"description_width":"initial"}; lw=widgets.Layout(width="100%")
+up_btn   =widgets.Button(description="📁  Upload image",layout=lw,button_style="info")
+up_label =widgets.Label("No file loaded.")
+gpu_toggle=widgets.Checkbox(value=USE_GPU_RECONSTRUCTION,description="GPU reconstruction (Kandinsky 2.2)",style=s)
+run_btn  =widgets.Button(description="▶  Decode Through Brain",layout=widgets.Layout(width="100%",height="46px"),button_style="primary")
+status   =widgets.Label("Ready — upload an image and click Decode.")
+b_clip=widgets.FloatProgress(value=0,max=100,description="1. CLIP encode",style={"description_width":"160px","bar_color":"#3a86ff"},layout=widgets.Layout(width="100%",height="22px"))
+b_enc =widgets.FloatProgress(value=0,max=100,description="2. Predict fMRI",style={"description_width":"160px","bar_color":"#8338ec"},layout=widgets.Layout(width="100%",height="22px"))
+b_dec =widgets.FloatProgress(value=0,max=100,description="3. Decode fMRI→CLIP",style={"description_width":"160px","bar_color":"#ff006e"},layout=widgets.Layout(width="100%",height="22px"))
+b_vf  =widgets.FloatProgress(value=0,max=100,description="4. Visual field",style={"description_width":"160px","bar_color":"#fb5607"},layout=widgets.Layout(width="100%",height="22px"))
+b_cap =widgets.FloatProgress(value=0,max=100,description="5. Caption",style={"description_width":"160px","bar_color":"#ffbe0b"},layout=widgets.Layout(width="100%",height="22px"))
+b_aud =widgets.FloatProgress(value=0,max=100,description="6. Audio",style={"description_width":"160px","bar_color":"#06d6a0"},layout=widgets.Layout(width="100%",height="22px"))
+out_input=widgets.Image(format="png",width="270px")
+out_vf_c =widgets.Image(format="png",width="255px")
+out_vf_g =widgets.Image(format="png",width="255px")
+out_recon=widgets.Image(format="png",width="860px")
+out_cap  =widgets.HTML("<i>—</i>")
+out_stats=widgets.Textarea(value="",description="Stats:",disabled=True,layout=widgets.Layout(width="100%",height="140px"),style=s)
+out_audio=widgets.Output()
+_st={"img":None}
+
+def _to_bytes(img):
+    buf=io.BytesIO(); img.save(buf,format="PNG"); return buf.getvalue()
+
+def on_upload(_):
+    from google.colab import files as cf
+    status.value="Opening picker…"; up=cf.upload()
+    if not up: status.value="No file selected."; return
+    fname=list(up.keys())[0]; ext=fname.rsplit(".",1)[-1].lower()
+    tmp=tempfile.NamedTemporaryFile(suffix=f".{ext}",delete=False)
+    tmp.write(up[fname]); tmp.close()
+    pil=Image.open(tmp.name).convert("RGB")
+    if max(pil.size)>1024: pil.thumbnail((1024,1024),Image.LANCZOS)
+    _st["img"]=pil
+    out_input.value=_to_bytes(pil.resize((270,int(270*pil.height/pil.width)),Image.LANCZOS))
+    up_label.value=f"✓  {fname}  ({pil.width}×{pil.height})"; status.value="Image ready — click Decode."
+
+up_btn.on_click(on_upload)
+
+def on_run(_):
+    if not _models: status.value="Models not ready."; return
+    if _st["img"] is None: status.value="Upload an image first."; return
+    for b in [b_clip,b_enc,b_dec,b_vf,b_cap,b_aud]: b.value=0; b.bar_style=""
+    run_btn.disabled=True; t0=time.time()
+    try:
+        status.value="Encoding → predicting fMRI → decoding CLIP…"
+        vf_col,vf_gray,recon,audio,sr,caption,stats=run_pipeline(
+            _st["img"],_models,_train_clip,_train_paths,
+            [b_clip,b_enc,b_dec,b_vf,b_cap,b_aud],gpu_toggle.value)
+        out_vf_c.value=_to_bytes(vf_col); out_vf_g.value=_to_bytes(vf_gray)
+        out_recon.value=_to_bytes(recon)
+        out_cap.value=f"<b>Caption (from decoded fMRI):</b> <i>{caption}</i>"
+        out_stats.value=stats
+        with out_audio: clear_output(); display(IPAudio(audio,rate=sr,autoplay=False))
+        status.value=f"Done in {time.time()-t0:.1f}s"
+    except Exception as e:
+        import traceback; traceback.print_exc(); status.value=f"Error: {e}"
+    finally:
+        run_btn.disabled=False
+
+run_btn.on_click(on_run)
+
+display(widgets.VBox([
+    widgets.HTML("""<div style="font-family:sans-serif;padding:10px 0 4px">
+      <h2 style="margin:0">🧠 Real fMRI Decoder — NSD / Algonauts 2023</h2>
+      <p style="margin:4px 0;font-size:11px;color:#aaa">
+        <b style="color:#3a86ff">REAL:</b> 7T fMRI · 8,859 training trials · per-image CLIP ViT-L/14 ·
+        ridge regression encoder &amp; decoder · BLIP caption from retrieved image &nbsp;|&nbsp;
+        <b style="color:#fb5607">APPROX:</b> retinotopic layout
+      </p></div>"""),
+    widgets.HBox([
+        widgets.VBox([
+            widgets.HTML("<b>Input</b>"),up_btn,up_label,
+            widgets.HTML("<div style='height:4px'/>"),gpu_toggle,run_btn,status,
+            widgets.HTML("<div style='height:8px'/><b>Pipeline</b>"),
+            b_clip,b_enc,b_dec,b_vf,b_cap,b_aud,
+            widgets.HTML("<div style='height:6px'/><b>Input preview</b>"),out_input,
+        ],layout=widgets.Layout(width="26%",padding="8px")),
+        widgets.VBox([
+            widgets.HTML("<b>Predicted fMRI — Visual Cortex (LH+RH, ~39k vertices)</b>"
+                         "<br><span style='font-size:11px;color:#aaa'>Ridge regression on 8,859 real NSD trials. Red=activated, Blue=suppressed.</span>"),
+            widgets.HBox([
+                widgets.VBox([widgets.HTML("<small>Colored activation</small>"),out_vf_c]),
+                widgets.VBox([widgets.HTML("<small>Neural photograph</small>"),out_vf_g]),
+            ]),
+            out_stats,
+        ],layout=widgets.Layout(width="38%",padding="8px")),
+        widgets.VBox([
+            widgets.HTML("<b>Decoded from fMRI</b>"
+                         "<br><span style='font-size:11px;color:#aaa'>Retrieved and captioned via fMRI-decoded CLIP — not from the input image.</span>"),
+            out_cap,
+            widgets.HTML("<small><b>Top-5 retrieved training images</b> by decoded CLIP similarity</small>"),
+            out_recon,
+            widgets.HTML("<small>Audio — chord from decoded embedding</small>"),
+            out_audio,
+        ],layout=widgets.Layout(width="36%",padding="8px")),
+    ],layout=widgets.Layout(align_items="flex-start")),
+]))

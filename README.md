@@ -16,7 +16,10 @@ folders into one synthesized thesis. Each subdirectory keeps its full original c
 > *structure* is not the performance lever, function is. Bio-inspired AI should copy computation,
 > not anatomy.
 
-## The four claims, stress-tested (see `rigor/STRENGTHENED_SYNTHESIS.md` for full detail)
+## The four claims, stress-tested (see `brainsim-decoder/       fMRI-to-image decoding on NSD 7T data (CLIP encoding, ridge whole-cortex
+                       prediction, retrieval and captioning): computer vision applied to
+                       individual neuroimaging, folded in 2026-09-15 with full history
+rigor/STRENGTHENED_SYNTHESIS.md` for full detail)
 
 | # | Claim | Status | Evidence |
 |---|---|---|---|
