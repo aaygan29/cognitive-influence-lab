@@ -223,7 +223,7 @@ negative control that confirms the gain vanishes without independence
 ## Quick start
 
 ```bash
-git clone https://github.com/anonymous/behavioral_decoding.git
+git clone <this repository URL>
 cd behavioral_decoding
 pip install -e ".[dev]"
 
