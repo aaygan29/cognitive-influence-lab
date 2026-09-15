@@ -1,0 +1,15 @@
+{
+  "n": 1200,
+  "max_conservation": 2.220446049250313e-16,
+  "max_eq_residual": 1.5837423200528927e-14,
+  "max_dshare_err": 2.220446049250313e-16,
+  "max_gamma_err": 1.4210854715202004e-14,
+  "max_jac_eig_err": 6.944965967647931e-06,
+  "EU_stability_mismatch": 0,
+  "attractor_mismatch": 0,
+  "U_plus_le_1_violations_in_bistable": 0,
+  "bistable_draws": 113,
+  "kap_le_rho_but_bistable": 0,
+  "skipped_slow": 137,
+  "failures_sample": []
+}

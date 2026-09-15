@@ -38,6 +38,10 @@ revision_log_warden.md  what the red team changed and why
 - The simulator's effect sizes are pinned to published values (e.g. Falk 2010 neural increment; a single-trial detection effect on the deceptkit scale; covert-countermeasure detection collapse).
 - `deceptkit/` is vendored so the repo runs standalone; it is a calibrated concealed-information-style fusion layer reused for H2.
 
+## Verification side-studies
+
+- `verification/cognitive_virus/`: Lean 4 proofs plus numerical and agent-based checks of the U/C/D mean-field model in Sole et al., *Large-Language Models as a Cognitive Virus* (arXiv:2609.03344). Includes a list of what is proven, what was checked numerically, and small discrepancies found.
+
 ## Scope and intent
 
 WARDEN is a **defensive** analyst's tool. It is explicitly not a lie detector, manipulation scanner, screening tool, admissible instrument, or targeting product, and it refuses per-individual use in asymmetric-power settings by design. It is exploratory research on simulated data, not a validated or deployable system.

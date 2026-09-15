@@ -1,0 +1,74 @@
+{
+  "base": {
+    "lam": 0.45,
+    "rho": 0.1,
+    "kap": 0.4,
+    "mu": 0.2,
+    "sig": 0.1
+  },
+  "base_summary": {
+    "lam_SN": 0.4,
+    "lam_TC": 0.5,
+    "width": 0.09999999999999998,
+    "bistable": true,
+    "U_coupled": 0.30480589839889627,
+    "D_share": 0.6666666666666666,
+    "Gamma_coupled": 0.4670178554391538,
+    "EU_invadable": false
+  },
+  "finite_difference_signs": {
+    "lam": {
+      "lam_SN": 0.0,
+      "lam_TC": 0.0,
+      "width": 0.0,
+      "U_coupled": -1.0,
+      "D_share": 0.0,
+      "Gamma_coupled": -1.0
+    },
+    "rho": {
+      "lam_SN": 1.0,
+      "lam_TC": 1.0,
+      "width": -1.0,
+      "U_coupled": 1.0,
+      "D_share": 0.0,
+      "Gamma_coupled": 1.0
+    },
+    "kap": {
+      "lam_SN": 1.0,
+      "lam_TC": 1.0,
+      "width": 1.0,
+      "U_coupled": 1.0,
+      "D_share": 0.0,
+      "Gamma_coupled": 1.0
+    },
+    "mu": {
+      "lam_SN": 0.0,
+      "lam_TC": 0.0,
+      "width": 0.0,
+      "U_coupled": 0.0,
+      "D_share": 1.0,
+      "Gamma_coupled": -1.0
+    },
+    "sig": {
+      "lam_SN": 0.0,
+      "lam_TC": 0.0,
+      "width": 0.0,
+      "U_coupled": 0.0,
+      "D_share": -1.0,
+      "Gamma_coupled": 1.0
+    }
+  },
+  "table_checks": {
+    "decrease lam: no threshold shift, prevents invasion only below lam_TC": true,
+    "increase rho raises both thresholds": true,
+    "increase rho reduces hysteresis width (kap>rho)": true,
+    "increase kap raises lam_TC": true,
+    "increase kap widens hysteresis (kap>rho)": true,
+    "mu, sig do not move thresholds": true,
+    "decrease mu reduces D share": true,
+    "decrease mu raises Gamma (needs Gc>Gd)": true,
+    "increase sig reduces D share and raises Gamma at fixed U*": true,
+    "bistability disappears for rho>=kap": true
+  },
+  "sigma_effect_on_g_if_Gc_lt_Gd": -1.0
+}
