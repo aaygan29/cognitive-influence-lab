@@ -6,9 +6,9 @@ import pytest
 
 pytest.importorskip("neurosignal")
 
-from neurosignal import analyze  # noqa: E402
+from neurosignal import analyze
 
-from spikeprint.datasets import render_gamble_text  # noqa: E402
+from spikeprint.datasets import render_gamble_text
 
 
 def _valence(text: str) -> float:

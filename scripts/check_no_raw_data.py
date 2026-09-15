@@ -13,7 +13,7 @@ ALLOWED = {"data/manifest.csv", "data/.gitkeep"}
 
 
 def main() -> int:
-    out = subprocess.run(["git", "ls-files", "data/"], capture_output=True, text=True)
+    out = subprocess.run(["git", "ls-files", "data/"], capture_output=True, text=True, check=False)
     tracked = [f for f in out.stdout.splitlines() if f.strip()]
     bad = sorted(set(tracked) - ALLOWED)
     if bad:

@@ -25,7 +25,7 @@ def main(path: str = "REFERENCES.md") -> int:
         try:
             r = requests.get(f"https://api.crossref.org/works/{doi}", timeout=15)
             title = r.json()["message"]["title"][0] if r.ok else f"HTTP {r.status_code}"
-        except Exception as exc:
+        except Exception as exc:  # noqa: BLE001 (report any lookup failure per DOI, keep going)
             title = f"error: {exc}"
         print(f"{doi}\n    -> {title}\n")
     return 0

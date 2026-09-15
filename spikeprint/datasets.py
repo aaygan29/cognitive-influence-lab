@@ -14,7 +14,6 @@ import hashlib
 import os
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Dict, Union
 
 import numpy as np
 
@@ -29,7 +28,7 @@ class DatasetSpec:
 
 
 # License = "VERIFY" until confirmed against the official source (see docs/DATA.md).
-REGISTRY: Dict[str, DatasetSpec] = {
+REGISTRY: dict[str, DatasetSpec] = {
     "choices13k": DatasetSpec(
         "choices13k", "https://github.com/jcpeterson/choices13k", "NO-LICENSE-AT-SOURCE",
         "deferred (separate paper, pending author permission)",
@@ -52,7 +51,7 @@ REGISTRY: Dict[str, DatasetSpec] = {
 }
 
 
-def sha256(path: Union[str, Path], chunk: int = 1 << 20) -> str:
+def sha256(path: str | Path, chunk: int = 1 << 20) -> str:
     """Stream a SHA-256 of a file (constant memory)."""
     h = hashlib.sha256()
     with open(path, "rb") as fh:
@@ -61,7 +60,7 @@ def sha256(path: Union[str, Path], chunk: int = 1 << 20) -> str:
     return h.hexdigest()
 
 
-def verify(path: Union[str, Path], expected_sha256: str) -> bool:
+def verify(path: str | Path, expected_sha256: str) -> bool:
     """True iff the file's SHA-256 matches the manifest value."""
     return sha256(path) == expected_sha256
 
@@ -86,12 +85,12 @@ def load(name: str):
 def render_gamble_text(gain: float, loss: float) -> str:
     """Natural-language rendering of a 50/50 gain/loss gamble (the CSI text input for NARPS)."""
     return (
-        f"You can win ${int(round(gain))} or lose ${int(round(loss))} on the flip of a coin. "
+        f"You can win ${round(gain)} or lose ${round(loss)} on the flip of a coin. "
         f"Do you take the bet?"
     )
 
 
-def load_narps_events(raw_dir: str = "data/raw/ds001734") -> Dict[str, np.ndarray]:
+def load_narps_events(raw_dir: str = "data/raw/ds001734") -> dict[str, np.ndarray]:
     """Load NARPS (ds001734) mixed-gambles behavioral trials from downloaded events.tsv files.
 
     Returns equal-length arrays: subject, run, gain, loss, choice (1=accept, 0=reject), group
@@ -99,12 +98,12 @@ def load_narps_events(raw_dir: str = "data/raw/ds001734") -> Dict[str, np.ndarra
     No fMRI is used. Source: OpenNeuro ds001734 (CC0).
     """
     part = os.path.join(raw_dir, "participants.tsv")
-    group: Dict[str, str] = {}
+    group: dict[str, str] = {}
     if os.path.exists(part):
         with open(part) as fh:
             for row in csv.DictReader(fh, delimiter="\t"):
                 group[row["participant_id"]] = row.get("group", "")
-    cols: Dict[str, list] = {k: [] for k in ("subject", "run", "gain", "loss", "choice", "group")}
+    cols: dict[str, list] = {k: [] for k in ("subject", "run", "gain", "loss", "choice", "group")}
     for path in sorted(glob.glob(os.path.join(raw_dir, "sub-*_task-MGT_run-*_events.tsv"))):
         base = os.path.basename(path)
         sid = base.split("_")[0]

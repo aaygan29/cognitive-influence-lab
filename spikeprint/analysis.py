@@ -12,8 +12,8 @@ surfaced on every Finding and flagged above the registered threshold (1%).
 """
 from __future__ import annotations
 
+from collections.abc import Sequence
 from dataclasses import replace
-from typing import Optional, Sequence, Tuple, Union
 
 import numpy as np
 
@@ -52,7 +52,7 @@ def auc(scores: Sequence[float], labels: Sequence[int]) -> float:
     return float(u / (n_pos * n_neg))
 
 
-def _group_codes(groups: Optional[Sequence], n: int) -> Tuple[np.ndarray, int]:
+def _group_codes(groups: Sequence | None, n: int) -> tuple[np.ndarray, int]:
     if groups is None:
         return np.arange(n), n
     _, inv = np.unique(np.asarray(groups), return_inverse=True)
@@ -62,12 +62,12 @@ def _group_codes(groups: Optional[Sequence], n: int) -> Tuple[np.ndarray, int]:
 def cluster_bootstrap_ci(
     scores: Sequence[float],
     labels: Sequence[int],
-    groups: Optional[Sequence] = None,
+    groups: Sequence | None = None,
     n_boot: int = 10_000,
     alpha: float = 0.05,
     seed: int = 0,
     return_skips: bool = False,
-) -> Union[Tuple[float, float], Tuple[float, float, float]]:
+) -> tuple[float, float] | tuple[float, float, float]:
     """Percentile CI for AUC, resampling whole groups with replacement (cluster bootstrap).
 
     Resampling at the group level (not the row level) respects within-group correlation — the
@@ -100,11 +100,11 @@ def cluster_bootstrap_ci(
 def permutation_pvalue(
     scores: Sequence[float],
     labels: Sequence[int],
-    observed: Optional[float] = None,
+    observed: float | None = None,
     n_perm: int = 10_000,
     seed: int = 0,
     return_skips: bool = False,
-) -> Union[float, Tuple[float, float]]:
+) -> float | tuple[float, float]:
     """Two-sided permutation p-value for AUC != 0.5 (shuffle labels). Deterministic given seed.
 
     Uses the Phipson & Smyth (2010) estimator over the permutations that were actually evaluated;
@@ -141,7 +141,7 @@ def predictive_validity(
     dataset: str,
     scores: Sequence[float],
     labels: Sequence[int],
-    groups: Optional[Sequence] = None,
+    groups: Sequence | None = None,
     n_boot: int = 10_000,
     n_perm: int = 10_000,
     alpha: float = 0.05,
@@ -178,7 +178,7 @@ def incremental_validity(
     csi_scores: Sequence[float],
     baseline_scores: Sequence[float],
     labels: Sequence[int],
-    groups: Optional[Sequence] = None,
+    groups: Sequence | None = None,
     n_boot: int = 10_000,
     alpha: float = 0.05,
     seed: int = 0,
