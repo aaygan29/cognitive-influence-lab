@@ -9,7 +9,7 @@ description = "Behaviorally-validated instrument for measuring choice distortion
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
-authors = [{ name = "The authors" }]
+authors = [{ name = "Aayush Gandhi" }]
 keywords = ["neuroeconomics", "choice", "validation", "spiking-neural-networks", "decision-making"]
 dependencies = ["numpy>=1.24"]
 
