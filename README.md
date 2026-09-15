@@ -32,6 +32,30 @@ WARDEN_proposal_v2.md   the design, hardened against a six-persona red team
 revision_log_warden.md  what the red team changed and why
 ```
 
+## spikeprint (folded in 2026-09-15)
+
+`spikeprint/` is the behavioral-validation arm: it asks whether a content-level Cognitive
+Sovereignty Index (CSI = vmPFC minus dlPFC activation) predicts real, measured choice distortion,
+under preregistered hypotheses with kill criteria, on public data only. It was folded in with
+full commit history via `git subtree` from `aaygan29/spikeprint`, which remains the place to
+develop it (pull updates with `git subtree pull --prefix=spikeprint spikeprint main`).
+
+What is established there, and what is not:
+- **Study 2 (complete, reproduced 2026-09-15).** On NARPS ds001734 behavior (27,454 trials,
+  108 subjects, subject-grouped CV), a spiking LIF decision model matches prospect theory
+  (AUC 0.892 vs 0.888; paired dAUC +0.0046 [+0.0025, +0.0066], practically negligible). The
+  preregistered lower-energy criterion **fails** (about 13x the rate-MLP energy proxy at this
+  2-feature scale) and a gradient-boosted ceiling beats prospect theory by +0.011 AUC.
+- **Expected-value positive control** AUC 0.883 [0.858, 0.907]: a pipeline sanity check, since
+  EV is near-definitional for 50/50 gambles.
+- **No CSI result exists yet.** The early NARPS "CSI" null tested a text heuristic and is
+  retracted (`spikeprint/results/CORRECTION_2026-06-08.md`). The real-CSI fMRI pipeline is built
+  and unit-tested but not run.
+
+It installs and tests independently: `cd spikeprint && pip install -e ".[dev,stats,neuro]" && pytest`
+(35 tests; the encoder test needs `neurosignal` on the path). Its `.github/workflows/ci.yml`
+only runs in the standalone repo.
+
 ## Grounding
 
 - Design companion to Bagley's mathematical framework for the security of cognition (arXiv:2403.07945); situated against the neurosecurity (Denning, Matsuoka & Kohno) and neurorights literature.
