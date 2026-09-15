@@ -3,10 +3,7 @@ message: "If you use this software, please cite it as below."
 title: spikeprint
 type: software
 authors:
-  - given-names: Aayush
-    family-names: Gandhi
-    orcid: "https://orcid.org/0009-0003-4649-0367"
+  - name: "The authors"
 version: 0.0.1
 date-released: "2026-06-08"
 license: MIT
-repository-code: "https://github.com/aaygan29/spikeprint"
