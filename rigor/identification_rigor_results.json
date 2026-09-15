@@ -1,7 +1,7 @@
 {
   "analysis": "identification_rigor_reanalysis",
   "date": "2026-08-16",
-  "committed_baseline_json": "/Users/aayushgandhi/Desktop/Research/Neuro-AI/wiring-not-weights/results/exp05_abide_results.json",
+  "committed_baseline_json": "~/Desktop/Research/Neuro-AI/wiring-not-weights/results/exp05_abide_results.json",
   "committed_baseline": {
     "dataset": "ABIDE cpac/filt_global/rois_cc200 (public fcp-indi)",
     "atlas": "CC200",

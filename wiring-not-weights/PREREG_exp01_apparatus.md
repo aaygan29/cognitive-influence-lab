@@ -1,6 +1,6 @@
 # Pre-registration: Experiment 01, Apparatus Validation on Synthetic Ground Truth
 
-Aayush Gandhi. 2026-06-19. No em dashes. Pre-committed before looking at any output.
+2026-06-19. No em dashes. Pre-committed before looking at any output.
 
 ## Purpose
 

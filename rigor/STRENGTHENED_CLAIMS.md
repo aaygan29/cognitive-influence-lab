@@ -1,6 +1,6 @@
 # Strengthened, defensible claim set (post math-framework + FIM/geometry/identification experiments)
 
-Aayush Gandhi. 2026-08-16. Hostile-reviewer pass over `SYNTHESIS_STRESSTESTED_2026-08.md`,
+2026-08-16. Hostile-reviewer pass over `SYNTHESIS_STRESSTESTED_2026-08.md`,
 `MATH_FRAMEWORK.md`, and the three new artifacts (`fim_spectrum_results.json`,
 `identification_rigor_results.json`, `digitalbrain_geometry_results.json` + figures). For each
 central claim: the verdict after the new math and experiments, the exact formalism now attached,

@@ -1,6 +1,6 @@
 # Structure Identifies, Function Individuates: the strengthened synthesis
 
-Aayush Gandhi. 2026-08-16. Senior-author merge of `SYNTHESIS_STRESSTESTED_2026-08.md`,
+2026-08-16. Senior-author merge of `SYNTHESIS_STRESSTESTED_2026-08.md`,
 `PORTFOLIO_CLUSTERS.md`, `MATH_FRAMEWORK.md`, `STRENGTHENED_CLAIMS.md`, and the three
 new artifacts (`identification_rigor_results.json`, `fim_spectrum_results.json`,
 `digitalbrain_geometry_results.json` + `figures/`). This is the reference the three
