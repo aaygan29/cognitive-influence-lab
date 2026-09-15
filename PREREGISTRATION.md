@@ -3,7 +3,7 @@
 **Title:** Does a content-level Cognitive Sovereignty Index (CSI) predict behavioral choice
 distortion? A secondary-data, in-silico construct-validation study.
 
-**Author:** Aayush Gandhi (ORCID 0009-0003-4649-0367)
+**Author:** Anonymous Author(s)
 **Date drafted:** 2026-06-08 · **Status:** DRAFT — not yet timestamped on OSF.
 **OSF registration DOI:** _to be minted before any model is fit on outcome data._
 
