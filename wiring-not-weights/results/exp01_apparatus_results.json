@@ -63,7 +63,7 @@
     "mean_diff": 1.0
   },
   "within_vs_full_abs_diff": 0.0,
-  "runtime_s": 7.45,
+  "runtime_s": 8.19,
   "checks": {
     "null_at_chance": true,
     "full_beats_chance": true,

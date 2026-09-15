@@ -205,5 +205,5 @@
   "beta_lowvar_range": 0.7591666666666665,
   "sub_ceiling": true,
   "functional_equivalence_confirmed": true,
-  "runtime_s": 1.35
+  "runtime_s": 1.75
 }

@@ -14,7 +14,7 @@
   "chance": 0.02,
   "chance_band_hi": 0.048,
   "ordering_replication_rate": 1.0,
-  "runtime_s": 0.73,
+  "runtime_s": 0.97,
   "FULL": {
     "mean": 1.0,
     "ci95": [

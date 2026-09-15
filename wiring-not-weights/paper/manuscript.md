@@ -1,7 +1,7 @@
 # Wiring Is Not Weights: Identity as the Functional-Equivalence Class, and What It Would Take to Store It
 
 **Aayush Gandhi**
-Preprint draft, June 2026. Code: https://github.com/aaygan29/neurowire
+Preprint draft, June 2026. Code: the `wiring-not-weights/` directory of https://github.com/aaygan29/structure-function-individuation
 
 ---
 
@@ -65,7 +65,7 @@ identity would require.
 behavior is not predictable from wiring without synaptic signs, weights, and neuromodulation [White1986,
 Bargmann2012]. In real connectome-constrained recurrent networks, the connectome is insufficient to fix
 dynamics: an *ensemble* of different weight solutions produces the same activity (non-identifiability), and
-recordings from a subset of neurons are required to collapse the degeneracy [connectome-constrained2025,
+recordings from a subset of neurons are required to collapse the degeneracy [Beiran2025,
 Lappalainen2024]. This is the real-data form of our thesis.
 
 **Degeneracy.** Disparate parameter sets produce near-identical circuit output: ~20 million model versions of
@@ -76,13 +76,13 @@ Identity, if it is in the weights, must therefore be in their functional-equival
 [Finn2015]; this is the indexical sense, and it is a structural/topological property.
 
 **Information content.** Synapses store ~4.7 bits each (26 distinguishable strengths) [Bartol2015], replicated
-at 4.1–4.59 bits [Bartol2024]. Whole-brain-emulation accounting estimates ~50 bits/synapse to *address and
+at 4.1–4.59 bits in subsequent replication. Whole-brain-emulation accounting estimates ~50 bits/synapse to *address and
 place* each synapse structurally [Sandberg2008]. Memory is moreover not purely synaptic: intrinsic excitability
-and molecular/epigenetic state carry identity-relevant information [intrinsic2024, RNAengram2018].
+and molecular/epigenetic state carry identity-relevant information [Delamare2024, Bedecarrats2018].
 
 **Preservation and uploading.** Structural brain preservation argues "memory is structural" from electro-
 cerebral-silence evidence (deep hypothermic circulatory arrest): the brain can be electrically silenced and
-recover, so live dynamics are not the bearer [DHCA]. We accept this — and note it does not bridge from
+recover, so live dynamics are not the bearer (the structural-preservation argument). We accept this — and note it does not bridge from
 *pausable-and-resumable* living tissue to *fixed* tissue, nor from *traceable wiring* to *preserved function*.
 Philosophical analyses frame what must be preserved as the substrate-independent functional pattern, leaving
 constitution unresolved [Chalmers2014].
@@ -131,6 +131,10 @@ perturbation) is perfectly flat across all perturbation magnitudes (range 0.000)
 perturbation declines. Identity tracks the functional weight-dimensions and is invariant to weight changes
 within the exact degeneracy class.
 
+![Figure 1. Identity-sufficiency curve (A) and degeneracy controls (B). Identification accuracy rises
+convexly with the fraction of individuating weight-dimensions retained; the exact-degeneracy (null-space)
+control is flat across all perturbation magnitudes while the approximate-degeneracy control declines.](figures/fig1_sufficiency_curve.png)
+
 **5.3 Nonlinear compensatory degeneracy (exp03b, Fig 2).** Using ReLU-MLP twins and the exact ReLU symmetry
 (hidden-unit permutation + positive rescaling), a PERM_SCALE arm changes the weights by ||ΔW||/||W|| = 1.57 —
 more than their own magnitude — with **zero** change in identity (FULL = PERM_SCALE = 1.000). A FUNC_PERTURB
@@ -139,6 +143,10 @@ vs FUNC_PERTURB Cohen's *d* = 33). Replacing the function (FUNC_RAND) or using t
 gives chance. Identity is the function the weights compute, not the weight values; this holds under genuine
 nonlinear, compensatory degeneracy, not only linear null spaces.
 
+![Figure 2. Nonlinear compensatory degeneracy. An exact ReLU-symmetry weight change (PERM_SCALE) of
+magnitude ||dW||/||W||=1.57 leaves identity intact, while an equal-magnitude functional change
+(FUNC_PERTURB) destroys it; function-replaced (FUNC_RAND) and group (WIRING) arms are at chance.](figures/fig2_nonlinear_degeneracy.png)
+
 **5.4 Real connectomes, identification axis (exp05, Fig 3).** On ABIDE (Preprocessed Connectomes Project,
 CC200 atlas, N = 248, public), within-subject split-half fingerprinting gives FULL_weighted = 0.980,
 WIRING_binarized = 0.972, NODE_STRENGTH = 0.446 (chance = 0.004; all permutation p = 0.0005). **Binarized
@@ -146,6 +154,11 @@ topology fingerprints individuals almost as well as the weighted connectome.** C
 is insufficient; the thresholded edge pattern is sufficient. This is the *identification* sense — the axis the
 framework assigns to wiring — and it confirms wiring suffices there. Caveats: within-session split (inflates
 vs cross-session); multi-site (scanner signature is a partial confound).
+
+![Figure 3. Real connectomes (ABIDE, N=248, CC200). Within-subject split-half identification: a binarized
+connectome (WIRING) fingerprints individuals almost as well as the weighted connectome (FULL); a coarse
+topology summary (NODE_STRENGTH) does not. This is the identification axis, where wiring is expected to
+suffice.](figures/fig3_abide_identification.png)
 
 **5.5 Real reconstruction axis (exp04).** On NSD (N = 8, 260 shared images, 25 ROIs), neither the predicted-
 representational-geometry fingerprint (mean acc 0.175) nor the encoder feature-tuning fingerprint (0.205)
@@ -156,13 +169,13 @@ N = 8 is underpowered to resolve the reconstruction-level dissociation.
 ## 6. What it would take to store identity
 
 The literature converges with our instrument on a concrete answer. The wiring alone is non-identifying of
-function [connectome-constrained2025]; the exact weights are degenerate [Prinz2004] and unnecessary; the target
+function [Beiran2025]; the exact weights are degenerate [Prinz2004] and unnecessary; the target
 is the functional-equivalence class, fixed by the connectome **plus a sufficient sample of functional
 activity** — and the theory even prioritizes which recordings most efficiently collapse the degeneracy
-[connectome-constrained2025]. The storage budget brackets as: ~4.7 bits/synapse for the functional content
+[Beiran2025]. The storage budget brackets as: ~4.7 bits/synapse for the functional content
 [Bartol2015] -> ~10^14–10^15 bits (~100 TB) for the weight-function; up to ~50 bits/synapse (~6 PB) for full
 structural addressing [Sandberg2008]. "Weights" must include intrinsic-excitability and molecular state
-[intrinsic2024, RNAengram2018]. A principled identity format therefore stores neither a wiring diagram (lossy)
+[Delamare2024, Bedecarrats2018]. A principled identity format therefore stores neither a wiring diagram (lossy)
 nor exact weights (unmeasurable, unnecessary) but **sufficient statistics of the weight-function**: connectome
 + the minimal functional recordings that pin the equivalence class, at the resolution the sufficiency curve
 demands.
