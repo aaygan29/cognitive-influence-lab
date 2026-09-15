@@ -40,5 +40,5 @@ discrete symmetry check: max |output diff| under a random group element = 1.788e
 OVERALL: PARTIALLY GENERALIZES (1/3 predictions held). See per-prediction verdicts above; do not average this into a single number, report which specific link broke.
 
 Runtime: 122.16s
-Saved figure -> /Users/aayushgandhi/Desktop/Research/Neuro-AI/_program_docs/RIGOR_REANALYSIS/figures/flyvis_rnn_generalization.png
-Saved results -> /Users/aayushgandhi/Desktop/Research/Neuro-AI/_program_docs/RIGOR_REANALYSIS/exp_flyvis_rnn_generalization/results.json
+Saved figure -> ~/Desktop/Research/Neuro-AI/_program_docs/RIGOR_REANALYSIS/figures/flyvis_rnn_generalization.png
+Saved results -> ~/Desktop/Research/Neuro-AI/_program_docs/RIGOR_REANALYSIS/exp_flyvis_rnn_generalization/results.json

@@ -2,7 +2,7 @@
 
 **A power-controlled dissociation across brains and brain-inspired networks.**
 
-Aayush Gandhi. This repository merges three previously separate repos
+This repository merges three previously separate repos
 (`neurowire`/wiring-not-weights, `digital_brain`, `neuro_topology`) into the single evidence base
 for one paper, the same way the underlying research program was consolidated from ~15 project
 folders into one synthesized thesis. Each subdirectory keeps its full original commit history

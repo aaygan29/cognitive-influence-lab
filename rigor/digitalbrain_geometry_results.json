@@ -1,5 +1,5 @@
 {
-  "committed_results_source": "/Users/aayushgandhi/Desktop/Research/Neuro-AI/digital-brain/results/algonauts2023/all_results_N4.json",
+  "committed_results_source": "~/Desktop/Research/Neuro-AI/digital-brain/results/algonauts2023/all_results_N4.json",
   "n_rois": 25,
   "chance_committed": 0.25,
   "correction_of_committed_pvalues": {

@@ -1,7 +1,7 @@
 # Wiring Is Not Weights: Identity as the Functional-Equivalence Class, and What It Would Take to Store It
 
-**Aayush Gandhi**
-Preprint draft, June 2026. Code: https://github.com/aaygan29/neurowire
+Anonymous Author(s)
+Preprint draft, June 2026. Code: the `neurowire` repository
 
 ---
 

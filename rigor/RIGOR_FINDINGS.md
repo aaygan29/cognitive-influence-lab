@@ -1,6 +1,6 @@
 # Stress-test re-analysis of the program's real results
 
-Aayush Gandhi. 2026-08-16. Re-analysis of committed result JSONs with the statistics the
+2026-08-16. Re-analysis of committed result JSONs with the statistics the
 original framing skipped. Run `reanalysis.py` (Rungs 1-2 + synthetic) and the digital-brain FDR
 block to reproduce. No em dashes.
 
