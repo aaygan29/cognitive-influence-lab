@@ -118,7 +118,7 @@ def main() -> None:
     )
     md = f"""# Study 2 — Spiking vs prospect-theory on NARPS (iso-accuracy, lower-energy)
 
-**Run:** {dt.date.today().isoformat()} · n_trials = {n} · subjects = {int(np.unique(subj).size)} ·
+**Run:** {dt.datetime.now(dt.timezone.utc).date().isoformat()} · n_trials = {n} · subjects = {int(np.unique(subj).size)} ·
 5-fold subject-grouped CV · **in-sample descriptive** loss-aversion lambda = {lam:.2f} (gain/loss
 logistic; not cross-validated). Behavioral only; RT excluded; standardized on train folds. SNN:
 {HIDDEN} LIF hidden, T={T_STEPS}, current/direct encoding, surrogate gradient. (Study 2 is a model

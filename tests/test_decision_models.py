@@ -5,7 +5,7 @@ import pytest
 pytest.importorskip("torch")
 pytest.importorskip("snntorch")
 
-from spikeprint.decision_models import (  # noqa: E402
+from spikeprint.decision_models import (
     RateMLP,
     SpikingMLP,
     predict_proba,
