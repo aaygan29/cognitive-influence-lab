@@ -41,7 +41,7 @@ def write_manifest(today: str) -> int:
 
 
 def main() -> None:
-    today = dt.date.today().isoformat()
+    today = dt.datetime.now(dt.timezone.utc).date().isoformat()
     d = load_narps_events(RAW)
     n = int(d["choice"].size)
     n_sub = int(np.unique(d["subject"]).size)

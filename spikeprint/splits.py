@@ -9,16 +9,16 @@ from __future__ import annotations
 
 import hashlib
 import json
-from typing import Dict, Sequence, Tuple
+from collections.abc import Sequence
 
 import numpy as np
 
 
 def grouped_split(
     group_ids: Sequence,
-    fracs: Tuple[float, float, float] = (0.70, 0.15, 0.15),
+    fracs: tuple[float, float, float] = (0.70, 0.15, 0.15),
     seed: int = 0,
-) -> Dict[str, np.ndarray]:
+) -> dict[str, np.ndarray]:
     """Assign each row to train/val/test by its group id. Same group id -> same partition.
 
     Deterministic given ``seed``: unique group ids are sorted, then permuted with a seeded RNG,
@@ -31,24 +31,24 @@ def grouped_split(
     rng = np.random.default_rng(seed)
     uniq = uniq[rng.permutation(uniq.size)]
     n = uniq.size
-    n_tr = int(round(fracs[0] * n))
-    n_va = int(round(fracs[1] * n))
+    n_tr = round(fracs[0] * n)
+    n_va = round(fracs[1] * n)
     assign = {}
     for i, g in enumerate(uniq):
         assign[g] = "train" if i < n_tr else ("val" if i < n_tr + n_va else "test")
-    idx: Dict[str, list] = {"train": [], "val": [], "test": []}
+    idx: dict[str, list] = {"train": [], "val": [], "test": []}
     for j, g in enumerate(gid):
         idx[assign[g]].append(j)
     return {k: np.asarray(v, dtype=int) for k, v in idx.items()}
 
 
-def split_hash(splits: Dict[str, np.ndarray]) -> str:
+def split_hash(splits: dict[str, np.ndarray]) -> str:
     """Stable SHA-256 of a split (committed before outcomes are loaded; verified at analysis)."""
     payload = {k: sorted(int(i) for i in v) for k, v in splits.items()}
     return hashlib.sha256(json.dumps(payload, sort_keys=True).encode()).hexdigest()
 
 
-def assert_no_group_leakage(group_ids: Sequence, splits: Dict[str, np.ndarray]) -> None:
+def assert_no_group_leakage(group_ids: Sequence, splits: dict[str, np.ndarray]) -> None:
     """Raise if any group id appears in more than one partition."""
     g = np.array([str(x) for x in group_ids])
     sets = {k: set(g[v].tolist()) for k, v in splits.items()}

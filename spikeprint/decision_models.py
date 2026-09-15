@@ -11,8 +11,8 @@ from __future__ import annotations
 import numpy as np
 import snntorch as snn
 import torch
-import torch.nn as nn
 from snntorch import surrogate
+from torch import nn
 
 
 class RateMLP(nn.Module):

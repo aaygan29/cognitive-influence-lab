@@ -9,7 +9,7 @@ import pytest
 nib = pytest.importorskip("nibabel")
 pytest.importorskip("nilearn")
 
-from spikeprint.fmri import compute_csi, roi_mean, subject_csi  # noqa: E402
+from spikeprint.fmri import compute_csi, roi_mean, subject_csi
 
 
 def _img(arr):

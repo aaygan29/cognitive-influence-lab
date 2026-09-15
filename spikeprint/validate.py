@@ -16,8 +16,8 @@ Two decision levels, matching ``PREREGISTRATION.md`` (sections 3 and 6):
 """
 from __future__ import annotations
 
+from collections.abc import Callable, Sequence
 from dataclasses import dataclass, replace
-from typing import Callable, List, Optional, Sequence, Tuple
 
 import numpy as np
 
@@ -39,16 +39,16 @@ class Finding:
     value: float
     dataset: str
     metric: str = "effect"
-    baseline: Optional[float] = None
-    effect_size: Optional[float] = None
-    ci95: Optional[Tuple[float, float]] = None
-    n: Optional[int] = None
-    p_value: Optional[float] = None
+    baseline: float | None = None
+    effect_size: float | None = None
+    ci95: tuple[float, float] | None = None
+    n: int | None = None
+    p_value: float | None = None
     null: float = 0.0  # the chance value for this metric (e.g. 0.0 for a difference, 0.5 for AUC)
     passed: bool = False
     notes: str = ""
 
-    def decide(self, null: Optional[float] = None) -> "Finding":
+    def decide(self, null: float | None = None) -> Finding:
         """Single-hypothesis primitive: pass iff the 95% CI excludes the metric's null.
 
         Uses this Finding's own ``null`` (e.g. 0.5 for AUC, 0.0 for a difference) unless an
@@ -98,8 +98,8 @@ def benjamini_hochberg(pvalues: Sequence[float], alpha: float = 0.05) -> np.ndar
 
 
 def decide_family(
-    findings: Sequence[Finding], alpha: float = 0.05, null: Optional[float] = None
-) -> List[Finding]:
+    findings: Sequence[Finding], alpha: float = 0.05, null: float | None = None
+) -> list[Finding]:
     """Registered family-level decision.
 
     A Finding passes iff (a) its 95% CI excludes its metric's null AND (b) it is rejected under
@@ -115,7 +115,7 @@ def decide_family(
             "decide_family requires a p_value on every Finding (registered BH-FDR rule)."
         )
     rejected = benjamini_hochberg([f.p_value for f in items], alpha=alpha)
-    out: List[Finding] = []
+    out: list[Finding] = []
     for f, rej in zip(items, rejected):
         nv = f.null if null is None else null
         ci_ok = (
@@ -138,7 +138,7 @@ def bootstrap_ci(
     n_boot: int = 10_000,
     alpha: float = 0.05,
     seed: int = 0,
-) -> Tuple[float, float]:
+) -> tuple[float, float]:
     """Percentile bootstrap (1-alpha) CI for ``statistic``. Deterministic given ``seed``.
 
     Percentile method by default; BCa is a planned option for skewed effect-size sampling
