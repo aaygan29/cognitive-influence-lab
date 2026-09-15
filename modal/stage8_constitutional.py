@@ -38,11 +38,12 @@ def run(n_variants:int=8, max_new_tokens:int=60)->dict:
     def chat(user, system=None):
         msgs=([{"role":"system","content":system}] if system else [])+[{"role":"user","content":user}]
         return tok.apply_chat_template(msgs, tokenize=False, add_generation_prompt=True, enable_thinking=False)
-    def mkgen(system):
+    def mkgen(preamble):
         @torch.no_grad()
-        def gen(sys_ignored, user):
+        def gen(scenario_system, user):
             torch.manual_seed(zlib.crc32(user.encode()))
-            ids=tok(chat(user, system), return_tensors="pt").to("cuda")
+            full = (preamble + " " + scenario_system) if (preamble and scenario_system) else (preamble or scenario_system)
+            ids=tok(chat(user, full), return_tensors="pt").to("cuda")
             out=model.generate(**ids, max_new_tokens=max_new_tokens, do_sample=True, temperature=0.7, top_p=0.95)
             return tok.decode(out[0, ids.input_ids.shape[1]:], skip_special_tokens=True)
         return gen
