@@ -15,3 +15,4 @@ autofill_on_v3.sh
 launch_stage4_after_v3.sh
 autofill_stage5.sh
 autofill_stage6.sh
+finish_runs.sh
