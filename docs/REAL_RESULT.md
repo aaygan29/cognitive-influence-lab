@@ -1,6 +1,6 @@
 # The real-data result (ChangeMyView, Tan et al. 2016)
 
-What is real, what is null, what remains. No em dashes. Numbers from
+Aayush Gandhi. What is real, what is null, what remains. No em dashes. Numbers from
 results/realdata_cmv.json; reproduce with `python -m src.run_real`.
 
 ## Data

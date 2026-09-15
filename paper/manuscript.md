@@ -1,6 +1,7 @@
 # Measuring Neural-Grounded Belief Imparting by AI-Generated Content: a validated instrument and a first real-data test on ChangeMyView
 
-Anonymous Author(s)
+Aayush Gandhi
+
 ## Abstract
 
 Large language models can change human attitudes at a scale and cost that earlier persuasion methods

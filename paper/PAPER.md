@@ -1,13 +1,14 @@
 ---
 title: "A Neuroscience-Grounded Signature for Belief Imparting by Content: convergent but modest evidence across text persuasion, real fMRI, and an in-silico encoder"
-author: "Anonymous Author(s)"
+author: "Aayush Gandhi (aayush@datumnd.com)"
 date: "2026"
 ---
 
 # A Neuroscience-Grounded Signature for Belief Imparting by Content: convergent but modest evidence across text persuasion, real fMRI, and an in-silico encoder
 
-Anonymous Author(s)
-Corresponding author: Anonymous Author(s)
+**Aayush Gandhi**
+Corresponding author: Aayush Gandhi (aayush@datumnd.com)
+ORCID: 0009-0003-4649-0367
 
 ## Abstract
 
@@ -225,7 +226,7 @@ al. 2016) and Persuasion-for-Good (Wang et al. 2019) via ConvoKit, and the Knuts
 access.
 
 **Code availability:** All code, seeds, figures, and results files are available at
-the `true_believer` repository and archived at https://osf.io/hnx75.
+https://github.com/aaygan29/true_believer and archived at https://osf.io/hnx75.
 
 **Authors' contributions:** A.G. is the sole author and designed the study, wrote the code, performed the
 analyses, and wrote the manuscript.

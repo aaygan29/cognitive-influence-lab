@@ -1,6 +1,6 @@
 # EMNLP 2026 anonymized submission
 
-No em dashes. Double-blind, ACL-format version of the paper.
+Aayush Gandhi. No em dashes. Double-blind, ACL-format version of the paper.
 
 ## Files
 

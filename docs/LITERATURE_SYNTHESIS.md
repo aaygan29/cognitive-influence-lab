@@ -1,6 +1,6 @@
 # Literature synthesis: LLM-driven persuasion and belief dynamics (10-year scan)
 
-The field scan behind MODEL.md and the statistical-validity choices. No em dashes.
+Aayush Gandhi. The field scan behind MODEL.md and the statistical-validity choices. No em dashes.
 
 ## 1. Effect size and the heterogeneity problem (the statistical-validity core)
 

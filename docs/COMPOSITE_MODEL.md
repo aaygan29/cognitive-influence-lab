@@ -1,6 +1,6 @@
 # Improving the integrated neuroforecasting composite
 
-What the literature says, what we changed, and what the data said back. No em dashes.
+Aayush Gandhi. What the literature says, what we changed, and what the data said back. No em dashes.
 Numbers from results/composite_model.json; reproduce with `python -m src.composite_model`.
 
 ## The question

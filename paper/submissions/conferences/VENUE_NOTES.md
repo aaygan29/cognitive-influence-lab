@@ -1,6 +1,6 @@
 # Conference venues: fit, status, and honest assessment
 
-No em dashes. Which conferences fit this paper, which do not, and what is prepared.
+Aayush Gandhi. No em dashes. Which conferences fit this paper, which do not, and what is prepared.
 Journal submission (Computational Brain & Behavior) is separate, under `../journals/`; it is submitted
 and at Technical Check as of 2 Jul 2026.
 
