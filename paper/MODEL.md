@@ -1,6 +1,6 @@
 # A Formal Model of Belief Dynamics, Persuasion Potency, and Belief Robustness
 
-Aayush Gandhi. Companion to the cultist instrument. No em dashes. Every modeling choice is anchored to a
+Companion to the cultist instrument. No em dashes. Every modeling choice is anchored to a
 cited result from the persuasion, opinion-dynamics, computational-neuroscience, or dynamical-systems
 literature, so the model is a synthesis of the field rather than an ad hoc construction.
 

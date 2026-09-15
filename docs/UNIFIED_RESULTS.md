@@ -1,6 +1,6 @@
 # Unified results: three real-data arms of one signature
 
-Aayush Gandhi. What the E + V - R signature does across text and neural data. No em dashes. All numbers
+What the E + V - R signature does across text and neural data. No em dashes. All numbers
 from committed results JSON; reproduce with the named commands.
 
 The signature has one structure, B = z(E) + z(V) - z(R): engagement (medial prefrontal), value (nucleus

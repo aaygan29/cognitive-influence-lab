@@ -1,6 +1,6 @@
 # The in-silico belief model (the "fake brain")
 
-Aayush Gandhi. A model that scores content for how likely an audience is to believe it, generalizes
+A model that scores content for how likely an audience is to believe it, generalizes
 across domains, and can be optimized by altering content factors. No em dashes. Numbers from
 results/insilico_brain.json; reproduce with `python -m src.insilico_brain`.
 

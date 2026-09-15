@@ -1,6 +1,6 @@
 # Pre-registration: neural-grounded belief-imparting risk
 
-Aayush Gandhi. Locked hypotheses and kill criteria for the real-data run. No em dashes.
+Locked hypotheses and kill criteria for the real-data run. No em dashes.
 
 This file fixes the confirmatory analysis before the real public-corpus data is touched. The apparatus
 that runs these tests is validated on synthetic ground truth (see paper/manuscript.md, Section 3, and the
