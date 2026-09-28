@@ -21,7 +21,24 @@ to within ~1e-6 (floating-point nondeterminism only). Encoding r 0.10-0.22 acros
 5 ROIs, RSA self-advantage positive in all 5 ROIs, subject fingerprinting 100%
 (p=0.034) in all 5 ROIs, counterfactual r 0.07-0.12.
 
-## NSD / Algonauts 2023 arm — needs the training bundle
+## NSD / Algonauts 2023 arm — REPRODUCED at N=8 (2026-09-28)
+
+With the training bundle downloaded to `~/Downloads/datasets/train data`, the fast
+ridge pipeline reproduces the full five-level protocol on all 8 subjects (872
+shared images, 25 ROIs) in minutes:
+
+```bash
+ALGONAUTS_RAW="~/Downloads/datasets/train data" python3 scripts/run_algonauts_fast.py
+python3 scripts/make_paper_assets.py   # figures + LaTeX table + summary_n8.json
+```
+
+Result (`results/algonauts2023/all_results_fast.json`): encoding r 0.219–0.463 (all
+8 subjects positive); RSA self-advantage 25/25 ROIs positive (+0.005 to +0.066,
+modest); fingerprinting 25/25 ROIs at 100% (p<0.05, chance 1/8); counterfactual
+0.029–0.225 (RDM space). CLIP features cached to `data/features/`; encoder = ridge
+(closed-form), CLIP extraction on MPS.
+
+### Legacy geometry-aware MLP path (slower, needs raw zips)
 The 2026-06 disk cleanup pruned the raw NSD downloads and the per-subject
 image->fMRI alignment (`shared_image_indices`) and full-stimulus CLIP features.
 The authoritative results survive at `results/algonauts2023/all_results_N4.json`

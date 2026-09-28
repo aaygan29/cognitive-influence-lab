@@ -14,31 +14,35 @@ This repository contains the full experimental pipeline for the paper:
 
 We introduce and validate the concept of a **digital brain**: a subject-specific encoding model that maps visual stimuli to predicted 7T fMRI responses, evaluated across five levels of individual-specificity validation.
 
-### Key Results (N=4 subjects, Algonauts 2023 NSD, 25 ROIs)
+### Key Results (N=8 subjects, Algonauts 2023 NSD, 872 shared images, 25 ROIs)
 
-Numbers below are read directly from the authoritative results file
-`results/algonauts2023/all_results_N4.json` (recomputed 2026-09-28). An earlier
-version of this table overstated encoding accuracy; the values here are the
-verified ones.
+Reproduced 2026-09-28 with a **ridge** encoder (standard NSD/Algonauts baseline;
+CLIP ViT-L/14 features on MPS). Numbers read from
+`results/algonauts2023/all_results_fast.json` / `summary_n8.json`. See
+[`REPRODUCE.md`](REPRODUCE.md).
 
 | Metric | Result |
 |--------|--------|
-| Encoding accuracy | Median Pearson r positive for every subject: S1=0.375, S2=0.189, S3=0.015, S4=0.149. Not every ROI is positive (S3, the lowest-reliability subject, has negative r in a minority of ROIs). |
-| RSA self-advantage | Positive in all 25 ROIs on the **subject-averaged mean** (range +0.001 to +0.121). At the finer subject x ROI level it holds in 66/100 cases; subject S3 has a marginally negative median. |
-| Subject fingerprinting | **21/25 ROIs significant** (p < 0.05, permutation test, chance = 25%); 13 ROIs reach 100% identification. |
-| Counterfactual r | 0.109 to 0.219 across all 25 ROIs and 6 subject pairs (all positive, held-out stimuli). |
+| Encoding accuracy | Median Pearson r positive for **all 8 subjects**, range 0.219 to 0.463. |
+| RSA self-advantage | Positive in **25/25 ROIs** (subject-averaged, +0.005 to +0.066) but modest; per-subject median positive for 6/8. |
+| Subject fingerprinting | **25/25 ROIs at 100% identification**, all significant (permutation p < 0.05, chance = 1/8). |
+| Counterfactual r | 0.029 to 0.225 across all 25 ROIs (RDM space, 28 subject pairs, held-out stimuli, all positive). |
 
-The **representational asymmetry** is the central finding: amplitude-level
-individuation (fingerprinting) is broadly recoverable from CLIP features, while
-geometry-level individuation (RSA self-advantage) is only partially recovered,
-which points to the stimulus encoder rather than the loss as the ceiling.
+The **representational asymmetry**: amplitude-level identity *saturates* (100%
+fingerprinting everywhere) while geometry-level individuation (RSA self-advantage)
+is reliably positive but small, pointing to the population-trained stimulus
+representation (not the regressor) as the limiting factor.
 
-**Cross-dataset replication:** the same method and five-level protocol run on
-BOLD5000 (4 subjects, 5 ROIs) and reproduce the individuation pattern; see
-`results/bold5000/` and `REPRODUCE.md`.
+**Cross-dataset replication:** the identical protocol on BOLD5000 (4 subjects, 5
+ROIs) reproduces the pattern (encoding r 0.137–0.176; self-advantage 5/5 positive;
+fingerprinting 5/5 significant; counterfactual 0.068–0.123). See `results/bold5000/`.
 
-**Scaling path:** the pipeline detects available subjects automatically and scales
-to the full N=8 release with no code change.
+**Prior N=4 run:** the archived `results/algonauts2023/all_results_N4.json` (a
+geometry-aware MLP on 4 subjects) is retained for provenance; the N=8 ridge run
+above supersedes it.
+
+**Fast path:** `scripts/run_algonauts_fast.py` (ridge + MPS) runs the full N=8
+protocol in minutes; `scripts/make_paper_assets.py` regenerates figures/tables.
 
 ---
 

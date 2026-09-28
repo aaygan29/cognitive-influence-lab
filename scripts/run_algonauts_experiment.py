@@ -71,8 +71,24 @@ def find_zip(subj_id: str) -> Path:
     return matches[0]
 
 
+def subj_images_dir(subj_id: str):
+    """Return the extracted training_images folder for a subject, or None."""
+    for cand in [BASE / subj_id / "training_split" / "training_images",
+                 *BASE.glob(f"**/{subj_id}/training_split/training_images")]:
+        if cand.is_dir():
+            return cand
+    return None
+
+
 def get_image_manifest(subj_id: str):
-    """Read image names from zip without extracting. Returns {nsd_id: zip_path}."""
+    """Return (ordered_names, {nsd_id: name}). Reads from an extracted
+    training_images folder when present, else from the per-subject zip."""
+    img_dir = subj_images_dir(subj_id)
+    if img_dir is not None:
+        names = [str(p) for p in img_dir.glob("train-*.png")]
+        names.sort(key=lambda n: int(Path(n).stem.split("-")[1].split("_")[0]))
+        nsd_to_entry = {int(Path(n).stem.split("_nsd-")[1]): n for n in names}
+        return names, nsd_to_entry
     zp = find_zip(subj_id)
     with zipfile.ZipFile(zp) as z:
         names = [n for n in z.namelist()
@@ -143,22 +159,29 @@ def extract_features_from_zip(subj_id: str, entry_names: list,
             print(f"  {subj_id}: loaded cached features {f.shape}")
             return f
 
-    print(f"  {subj_id}: extracting {len(entry_names)} features from zip...", flush=True)
+    from_folder = subj_images_dir(subj_id) is not None
+    src = "folder" if from_folder else "zip"
+    print(f"  {subj_id}: extracting {len(entry_names)} features from {src}...", flush=True)
     processor = CLIPProcessor.from_pretrained("openai/clip-vit-large-patch14")
     model = CLIPModel.from_pretrained("openai/clip-vit-large-patch14")
     model.eval()
 
-    zp = find_zip(subj_id)
     all_feats = []
-    with torch.no_grad(), zipfile.ZipFile(zp) as z:
+    z = None if from_folder else zipfile.ZipFile(find_zip(subj_id))
+    with torch.no_grad():
         for i in range(0, len(entry_names), batch_size):
             batch_entries = entry_names[i:i+batch_size]
-            imgs = [Image.open(io.BytesIO(z.read(e))).convert("RGB") for e in batch_entries]
+            if from_folder:
+                imgs = [Image.open(e).convert("RGB") for e in batch_entries]
+            else:
+                imgs = [Image.open(io.BytesIO(z.read(e))).convert("RGB") for e in batch_entries]
             inp = processor(images=imgs, return_tensors="pt")
             out = model.vision_model(pixel_values=inp["pixel_values"])
             all_feats.append(out.last_hidden_state[:, 0, :].cpu().numpy())
             if (i // batch_size) % 5 == 0:
                 print(f"    {i+len(batch_entries)}/{len(entry_names)}", flush=True)
+    if z is not None:
+        z.close()
 
     features = np.concatenate(all_feats)
     np.save(feat_path, features)
@@ -292,14 +315,14 @@ def main():
     enc = {}
     for sid in available:
         enc[sid] = {}
-        for roi in common_rois[:8]:  # top 8 for display
+        for roi in common_rois:  # top 8 for display
             pred = preds_test[sid].get(roi); real = real_test[sid].get(roi)
             if pred is None or real is None: continue
             r = med_r(pred, real)
             nc = nc_est(nc_betas[sid][roi])
             enc[sid][roi] = {"r": r, "nc": nc, "nc_ratio": r/max(nc,1e-6)}
     # Print summary
-    for roi in list(common_rois)[:8]:
+    for roi in list(common_rois):
         rs  = [enc[s][roi]["r"]  for s in available if roi in enc[s]]
         ncs = [enc[s][roi]["nc"] for s in available if roi in enc[s]]
         print(f"  {roi:<15} r={np.mean(rs):.3f}±{np.std(rs):.3f}  NC={np.mean(ncs):.3f}")
@@ -311,14 +334,14 @@ def main():
     for sid in available:
         geo[sid] = {}
         others = [s for s in available if s != sid]
-        for roi in common_rois[:8]:
+        for roi in common_rois:
             pred = preds_rsa[sid].get(roi); rs = real_rsa[sid].get(roi)
             if pred is None or rs is None: continue
             r_self = rsa_r(rdm(pred), rdm(rs))
             r_others = [rsa_r(rdm(pred), rdm(real_rsa[o][roi])) for o in others if roi in real_rsa[o]]
             geo[sid][roi] = {"rsa_self": r_self, "rsa_other": float(np.mean(r_others)) if r_others else np.nan,
                               "advantage": r_self - float(np.mean(r_others)) if r_others else np.nan}
-    for roi in list(common_rois)[:8]:
+    for roi in list(common_rois):
         self_rs = [geo[s][roi]["rsa_self"] for s in available if roi in geo[s]]
         advs    = [geo[s][roi]["advantage"] for s in available if roi in geo[s]]
         print(f"  {roi:<15} RSA_self={np.mean(self_rs):.3f}  Δ={np.nanmean(advs):+.3f}")
@@ -327,7 +350,7 @@ def main():
     # Level 3: RSA Identity Matrix
     print("\nLEVEL 3: RSA Identity Matrix")
     rsa_mats = {}
-    for roi in list(common_rois)[:5]:
+    for roi in list(common_rois):
         mat = np.zeros((n_s, n_s))
         for i, sp in enumerate(available):
             pred = preds_rsa[sp].get(roi)
@@ -344,7 +367,7 @@ def main():
     # Level 4: Fingerprinting
     print("\nLEVEL 4: Subject Fingerprinting")
     fp = {}
-    for roi in common_rois[:8]:
+    for roi in common_rois:
         correct = 0
         for ts in available:
             real = real_test[ts].get(roi)
@@ -370,7 +393,7 @@ def main():
     print("\nLEVEL 5: Counterfactual Consistency")
     cf = {}
     cf_idx = np.arange(min(150, len(test_idx)))
-    for roi in common_rois[:8]:
+    for roi in common_rois:
         pairs = []
         for ai, sa in enumerate(available):
             for sb in available[ai+1:]:
@@ -387,7 +410,7 @@ def main():
     all_results["counterfactual"] = cf
 
     # ── Figures ───────────────────────────────────────────────────────────────
-    rois_plot = list(common_rois)[:8]
+    rois_plot = list(common_rois)
 
     # Encoding figure
     fig, ax = plt.subplots(figsize=(12, 5))
