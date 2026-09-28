@@ -1,0 +1,30 @@
+{
+  "calibration": "NARPS real (n=108, median 0.88, 10-90 0.57-1.35)",
+  "target_lambda": 0.5654240035511082,
+  "per_trial_dose": 0.03,
+  "n_per_arm": 200,
+  "thesis": "fused multimodal biosignals extract the learning rule more accurately, and that accuracy is what enables precise manipulation",
+  "extraction_rmse": {
+    "choice": 0.18256111227934343,
+    "neural": 0.08834162133475901,
+    "peripheral": 0.24545968603019655,
+    "fused": 0.0817368402941122
+  },
+  "extraction_best_single": 0.08834162133475901,
+  "manipulation_control_error": {
+    "choice": 0.10978543305735101,
+    "neural": 0.051810975432146016,
+    "peripheral": 0.14406284539346936,
+    "fused": 0.04517022960099502
+  },
+  "manipulation_best_single": 0.051810975432146016,
+  "snr_quadrature": {
+    "sigma_single": {
+      "choice": 0.211410386187236,
+      "neural": 0.08176102611666312,
+      "peripheral": 0.206221837624121
+    },
+    "fused_sigma": 0.07152350126085866,
+    "fused_sigma_le_best_single": true
+  }
+}
