@@ -1,0 +1,27 @@
+{
+  "n_subjects": 8,
+  "n_shared": 872,
+  "n_test": 130,
+  "enc_med_min": 0.219,
+  "enc_med_max": 0.463,
+  "enc_all_positive": true,
+  "adv_pos_rois": 25,
+  "n_rois": 25,
+  "adv_min": 0.005,
+  "adv_max": 0.066,
+  "fp_sig_rois": 25,
+  "fp_100_rois": 25,
+  "cf_min": 0.029,
+  "cf_max": 0.225,
+  "cf_all_positive": true,
+  "per_subject_median": {
+    "S1": 0.279,
+    "S2": 0.341,
+    "S3": 0.272,
+    "S4": 0.304,
+    "S5": 0.463,
+    "S6": 0.265,
+    "S7": 0.283,
+    "S8": 0.219
+  }
+}
