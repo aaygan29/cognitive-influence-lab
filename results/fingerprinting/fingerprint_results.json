@@ -1,0 +1,314 @@
+{
+  "midparietal": {
+    "accuracy": 1.0,
+    "chance": 0.25,
+    "n_subjects": 4,
+    "n_test_trials": 120,
+    "confusion_matrix": [
+      [
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        1
+      ]
+    ],
+    "permutation_p": 0.0,
+    "subject_ids": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "V3v": {
+    "accuracy": 1.0,
+    "chance": 0.25,
+    "n_subjects": 4,
+    "n_test_trials": 120,
+    "confusion_matrix": [
+      [
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        1
+      ]
+    ],
+    "permutation_p": 0.0,
+    "subject_ids": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "V1v": {
+    "accuracy": 1.0,
+    "chance": 0.25,
+    "n_subjects": 4,
+    "n_test_trials": 120,
+    "confusion_matrix": [
+      [
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        1
+      ]
+    ],
+    "permutation_p": 0.0,
+    "subject_ids": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "early": {
+    "accuracy": 1.0,
+    "chance": 0.25,
+    "n_subjects": 4,
+    "n_test_trials": 120,
+    "confusion_matrix": [
+      [
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        1
+      ]
+    ],
+    "permutation_p": 0.0,
+    "subject_ids": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "EBA": {
+    "accuracy": 1.0,
+    "chance": 0.25,
+    "n_subjects": 4,
+    "n_test_trials": 120,
+    "confusion_matrix": [
+      [
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        1
+      ]
+    ],
+    "permutation_p": 0.0,
+    "subject_ids": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "ventral": {
+    "accuracy": 1.0,
+    "chance": 0.25,
+    "n_subjects": 4,
+    "n_test_trials": 120,
+    "confusion_matrix": [
+      [
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        1
+      ]
+    ],
+    "permutation_p": 0.0,
+    "subject_ids": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "FBA-1": {
+    "accuracy": 1.0,
+    "chance": 0.25,
+    "n_subjects": 4,
+    "n_test_trials": 120,
+    "confusion_matrix": [
+      [
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        1
+      ]
+    ],
+    "permutation_p": 0.0,
+    "subject_ids": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "OPA": {
+    "accuracy": 1.0,
+    "chance": 0.25,
+    "n_subjects": 4,
+    "n_test_trials": 120,
+    "confusion_matrix": [
+      [
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        1
+      ]
+    ],
+    "permutation_p": 0.0,
+    "subject_ids": [
+      1,
+      2,
+      3,
+      4
+    ]
+  }
+}
