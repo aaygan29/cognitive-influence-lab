@@ -6,7 +6,7 @@ Aayush Gandhi. This repository merges three previously separate repos
 (`neurowire`/wiring-not-weights, `digital_brain`, `neuro_topology`) into the single evidence base
 for one paper, the same way the underlying research program was consolidated from ~15 project
 folders into one synthesized thesis. Each subdirectory keeps its full original commit history
-(merged via `git subtree`); the old standalone repos are archived (not deleted) and point here.
+(merged via `git subtree`); the old standalone repos have been removed, and their full history is preserved here.
 
 ## The thesis
 
