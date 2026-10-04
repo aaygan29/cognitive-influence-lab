@@ -1,0 +1,89 @@
+{
+ "law": "theta_install ~= (eta/alpha) e_bar(b) + g(rho)",
+ "eta_over_alpha": 1.0,
+ "reward_channel_bound": "(eta/alpha) sup|b|",
+ "max_superposition_residual": 0.026,
+ "rows": [
+  {
+   "bonus": 0.0,
+   "rho": 0.5,
+   "both": 0.0,
+   "reward_channel": 0.0,
+   "curriculum_channel": 0.0,
+   "superposition_sum": 0.0,
+   "residual": 0.0
+  },
+  {
+   "bonus": 0.0,
+   "rho": 0.65,
+   "both": 0.0632,
+   "reward_channel": 0.0,
+   "curriculum_channel": 0.0632,
+   "superposition_sum": 0.0632,
+   "residual": 0.0
+  },
+  {
+   "bonus": 0.0,
+   "rho": 0.8,
+   "both": 0.179,
+   "reward_channel": 0.0,
+   "curriculum_channel": 0.179,
+   "superposition_sum": 0.179,
+   "residual": 0.0
+  },
+  {
+   "bonus": 0.3,
+   "rho": 0.5,
+   "both": 0.2777,
+   "reward_channel": 0.2777,
+   "curriculum_channel": 0.0,
+   "superposition_sum": 0.2777,
+   "residual": 0.0
+  },
+  {
+   "bonus": 0.3,
+   "rho": 0.65,
+   "both": 0.338,
+   "reward_channel": 0.2777,
+   "curriculum_channel": 0.0632,
+   "superposition_sum": 0.3409,
+   "residual": -0.0029
+  },
+  {
+   "bonus": 0.3,
+   "rho": 0.8,
+   "both": 0.4433,
+   "reward_channel": 0.2777,
+   "curriculum_channel": 0.179,
+   "superposition_sum": 0.4567,
+   "residual": -0.0133
+  },
+  {
+   "bonus": 0.6,
+   "rho": 0.5,
+   "both": 0.5565,
+   "reward_channel": 0.5565,
+   "curriculum_channel": 0.0,
+   "superposition_sum": 0.5565,
+   "residual": 0.0
+  },
+  {
+   "bonus": 0.6,
+   "rho": 0.65,
+   "both": 0.6142,
+   "reward_channel": 0.5565,
+   "curriculum_channel": 0.0632,
+   "superposition_sum": 0.6197,
+   "residual": -0.0055
+  },
+  {
+   "bonus": 0.6,
+   "rho": 0.8,
+   "both": 0.7095,
+   "reward_channel": 0.5565,
+   "curriculum_channel": 0.179,
+   "superposition_sum": 0.7354,
+   "residual": -0.026
+  }
+ ]
+}
