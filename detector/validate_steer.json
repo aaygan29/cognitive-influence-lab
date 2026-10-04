@@ -1,0 +1,14 @@
+{
+  "FPR": {
+    "none": 0.0,
+    "corrective": 0.03333333333333333,
+    "corrective_noisy_curriculum": 0.05333333333333334
+  },
+  "TPR": {
+    "const_right_0.3": 0.8666666666666667,
+    "late_right_1.0": 0.04,
+    "pulse_right_0.5": 0.8533333333333334,
+    "curriculum_0.7": 1.0,
+    "mixed": 1.0
+  }
+}

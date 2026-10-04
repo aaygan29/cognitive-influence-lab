@@ -1,0 +1,68 @@
+{
+ "simulation_only": true,
+ "check1_superposition_max_residual": 0.026,
+ "check2_reward_coeff_vs_ratio": [
+  {
+   "eta_over_alpha": 1.0,
+   "coeff": 0.926
+  },
+  {
+   "eta_over_alpha": 2.0,
+   "coeff": 1.8
+  },
+  {
+   "eta_over_alpha": 0.5,
+   "coeff": 0.475
+  },
+  {
+   "eta_over_alpha": 2.0,
+   "coeff": 1.824
+  }
+ ],
+ "check3_bound": {
+  "violations": 0,
+  "n": 2000,
+  "tightest_ratio": 0.922
+ },
+ "check4_curriculum_independent_of_bonus": {
+  "0.65": {
+   "g_at_bonus_0_0.3_0.6": [
+    0.063,
+    0.06,
+    0.058
+   ],
+   "spread": 0.005
+  },
+  "0.8": {
+   "g_at_bonus_0_0.3_0.6": [
+    0.179,
+    0.166,
+    0.153
+   ],
+   "spread": 0.026
+  }
+ },
+ "check5_vs_stochastic_learner": [
+  {
+   "bonus": 0.4,
+   "rho": 0.5,
+   "stochastic": 0.355,
+   "law": 0.371,
+   "diff": -0.016
+  },
+  {
+   "bonus": 0.0,
+   "rho": 0.8,
+   "stochastic": 0.3,
+   "law": 0.179,
+   "diff": 0.121
+  },
+  {
+   "bonus": 0.4,
+   "rho": 0.7,
+   "stochastic": 0.514,
+   "law": 0.462,
+   "diff": 0.052
+  }
+ ]
+}
