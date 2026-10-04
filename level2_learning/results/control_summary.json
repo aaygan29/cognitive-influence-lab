@@ -1,0 +1,62 @@
+{
+ "both_levers": {
+  "persisted": 0,
+  "n": 12,
+  "rate": 0.0,
+  "mean_bonus": 0.679
+ },
+ "learning_only": {
+  "persisted": 0,
+  "n": 7,
+  "rate": 0.0,
+  "mean_right_frac": 0.768,
+  "a_final_mean": 0.001
+ },
+ "scripted_clean_learning": 0.47,
+ "scripted_momentary": 0.07,
+ "fisher_learning_only_gt_both_p": 1.0,
+ "per_episode_learning_only": [
+  {
+   "seed": 0,
+   "mean_right_frac": 0.78,
+   "a_final": -0.01,
+   "persisted": false
+  },
+  {
+   "seed": 1,
+   "mean_right_frac": 0.78,
+   "a_final": 0.03,
+   "persisted": false
+  },
+  {
+   "seed": 2,
+   "mean_right_frac": 0.78,
+   "a_final": 0.02,
+   "persisted": false
+  },
+  {
+   "seed": 3,
+   "mean_right_frac": 0.73,
+   "a_final": 0.01,
+   "persisted": false
+  },
+  {
+   "seed": 4,
+   "mean_right_frac": 0.78,
+   "a_final": -0.07,
+   "persisted": false
+  },
+  {
+   "seed": 5,
+   "mean_right_frac": 0.78,
+   "a_final": 0.02,
+   "persisted": false
+  },
+  {
+   "seed": 6,
+   "mean_right_frac": 0.78,
+   "a_final": 0.0,
+   "persisted": false
+  }
+ ]
+}
