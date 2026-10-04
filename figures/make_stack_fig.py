@@ -32,5 +32,5 @@ ax.text(-0.02, 3.4, "a reward that demands a lasting\nchange drives escalation d
         rotation=90, va="center", ha="center", fontsize=7.6, color=MUTED)
 ax.set_title("The cognitive influence stack: an agent rewarded on a human outcome can act at three levels",
              fontsize=9.5, loc="center", pad=6)
-fig.tight_layout(); fig.savefig(ROOT / "figures/fig_stack.pdf"); fig.savefig(ROOT / "figures/fig_stack.png", dpi=200)
+fig.tight_layout(); fig.savefig(ROOT / "figures/fig1_stack.pdf"); fig.savefig(ROOT / "figures/fig1_stack.png", dpi=200)
 print("ok")

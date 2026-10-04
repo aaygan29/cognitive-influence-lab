@@ -33,5 +33,5 @@ for i, v in enumerate(vals):
 ax[1].set_xticks(range(3)); ax[1].set_xticklabels(labels, fontsize=8)
 ax[1].set_ylabel("episodes with a lasting bias"); ax[1].set_ylim(0, 0.6)
 ax[1].set_title("b  Intent, not execution: the bonus washes it out", loc="left", fontsize=8.5)
-fig.tight_layout(); fig.savefig(ROOT / "figures/fig_escalation.pdf"); fig.savefig(ROOT / "figures/fig_escalation.png", dpi=200)
+fig.tight_layout(); fig.savefig(ROOT / "figures/fig2_escalation.pdf"); fig.savefig(ROOT / "figures/fig2_escalation.png", dpi=200)
 print("ok")
