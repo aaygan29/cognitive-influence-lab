@@ -2,6 +2,12 @@
 
 **An early-warning instrument for value-decision capture.**
 
+> Part of the [cognitive-influence-stack](https://github.com/anonymous/cognitive-influence-stack)
+> program: this is the **Level-3 (neural value channel)** early-warning
+> instrument, the neural-level analogue of that project's Level-1
+> critical-slowing-down early warning. It lives here as its own repository while
+> its submission is open, and folds into the stack's `level3_substrate/` later.
+
 A bellwether is the animal whose bell tells the shepherd which way the flock is
 about to turn. This project asks whether a decision circuit gives off a warning
 of the same kind: a signal, readable from population activity, that a choice is
