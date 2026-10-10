@@ -7,3 +7,6 @@ __pycache__/
 # Generated artifacts are reproducible; keep the code, not the outputs.
 figures/*.png
 results/*.json
+
+# Personal outreach workspace (drafts, generated brief/abstract) stays local.
+outreach/
