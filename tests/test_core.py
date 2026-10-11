@@ -139,6 +139,36 @@ def test_delong_paired_prefers_better_detector():
     assert res["n_pos"] == 100 and res["n_neg"] == 100
 
 
+def test_decode_uncertainty_tracks_slowness():
+    from bellwether.precision import decode_uncertainty
+    n = 2000
+    fast = np.clip(np.linspace(-0.2, 1.0, n), 0, None)      # resolves early
+    slow = np.concatenate([np.zeros(n - 200), np.linspace(0, 1, 200)])  # resolves late
+    assert decode_uncertainty(slow, 0, n) > decode_uncertainty(fast, 0, n)
+
+
+def test_procrustes_recovers_rotation():
+    from bellwether.drift import procrustes_align
+    rng = np.random.default_rng(0)
+    V_ref, _ = np.linalg.qr(rng.standard_normal((40, 6)))   # orthonormal basis
+    Q, _ = np.linalg.qr(rng.standard_normal((6, 6)))        # orthogonal rotation
+    V_new = V_ref @ Q
+    R = procrustes_align(V_ref, V_new)
+    assert np.linalg.norm(V_new @ R - V_ref) < 1e-6
+
+
+def test_drifted_readout_changes_code():
+    from bellwether.drift import drifted_readout
+    from bellwether.population import PopulationReadout
+    base = PopulationReadout(n_units=30, seed=0)
+    tr = simulate(Stimulus(coherence=6.4), n_trials=5, duration=1.5, seed=1)
+    drifted = drifted_readout(base, drift_level=0.9, dropout=0.1, seed=3)
+    r0 = base.project(tr)
+    r1 = drifted.project(tr)
+    assert r0.shape == r1.shape
+    assert not np.allclose(r0, r1)
+
+
 def test_kendall_tau_detects_trend():
     tau_up, p_up = kendall_tau(np.arange(30, dtype=float))
     assert tau_up > 0.95 and p_up < 0.01

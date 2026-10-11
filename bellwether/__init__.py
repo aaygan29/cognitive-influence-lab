@@ -24,7 +24,17 @@ model, so the same monitor can later be pointed at real recordings.
 
 __version__ = "0.1.0"
 
-from . import dynamics, population, ews, estimator, geometry, monitor, detect
+from . import (
+    detect,
+    drift,
+    dynamics,
+    estimator,
+    ews,
+    geometry,
+    monitor,
+    population,
+    precision,
+)
 
 __all__ = [
     "dynamics",
@@ -34,5 +44,7 @@ __all__ = [
     "geometry",
     "monitor",
     "detect",
+    "precision",
+    "drift",
     "__version__",
 ]

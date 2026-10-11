@@ -215,6 +215,38 @@ The evaluation is built to survive methodological scrutiny.
 
 ---
 
+## Longitudinal deployment and decoded precision
+
+Two additions bring the instrument closer to how it would run on real recordings,
+each grounded in recent human and BCI work rather than in the project's own
+assumptions.
+
+**Drift-robust deployment (`bellwether.drift`, `experiments/run_drift.py`).**
+Real neural codes drift: a decoder fixed on one session decays on the next, and
+the published remedy is to align the low-dimensional latent dynamics across
+sessions. Reproducing that here: a decision axis fixed on a reference session
+degrades as the code drifts (detection AUC falls from about 0.997 to 0.86 at
+strong drift), an orthogonal-Procrustes alignment of honest-trial subspaces
+carries the reference axis into each drifted session and restores it (about
+0.998 throughout), and the default per-trial estimation is inherently
+drift-robust (about 1.0 throughout) at the cost of re-estimating every trial.
+A secondary honest finding is that the directedness statistic is unusually
+drift-tolerant to begin with, because it reads trajectory shape rather than the
+absolute population code.
+
+**Decoded-precision margins (`bellwether.precision`, `experiments/run_precision.py`).**
+Human intracranial recordings show uncertainty and prediction error are
+explicitly decodable, with precision gating how strongly signals propagate. In
+the model, an uncertainty proxy decoded from population activity alone (how
+slowly the decision resolves) tracks evidence strength monotonically, reproducing
+that decodability, and using it to set an adaptive margin modestly evens the
+honest false-alarm rate across the uncertainty range. The honest limit, which the
+experiment makes explicit, is that decoded precision cannot by itself replace the
+presented-evidence reference for detection: covert steering speeds resolution and
+is therefore decoded as precision, the same coupling that makes the timing
+channel dominant. This confirms, rather than removes, the need for an
+evidence-relative baseline.
+
 ## Limitations
 
 Stated plainly, because the artifact is only as credible as its honesty.
@@ -267,6 +299,8 @@ bellwether/
   estimator.py    directedness statistic; drift-field recovery (interpretive)
   ews.py          critical-slowing-down statistics + Kendall-tau trend test
   geometry.py     commitment geometry (subspace angle, chosen-subspace expansion)
+  precision.py    decoded-uncertainty proxy and adaptive (ratcheting) margins
+  drift.py        representational-drift simulation + Procrustes latent alignment
   monitor.py      the online early-warning monitor and its calibration
   detect.py       ROC/AUC, bootstrap CI, permutation test, paired DeLong,
                   commit-time-stratified AUC, lead-time and stealth-floor summaries
@@ -275,6 +309,8 @@ experiments/
   run_validation.py   main empirical validation
   run_leadtime.py     lead time, dose-response, stealth floor
   run_robustness.py   embedding-seed robustness and the two detection channels
+  run_drift.py        longitudinal detection under representational drift
+  run_precision.py    decoded-precision margins vs a fixed threshold
 tests/
   test_core.py        unit and integration tests
 ```

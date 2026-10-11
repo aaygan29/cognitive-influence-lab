@@ -41,9 +41,14 @@ class PopulationReadout:
         across trials (one population, many trials), which is what makes the
         decision axis consistent enough to estimate.
         """
-        rng = np.random.default_rng(self.seed)
-        W = rng.standard_normal((self.n_units, 2))      # loadings on [S1, S2]
-        bias = rng.standard_normal(self.n_units) * 0.5
+        # A drifted readout (see bellwether.drift) may override the loadings to
+        # simulate representational drift; otherwise they are drawn from the seed.
+        W = getattr(self, "_W_override", None)
+        bias = getattr(self, "_bias_override", None)
+        if W is None or bias is None:
+            rng = np.random.default_rng(self.seed)
+            W = rng.standard_normal((self.n_units, 2))  # loadings on [S1, S2]
+            bias = rng.standard_normal(self.n_units) * 0.5
         # (T, n_trials, 2)
         latent = np.stack([traj.S1, traj.S2], axis=-1)
         drive = latent @ W.T + bias                     # (T, n_trials, n_units)
