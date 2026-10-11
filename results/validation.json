@@ -1,0 +1,138 @@
+{
+  "n_seeds": 5,
+  "n_test_per_condition_per_seed": 150,
+  "manip_amplitude_nA": 0.012,
+  "calibration": {
+    "feat_intercept": 0.6848535176988,
+    "feat_slope": 0.0064249790537955305,
+    "feat_sigma": 0.21685180422687106,
+    "alarm_threshold": 1.4298509251253375,
+    "target_fpr": 0.05
+  },
+  "pooled_auc": {
+    "manip_vs_hard": {
+      "auc": 0.9617591111111111,
+      "ci95": [
+        0.9528129777777777,
+        0.9698185111111111
+      ],
+      "perm_p": 0.0004997501249375312,
+      "n_pos": 750,
+      "n_neg": 750
+    },
+    "manip_vs_easy": {
+      "auc": 1.0,
+      "ci95": [
+        1.0,
+        1.0
+      ],
+      "perm_p": 0.0004997501249375312,
+      "n_pos": 750,
+      "n_neg": 750
+    }
+  },
+  "confound_baseline_commit_speed": {
+    "detector_auc": 0.9617591111111111,
+    "speed_only_auc": 0.9943155555555555,
+    "auc_gain": -0.03255644444444439,
+    "delong_z": -6.760794711409064,
+    "delong_p": 1.3723688851996485e-11,
+    "note": "A naive adversary that steers hard also commits fast, so a commitment-speed cue is a strong baseline here. The commit-time-stratified AUC below shows whether directedness adds information beyond speed, i.e. survives against a speed-matched adversary."
+  },
+  "directedness_within_commit_time_strata": {
+    "pooled_stratified_auc": 0.9318483490957359,
+    "per_bin": [
+      {
+        "bin": 0,
+        "auc": 0.9983164983164983,
+        "n_pos": 297,
+        "n_neg": 2
+      },
+      {
+        "bin": 1,
+        "auc": 0.9763513513513513,
+        "n_pos": 296,
+        "n_neg": 2
+      },
+      {
+        "bin": 2,
+        "auc": 0.9289765290986824,
+        "n_pos": 157,
+        "n_neg": 146
+      }
+    ]
+  },
+  "critical_slowing_down": {
+    "frac_variance_rising": 0.5416666666666666,
+    "frac_autocorr_rising": 0.008333333333333333,
+    "n_trials": 120,
+    "note": "Kendall tau test, p<0.05 and positive, honest ambiguous trials"
+  },
+  "across_seed": {
+    "auc_manip_vs_hard": {
+      "mean": 0.9620444444444445,
+      "std": 0.004859406050176705,
+      "min": 0.9536666666666667,
+      "max": 0.9659777777777778
+    },
+    "auc_manip_vs_easy": {
+      "mean": 1.0,
+      "std": 0.0,
+      "min": 1.0,
+      "max": 1.0
+    },
+    "fpr_hard": {
+      "mean": 0.026666666666666665,
+      "std": 0.01460593486680443,
+      "min": 0.006666666666666667,
+      "max": 0.04666666666666667
+    },
+    "tpr_manip": {
+      "mean": 0.5933333333333334,
+      "std": 0.028905977851571705,
+      "min": 0.56,
+      "max": 0.6466666666666666
+    }
+  },
+  "commitment_geometry": {
+    "subspace_angle_deg": 6.848908613084388,
+    "expansion_ratio": 3.9213054531012754
+  },
+  "per_seed": [
+    {
+      "seed": 11,
+      "auc_manip_vs_hard": 0.9536666666666667,
+      "auc_manip_vs_easy": 1.0,
+      "fpr_hard": 0.04666666666666667,
+      "tpr_manip": 0.56
+    },
+    {
+      "seed": 22,
+      "auc_manip_vs_hard": 0.9659777777777778,
+      "auc_manip_vs_easy": 1.0,
+      "fpr_hard": 0.006666666666666667,
+      "tpr_manip": 0.6466666666666666
+    },
+    {
+      "seed": 33,
+      "auc_manip_vs_hard": 0.9655111111111111,
+      "auc_manip_vs_easy": 1.0,
+      "fpr_hard": 0.04,
+      "tpr_manip": 0.5933333333333334
+    },
+    {
+      "seed": 44,
+      "auc_manip_vs_hard": 0.9593777777777778,
+      "auc_manip_vs_easy": 1.0,
+      "fpr_hard": 0.02,
+      "tpr_manip": 0.58
+    },
+    {
+      "seed": 55,
+      "auc_manip_vs_hard": 0.9656888888888889,
+      "auc_manip_vs_easy": 1.0,
+      "fpr_hard": 0.02,
+      "tpr_manip": 0.5866666666666667
+    }
+  ]
+}

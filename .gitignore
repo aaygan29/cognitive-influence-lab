@@ -4,9 +4,7 @@ __pycache__/
 *.egg-info/
 .pytest_cache/
 .DS_Store
-# Generated artifacts are reproducible; keep the code, not the outputs.
-figures/*.png
-results/*.json
+# Figures and results are versioned as the canonical result set (regenerate with experiments/run_*.py).
 
 # Personal outreach workspace (drafts, generated brief/abstract) stays local.
 outreach/
