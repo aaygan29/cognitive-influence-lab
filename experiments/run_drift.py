@@ -26,7 +26,7 @@ from bellwether.drift import (
     reference_axis,
 )
 from bellwether.dynamics import Adversary, Stimulus, simulate
-from bellwether.estimator import directedness
+from bellwether.estimator import mean_directedness
 
 ROOT = Path(__file__).resolve().parent.parent
 RESULTS, FIGS = ROOT / "results", ROOT / "figures"
@@ -36,29 +36,17 @@ N = 150
 SMOOTH = 3
 
 
-def _approach_end(z, i0, horizon, frac=0.85):
-    base = z[i0]
-    exc = z[i0:horizon] - base
-    tot = np.max(np.abs(exc)) if exc.size else 0.0
-    if tot <= 0:
-        return horizon
-    reached = np.flatnonzero(np.abs(exc) >= frac * tot)
-    return i0 + (int(reached[0]) if reached.size else exc.size)
+I0 = int(0.5 / C.DT)
+HORIZON = int(2.3 / C.DT)
 
 
 def trial_directedness(rates, axis=None):
-    """Per-trial directedness over the approach phase (fixed axis, or per-trial PCA)."""
-    scores = []
-    i0 = int(0.5 / C.DT)
-    horizon = int(2.3 / C.DT)
-    win = 100
+    """Per-trial geometry score, using a fixed axis or per-trial PCA when axis is None."""
+    out = []
     for j in range(rates.shape[1]):
         z = _pca_axis(rates[:, j, :]) if axis is None else project_fixed(rates[:, j, :], axis)
-        i1 = max(_approach_end(z, i0, min(horizon, len(z))), i0 + 2)
-        ds = [directedness(z[a:a + win], smooth=SMOOTH)
-              for a in range(i0, max(i1 - win + 1, i0 + 1), 20) if a + win <= len(z)]
-        scores.append(np.mean(ds) if ds else directedness(z[i0:i1], smooth=SMOOTH))
-    return np.array(scores)
+        out.append(mean_directedness(z, I0, HORIZON, smooth=SMOOTH))
+    return np.array(out)
 
 
 def _pca_axis(rates_1trial):
@@ -81,39 +69,60 @@ def main() -> None:
                               duration=C.DURATION, dt=C.DT, seed=301))
     V_ref = honest_subspace(base, ref_hard, dim=DIM)
 
-    rows = {"per_trial": [], "fixed": [], "aligned": []}
+    # Each drift level is evaluated over several independent drift realizations,
+    # because a single drift target is not representative: how much a fixed axis
+    # degrades depends on which direction the code happens to drift.
+    drift_seeds = [111, 222, 333, 444, 555]
+    stats = {k: {"mean": [], "std": []} for k in ("per_trial", "fixed", "aligned")}
     for lvl in tqdm(DRIFT_LEVELS, desc="drift levels"):
-        ro = base if lvl == 0 else drifted_readout(base, drift_level=lvl,
-                                                    dropout=0.1, seed=777)
-        hard = ro.project(simulate(Stimulus(coherence=0.0), n_trials=N,
-                                   duration=C.DURATION, dt=C.DT, seed=400))
-        manip = ro.project(simulate(Stimulus(coherence=0.0), Adversary(amplitude=0.012),
-                                    n_trials=N, duration=C.DURATION, dt=C.DT, seed=401))
-        # honest anchors in this session for alignment
-        anchors = ro.project(simulate(Stimulus(coherence=0.0), n_trials=120,
-                                      duration=C.DURATION, dt=C.DT, seed=402))
-        V_new = _subspace_from_rates(anchors, DIM)
-        a_al = aligned_axis(ref_axis, V_ref, V_new)
-
-        for name, axis in [("per_trial", None), ("fixed", ref_axis), ("aligned", a_al)]:
-            auc = roc_auc(trial_directedness(manip, axis), trial_directedness(hard, axis))
-            rows[name].append(auc)
+        per_seed = {"per_trial": [], "fixed": [], "aligned": []}
+        for ds in drift_seeds:
+            ro = base if lvl == 0 else drifted_readout(base, drift_level=lvl,
+                                                        dropout=0.1, seed=ds)
+            hard = ro.project(simulate(Stimulus(coherence=0.0), n_trials=N,
+                                       duration=C.DURATION, dt=C.DT, seed=400))
+            manip = ro.project(simulate(Stimulus(coherence=0.0),
+                                        Adversary(amplitude=0.012), n_trials=N,
+                                        duration=C.DURATION, dt=C.DT, seed=401))
+            anchors = ro.project(simulate(Stimulus(coherence=0.0), n_trials=120,
+                                          duration=C.DURATION, dt=C.DT, seed=402))
+            a_al = aligned_axis(ref_axis, V_ref, _subspace_from_rates(anchors, DIM))
+            sh = {ax_name: trial_directedness(hard, ax)
+                  for ax_name, ax in [("per_trial", None), ("fixed", ref_axis),
+                                      ("aligned", a_al)]}
+            sm = {ax_name: trial_directedness(manip, ax)
+                  for ax_name, ax in [("per_trial", None), ("fixed", ref_axis),
+                                      ("aligned", a_al)]}
+            for k in per_seed:
+                per_seed[k].append(roc_auc(sm[k], sh[k]))
+            if lvl == 0.0:
+                break   # no drift: realizations are identical
+        for k in stats:
+            v = np.array(per_seed[k])
+            stats[k]["mean"].append(float(v.mean()))
+            stats[k]["std"].append(float(v.std()))
 
     summary = {
         "drift_levels": DRIFT_LEVELS,
-        "auc_vs_hard": rows,
+        "drift_seeds": drift_seeds,
+        "auc_vs_hard": stats,
         "subspace_dim": DIM,
         "interpretation": (
-            "A fixed reference decision axis degrades as the neural code drifts; "
-            "orthogonal-Procrustes alignment of honest subspaces carries the "
-            "reference axis into each drifted session and recovers detection; "
-            "per-trial estimation is inherently drift-robust but re-estimates every "
-            "trial."
+            "Per-trial estimation is drift-robust across every realization (it "
+            "re-derives the decision axis each trial) and dominates the other two. "
+            "A fixed reference axis degrades under drift, but by a seed-dependent "
+            "amount. Orthogonal-Procrustes alignment of honest subspaces helps on "
+            "average but is not reliable: on some drift realizations it does not "
+            "recover, and can underperform the un-aligned fixed axis. The honest "
+            "takeaway is that the detector's drift-robustness comes from per-trial "
+            "re-estimation, not from the alignment machinery."
         ),
     }
     (RESULTS / "drift.json").write_text(json.dumps(summary, indent=2))
-    print(json.dumps(rows, indent=2))
-    _figure(DRIFT_LEVELS, rows)
+    print(json.dumps({k: {"mean": [round(x, 3) for x in stats[k]["mean"]],
+                          "std": [round(x, 3) for x in stats[k]["std"]]}
+                      for k in stats}, indent=2))
+    _figure(DRIFT_LEVELS, stats)
 
 
 def _subspace_from_rates(rates, dim):
@@ -123,18 +132,23 @@ def _subspace_from_rates(rates, dim):
     return Vt[:dim].T
 
 
-def _figure(levels, rows):
+def _figure(levels, stats):
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
-    fig, ax = plt.subplots(figsize=(5.2, 3.6))
-    ax.plot(levels, rows["per_trial"], "o-", label="per-trial estimation", color="tab:green")
-    ax.plot(levels, rows["aligned"], "^-", label="fixed axis + alignment", color="tab:blue")
-    ax.plot(levels, rows["fixed"], "s--", label="fixed axis, no alignment", color="tab:red")
+    levels = np.array(levels)
+    fig, ax = plt.subplots(figsize=(5.4, 3.8))
+    style = {"per_trial": ("o-", "tab:green", "per-trial estimation"),
+             "fixed": ("s--", "tab:red", "fixed axis, no alignment"),
+             "aligned": ("^-", "tab:blue", "fixed axis + alignment")}
+    for k, (mk, col, lab) in style.items():
+        m = np.array(stats[k]["mean"]); s = np.array(stats[k]["std"])
+        ax.plot(levels, m, mk, color=col, label=lab)
+        ax.fill_between(levels, m - s, m + s, color=col, alpha=0.15)
     ax.axhline(0.5, color="gray", ls=":", lw=0.8)
     ax.set_xlabel("representational drift level")
     ax.set_ylabel("detection AUC (manip vs honest-hard)")
-    ax.set_title("Detection under drift: alignment restores a fixed decoder")
+    ax.set_title("Detection under drift (mean +/- SD over drift realizations)")
     ax.legend(fontsize=8, frameon=False)
     fig.tight_layout()
     fig.savefig(FIGS / "drift_overview.png", dpi=140)

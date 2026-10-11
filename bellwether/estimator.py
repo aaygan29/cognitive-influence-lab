@@ -118,6 +118,40 @@ def directedness(z: np.ndarray, smooth: int = 1) -> float:
     return net / path if path > 0 else 0.0
 
 
+def approach_slice(z: np.ndarray, onset_idx: int, horizon: int,
+                   frac: float = 0.85) -> tuple[int, int]:
+    """Indices spanning stimulus onset to estimated commitment.
+
+    Commitment is when the decision axis first reaches ``frac`` of its total
+    excursion from the onset value. Restricting analysis to this window keeps
+    measurements on the approach to the decision and away from the settled
+    attractor, where a plateau would dilute trajectory statistics.
+    """
+    end = min(horizon, len(z))
+    base = z[onset_idx]
+    exc = z[onset_idx:end] - base
+    tot = float(np.max(np.abs(exc))) if exc.size else 0.0
+    if tot <= 0:
+        return onset_idx, end
+    reached = np.flatnonzero(np.abs(exc) >= frac * tot)
+    i1 = onset_idx + (int(reached[0]) if reached.size else exc.size)
+    return onset_idx, max(i1, onset_idx + 2)
+
+
+def mean_directedness(z: np.ndarray, onset_idx: int, horizon: int,
+                      win: int = 100, step: int = 20, smooth: int = 3) -> float:
+    """Average directedness over sliding windows of the approach phase.
+
+    This is the per-trial geometry feature used throughout: it reads how directed
+    the decision trajectory is on its way to commitment, which is high for a
+    steered or strong-evidence decision and low for an honest ambiguous one.
+    """
+    i0, i1 = approach_slice(z, onset_idx, horizon)
+    vals = [directedness(z[a:a + win], smooth=smooth)
+            for a in range(i0, max(i1 - win + 1, i0 + 1), step) if a + win <= len(z)]
+    return float(np.mean(vals)) if vals else directedness(z[i0:i1], smooth=smooth)
+
+
 def steering_z(fit: DriftFit) -> float:
     """Signed significance of the tilt: ``c0 / se(c0)``.
 

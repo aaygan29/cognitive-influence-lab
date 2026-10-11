@@ -24,7 +24,7 @@ from tqdm import tqdm
 
 import configs as C
 from bellwether.dynamics import Adversary, Stimulus, simulate
-from bellwether.estimator import directedness
+from bellwether.estimator import mean_directedness
 from bellwether.precision import decode_uncertainty
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -33,7 +33,6 @@ COHERENCES = [0.0, 6.4, 25.6, 51.2]   # ambiguous -> strong (decreasing uncertai
 N = 200
 I0 = int(0.5 / C.DT)
 HORIZON = int(2.3 / C.DT)
-WIN = 100
 TARGET_FPR = 0.05
 
 
@@ -43,16 +42,7 @@ def _trial_feats(readout, traj):
     d, u = [], []
     for j in range(rates.shape[1]):
         z = readout.decision_axis(rates[:, j, :])
-        # Restrict directedness to the approach phase (pre-commitment), as the
-        # monitor does, so the post-commitment plateau does not dilute it.
-        base = z[I0]
-        exc = z[I0:min(HORIZON, len(z))] - base
-        tot = np.max(np.abs(exc)) if exc.size else 0.0
-        reached = np.flatnonzero(np.abs(exc) >= 0.85 * tot) if tot > 0 else np.array([])
-        i1 = max(I0 + (int(reached[0]) if reached.size else exc.size), I0 + 2)
-        ds = [directedness(z[a:a + WIN], smooth=3)
-              for a in range(I0, max(i1 - WIN + 1, I0 + 1), 20) if a + WIN <= len(z)]
-        d.append(np.mean(ds) if ds else directedness(z[I0:i1], smooth=3))
+        d.append(mean_directedness(z, I0, HORIZON))
         u.append(decode_uncertainty(z, I0, HORIZON))
     return np.array(d), np.array(u)
 
