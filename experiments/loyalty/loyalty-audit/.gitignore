@@ -1,0 +1,18 @@
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.ruff_cache/
+checkpoints/
+*.safetensors
+adapters/
+results/_scratch*/
+.DS_Store
+* 2.py
+logs/
+launch_v3_after_v2.sh
+autofill_on_v3.sh
+launch_stage4_after_v3.sh
+autofill_stage5.sh
+autofill_stage6.sh
+finish_runs.sh
