@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+adapter.pt
+results/
+**/generations*.jsonl
+.DS_Store
