@@ -1,0 +1,116 @@
+{
+  "dataset": "NARPS ds001734 (mixed gambles)",
+  "n_subjects": 108,
+  "neural_reid_calibration": 1.0,
+  "E1_individuation": {
+    "n_subjects": 108,
+    "rank1": 0.06481481481481481,
+    "chance": 0.009259259259259259
+  },
+  "E2_forecasting": {
+    "pop": {
+      "mean": 0.9594556543329927,
+      "sd": 0.07944929839118271,
+      "n": 165
+    },
+    "pop_personal": {
+      "mean": 0.9698798741796547,
+      "sd": 0.02387417426325822,
+      "n": 165
+    },
+    "pop_personal_neural": {
+      "mean": 0.9701909121392276,
+      "sd": 0.02362893502381662,
+      "n": 165
+    },
+    "scarce_pop_personal": {
+      "mean": 0.9559410116259306,
+      "sd": 0.07766458212656596,
+      "n": 165
+    },
+    "scarce_pop_personal_neural": {
+      "mean": 0.9525286619463352,
+      "sd": 0.03608208135920887,
+      "n": 165
+    },
+    "amb_pop": {
+      "mean": 0.778269871644526,
+      "sd": 0.1818247658776807,
+      "n": 136
+    },
+    "amb_pop_personal": {
+      "mean": 0.8172871991521157,
+      "sd": 0.17583135882896686,
+      "n": 136
+    },
+    "amb_pop_personal_neural": {
+      "mean": 0.8142617046464086,
+      "sd": 0.1767405250998561,
+      "n": 136
+    }
+  },
+  "E3_risk": {
+    "dose_response": {
+      "-1.5": {
+        "frac_decisions_flipped": 0.13094413920870435,
+        "sd": 0.02930413883822154
+      },
+      "-1.0": {
+        "frac_decisions_flipped": 0.09678277640394208,
+        "sd": 0.020111261279534654
+      },
+      "-0.5": {
+        "frac_decisions_flipped": 0.05376644715589917,
+        "sd": 0.011517719420215242
+      },
+      "0.0": {
+        "frac_decisions_flipped": 0.0,
+        "sd": 0.0
+      },
+      "0.5": {
+        "frac_decisions_flipped": 0.06164116654743241,
+        "sd": 0.011833344057335113
+      },
+      "1.0": {
+        "frac_decisions_flipped": 0.12901577423625968,
+        "sd": 0.024564343010489726
+      },
+      "1.5": {
+        "frac_decisions_flipped": 0.19852427019425428,
+        "sd": 0.03960396684314397
+      }
+    },
+    "dose_response_ambiguous": {
+      "-1.5": {
+        "frac_decisions_flipped": 0.385802076564669,
+        "sd": 0.06848543434312247
+      },
+      "-1.0": {
+        "frac_decisions_flipped": 0.33900782865949636,
+        "sd": 0.0649112674715668
+      },
+      "-0.5": {
+        "frac_decisions_flipped": 0.22623190936797696,
+        "sd": 0.05123787846759148
+      },
+      "0.0": {
+        "frac_decisions_flipped": 0.0,
+        "sd": 0.0
+      },
+      "0.5": {
+        "frac_decisions_flipped": 0.2566001081836513,
+        "sd": 0.03261448540265558
+      },
+      "1.0": {
+        "frac_decisions_flipped": 0.38937130864468794,
+        "sd": 0.036021190648966764
+      },
+      "1.5": {
+        "frac_decisions_flipped": 0.4379463956370903,
+        "sd": 0.043335170554712525
+      }
+    },
+    "dose_for_10pct_flip": 1.0,
+    "dose_for_10pct_flip_ambiguous": -0.5
+  }
+}
