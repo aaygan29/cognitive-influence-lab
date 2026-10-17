@@ -1,0 +1,26 @@
+# Large data + heavy artifacts (not tracked; see REPRODUCE.md to regenerate)
+data/
+results/**/models/
+*.pt
+*.pth
+*.pkl
+*.ckpt
+
+# Raw datasets / downloads
+Train Data/
+Test Data/
+*.zip
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+
+# OS / editor
+.DS_Store
+"* 2.*"
+*.swp
+
+# Keep: results/**/*.json and results/**/figures/*.pdf (small, tracked)

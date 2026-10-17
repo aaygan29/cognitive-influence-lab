@@ -1,0 +1,30 @@
+data:
+  subjects: [1, 2, 3, 4]          # subj01..04 from Algonauts 2023
+  n_train_images: 8859             # per subject in Algonauts train split
+  n_shared_test: 982               # shared across subjects for RSA/fingerprinting
+  rois:
+    - early                        # V1-V4 combined
+    - midventral
+    - midlateral
+    - midparietal
+    - ventral
+    - lateral
+    - parietal
+  osf_project_id: "2rvsj"
+
+features:
+  model: "openai/clip-vit-large-patch14"
+  dim: 768
+  batch_size: 64
+  device: "cpu"
+
+encoding:
+  alphas: [0.01, 0.1, 1.0, 10.0, 100.0, 1000.0, 10000.0, 100000.0]
+  n_cv_folds: 3
+  test_fraction: 0.1               # held-out for noise ceiling
+
+evaluation:
+  n_rsa_stimuli: 200               # stimuli to use for RDM (keep manageable)
+  n_fingerprint_trials: 300        # test samples for identification
+  n_permutations: 1000             # for significance testing
+  random_seed: 42
