@@ -1,0 +1,28 @@
+{
+  "experiment": "E7_state_shift_recovery",
+  "design": {
+    "n_entities": 60,
+    "n_trials": 1500,
+    "n_seeds": 10
+  },
+  "framing": "states as recoverable within-entity manifold displacements; simulation of mechanism",
+  "positive_control": {
+    "mean_recovered_shift": 0.7307605503650451,
+    "mean_recovered_ci95": [
+      0.6943181966635211,
+      0.7681732379487475
+    ],
+    "shift_tracking_r": 0.349575152675227,
+    "detects_shift": true
+  },
+  "negative_control": {
+    "mean_recovered_shift": 0.0017202781790801006,
+    "mean_recovered_ci95": [
+      -0.02508316569200315,
+      0.027985259609729942
+    ],
+    "shift_tracking_r": null,
+    "detects_shift": false
+  },
+  "valid": true
+}

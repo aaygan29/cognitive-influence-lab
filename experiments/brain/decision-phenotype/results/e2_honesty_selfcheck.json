@@ -1,0 +1,23 @@
+{
+  "seed": 0,
+  "conformal_regression": {
+    "nominal": 0.9,
+    "empirical_coverage": 0.9066666666666666,
+    "half_width": 0.7559272761563957,
+    "pass": true
+  },
+  "scores": {
+    "log_score": 0.6045459945090313,
+    "brier": 0.20863463001818433,
+    "ece": 0.01775945546363671,
+    "pass": true
+  },
+  "power": {
+    "mdes_r_n50": 0.387328532677401,
+    "mdes_r_n500": 0.12501088494234194,
+    "weak_abstained": true,
+    "strong_reported": true,
+    "pass": true
+  },
+  "all_pass": true
+}

@@ -1,0 +1,89 @@
+{
+  "experiment": "REAL_narps_fmri_affective_grounding",
+  "n_subjects": 40,
+  "power_note": "UNDERPOWERED at n=40: minimum detectable correlation (MDES) is 0.44; only correlations larger than that are resolvable. Directions below are descriptive; the neural-behavioral correlation is gated (abstained).",
+  "NAcc_tracks_gain": {
+    "mean": 0.003456893266570849,
+    "t": 1.4682795638053874,
+    "p": 0.15004816841115715,
+    "n": 40
+  },
+  "NAcc_response_to_loss": {
+    "mean": -0.006052858022546277,
+    "t": -2.1212380860707127,
+    "p": 0.04031175355778735,
+    "n": 40
+  },
+  "aIns_tracks_gain": {
+    "mean": -0.0013869281620590384,
+    "t": -0.48504855226835164,
+    "p": 0.6303554390347703,
+    "n": 40
+  },
+  "aIns_response_to_loss": {
+    "mean": 0.005453530691434951,
+    "t": 2.3245063021747616,
+    "p": 0.025397083750502904,
+    "n": 40
+  },
+  "AIM_direction_consistency": {
+    "NAcc_gain>0": true,
+    "NAcc_loss<0": true,
+    "aIns_loss>0": true
+  },
+  "neural_vs_behavioral_loss_aversion": {
+    "observed_pearson_r": -0.40126574219618283,
+    "n": 39,
+    "mdes_at_n": 0.43571618300127096,
+    "gate": {
+      "name": "neural_vs_behavioral_loss_aversion",
+      "value": null,
+      "ci": null,
+      "null_p": null,
+      "score": null,
+      "provenance": {
+        "n": 39,
+        "alpha": 0.05,
+        "power": 0.8,
+        "kind": "correlation"
+      },
+      "abstained": true,
+      "reason": "|effect|=0.401 < MDES=0.436 at n=39; underpowered to license a claim of this size",
+      "mdes": 0.43571618300127096
+    },
+    "verdict": "ABSTAIN (|r| below MDES: underpowered)"
+  },
+  "provenance": {
+    "dataset": "ds001734 fmriprep",
+    "run": "run-01",
+    "TR": 1.0,
+    "rois_mni": {
+      "nacc": [
+        [
+          -10,
+          12,
+          -8
+        ],
+        [
+          10,
+          12,
+          -8
+        ]
+      ],
+      "ains": [
+        [
+          -36,
+          20,
+          -4
+        ],
+        [
+          36,
+          20,
+          -4
+        ]
+      ]
+    },
+    "sphere_mm": 6.0
+  },
+  "caveats": "single run per subject, ROI-sphere GLM on a subset; grounding test, not the market forecast; establishing the neural-behavioral correlation needs n>=40 (MDES < 0.45)"
+}

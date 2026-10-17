@@ -1,0 +1,198 @@
+{
+  "experiment": "E1_parameter_recovery",
+  "design": {
+    "n_agents": 60,
+    "trials_grid": [
+      200,
+      500,
+      1000,
+      2000
+    ],
+    "n_seeds": 20,
+    "kill_threshold_affective": 0.6
+  },
+  "provenance": {
+    "model": "AIM-DDM choice-marginal (logistic)",
+    "estimator": "MLE logistic + L2",
+    "code": "src/phenotype.py",
+    "identifiable_target": "affective/integrative ratios (tau absorbed; RT recovers tau, Step 3)"
+  },
+  "recovery_curve": {
+    "200": {
+      "loss_aversion": {
+        "channel": "affective",
+        "mean_r": 0.15462353103090073,
+        "sd_r": 0.14536161441878384,
+        "ci95": [
+          0.09064432628928812,
+          0.2161614533234206
+        ],
+        "gated_abstained": true
+      },
+      "threat": {
+        "channel": "affective",
+        "mean_r": 0.1506973512815162,
+        "sd_r": 0.1687762403026339,
+        "ci95": [
+          0.0773580590822425,
+          0.22365854390809395
+        ],
+        "gated_abstained": true
+      },
+      "risk": {
+        "channel": "integrative",
+        "mean_r": 0.26013930425010234,
+        "sd_r": 0.15099162752170742,
+        "ci95": [
+          0.19473375990104672,
+          0.32910827370405094
+        ],
+        "gated_abstained": true
+      },
+      "discount": {
+        "channel": "integrative",
+        "mean_r": 0.21390417838974313,
+        "sd_r": 0.14804909546687847,
+        "ci95": [
+          0.14826355611095315,
+          0.2746978017086439
+        ],
+        "gated_abstained": true
+      }
+    },
+    "500": {
+      "loss_aversion": {
+        "channel": "affective",
+        "mean_r": 0.3940946189674571,
+        "sd_r": 0.14447622633218177,
+        "ci95": [
+          0.32736348544595817,
+          0.4594157224818785
+        ],
+        "gated_abstained": false
+      },
+      "threat": {
+        "channel": "affective",
+        "mean_r": 0.4361738605071016,
+        "sd_r": 0.12247657944664263,
+        "ci95": [
+          0.38274143391061477,
+          0.49044936228716984
+        ],
+        "gated_abstained": false
+      },
+      "risk": {
+        "channel": "integrative",
+        "mean_r": 0.5368766105218743,
+        "sd_r": 0.11320045807440653,
+        "ci95": [
+          0.49021191072117304,
+          0.5881278078128381
+        ],
+        "gated_abstained": false
+      },
+      "discount": {
+        "channel": "integrative",
+        "mean_r": 0.5210702273261638,
+        "sd_r": 0.12517193638166285,
+        "ci95": [
+          0.4632143077336271,
+          0.575638267362305
+        ],
+        "gated_abstained": false
+      }
+    },
+    "1000": {
+      "loss_aversion": {
+        "channel": "affective",
+        "mean_r": 0.508703347369015,
+        "sd_r": 0.14898641255048814,
+        "ci95": [
+          0.4413805925216316,
+          0.5705768912637669
+        ],
+        "gated_abstained": false
+      },
+      "threat": {
+        "channel": "affective",
+        "mean_r": 0.6046456434166843,
+        "sd_r": 0.1127885678730155,
+        "ci95": [
+          0.551049420599289,
+          0.6511367315646952
+        ],
+        "gated_abstained": false
+      },
+      "risk": {
+        "channel": "integrative",
+        "mean_r": 0.7124664977305903,
+        "sd_r": 0.06869744808965458,
+        "ci95": [
+          0.6826926949833357,
+          0.7418911316215885
+        ],
+        "gated_abstained": false
+      },
+      "discount": {
+        "channel": "integrative",
+        "mean_r": 0.6880595733166747,
+        "sd_r": 0.13307186577970895,
+        "ci95": [
+          0.6219361714834506,
+          0.7401730852232313
+        ],
+        "gated_abstained": false
+      }
+    },
+    "2000": {
+      "loss_aversion": {
+        "channel": "affective",
+        "mean_r": 0.6847053536087716,
+        "sd_r": 0.06425405167843026,
+        "ci95": [
+          0.6560076874619044,
+          0.7142793942022224
+        ],
+        "gated_abstained": false
+      },
+      "threat": {
+        "channel": "affective",
+        "mean_r": 0.7321005084755171,
+        "sd_r": 0.06717451085462263,
+        "ci95": [
+          0.7017894137559203,
+          0.7602060459834841
+        ],
+        "gated_abstained": false
+      },
+      "risk": {
+        "channel": "integrative",
+        "mean_r": 0.8504805416129215,
+        "sd_r": 0.033687944450478374,
+        "ci95": [
+          0.8355248331297166,
+          0.8648475478856208
+        ],
+        "gated_abstained": false
+      },
+      "discount": {
+        "channel": "integrative",
+        "mean_r": 0.8322790552460205,
+        "sd_r": 0.0431179663147121,
+        "ci95": [
+          0.8126210456190165,
+          0.8508194799165316
+        ],
+        "gated_abstained": false
+      }
+    }
+  },
+  "min_trials_to_reach_threshold": {
+    "loss_aversion": 2000,
+    "threat": 1000,
+    "risk": 1000,
+    "discount": 1000
+  },
+  "affective_kill_criterion_pass": true,
+  "note": "recovery of the per-agent affective ratios rises with decisions-per-agent; this data requirement is the empirical motivation for hierarchical pooling (C4) and for abstention on sparse records (C5)."
+}
