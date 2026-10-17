@@ -1,6 +1,6 @@
 # cognitive-influence-lab
 
-One repo for the research thread on **how AI systems shape human belief, choice and learning, and how to measure and defend against it.** Each experiment lives in its own folder under `experiments/` with its own README, code, tests and results. Full git history of every source repo is preserved (merged with `git subtree`).
+One repo for the research thread on **how AI systems shape human belief, choice and learning, and how to measure and defend against it.** Each experiment lives in its own folder under `experiments/` with its own README, code, tests and results. Full edit history of every source repo is preserved (merged with `git subtree`), with author identities and personal strings scrubbed.
 
 Status of every experiment is whatever its own README says. Most are simulation or public-data only; read the "has and has not been shown" sections before citing anything.
 
@@ -42,7 +42,6 @@ Status of every experiment is whatever its own README says. Most are simulation 
 
 - Each experiment folder is self-contained; run its README's instructions from inside that folder.
 - Import paths and package names are unchanged from the source repos.
-- Source repos are not archived by this merge. Archive them separately once this repo is confirmed.
 
 ## Not included
 
