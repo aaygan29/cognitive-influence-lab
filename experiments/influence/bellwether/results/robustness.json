@@ -1,0 +1,26 @@
+{
+  "dose_amplitude_nA": 0.012,
+  "embedding_robustness": {
+    "channel": "directedness",
+    "n_seeds": 10,
+    "auc_mean": 0.9694933333333333,
+    "auc_std": 0.016216013423712528,
+    "auc_min": 0.9290222222222222,
+    "auc_max": 0.9876888888888888
+  },
+  "two_channel_auc": {
+    "manip_vs_hard": {
+      "directedness": 0.9673,
+      "timing": 0.9913166666666666
+    },
+    "manip_vs_easy": {
+      "directedness": 1.0,
+      "timing": 1.0
+    },
+    "stealthy_manip_vs_hard": {
+      "directedness": 0.7943333333333333,
+      "timing": 1.0
+    }
+  },
+  "interpretation": "Timing equals or beats directedness on every contrast and is not evaded by the stealthy adversary, while directedness is. In a symmetric attractor, biasing the choice necessarily speeds escape from the saddle, so timing is the dominant, hard-to-evade channel; directedness is a correlated geometric channel that a diffusion-injecting adversary can hide. Both are evidence-relative."
+}

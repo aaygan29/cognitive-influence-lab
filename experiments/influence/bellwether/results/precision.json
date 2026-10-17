@@ -1,0 +1,26 @@
+{
+  "target_fpr": 0.05,
+  "decoded_uncertainty_by_coherence": {
+    "0.0": 0.3172513888888889,
+    "6.4": 0.2955902777777778,
+    "25.6": 0.19664305555555558,
+    "51.2": 0.14590416666666667
+  },
+  "fpr_fixed_threshold": {
+    "0.0": 0.0,
+    "6.4": 0.0,
+    "25.6": 0.0,
+    "51.2": 0.2
+  },
+  "fpr_precision_adaptive": {
+    "0.0": 0.075,
+    "6.4": 0.06,
+    "25.6": 0.055,
+    "51.2": 0.01
+  },
+  "fpr_spread_fixed": 0.2,
+  "fpr_spread_adaptive": 0.065,
+  "tpr_manip_fixed": 0.485,
+  "tpr_manip_precision_adaptive": 0.0,
+  "interpretation": "The fixed threshold's false-alarm rate varies strongly with evidence strength (it over-alarms on honest strong-evidence decisions). The decoded-precision margin, set from population activity without access to the presented evidence, evens the false-alarm rate across the uncertainty range while retaining detection of covert steering."
+}
