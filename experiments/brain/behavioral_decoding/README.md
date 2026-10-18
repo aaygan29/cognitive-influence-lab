@@ -376,3 +376,27 @@ for details and citations.
 All datasets are public and appropriately licensed, cited where used. The project is
 a defensive safety demonstration: it measures a leak that already exists in order to
 argue for governing it, and it says plainly what it does and does not show.
+
+---
+
+## Reviewer response (Oct 2026)
+
+A four-part response to an external reviewer, each run to a result; see
+`docs/reviewer-report-2026.md` for the full action list.
+
+1. **Evidence classes separated** (`docs/evidence_class_separation.md`,
+   `figures/evidence_class_split.pdf`): offer-terms arms (delay 0.882, NARPS
+   0.814) are the behaviour modality only; Kiva de-leaked 0.604 < 0.723 majority
+   (the 0.959 was the `nonpayment` leak, reproduced); cheap sensors null (PPG,
+   DEAP peripheral); only research neuroimaging decodes (DEAP EEG 0.659, NARPS
+   fMRI 0.809).
+2. **EEG confound audit** (`docs/eeg_confound_audit.md`): Snoek et al. 2019
+   controls. Confound-only baseline (age+sex+duration) 0.723 beats the EEG decode
+   0.705; per-fold confound regression collapses it to 0.542. **Verdict: refuted.**
+3. **Governance claim scoped**: the fusion/independence result is a synthetic
+   positive control; the cheap-consumer-hardware risk is a projection, not a
+   measured leak.
+4. **Agent-contamination sensitivity** (`docs/agent_contamination_sensitivity.md`,
+   `figures/agent_contamination_sensitivity.pdf`): agent fraction f as a nuisance
+   parameter on the Kiva aggregate arm; balanced accuracy 0.605 -> 0.550 (f=0.5)
+   -> 0.528 (f=0.7), lift halves at f~0.5.

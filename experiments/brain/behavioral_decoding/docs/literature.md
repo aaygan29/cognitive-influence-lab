@@ -259,3 +259,17 @@ These utilities are opt-in: they are exported from
 in the existing pipelines or NeurIPS-workshop-facing scripts calls them.
 Synthetic ground-truth tests for both modules live in
 `tests/test_decision_geometry.py`.
+
+---
+
+## Data integrity: agents can impersonate the human subjects
+
+### Ozudogru, Chetverikov, Huskey, Van Maanen & Strauch (2026), *AGEA*
+**Generalizable experiment agents threaten online behavioral experiments.**
+
+A general-purpose LLM agent (AGEA), built only by natural-language prompting of a
+consumer subscription, completed 26 online behavioral experiments across seven
+platforms with human-range cognitive profiles. Relevance: the aggregate / market
+arms here draw on online populations, so a fraction of "participants" may be
+agents whose features look human but whose outcome carries no genuine signal.
+See `docs/agent_contamination_sensitivity.md` for the sensitivity analysis.
