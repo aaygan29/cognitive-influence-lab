@@ -57,3 +57,22 @@ def test_pack_data_shapes():
     d = pack_data(subs)
     assert d["cue"].shape == (4, 40) and d["rt"].shape == (4, 40)
     assert d["min_rt"].shape == (4,)
+
+
+def test_p_upper_matches_simulator():
+    from individuation_mcmc.steering import p_upper
+    from individuation_mcmc.ddm import simulate_ddm
+    rt, ch = simulate_ddm(0.8, 1.2, 0.5, 0.15, n=15000, rng=np.random.default_rng(0))
+    ok = ch >= 0
+    assert abs(float(p_upper(0.8, 1.2, 0.5)) - float((ch[ok] == 1).mean())) < 0.03
+
+
+def test_capture_dose_reaches_target():
+    from individuation_mcmc.steering import p_upper, capture_dose
+    dv = capture_dose(1.1, 0.5, 0.75)
+    assert abs(float(p_upper(dv, 1.1, 0.5)) - 0.75) < 1e-2
+
+
+def test_capture_dose_zero_when_already_biased():
+    from individuation_mcmc.steering import capture_dose
+    assert capture_dose(1.0, 0.8, 0.75) == 0.0
