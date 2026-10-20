@@ -1,0 +1,193 @@
+{
+  "bank_size": 1200,
+  "cohort": 14,
+  "n_evaluable": 14,
+  "spearman_sbi_vs_truth": 0.8989010989010989,
+  "pearson_sbi_vs_truth": 0.9173732381555125,
+  "median_abs_error_capture_dose": 0.00011547088623046879,
+  "ci_coverage_90": 1.0,
+  "per_subject": [
+    {
+      "subject": 0,
+      "true_J_cross": 0.06047846749285817,
+      "true_sigma": 0.016856160847749664,
+      "post_mean_J_cross": 0.06837611641299403,
+      "post_mean_sigma": 0.018231265141509814,
+      "truth_capture_dose": 0.0012785911560058592,
+      "sbi_capture_dose": 0.001362018585205078,
+      "sbi_capture_ci": [
+        0.0008673591613769531,
+        0.0016891880035400388
+      ]
+    },
+    {
+      "subject": 1,
+      "true_J_cross": 0.06929617106350278,
+      "true_sigma": 0.012604540355498359,
+      "post_mean_J_cross": 0.07622184160938066,
+      "post_mean_sigma": 0.01472623151580464,
+      "truth_capture_dose": 0.0008215141296386717,
+      "sbi_capture_dose": 0.0009116935729980469,
+      "sbi_capture_ci": [
+        0.0007433910369873048,
+        0.0013463745117187498
+      ]
+    },
+    {
+      "subject": 2,
+      "true_J_cross": 0.060887580462970006,
+      "true_sigma": 0.023076932006662568,
+      "post_mean_J_cross": 0.06423594372064628,
+      "post_mean_sigma": 0.02497683112150222,
+      "truth_capture_dose": 0.002055873870849609,
+      "sbi_capture_dose": 0.002091464996337891,
+      "sbi_capture_ci": [
+        0.001703550338745117,
+        0.002638544082641601
+      ]
+    },
+    {
+      "subject": 3,
+      "true_J_cross": 0.047409675022358225,
+      "true_sigma": 0.020745036458972202,
+      "post_mean_J_cross": 0.050883304926775834,
+      "post_mean_sigma": 0.022262250389684057,
+      "truth_capture_dose": 0.0015283012390136723,
+      "sbi_capture_dose": 0.001788082122802734,
+      "sbi_capture_ci": [
+        0.0013152809143066406,
+        0.0022632522583007813
+      ]
+    },
+    {
+      "subject": 4,
+      "true_J_cross": 0.04408630374133519,
+      "true_sigma": 0.023217368604348764,
+      "post_mean_J_cross": 0.04641916375526424,
+      "post_mean_sigma": 0.025670047605133486,
+      "truth_capture_dose": 0.001763477325439453,
+      "sbi_capture_dose": 0.0018362617492675777,
+      "sbi_capture_ci": [
+        0.0017147483825683595,
+        0.005293796539306634
+      ]
+    },
+    {
+      "subject": 5,
+      "true_J_cross": 0.0442256883597499,
+      "true_sigma": 0.012936383419159373,
+      "post_mean_J_cross": 0.04569182472189483,
+      "post_mean_sigma": 0.015032938773161772,
+      "truth_capture_dose": 0.001157512664794922,
+      "sbi_capture_dose": 0.0009716606140136718,
+      "sbi_capture_ci": [
+        0.0006045684814453125,
+        0.0013828868865966796
+      ]
+    },
+    {
+      "subject": 6,
+      "true_J_cross": 0.039219811182809185,
+      "true_sigma": 0.023323946727714765,
+      "post_mean_J_cross": 0.03347258073198596,
+      "post_mean_sigma": 0.02086239582336049,
+      "truth_capture_dose": 0.001496257781982422,
+      "sbi_capture_dose": 0.0013018226623535156,
+      "sbi_capture_ci": [
+        0.0011126003265380861,
+        0.005295415878295894
+      ]
+    },
+    {
+      "subject": 7,
+      "true_J_cross": 0.05489690781950476,
+      "true_sigma": 0.021527618883541867,
+      "post_mean_J_cross": 0.05312825904899201,
+      "post_mean_sigma": 0.021726552759691778,
+      "truth_capture_dose": 0.0016493797302246094,
+      "sbi_capture_dose": 0.0018249320983886718,
+      "sbi_capture_ci": [
+        0.0009448528289794922,
+        0.0020463924407958987
+      ]
+    },
+    {
+      "subject": 8,
+      "true_J_cross": 0.03558825219861478,
+      "true_sigma": 0.027545521624420363,
+      "post_mean_J_cross": 0.03311146506845975,
+      "post_mean_sigma": 0.025464344309005356,
+      "truth_capture_dose": 0.001658191680908203,
+      "sbi_capture_dose": 0.0013229942321777341,
+      "sbi_capture_ci": [
+        0.0014346942901611328,
+        0.005284109115600585
+      ]
+    },
+    {
+      "subject": 9,
+      "true_J_cross": 0.045645210891691705,
+      "true_sigma": 0.021700819337199365,
+      "post_mean_J_cross": 0.04738216823782811,
+      "post_mean_sigma": 0.02317486423132696,
+      "truth_capture_dose": 0.0017083168029785154,
+      "sbi_capture_dose": 0.0016475486755371093,
+      "sbi_capture_ci": [
+        0.0012734527587890624,
+        0.0022658786773681635
+      ]
+    },
+    {
+      "subject": 10,
+      "true_J_cross": 0.05551034893048312,
+      "true_sigma": 0.02872387597434611,
+      "post_mean_J_cross": 0.05681194482290344,
+      "post_mean_sigma": 0.028665128584084876,
+      "truth_capture_dose": 0.002383861541748047,
+      "sbi_capture_dose": 0.0021831321716308597,
+      "sbi_capture_ci": [
+        0.0020958251953125005,
+        0.007715394973754874
+      ]
+    },
+    {
+      "subject": 11,
+      "true_J_cross": 0.04403477713669298,
+      "true_sigma": 0.014241984705035102,
+      "post_mean_J_cross": 0.04396830757364374,
+      "post_mean_sigma": 0.015041306325616947,
+      "truth_capture_dose": 0.0010927391052246095,
+      "sbi_capture_dose": 0.0011247825622558594,
+      "sbi_capture_ci": [
+        0.0007961597442626954,
+        0.001412567138671875
+      ]
+    },
+    {
+      "subject": 12,
+      "true_J_cross": 0.07336310570789768,
+      "true_sigma": 0.018649279399650255,
+      "post_mean_J_cross": 0.0713232047604852,
+      "post_mean_sigma": 0.018824015414631197,
+      "truth_capture_dose": 0.0013074302673339844,
+      "sbi_capture_dose": 0.0014481925964355468,
+      "sbi_capture_ci": [
+        0.0010350666046142578,
+        0.0018358669281005858
+      ]
+    },
+    {
+      "subject": 13,
+      "true_J_cross": 0.03539818243229168,
+      "true_sigma": 0.01857083083964887,
+      "post_mean_J_cross": 0.03245225876827909,
+      "post_mean_sigma": 0.017820921994150505,
+      "truth_capture_dose": 0.0010482215881347655,
+      "sbi_capture_dose": 0.001074657440185547,
+      "sbi_capture_ci": [
+        0.0008019847869873047,
+        0.0016286315917968745
+      ]
+    }
+  ]
+}
