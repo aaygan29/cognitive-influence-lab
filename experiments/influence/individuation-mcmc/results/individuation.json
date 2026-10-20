@@ -1,0 +1,28 @@
+{
+  "n_subjects": 14,
+  "n_trials": 300,
+  "train_trials": 210,
+  "test_trials": 90,
+  "held_out_loglik_per_trial": {
+    "individual": {
+      "mean": 0.13915475218423776,
+      "sem": 0.07641355461979252
+    },
+    "pooled": {
+      "mean": 0.03966450371912548,
+      "sem": 0.06660638457640906
+    },
+    "shuffled": {
+      "mean": -0.20051162423832075,
+      "sem": 0.09615756998260512
+    }
+  },
+  "individual_minus_pooled": {
+    "mean": 0.09949024846511227,
+    "n_subjects_better": 10
+  },
+  "individual_minus_shuffled": {
+    "mean": 0.33966637642255854,
+    "n_subjects_better": 14
+  }
+}
