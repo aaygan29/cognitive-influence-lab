@@ -2,7 +2,7 @@
 
 ## Abstract
 
-A person's choices and reaction times carry information about how they decide and how they learn. We ask how far that information supports three increasingly demanding claims: that a model fit to one person recovers their parameters, that it individuates them (predicts the same person better than a group model or another person), and that it estimates how susceptible that person is to covert influence. We fit a hierarchical Bayesian drift-diffusion model with a Rescorla-Wagner learning rule to choices and reaction times, and we validate the manipulability step against a full nonlinear attractor circuit using simulation-based inference. On synthetic agents with known ground truth, the decision-state parameters recover almost perfectly (r = 0.86 to 0.99) and the learning-rule parameters moderately (learning rate r = 0.67), and the per-person fit predicts held-out behavior better than a pooled model and an identity-shuffle control. On a real probabilistic reversal-learning dataset with a test-retest design (150 participants), the decision-state fingerprint is reliable across sessions (non-decision time r = 0.71, boundary r = 0.60) and individuates: a session-one fit predicts the same participant's session-two behavior better than another participant's fit in 115 of 150 cases. We then show a cautionary result for the manipulability claim. A reduced-model capture dose, the covert drive that flips an ambiguous decision, fails to recover the full-circuit capture dose (rank correlation -0.25, a null at n = 14), whereas computing the capture dose directly in the full circuit from simulation-based inference recovers the ground-truth value at the same sample size (rank correlation 0.90). We draw a clear line: individuation of the decision process is supported, including on real behavior, while susceptibility to covert steering is estimable only in simulation and only when computed in the generative circuit, not its reduction, and is never validated on a real person. We argue this separation is the responsible way to study behavioral individuation that bears on manipulation risk.
+A person's choices and reaction times carry information about how they decide and how they learn. We ask how far that information supports three increasingly demanding claims: that a model fit to one person recovers their parameters, that it individuates them (predicts the same person better than a group model or another person), and that it estimates how susceptible that person is to covert influence. We fit a hierarchical Bayesian drift-diffusion model with a Rescorla-Wagner learning rule to choices and reaction times, and validate a manipulability measure against a full nonlinear attractor circuit using simulation-based inference. On synthetic agents, decision-state parameters recover well (r = 0.86 to 0.99) and the per-person fit beats an identity-shuffle control (14 of 14). On a real probabilistic reversal-learning dataset with a test-retest design (150 participants), the decision-state fingerprint is reliable across sessions (non-decision time r = 0.71) and individuates: a session-one fit predicts the same participant's session-two behavior better than another participant's fit in 115 of 150 cases. For susceptibility we report a cautionary result. A reduced-model capture dose fails to recover the full-circuit value (rank correlation near zero), whereas computing it directly in the circuit by simulation-based inference recovers the ground truth (rank correlation 0.90). Individuation of the decision process is thus supported, including on real behavior, while susceptibility to covert steering is estimable only in simulation, only in the generative circuit, and never validated on a real person.
 
 ## 1. Introduction
 
@@ -38,6 +38,10 @@ A covert persuasion dose is modeled as an added drive toward a target option at 
 ### 2.5 Real data
 
 We use the probabilistic reversal-learning dataset of Waltmann, Schlagenhauf, and Deserno (2022), redistributed under a Creative Commons Attribution licence, in which 150 participants completed the task twice. We model whether a participant repeated their previous choice as a win-stay/lose-shift drift-diffusion process driven by a Rescorla-Wagner value, fit each participant separately in each session by maximum likelihood, and evaluate cross-session individuation.
+
+### 2.6 Use of large language models
+
+Code and manuscript text were prepared with the assistance of a large language model (Claude). All generated code was executed and checked against held-out simulations and against the recomputed results reported here, and the author is accountable for the full content.
 
 ## 3. Results
 
@@ -87,9 +91,21 @@ The same quantity that an adversary would want, how cheaply a decision can be fl
 
 From choices and reaction times, a hierarchical Bayesian decision model individuates a person, on synthetic agents and on real test-retest behavior. The further step of estimating susceptibility to covert steering is estimable only in simulation and only when computed in the generative circuit rather than its reduction, and is not validated on real people. Keeping these claims separate is, in our view, the responsible way to study behavioral individuation that touches on manipulation.
 
-## Data and code availability
+## Declarations
 
-Code and aggregate results are available in the cognitive-influence-lab repository. The human dataset is the probabilistic reversal-learning data of Waltmann, Schlagenhauf, and Deserno (2022), available under a Creative Commons Attribution licence from the original authors; it is not redistributed here.
+**Funding.** No funding was received to assist with the preparation of this manuscript.
+
+**Competing interests.** The author has no relevant financial or non-financial interests to disclose.
+
+**Ethics approval.** This work is a secondary computational analysis of a publicly available, de-identified behavioral dataset and of synthetic data generated by the author. No new data were collected from human participants. No ethics approval was required.
+
+**Consent to participate and consent to publish.** Not applicable. No new human participants were involved, and no individual-level or identifying data are reported; all human-data results are aggregate statistics over a public dataset.
+
+**Data and code availability.** Code and aggregate results are available in the author's cognitive-influence-lab repository. The human dataset is the probabilistic reversal-learning data of Waltmann, Schlagenhauf, and Deserno (2022), available under a Creative Commons Attribution 4.0 licence from the original authors (https://osf.io/4ng3e/); it is not redistributed here. No individual-level data are reported, only aggregate statistics.
+
+**Author contributions.** A.G. conceived the study, implemented the models and analyses, and wrote the manuscript.
+
+**Use of large language models.** A large language model (Claude) was used to assist with code implementation and manuscript drafting. The author reviewed, verified, and takes full responsibility for all content, including every reported result and claim.
 
 ## References
 
