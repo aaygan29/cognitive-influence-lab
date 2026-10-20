@@ -109,11 +109,36 @@ Across 14 subjects (1200-draw ABC bank):
 
 Computing manipulability directly in the full circuit from ABC-inferred parameters recovers the ground-truth capture dose (r = 0.90), where the DDM reduction failed (gate 4, r = −0.23). The posterior intervals contain the truth for every subject (coverage 1.00, if anything mildly conservative). So the working per-person manipulability pipeline is: behavior → ABC posterior over full-circuit parameters → capture dose computed in the attractor, with uncertainty. The reduction is kept for its analytic individuation of choices and learning rule; the full-circuit SBI route is used for manipulability.
 
+### Real data: individuation on a reversal-learning dataset (gate 6)
+
+Everything above is synthetic. This gate runs the one claim that is falsifiable on real human data, individuation across sessions, on the Waltmann et al. (2022) probabilistic reversal-learning dataset (CC-BY 4.0; 150 participants, each tested twice). Manipulability is deliberately not computed here: you cannot covertly steer a real participant to obtain a ground-truth capture dose, so any capture dose from these fits would be an unvalidated model readout.
+
+The per-trial choice modelled is whether the participant repeated their previous choice (`stay`), with a win-stay/lose-shift Rescorla-Wagner value, driven by the recorded feedback, tilting the drift; reaction time is the first-passage time. Each participant is fit separately in each session (`individuation_mcmc/realdata.py`, `run_realdata.py`).
+
+**Test-retest reliability** (Pearson, session-1 vs session-2 fitted parameters, 150 subjects):
+
+| parameter | kind | test-retest r |
+|---|---|---|
+| `t0` (non-decision time) | state | 0.71 |
+| `a` (boundary) | state | 0.60 |
+| `v0` (baseline stay drift) | state | 0.51 |
+| `w` (start bias) | state | 0.37 |
+| `alpha` (learning rate) | learning rule | 0.15 |
+| `w_q` (value→drift coupling) | learning rule | −0.01 |
+
+The decision-state parameters are moderately to substantially reliable across sessions; the learning-rule parameters are not. That is consistent with the dataset's own finding that the computational RL readouts of this task have limited reliability, and it mirrors the synthetic result that learning-rule parameters are the hard ones.
+
+**Cross-session individuation.** Predicting each subject's session-2 behavior from session-1 fits, mean log-likelihood per trial: own session-1 fit **+0.126**, a random other subject's session-1 fit **−0.248**. The own fit wins in **115 of 150 subjects** (+0.37 nats/trial). So a person's decision fingerprint fit in one session predicts the same person months later better than another person's fingerprint: individuation holds on real human behavior. (The pooled mean-of-fits baseline is degenerate here, because averaging non-decision times across people violates the per-subject fastest-RT bound and floors some trials, so the identity-shuffle is the individuation control reported.)
+
+The reliable, individuating part is the decision-state fingerprint; the learning-rule layer, which was the harder-to-recover part even in simulation, does not individuate reliably on this dataset.
+
 ## Has and has not been shown
 
 **Shown.** On synthetic subjects with known ground truth: (1) NUTS recovers the per-person state parameters almost perfectly (r = 0.86 to 0.99) and the learning-rule parameters moderately (alpha r = 0.67, w_q r = 0.59), with converged chains (R̂ = 1.004); (2) the per-person posterior predicts held-out behavior better than a pooled group model (10/14 subjects) and better than an identity-shuffle control (14/14 subjects), so the fit individuates; (3) the learning-rule update is Lean-verified to keep the latent value bounded, so the inferred rule is well-posed. The analytic WFPT likelihood matches the simulator to within Monte-Carlo noise.
 
-**Not shown.** Synthetic subjects only; the generative model and the fitted model share a functional form, so recovery here is a necessary check, not evidence the form is right for real people. The learning-rule parameters are harder to identify than the state parameters, and the amount of data needed is reported, not assumed away. The per-person capture dose is computed at an idealised ambiguous decision (baseline drift zero) and the monitor is a drift-direction detector on the person's own decision stream, which a real overseer may not have; the capture dose and the window-dependence should be read as properties of this model, not calibrated real-world numbers. Gate 4 found the reduced-model capture dose does not transfer to the full circuit; gate 5 resolves this by computing manipulability in the full circuit via SBI (recovering the ground-truth capture dose at r = 0.90), so the gate-3 reduced-model doses should be read only as a within-DDM quantity and the gate-5 full-circuit route is the validated manipulability measure. All of this is on synthetic agents whose generating and fitting models share a form; nothing has been run on real behavior or neural data.
+**Shown on real data (gate 6).** On the Waltmann et al. reversal-learning dataset, the decision-state fingerprint is reliable across sessions (t0 r=0.71, a r=0.60) and individuates: a session-1 fit predicts the same person's session-2 behavior better than a random other person's fit in 115/150 subjects. This is the falsifiable individuation claim, and it passes on real human behavior for the decision-state layer.
+
+**Not shown.** Most gates use synthetic subjects, where the generative and fitted models share a functional form, so recovery there is a necessary check, not evidence the form is right for real people. On real data the learning-rule parameters are not reliable (alpha r=0.15), so the learning-rule layer is not yet a dependable individual readout. Manipulability (capture dose) is never validated on real data: there is no ground-truth covert-steering experiment on humans here, so real-data capture doses are not computed. The real-data model is a reduced win-stay/lose-shift RL-DDM, not a claim about the true generative process. The learning-rule parameters are harder to identify than the state parameters, and the amount of data needed is reported, not assumed away. The per-person capture dose is computed at an idealised ambiguous decision (baseline drift zero) and the monitor is a drift-direction detector on the person's own decision stream, which a real overseer may not have; the capture dose and the window-dependence should be read as properties of this model, not calibrated real-world numbers. Gate 4 found the reduced-model capture dose does not transfer to the full circuit; gate 5 resolves this by computing manipulability in the full circuit via SBI (recovering the ground-truth capture dose at r = 0.90), so the gate-3 reduced-model doses should be read only as a within-DDM quantity and the gate-5 full-circuit route is the validated manipulability measure. The manipulability gates (3-5) are entirely synthetic; the only real-data result is the gate-6 individuation of the decision-state fingerprint. No neural data is used anywhere.
 
 ## Run it
 
@@ -126,6 +151,8 @@ JAX_PLATFORMS=cpu .venv/bin/python run_individuation.py --subjects 14 --trials 3
 JAX_PLATFORMS=cpu .venv/bin/python run_perperson_capture.py --subjects 14 --trials 300
 JAX_PLATFORMS=cpu .venv/bin/python run_sbi_crosscheck.py --bank 1200 --cohort 14
 JAX_PLATFORMS=cpu .venv/bin/python run_sbi_manipulability.py --bank 1200 --cohort 14
+# Real data (download the CC-BY dataset yourself; it is not in this repo):
+JAX_PLATFORMS=cpu .venv/bin/python run_realdata.py /path/to/RL_Data_Retest_R_wo.txt
 ```
 
 The SBI cross-check needs the sibling `bellwether` package: `uv pip install --python .venv/bin/python -e ../bellwether`.
@@ -147,6 +174,7 @@ cd proofs && lake exe cache get && lake build
 - `individuation_mcmc/sbi_attractor.py` : likelihood-free (ABC) inference on the full attractor circuit, plus the full-circuit capture dose.
 - `run_sbi_crosscheck.py` : ABC parameter recovery and the attractor-vs-DDM capture-dose cross-check.
 - `run_sbi_manipulability.py` : per-subject manipulability computed in the full circuit from ABC-inferred parameters, validated against ground truth.
+- `individuation_mcmc/realdata.py`, `run_realdata.py` : load a real reversal-learning dataset and run the cross-session individuation test (dataset not redistributed here).
 - `proofs/RWInvariant.lean` : Lean 4 proof that the learning-rule layer is well-posed (value bounded in [0,1]).
 - `tests/test_ddm.py` : WFPT-vs-Monte-Carlo validation and the value-bound invariant.
 
@@ -156,3 +184,4 @@ cd proofs && lake exe cache get && lake build
 - Wiecki T.V., Sofer I., Frank M.J. *HDDM: hierarchical Bayesian estimation of the drift-diffusion model in Python.* Front. Neuroinform. 7:14, 2013.
 - Pedersen M.L., Frank M.J., Biele G. *The drift diffusion model as the choice rule in reinforcement learning.* Psychon. Bull. Rev. 24:1234-1251, 2017.
 - Cranmer K., Brehmer J., Louppe G. *The frontier of simulation-based inference.* PNAS 117:30055-30062, 2020.
+- Waltmann M., Schlagenhauf F., Deserno L. *Sufficient reliability of the behavioral and computational readouts of a probabilistic reversal learning task.* Behav. Res. Methods 54:2993-3014, 2022 (data CC-BY 4.0, https://osf.io/4ng3e/).

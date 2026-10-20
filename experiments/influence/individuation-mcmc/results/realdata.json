@@ -1,0 +1,36 @@
+{
+  "dataset": "Waltmann et al. 2022 probabilistic reversal learning (CC-BY), Reading reliability redistribution",
+  "n_subjects_both_sessions": 150,
+  "test_retest_reliability_pearson": {
+    "a": 0.5962534576187707,
+    "w": 0.36766339268421033,
+    "t0": 0.7127606140449178,
+    "v0": 0.5059890514097655,
+    "w_q": -0.008018209823390757,
+    "alpha": 0.14518413069193725
+  },
+  "cross_session_individuation": {
+    "session2_loglik_per_trial": {
+      "own_session1_fit": {
+        "mean": 0.12585589797546468,
+        "sem": 0.040117629700502186
+      },
+      "pooled_group_fit": {
+        "mean": -600.2133429972331,
+        "sem": 19.36123454355042
+      },
+      "other_subject_fit_shuffled": {
+        "mean": -0.24804548600067694,
+        "sem": 0.06469277696726108
+      }
+    },
+    "individual_minus_pooled": {
+      "mean": 600.3391988952085,
+      "n_subjects_better": 150
+    },
+    "individual_minus_shuffled": {
+      "mean": 0.3739013839761416,
+      "n_subjects_better": 115
+    }
+  }
+}
