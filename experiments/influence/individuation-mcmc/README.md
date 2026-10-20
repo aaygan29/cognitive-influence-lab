@@ -2,7 +2,17 @@
 
 **Can we infer a person's decision parameters and their learning rule from behavior, well enough that the per-person fit is (a) recoverable, (b) better than a group model out-of-sample, and (c) a handle on how that person would be steered?**
 
-Simulation only, synthetic subjects with known ground truth. This is the DDM-reduction route: the decision circuit is reduced to a drift-diffusion process with an analytic likelihood, so the whole model is fit by NUTS. A simulation-based-inference (SBI) cross-check on the full nonlinear circuit is the planned second route.
+Mostly synthetic subjects with known ground truth, plus one real-data gate. The core is the DDM-reduction route: the decision circuit is reduced to a drift-diffusion process with an analytic likelihood fit by NUTS; a simulation-based-inference (SBI) route cross-checks it on the full nonlinear circuit, and a real reversal-learning dataset tests the one claim that is falsifiable on humans.
+
+## Summary (plain language)
+
+From a person's choices and reaction times alone you can fit a small model of how they decide. Three findings, in decreasing order of how well they are established:
+
+1. **Individuation works, including on real people.** The fitted decision fingerprint is stable and specific enough to re-identify the *same* person in a later session better than anyone else's fingerprint (115 of 150 real subjects; test-retest reliability up to r = 0.71). Behavior to a stable individual decision model is the solid result.
+2. **Manipulability is person-specific, but shown only in simulation.** Feeding the fit through the steering model gives how small a covert nudge flips a decision; it varies ~3x across simulated people and is predicted by the fit. On the full nonlinear circuit it must be computed by SBI, not the reduction (the reduction's version does not transfer, gate 4 vs gate 5). None of this is validated on a real person, because that would require actually covertly steering someone.
+3. **Reading a person's learning rule is the weak link.** Recoverable in simulation (moderately), but not reliable across sessions on real data.
+
+The honest one-liner: *this measures an individual's decision fingerprint from behavior (works on real humans) and estimates, in simulation only, how cheaply that individual could be covertly steered*. The system estimates susceptibility that is already there; it does not create it, and the same number a manipulator would want is the one a monitor uses to catch steering before it works.
 
 ## Why this exists
 
