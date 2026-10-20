@@ -11,5 +11,6 @@ The work is original, is not under consideration elsewhere, and has not been pub
 Thank you for considering the manuscript.
 
 Aayush Gandhi
-aaygan29@gmail.com
+Independent Researcher, Robbinsville, New Jersey, USA
+aayush@datumnd.com
 ORCID 0009-0003-4649-0367

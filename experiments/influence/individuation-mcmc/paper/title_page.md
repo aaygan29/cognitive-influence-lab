@@ -2,9 +2,9 @@
 
 **Author:** Aayush Gandhi
 
-**Affiliation:** Independent Researcher, [City, Country]
+**Affiliation:** Independent Researcher, Robbinsville, New Jersey, USA
 
-**Corresponding author:** Aayush Gandhi, aaygan29@gmail.com
+**Corresponding author:** Aayush Gandhi, aayush@datumnd.com
 
 **ORCID:** 0009-0003-4649-0367
 
