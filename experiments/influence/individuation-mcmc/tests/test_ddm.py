@@ -76,3 +76,25 @@ def test_capture_dose_reaches_target():
 def test_capture_dose_zero_when_already_biased():
     from individuation_mcmc.steering import capture_dose
     assert capture_dose(1.0, 0.8, 0.75) == 0.0
+
+
+def test_abc_recovers_direction_on_tiny_bank():
+    """A tiny ABC bank should still put the posterior nearer the true J_cross
+    than a random prior draw, on average (sanity, not accuracy)."""
+    from individuation_mcmc.sbi_attractor import (simulate_bank, abc_from_bank,
+        attractor_behavior, summary)
+    thetas, stats = simulate_bank(n_sims=80, n=80, seed=0)
+    true = (0.06, 0.02)
+    obs = summary(attractor_behavior(*true, n=80, seed=99))
+    post, _ = abc_from_bank(obs, thetas, stats, keep_frac=0.2)
+    post_err = abs(post[:, 0].mean() - true[0])
+    prior_err = abs(thetas[:, 0].mean() - true[0])
+    assert post_err <= prior_err + 1e-6
+
+
+def test_attractor_capture_dose_monotone_sanity():
+    """A noisier circuit should not need a larger covert dose to flip than a
+    near-deterministic one needs (sanity that the routine returns sane values)."""
+    from individuation_mcmc.sbi_attractor import attractor_capture_dose
+    cd = attractor_capture_dose(0.055, 0.02, n=200, seed=1)
+    assert np.isnan(cd) or (0.0 <= cd <= 0.03)

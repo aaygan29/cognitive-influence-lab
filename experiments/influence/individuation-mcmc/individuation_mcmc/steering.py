@@ -60,6 +60,47 @@ def capture_dose(a, w, target=0.75, hi=8.0):
     return 0.5 * (lo + hi)
 
 
+def ml_fit_ddm(rt, choice, coherence):
+    """Maximum-likelihood DDM fit to one subject's (rt, choice, coherence) data.
+
+    Drift is linear in coherence, v = k * coherence, so at an ambiguous
+    (coherence 0) decision the drift is 0 and the honest choice probability is
+    the start bias w. Returns dict(a, w, t0, k). Uses the analytic WFPT
+    likelihood and a bounded optimiser; this is the fast per-subject fit used
+    for the DDM-route capture dose in the SBI cross-check.
+    """
+    from scipy.optimize import minimize
+    rt = np.asarray(rt, float); choice = np.asarray(choice, float)
+    coh = np.asarray(coherence, float)
+    rt_min = float(rt.min())
+
+    def unpack(x):
+        a = 0.3 + 2.5 * _sigmoid(x[0])        # boundary in (0.3, 2.8)
+        w = 0.1 + 0.8 * _sigmoid(x[1])        # start bias in (0.1, 0.9)
+        t0 = 0.95 * rt_min * _sigmoid(x[2])   # below fastest RT
+        k = x[3]
+        return a, w, t0, k
+
+    def negll(x):
+        a, w, t0, k = unpack(x)
+        lp = np.asarray(wfpt_logpdf(rt, choice, k * coh, a, w, t0))
+        lp = np.where(np.isfinite(lp), lp, -1e4)
+        return -float(np.sum(lp))
+
+    best = None
+    for seed_x in ([0.0, 0.0, 0.0, 0.1], [0.5, 0.2, -0.5, 0.05], [-0.5, -0.2, 0.5, 0.2]):
+        r = minimize(negll, np.array(seed_x), method="Nelder-Mead",
+                     options={"maxiter": 2000, "xatol": 1e-4, "fatol": 1e-4})
+        if best is None or r.fun < best.fun:
+            best = r
+    a, w, t0, k = unpack(best.x)
+    return dict(a=float(a), w=float(w), t0=float(t0), k=float(k))
+
+
+def _sigmoid(z):
+    return 1.0 / (1.0 + np.exp(-z))
+
+
 def _roc_auc(pos, neg):
     pos = np.asarray(pos); neg = np.asarray(neg)
     allv = np.concatenate([pos, neg])

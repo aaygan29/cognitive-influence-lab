@@ -16,6 +16,9 @@ dependencies = [
     "numpyro>=0.15",
     "jax>=0.4.28",
     "arviz>=0.18",
+    # The full attractor circuit, for the SBI cross-check (run_sbi_crosscheck.py).
+    # Installed from the sibling experiment: pip install -e ../bellwether.
+    "bellwether>=0.1.0",
 ]
 
 [project.optional-dependencies]
