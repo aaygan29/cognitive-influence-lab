@@ -57,7 +57,8 @@
         "experiments/brain/individuation-spine/rigor/STRENGTHENED_CLAIMS.md",
         "experiments/brain/individuation-spine/rigor/STRENGTHENED_SYNTHESIS.md",
         "experiments/brain/individuation-spine/rigor/MATH_FRAMEWORK.md",
-        "experiments/brain/individuation-spine/individuation-gap/SCOPE.md"
+        "experiments/brain/individuation-spine/individuation-gap/SCOPE.md",
+        "VERIFICATION.md"
       ],
       "cites": [],
       "chain_link": [
@@ -258,6 +259,11 @@
           "what": "does the DDM reduction's capture dose transfer to the full attractor circuit?",
           "value": "reduction Spearman -0.23 (fails); SBI computed in the full circuit Spearman 0.90",
           "source": "experiments/influence/individuation-mcmc/README.md"
+        },
+        {
+          "what": "Lean verification",
+          "value": "machine-checked 2026-10-20: the value of individuating is EXACTLY the spread of the per-person optimum - sum (d_i - c)^2 = sum (d_i - mean)^2 + n*(mean - c)^2 - and it is zero iff everyone is identical. Identity does not appear in it.",
+          "source": "experiments/influence/individuation-mcmc/proofs/IndividuationAdvantage.lean"
         }
       ],
       "caveats": [
@@ -271,7 +277,9 @@
         "experiments/influence/individuation-mcmc/results/individuation.json",
         "experiments/influence/individuation-mcmc/results/perperson_capture.json",
         "experiments/influence/individuation-mcmc/results/sbi_manipulability.json",
-        "experiments/influence/individuation-mcmc/results/realdata.json"
+        "experiments/influence/individuation-mcmc/results/realdata.json",
+        "experiments/influence/individuation-mcmc/proofs/IndividuationAdvantage.lean",
+        "VERIFICATION.md"
       ],
       "depends_on": [
         "bellwether"
@@ -473,6 +481,11 @@
           "what": "what the barrier floor buys instead",
           "value": "floor 0.1829; crossing probability 0.06 to 0.115 against a 0.05 target",
           "source": "experiments/influence/bounded-influence/PROVENANCE.md"
+        },
+        {
+          "what": "Lean verification",
+          "value": "machine-checked 2026-10-20 (Lean 4.34.0 / Mathlib v4.34.0): a dose cap admitting the measured exploit bounds nothing, and the node's own floor formula u >= D*log(kT / -log(1-eps)) provably gives P(cross) <= eps",
+          "source": "experiments/influence/bounded-influence/proofs/BarrierFloor.lean"
         }
       ],
       "caveats": [
@@ -487,7 +500,9 @@
         "experiments/influence/bounded-influence/experiments/E4_RESULTS.md",
         "experiments/influence/bounded-influence/theory/model.md",
         "experiments/influence/bounded-influence/theory/precision_bridge.md",
-        "experiments/influence/bounded-influence/theory/related.md"
+        "experiments/influence/bounded-influence/theory/related.md",
+        "experiments/influence/bounded-influence/proofs/BarrierFloor.lean",
+        "VERIFICATION.md"
       ],
       "cites": [
         "su2026-lc-topography",
@@ -586,6 +601,11 @@
           "what": "defences compose, and one sentence removes the behaviour",
           "value": "caps cut installs to 2/12 and the detector catches 10/12 of those; a 'stay unbiased' instruction gives 0/12",
           "source": "experiments/influence/learner-tampering/environment/results/RESULTS.md"
+        },
+        {
+          "what": "Lean verification",
+          "value": "machine-checked 2026-10-20: the detectability floor generalised - power <= L*alpha for ANY test whose likelihood ratio is bounded by L, so L=2^k gives the block floor; and one extra block exactly cancels a halving of alpha",
+          "source": "experiments/influence/learner-tampering/proofs/DetectionFloor.lean"
         }
       ],
       "caveats": [
@@ -596,7 +616,9 @@
       "provenance_files": [
         "experiments/influence/learner-tampering/environment/results/RESULTS.md",
         "experiments/influence/learner-tampering/docs/THEORY.md",
-        "experiments/influence/learner-tampering/paper/draft.md"
+        "experiments/influence/learner-tampering/paper/draft.md",
+        "experiments/influence/learner-tampering/proofs/DetectionFloor.lean",
+        "VERIFICATION.md"
       ],
       "cites": [],
       "chain_link": [

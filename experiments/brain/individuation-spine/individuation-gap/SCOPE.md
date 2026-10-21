@@ -31,8 +31,10 @@ between-unit signal variance `a` against a target with idiosyncratic noise varia
 | `individuation_gap` | for `a > 0, v > 0, N > 0`, `rhoSq 0 (v/N) < rhoSq a (v/N)` |
 
 Complete, no `sorry`. Build infrastructure (`lakefile.toml`, `lean-toolchain` at Lean v4.34.0) was
-added on fold-in so it builds the way the tree's other proofs do; it had none in the source repo and
-has **not** yet been built in CI here.
+added on fold-in, because it had none in the source repo. **It has since been built and audited**
+(2026-10-20, Lean 4.34.0 / Mathlib v4.34.0): it compiles clean, and `individuation_gap` and
+`aggregation_improves` depend on exactly `[propext, Classical.choice, Quot.sound]` with no
+`sorryAx`. See [`VERIFICATION.md`](../../../../VERIFICATION.md).
 
 ## The scope limit, stated plainly
 
@@ -76,5 +78,6 @@ corrected. If these papers go out, the abstract needs reconciling with the power
   writing decision for whoever submits.
 - `README.md` in this directory notes that real-data numbers "should be regenerated from a fixed
   commit before camera-ready". They are **not currently pinned to a commit**.
-- The proof has not been built in CI in this tree. The build files are present and match the tree's
-  other proofs, but nobody has run `lake build` here.
+- ~~The proof has not been built in this tree.~~ **Closed 2026-10-20**: built and axiom-audited. The
+  *scope* limit above is unaffected and still applies — building a proof says nothing about whether
+  its premise holds of real encoders.

@@ -1,0 +1,12 @@
+name = "learnerTamperingProofs"
+defaultTargets = ["LearnerTamperingProofs"]
+
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4.git"
+rev = "v4.34.0"
+
+[[lean_lib]]
+name = "LearnerTamperingProofs"
+srcDir = "."
+globs = ["DetectionFloor"]

@@ -9,4 +9,4 @@ rev = "v4.34.0"
 [[lean_lib]]
 name = "IndividuationMCMCProofs"
 srcDir = "."
-globs = ["RWInvariant"]
+globs = ["RWInvariant", "IndividuationAdvantage"]
