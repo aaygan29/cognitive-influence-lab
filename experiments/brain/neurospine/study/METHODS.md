@@ -1,0 +1,221 @@
+# Methods
+
+Concrete methods for the NEUROSPINE study. Referenced from
+`PROTOCOL.md`.
+
+## Inputs
+
+### Neural
+
+- **fMRI**: BOLD signal, TR 1.0 to 2.0 s, 3T or 7T, whole-brain. NSD is
+  the primary A1 dataset; BMD supplements; HCP-YA and ds003171 (propofol
+  grading) for reliability characterization; ds005479 for reward.
+- **EEG**: 32 to 128 channel, event-locked or continuous. DEAP for
+  affect; NATVIEW for naturalistic viewing.
+- **Spikes**: not required for A1 or A2; noted here so the pipeline can
+  accept them later without a rewrite.
+
+### Behavioral
+
+- **Choice**: two-alternative or n-alternative decisions with recorded
+  outcome.
+- **Response time**: milliseconds from stimulus onset to response.
+- **Facial expression**: FACS action units where available (DEAP, NSD
+  scans do not have this).
+- **Physiology**: heart rate, skin conductance, respiration where
+  available.
+- **Stimulus history**: what the subject has been shown in the current
+  session, in order, with onset times.
+
+## Preprocessing
+
+- fMRIPrep v25.x for BOLD preprocessing. Fixed version pinned in
+  `experiments/*/configs/`.
+- ICA-AROMA for motion denoising, followed by regression of the
+  standard six motion regressors and their derivatives.
+- HRF deconvolution via GLMsingle for trial-level beta estimation.
+- EEG: MNE-Python fixed pipeline: bandpass 0.5 to 40 Hz, ICA for eye
+  and muscle removal, epoch to event window per task.
+- Behavioral: cleaned response times (0.15 s < RT < 10 s), choice
+  encoding standardized across tasks.
+
+## Decoders
+
+One decoder per predicted dimension. Each decoder is a plugin behind the
+matching Protocol in `instrument/src/neurospine/providers.py`. Concrete
+implementations live under `experiments/<decoder>/`.
+
+- `PerceptionDecoder`: subject-conditional linear or MEIcoder-style
+  small model, trained per subject on stimulus embeddings. Input:
+  region-of-interest beta maps. Output: MEI or CLIP-space embedding of
+  the presumed perceived stimulus.
+- `AffectDecoder`: multimodal regressor on valence, arousal, and
+  discrete emotion classes. Input: fMRI + EEG + face + physio. Output:
+  a dict of continuous and categorical predictions.
+- `DecisionDecoder`: fits a hierarchical drift-diffusion model whose
+  drift and threshold parameters are functions of neural state. Input:
+  behavioral RT + choice + concurrent neural signal. Output: DDM
+  parameters and choice probability. The region-to-decision handoff
+  (a region's contribution as a signed additive bias on the action
+  logit, separable from a multiplicative sensitivity term, with an
+  in-silico-lesion knockout test) is constrained by Takacs et al. 2026
+  bioRxiv (superior-colliculus logistic decision); see
+  `literature/biorxiv-2026-06-05-730072.md`. Mouse midbrain, 2AFC scope
+  caveat applies.
+- `MemoryDecoder`: predicts recall probability and the temporal shift
+  of encoded reward information, anchored on the Yaghoubi hippocampal
+  backward-shift finding. The memory-to-decision handoff itself (a
+  geometric transform from order-coded to choice-coded neural subspaces,
+  with a testable post-decision alignment/expansion signature) is
+  constrained by Li, Chrysanthidis, Brincat, Rose, Miller 2026 iScience;
+  see `literature/isci-2026-117492.md`. Two-NHP, small discrete
+  option-set, correlational scope caveat applies.
+- `RewardDecoder`: predicts anticipation strength from NAcc BOLD and
+  behavioral cues.
+
+## Calibration and abstention
+
+- **Calibration**: split-conformal prediction on a per-subject
+  calibration split, with a 20-percent holdout for the coverage check.
+  Report ECE per dimension.
+- **Abstention**: fire when any of the following holds:
+  - Goltermann/Huth triad fails on the fitted decoder for that
+    dimension.
+  - Conformal prediction interval width exceeds a preregistered
+    threshold.
+  - Motion or artifact rejection removes more than 20 percent of the
+    trials from the input session.
+
+## Statistical framework
+
+- Primary tests are Spearman rank correlation (test-retest) and
+  paired-subject t-tests (transfer degradation).
+- Multiple-comparison correction across the five prediction dimensions:
+  Benjamini and Hochberg with false discovery rate 0.05.
+- Effect sizes and 95 percent CIs reported alongside every p-value.
+- Bayes factors as a supplement for null results per aim.
+- Seed variance: every headline number is reported across at least
+  five seeds; mean and standard deviation shown.
+
+## Robustness checks
+
+Beyond the gate ladder:
+
+- **Physiological confound sweep**: refit each decoder with heart rate
+  and respiration regressed out; report the delta in test-retest.
+- **Scanner site sweep**: for NSD (single-site) this is limited; for
+  HCP-YA (multi-site) report the site random effect.
+- **Time-of-day sweep**: for the two subjects in NSD and BMD with the
+  most sessions, split by AM vs PM sessions and report per-slot
+  performance.
+- **Attention confound**: use a proxy attention measure (physiology or
+  behavioral vigilance) as a covariate and check that decoders do not
+  collapse to attention prediction.
+
+## Topological analysis layer
+
+For the individual-scale replicability side, layer a topological
+analysis of the neural time series on top of the linear decoders.
+Persistent homology of the point cloud in latent-decoder space provides
+a signature of the subject's dynamical trajectory. Anchors from
+`literature/SYNTHESIS_computational.md` topological section fill in
+concrete methods (persistent homology of ROI time series, Betti curves
+of latent manifolds, Reeb graphs).
+
+The purpose of this layer is not to replace the linear decoders. It is
+to provide a per-subject invariant that quantifies replicability at a
+level above per-timepoint prediction: two sessions from the same
+subject should have topologically similar latent trajectories even
+where instantaneous predictions diverge.
+
+## Thought-trajectory transition dynamics (ADR-009)
+
+A thought is not a point on the cognitive-state manifold. It is a
+trajectory `M(t)`, and its complexity is summarized by the transition
+kernel `K(x, y) = P(state_{t+1} = y | state_t = x)` together with the
+invariants of the induced Markov process.
+
+Pipeline:
+
+1. **Window.** Segment the session into non-overlapping epochs. Epoch
+   length is a preregistered parameter; the current EEG default is
+   2 seconds and is under active challenge (see Open questions).
+2. **Represent.** One SPD matrix per epoch (covariance or
+   cross-spectral density), symmetrized and ridged to guarantee
+   strict positive-definiteness.
+3. **Discretize.** K-medoids on AIRM distance with Frechet-mean
+   prototype updates. The discretization respects the Riemannian
+   geometry rather than flattening the SPD cone into a Euclidean
+   vector space.
+4. **Estimate.** Count-based transition matrix with Laplace
+   smoothing; states never visited become self-loops so the matrix
+   stays row-stochastic.
+5. **Summarize.** Stationary distribution (left-Perron eigenvector),
+   Kolmogorov-Sinai entropy rate, spectral gap (second-largest
+   eigenvalue modulus), effective dimension `exp(H(pi))`, mean first
+   passage times, committor functions, and PCCA metastable
+   decomposition.
+6. **Null-test.** Permutation control: shuffle the state sequence
+   (destroying temporal order, preserving marginal occupancy
+   exactly) and recompute the entropy rate 200 times. Report the
+   observed value, the null mean and standard deviation, the
+   z-score, and a one-sided empirical p-value. This separates "there
+   is temporal structure" from "some states are simply more common,"
+   and is the G4 specificity plus G5 confound control for every
+   trajectory claim.
+
+Interpretation guide:
+
+- **Stationary distribution** says where the trajectory dwells.
+- **Mean first passage time** says how long it takes to reach a
+  target state from anywhere else.
+- **Committor** says which basin the trajectory commits to from a
+  given state.
+- **PCCA labels** say what the metastable basins are.
+- **Entropy rate** says how much of the trajectory is predictable at
+  all. An entropy rate at the `log(k)` ceiling means the sequence is
+  memoryless at this granularity and the transition matrix is a
+  description of the marginal, not of dynamics.
+
+### Open questions on this layer
+
+The first real-data run (`experiments/spd_transition_eegbci/`) found
+that subjects differ sharply: some show entropy rates far below the
+shuffled null (strong temporal structure) and some are
+indistinguishable from it. Before that split can be reported as an
+individual difference rather than a methodological artifact, the
+following must be run:
+
+- **Lag-time sweep and implied timescales.** Standard Markov-state-
+  model practice: estimate the transition matrix at several lag
+  times and check that the implied timescales
+  `t_i = -lag / log(lambda_i)` plateau. A plateau justifies the
+  Markov assumption at that lag; no plateau means the model is
+  mis-specified.
+- **Chapman-Kolmogorov test.** Compare `T(k * lag)` against
+  `T(lag)^k`. Divergence falsifies the Markov assumption directly.
+- **State-count sensitivity.** Sweep the number of prototypes and
+  check that the structure verdict is stable. If the verdict flips
+  with `k`, it is an artifact of the discretization.
+- **Epoch-length sensitivity.** Same sweep over epoch duration.
+- **Channel-count sensitivity.** The current 5-channel subset is a
+  convenience choice; the SPD dimension changes the AIRM geometry
+  and could drive the result.
+
+Until those are run, the EEG transition-kernel result is a pipeline
+demonstration with a null control, not a scientific claim about
+individual differences.
+
+## Physics anchor
+
+Frame the individual-scale pipeline as a statistical-mechanics problem:
+the subject's neural state is a point in a high-dimensional configuration
+space; the decoders are order parameters. Anchors from
+`literature/SYNTHESIS_computational.md` physics section fill in the
+concrete framing (spin-glass-style neural population models, energy
+landscapes of decision variables).
+
+The purpose is to provide a principled reason why per-subject
+calibration is necessary: different subjects live at different
+locations on the same energy landscape, and a group model averages
+across those locations to zero.
