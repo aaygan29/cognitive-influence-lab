@@ -36,12 +36,17 @@
           "what": "AI-side control: brain-like attention topology imposed on a transformer",
           "value": "Cohen's d = -1.20 over 120 runs / 20 seeds (it hurts)",
           "source": "experiments/brain/individuation-spine/ai-topology/README.md"
+        },
+        {
+          "what": "the individuation-gap theorem, folded in 2026-10-20 (zero-shot predictors only)",
+          "value": "rhoSq 0 (v/N) < rhoSq a (v/N) for a>0 - a definitional separation of two estimands, NOT an impossibility result; see SCOPE.md",
+          "source": "experiments/brain/individuation-spine/individuation-gap/proof/IndividuationGap.lean"
         }
       ],
       "caveats": [
         "The ABIDE identification split is within-session and multi-site, so it can index session-specific SNR or motion rather than the stable individual; a between-session replication is still needed.",
         "ABIDE is an identification test and does not adjudicate the core reconstruction claim; the auto-flag kill_topology_sufficient must not be read as killing the thesis.",
-        "The real-data weight proxy is a per-subject model readout, not measured synaptic weights. FOLD_NOTE.md records that the Lean individuation-gap proof the parent README advertised does not exist in this node."
+        "The real-data weight proxy is a per-subject model readout, not measured synaptic weights. The folded individuation-gap manuscripts still carry the pre-correction claim that AI cannot read what an individual is thinking, which this program has already retracted to 'undetermined'; SCOPE.md records the conflict."
       ],
       "provenance_files": [
         "experiments/brain/individuation-spine/FOLD_NOTE.md",
@@ -51,7 +56,8 @@
         "experiments/brain/individuation-spine/rigor/RIGOR_FINDINGS.md",
         "experiments/brain/individuation-spine/rigor/STRENGTHENED_CLAIMS.md",
         "experiments/brain/individuation-spine/rigor/STRENGTHENED_SYNTHESIS.md",
-        "experiments/brain/individuation-spine/rigor/MATH_FRAMEWORK.md"
+        "experiments/brain/individuation-spine/rigor/MATH_FRAMEWORK.md",
+        "experiments/brain/individuation-spine/individuation-gap/SCOPE.md"
       ],
       "cites": [],
       "chain_link": [
