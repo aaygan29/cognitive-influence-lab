@@ -17,7 +17,7 @@ to avoid fragmentation and ensure reproducibility.
 
 - Program name: NEUROSPINE.
 - Repository slug: NEW_REPO (internal, aayushgandhi/NEW_REPO on GitHub).
-- Organization: aaygan29.
+- Organization: anonymous.
 
 ### In-scope portfolio projects at inception
 

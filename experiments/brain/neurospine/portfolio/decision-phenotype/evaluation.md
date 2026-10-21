@@ -1,6 +1,6 @@
 # decision-phenotype: evaluation
 
-- External home: github.com/aaygan29/decision-phenotype (confirmed via `gh repo view`: public,
+- External home: github.com/anonymous/decision-phenotype (confirmed via `gh repo view`: public,
   default branch `main`, pushed 2026-08-21). Local checkout confirmed at
   `~/Desktop/Research/projects/Neuroscience/decision_phenotype/` (reproduce.py, tests/, results/,
   figures/, submission/ all present).

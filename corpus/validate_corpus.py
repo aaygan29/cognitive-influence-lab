@@ -224,6 +224,39 @@ def check_refs(refs_doc, cited):
     return by_id
 
 
+def check_dead_anon_urls():
+    """Anonymising the author's GitHub handle inside a URL leaves a dead link.
+
+    `https://github.com/<handle>/x` scrubbed to `https://github.com/anonymous/x`
+    looks like a real URL and resolves to nothing. These are reported as warnings,
+    not errors: they are an artifact of the tree's own anonymisation policy and
+    fixing them means deciding, per link, whether to point at the attributed
+    public repo or to make the placeholder obviously a placeholder.
+    """
+    hits = []
+    for dp, dns, fns in os.walk(ROOT):
+        dns[:] = [d for d in dns if d not in (".git", "node_modules")]
+        for fn in fns:
+            p = os.path.join(dp, fn)
+            if os.path.abspath(p) == os.path.abspath(__file__):
+                continue  # this file names the pattern in order to detect it
+            if os.path.splitext(fn)[1].lower() not in (
+                    ".md", ".txt", ".py", ".tex", ".cff", ".json", ".yaml", ".yml"):
+                continue
+            try:
+                with open(p, encoding="utf-8") as fh:
+                    text = fh.read()
+            except (OSError, UnicodeDecodeError):
+                continue
+            if "github.com/anonymous/" in text:
+                hits.append(os.path.relpath(p, ROOT))
+    if hits:
+        warn("%d file(s) contain github.com/anonymous/... which is a dead link left "
+             "by the handle scrub: %s%s"
+             % (len(hits), ", ".join(sorted(hits)[:4]),
+                " and others" if len(hits) > 4 else ""))
+
+
 def main():
     nodes_doc = load(NODES)
     refs_doc = load(REFS)
@@ -235,6 +268,7 @@ def main():
     by_id = {r.get("id"): r for r in refs_doc.get("references", [])}
     cited = check_nodes(nodes_doc, by_id)
     check_refs(refs_doc, cited)
+    check_dead_anon_urls()
     return report()
 
 

@@ -776,6 +776,299 @@
         "novelli2026-psiconnect",
         "cooper2026-language-selfhood"
       ]
+    },
+    {
+      "id": "neurospine",
+      "path": "experiments/brain/neurospine",
+      "arm": "readout",
+      "chain_link": [
+        "1-identify",
+        "2-individuate"
+      ],
+      "chain_note": "An independent replication of the tree's central link-1/link-2 asymmetry in a DIFFERENT modality (EEG) with a different method: subjects are identifiable across sessions, but their dynamics do no better than static marginal covariance. Identity is anatomy, not dynamics.",
+      "question": "Can a thought be tracked as it moves through the brain, on a real connectome, well enough to read the processing chain from stimulus to behaviour?",
+      "decider": "real human participants in public recordings (EEG across 8 subjects; a separate motor-imagery set at n=20; real BOLD for the effective-connectivity arm)",
+      "task": "n/a for the cartography layer (geometry on the SPD manifold, persistent homology); for the trajectory layer, state sequences modelled as Markov/HMM; the cross-subject test is motor-imagery classification",
+      "manipulation": "none - observational throughout. The interventions are analytic: surrogate nulls, specificity ablations, and a leakage-removing subject-disjoint split",
+      "readout": "held-out likelihood against a VAR(1) surrogate null; cross-session subject identification; ridge-VAR effective connectivity; occupancy ablation",
+      "defence": "no detector. Its guard is a gate-before-claim discipline with external anchors, mandatory nulls or baselines, and a 17-entry ADR decision trail recording what was retired and why",
+      "substrate": "public-data",
+      "human_data": true,
+      "status": "Mixed and well-labelled. HMM beats VAR(1) on held-out EEG in 8/8 subjects beyond a surrogate null; the fingerprinting overclaim was caught pre-ship by its own specificity ablation; the cross-subject transfer is a clean negative at n=20.",
+      "key_numbers": [
+        {
+          "what": "HMM vs VAR(1) on held-out EEG, against a VAR(1) surrogate null",
+          "value": "wins in 8/8 subjects",
+          "source": "experiments/brain/neurospine/README.md"
+        },
+        {
+          "what": "cross-session identification vs cross-session DYNAMICS - the link-1/link-2 split again",
+          "value": "subjects identifiable, but dynamics do no better than static marginal covariance; a specificity ablation caught the fingerprinting overclaim before it shipped",
+          "source": "experiments/brain/neurospine/README.md"
+        },
+        {
+          "what": "cross-subject motor-imagery transfer with leakage removed (subject-disjoint split + occupancy ablation)",
+          "value": "connectome-state trajectories do NOT predict across subjects at n=20",
+          "source": "experiments/brain/neurospine/README.md"
+        },
+        {
+          "what": "real-fMRI effective connectivity, prefrontal to amygdala",
+          "value": "inhibitory, group t = -2.29, p = 0.031 - a single marginal p, to be read as such",
+          "source": "experiments/brain/neurospine/README.md"
+        }
+      ],
+      "caveats": [
+        "The cross-subject result is a negative at n=20, which bounds nothing about larger samples.",
+        "The prefrontal-to-amygdala result is one marginal p-value (0.031) and should not be carried as an established effect.",
+        "The repo is named goatseer on GitHub and NEUROSPINE in its own documents; it is folded here under the project name."
+      ],
+      "provenance_files": [
+        "experiments/brain/neurospine/README.md",
+        "experiments/brain/neurospine/ORGANIZATION.md"
+      ],
+      "cites": []
+    },
+    {
+      "id": "cessation-manifold",
+      "path": "experiments/brain/cessation-manifold",
+      "arm": "readout",
+      "chain_link": [
+        "2-individuate"
+      ],
+      "chain_note": "A per-subject EEG readout that refuses rather than guesses: where conformal coverage fails or an input is out of calibration range it raises instead of returning a number. It is link 2 with the abstention made into a type error.",
+      "question": "Can distance from a cessation state be read per subject from EEG, with a calibrated guarantee, and refuse when it cannot?",
+      "decider": "none - this node reads a state off a person, it models no choice",
+      "task": "n/a - EEG features to a PCA/UMAP embedding, then distance from a cessation centroid with a split-conformal interval",
+      "manipulation": "none - observational. The apparatus is validated against a synthetic Kuramoto collapse standing in for the state of interest",
+      "readout": "distance-from-cessation with a split-conformal interval and an explicit in-range check",
+      "defence": "the honesty layer IS the node: gate() raises UnvalidatedClaimError rather than return a number when conformal coverage fails or an input falls outside the calibration range",
+      "substrate": "simulation+public-data",
+      "human_data": true,
+      "status": "v0 of an instrument, not an answer. The apparatus is validated on synthetic collapse; real public EEG is used only for positive controls, and the two anchor datasets are not openly downloadable, so the cessation centroid is trained on synthetic data.",
+      "key_numbers": [
+        {
+          "what": "real-EEG positive control sample size, stated by the node itself",
+          "value": "2 LEMON subjects for the Berger control - enough for a within-subject positive control on a large signal, not a population claim",
+          "source": "experiments/brain/cessation-manifold/README.md"
+        },
+        {
+          "what": "what the cessation centroid is actually trained on",
+          "value": "a synthetic Kuramoto collapse; the Zarka and NIMHANS anchor datasets are not openly downloadable",
+          "source": "experiments/brain/cessation-manifold/README.md"
+        },
+        {
+          "what": "the meditator-vs-control gate",
+          "value": "cannot be scientifically informative until a real meditator arm lands",
+          "source": "experiments/brain/cessation-manifold/README.md"
+        },
+        {
+          "what": "refusal behaviour",
+          "value": "gate() raises UnvalidatedClaimError rather than returning an uncalibrated number",
+          "source": "experiments/brain/cessation-manifold/README.md"
+        }
+      ],
+      "caveats": [
+        "Sample sizes are tiny and the node says so: 2 subjects for the positive control.",
+        "BROKEN PROVENANCE, found on fold-in: the README points at results/ and results/report.html for 'current numbers', but results/ contains only .gitkeep. This is the same class of defect the validator already records for behavioral_decoding.",
+        "The headline construct is trained on synthetic collapse, so no claim about real cessation states is supported."
+      ],
+      "provenance_files": [
+        "experiments/brain/cessation-manifold/README.md"
+      ],
+      "cites": []
+    },
+    {
+      "id": "manifold-topology",
+      "path": "experiments/brain/manifold-topology",
+      "arm": "evidence",
+      "chain_link": [
+        "2-individuate"
+      ],
+      "chain_note": "A methods result that bears directly on how link 2 is measured: a single-ratio topological readout is underpowered where a null-referenced distance is not. If the readout is weak, an apparent null about individual structure may be the readout's fault.",
+      "question": "Is a recovered neural manifold intrinsic geometry, or an artifact of the oscillations used to recover it?",
+      "decider": "none - adjudicates a methods dispute in neural-manifold topology",
+      "task": "n/a - geometric and temporal generators manipulated independently in a controlled grid-cell simulation, with persistent-homology features measured against each",
+      "manipulation": "in silico: the geometric and temporal generators of a simulated grid-cell population are varied independently",
+      "readout": "persistent-homology features - null-referenced bottleneck distance versus the single-bar gap ratio",
+      "defence": null,
+      "substrate": "simulation",
+      "human_data": false,
+      "status": "12 seeds of a controlled in-silico grid-cell model (N=500 cells, 120 s trajectory). Stated plainly as a simulation, NOT a reanalysis of the Gardner recordings.",
+      "key_numbers": [
+        {
+          "what": "null-referenced bottleneck distance vs the single-bar gap ratio, detecting the same geometry effect",
+          "value": "p < 0.0001 vs p = 0.12 - the single-ratio readout misses what the null-referenced one finds",
+          "source": "experiments/brain/manifold-topology/README.md"
+        },
+        {
+          "what": "what the main study actually is",
+          "value": "12 seeds, N=500 simulated cells, 0.34 m/s over 120 s - a controlled simulation, not an analysis of published recordings",
+          "source": "experiments/brain/manifold-topology/README.md"
+        },
+        {
+          "what": "the archived Lean sub-study (a separate, unrelated result)",
+          "value": "clique_b1_not_monotone: adding a diagonal to a 4-cycle preserves connectivity yet drops clique-complex b1 from 1 to 0, by decide, zero axioms",
+          "source": "experiments/brain/manifold-topology/archive/cyclomatic-vs-clique/lean/CliqueBetti.lean"
+        }
+      ],
+      "caveats": [
+        "Simulation only; it does not reanalyse the recordings in the dispute it adjudicates.",
+        "The repo description advertises a real C. elegans demonstration; that belongs to the archived sub-study, not the headline attribution study.",
+        "The Lean file here is a GF(2)-homology counterexample about clique complexes. It is NOT the individuation-gap proof, which the tree's README once guessed it was; that proof is in experiments/brain/individuation-spine/individuation-gap."
+      ],
+      "provenance_files": [
+        "experiments/brain/manifold-topology/README.md"
+      ],
+      "cites": []
+    },
+    {
+      "id": "true-believer",
+      "path": "experiments/influence/true-believer",
+      "arm": "steering",
+      "chain_link": [
+        "3-steer"
+      ],
+      "chain_note": "The only node in the tree whose link-3 outcome is measured on REAL human behaviour rather than simulated. Everything else in the steering arm is a synthetic circuit. Its headline incremental test fails, which is what makes it worth having.",
+      "question": "Does a predicted neural belief-formation signature carry information about whether content imparts belief, over and above a strong content-only baseline?",
+      "decider": "real humans in a public corpus: ChangeMyView / Tan et al. 2016 via ConvoKit, 19,571 labelled arguments (12,327 successful), 3,866 matched within-pair comparisons",
+      "task": "did this argument change the reader's stated view - a real, recorded belief-change outcome, scored within matched pairs",
+      "manipulation": "none applied by this node - it measures naturally occurring persuasion attempts against their recorded outcomes",
+      "readout": "AUC of belief change from content alone versus content plus the predicted signature, with a within-pair comparison and a permutation null",
+      "defence": "none; it is a measurement instrument and proof-of-risk, explicitly population and content level, not an individual readout",
+      "substrate": "public-data",
+      "human_data": true,
+      "status": "The headline incremental test FAILS, and the node records it: delta_auc = -0.0003, passed = false. The engagement channel does win within pairs. Reported as-is, with no re-weighting of the composite to fit.",
+      "key_numbers": [
+        {
+          "what": "the headline incremental test: does the signature add over a content-only baseline?",
+          "value": "AUC content 0.5694 -> content+signature 0.5690, delta_auc = -0.0003, \"passed\": false",
+          "source": "experiments/influence/true-believer/results/realdata_cmv.json"
+        },
+        {
+          "what": "the engagement channel within matched pairs",
+          "value": "0.579, Wilcoxon p = 8.8e-25, against a permutation null of 0.506 +/- 0.008",
+          "source": "experiments/influence/true-believer/results/realdata_cmv.json"
+        },
+        {
+          "what": "the value channel, and the resistance proxy",
+          "value": "value channel null (p = 0.067); the resistance proxy runs BACKWARDS from theory",
+          "source": "experiments/influence/true-believer/docs/REAL_RESULT.md"
+        },
+        {
+          "what": "real-data scale",
+          "value": "19,571 labelled arguments, 12,327 successful, 3,866 matched within-pair comparisons",
+          "source": "experiments/influence/true-believer/docs/REAL_RESULT.md"
+        }
+      ],
+      "caveats": [
+        "The signature on real data is a TEXT proxy, not a neural measurement. The README's 'frozen public brain encoder' framing oversells the real-data arm, which docs/REAL_RESULT.md states accurately.",
+        "The README reads as though the incremental test succeeded; the committed JSON says it did not. Flagged on fold-in, not corrected here, because it is the author's wording to change.",
+        "Population and content level only. It says nothing about any individual reader."
+      ],
+      "provenance_files": [
+        "experiments/influence/true-believer/docs/REAL_RESULT.md",
+        "experiments/influence/true-believer/results/realdata_cmv.json"
+      ],
+      "cites": []
+    },
+    {
+      "id": "chorus",
+      "path": "experiments/influence/chorus",
+      "arm": "steering",
+      "chain_link": [
+        "3-steer"
+      ],
+      "chain_note": "The most literal link-3 demonstration in the tree: a closed loop that writes a goal heading into a real connectome and lets the organism's own ring attractor steer. It is an insect, not a human, which is the honest caveat - and it carries its own retraction of an earlier overclaim.",
+      "question": "Is a real connectome load-bearing when you close a control loop around it, or does a calibrated model do the work?",
+      "decider": "a simulated fly driven by a real insect connectome (FlyWire v783 female; MaleCNS v1.0 male brain and VNC) - not a human",
+      "task": "heading choice: a single 1-D goal heading is written into the central complex and the fly's own ring attractor steers toward it",
+      "manipulation": "a direct write into the central complex (FC2 goal-heading), one of six actuation levers mapped from the Drosophila navigation literature; ablations against matched nulls test whether the connectome is load-bearing",
+      "readout": "pointing error in degrees and figure-8 tracking error, with seed-wise replication on a second connectome",
+      "defence": "no detector; it ships a THREAT_MODEL.md and a RESPONSIBLE_DISCLOSURE.md instead, treating the capability itself as the thing to govern",
+      "substrate": "simulation+public-data",
+      "human_data": false,
+      "status": "Carries its own correction. An earlier README described the results as 'all on the real connectome'; the accurate statement is that the headline pointing numbers come from a CALIBRATED ring attractor, not from simulating the raw connectome.",
+      "key_numbers": [
+        {
+          "what": "the headline pointing and tracking numbers, and what actually produced them",
+          "value": "0.41 degree pointing / 0.17-unit figure-8 - from a calibrated ring attractor, NOT from the raw connectome",
+          "source": "experiments/influence/chorus/README.md"
+        },
+        {
+          "what": "the bridge between the two pipelines is not reproducible",
+          "value": "published ~24 degree kernel; independent reimplementation gives 30.7-36.7 degrees, and the published value is recovered exactly as 1/sqrt(5.6), the circular SD of the calibrated kappa",
+          "source": "experiments/influence/chorus/README.md"
+        },
+        {
+          "what": "real replication that does hold",
+          "value": "MaleCNS CX pins at 90.0 degrees +/- 0.0004 across all seeds",
+          "source": "experiments/influence/chorus/README.md"
+        },
+        {
+          "what": "the two pipelines",
+          "value": "the connectome pipeline (cx_real_dynamics.py) pins and does not work; the working pipeline (chorus_env.py) loads the weight matrix and never reads it",
+          "source": "experiments/influence/chorus/README.md"
+        }
+      ],
+      "caveats": [
+        "An insect, not a human. Nothing here transfers to a person.",
+        "The possibility that the measurement and the calibration are the same number is open and written down by the node itself, not resolved.",
+        "The connectome is committed and real, but the headline result does not currently demonstrate that the connectome is load-bearing."
+      ],
+      "provenance_files": [
+        "experiments/influence/chorus/README.md"
+      ],
+      "cites": []
+    },
+    {
+      "id": "warden",
+      "path": "experiments/influence/warden",
+      "arm": "steering",
+      "chain_link": [
+        "3-steer"
+      ],
+      "chain_note": "The defence side of link 3, with a refusal boundary enforced in code rather than in prose, and 26 machine-checked theorems on the bistable belief object that bounded-influence currently has only in simulation.",
+      "question": "Can a cognitive-security instrument reason about manipulability and countermeasures while refusing to produce per-individual output?",
+      "decider": "none directly - it reasons over a stated set of assumptions and explicitly does not measure a real mind",
+      "task": "n/a - three heads: manipulability sensitivity, live-engagement detection, and adaptive-minimax countermeasure ordering",
+      "manipulation": "none on any person; parameters are pinned to published effect sizes and the dynamics are simulated",
+      "readout": "manipulability sensitivity, engagement detection, and a countermeasure ordering, each returned with its scope",
+      "defence": "enforce_scope refuses per-individual output in asymmetric-power contexts AT THE API BOUNDARY - a refusal that is executable rather than documentary",
+      "substrate": "simulation",
+      "human_data": false,
+      "status": "Entirely simulated, with parameters pinned to published effect sizes, and it says so prominently. Its Lean component is complete and axiom-audited.",
+      "key_numbers": [
+        {
+          "what": "Lean formalisation of the U/C/D mean-field bistable system",
+          "value": "26 theorems and lemmas, 0 sorry, with a #print axioms audit over all of them",
+          "source": "experiments/influence/warden/verification/cognitive_virus/lean/CognitiveVirus/Basic.lean"
+        },
+        {
+          "what": "what the formalisation covers",
+          "value": "conservation of U+C+D, exact linearisations with explicit quadratic remainder, coupled equilibrium, D_share = mu/(mu+sigma), threshold coincidence, and offmanifold - that the 1-D reduction is NOT an invariant manifold",
+          "source": "experiments/influence/warden/verification/cognitive_virus/lean/CognitiveVirus/Basic.lean"
+        },
+        {
+          "what": "what it deliberately does NOT formalise",
+          "value": "flow-level claims - asymptotic stability and triangular eigenvalues - are stated as not formalised in the file header",
+          "source": "experiments/influence/warden/verification/cognitive_virus/lean/CognitiveVirus/Basic.lean"
+        },
+        {
+          "what": "the refusal boundary",
+          "value": "enforce_scope blocks per-individual output in asymmetric-power contexts",
+          "source": "experiments/influence/warden/README.md"
+        }
+      ],
+      "caveats": [
+        "It does not measure a real mind, by its own statement; it reasons over assumptions.",
+        "Its vendored copy of the private spikeprint repo was REMOVED FROM HISTORY before folding, because this tree is public. The standalone private repo remains the only home for that work.",
+        "warden/warden/heads.py carried an absolute path from the author's machine in a sys.path.insert; the scrub replaced it with a placeholder, which makes an already-broken import visible rather than silently machine-specific."
+      ],
+      "provenance_files": [
+        "experiments/influence/warden/README.md",
+        "experiments/influence/warden/verification/cognitive_virus/lean/CognitiveVirus/Basic.lean"
+      ],
+      "cites": []
     }
   ]
 }
