@@ -32,6 +32,7 @@ NODES = os.path.join(ROOT, "corpus", "nodes.json")
 REFS = os.path.join(ROOT, "corpus", "references.json")
 
 ARMS = {"readout", "steering", "both", "evidence"}
+CHAIN_LINKS = {"1-identify", "2-individuate", "3-steer"}
 SUBSTRATES = {"simulation", "public-data", "simulation+public-data", "literature"}
 REF_STATUS = {"verified", "unverified", "preprint"}
 EVIDENCE_CLASSES = {
@@ -129,6 +130,19 @@ def check_nodes(nodes_doc, refs_by_id):
                 % (nid, node.get("substrate"), sorted(SUBSTRATES)))
         if not isinstance(node.get("human_data"), bool):
             err("%s: human_data must be true or false" % nid)
+
+        # Every node must say which link of the chain it bears on. A node that
+        # cannot be placed on the chain is a node whose relevance is unstated.
+        links = node.get("chain_link")
+        if not links:
+            err("%s: missing chain_link; say which link(s) of the chain it tests" % nid)
+        else:
+            for link in links:
+                if link not in CHAIN_LINKS:
+                    err("%s: chain_link %r not one of %s"
+                        % (nid, link, sorted(CHAIN_LINKS)))
+            if not node.get("chain_note"):
+                err("%s: has chain_link but no chain_note saying what it contributes" % nid)
 
         # Rule 2: every file the registry points at must exist.
         for pf in node.get("provenance_files", []):

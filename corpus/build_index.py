@@ -25,6 +25,18 @@ ARM_TITLES = {
 }
 ARM_ORDER = ["readout", "both", "steering", "evidence"]
 
+# The chain the tree is organized around. Keys match nodes.json `chain_link`.
+CHAIN_LINKS = [
+    ("1-identify", "Link 1 — Identify who you are",
+     "Works, and saturates. Identity lives in coarse structure and is close to free."),
+    ("2-individuate", "Link 2 — Individuate how you would respond",
+     "The bottleneck. The neural route is underpowered rather than refuted; the behavioural "
+     "route is open for the decision policy and closed for the learning rule."),
+    ("3-steer", "Link 3 — Push the choice",
+     "Demonstrated in-silico only, with a measured band in which a push captures the decision "
+     "without tripping a monitor."),
+]
+
 
 def load(name):
     with open(os.path.join(ROOT, "corpus", name), encoding="utf-8") as fh:
@@ -116,6 +128,24 @@ def render(nodes_doc, refs_doc):
                 cell(n["manipulation"]), cell(n["readout"]), cell(n.get("defence")),
                 cell(n["substrate"])))
     w("")
+
+    # The chain: the reason the tree is organized the way it is.
+    w("## By link in the chain")
+    w("")
+    w("`identify who you are -> individuate how you would respond -> push the choice`.")
+    w("Each node measures one or more links. A node appears under every link it bears on.")
+    w("")
+    for key, title, gloss in CHAIN_LINKS:
+        members = [n for n in nodes if key in n.get("chain_link", [])]
+        if not members:
+            continue
+        w("### %s" % title)
+        w("")
+        w("*%s*" % gloss)
+        w("")
+        for n in sorted(members, key=lambda n: n["id"]):
+            w("- [`%s`](%s) — %s" % (n["id"], n["path"], n.get("chain_note", "")))
+        w("")
 
     # Human-data map: who touches real people.
     w("## Which nodes touch real human data")

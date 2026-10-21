@@ -17,10 +17,26 @@
       "human_data": true,
       "status": "synthetic apparatus validated end-to-end; real-data arm underpowered, so an honest null. Claim 2 corrected: human reconstruction-individuation is undetermined, not dear.",
       "key_numbers": [
-        {"what": "ABIDE N=248 split-half fingerprinting, full-weighted vs binarized wiring (chance 0.004)", "value": "0.980 vs 0.972, both permutation p=0.0005; gap +0.008", "source": "experiments/brain/individuation-spine/wiring-not-weights/RESULTS.md"},
-        {"what": "corrected equivalence test on binarized vs weighted", "value": "TOST against a 5% margin, p=0.0012; 95% CI on the gap [-1.9%, +3.5%]", "source": "experiments/brain/individuation-spine/rigor/RIGOR_FINDINGS.md"},
-        {"what": "real NSD N=8 reconstruction pilot, functional axis (chance 0.125)", "value": "mean accuracy 0.175, 0/25 ROIs p<.05, MDES for 80% power about 0.59", "source": "experiments/brain/individuation-spine/wiring-not-weights/RESULTS.md"},
-        {"what": "AI-side control: brain-like attention topology imposed on a transformer", "value": "Cohen's d = -1.20 over 120 runs / 20 seeds (it hurts)", "source": "experiments/brain/individuation-spine/ai-topology/README.md"}
+        {
+          "what": "ABIDE N=248 split-half fingerprinting, full-weighted vs binarized wiring (chance 0.004)",
+          "value": "0.980 vs 0.972, both permutation p=0.0005; gap +0.008",
+          "source": "experiments/brain/individuation-spine/wiring-not-weights/RESULTS.md"
+        },
+        {
+          "what": "corrected equivalence test on binarized vs weighted",
+          "value": "TOST against a 5% margin, p=0.0012; 95% CI on the gap [-1.9%, +3.5%]",
+          "source": "experiments/brain/individuation-spine/rigor/RIGOR_FINDINGS.md"
+        },
+        {
+          "what": "real NSD N=8 reconstruction pilot, functional axis (chance 0.125)",
+          "value": "mean accuracy 0.175, 0/25 ROIs p<.05, MDES for 80% power about 0.59",
+          "source": "experiments/brain/individuation-spine/wiring-not-weights/RESULTS.md"
+        },
+        {
+          "what": "AI-side control: brain-like attention topology imposed on a transformer",
+          "value": "Cohen's d = -1.20 over 120 runs / 20 seeds (it hurts)",
+          "source": "experiments/brain/individuation-spine/ai-topology/README.md"
+        }
       ],
       "caveats": [
         "The ABIDE identification split is within-session and multi-site, so it can index session-specific SNR or motion rather than the stable individual; a between-session replication is still needed.",
@@ -37,7 +53,12 @@
         "experiments/brain/individuation-spine/rigor/STRENGTHENED_SYNTHESIS.md",
         "experiments/brain/individuation-spine/rigor/MATH_FRAMEWORK.md"
       ],
-      "cites": []
+      "cites": [],
+      "chain_link": [
+        "1-identify",
+        "2-individuate"
+      ],
+      "chain_note": "Carries both ends of the split: identification saturates from coarse wiring alone, while the reconstruction arm is underpowered rather than refuted. This node is why link 1 and link 2 are separate questions."
     },
     {
       "id": "digital-brain",
@@ -53,10 +74,26 @@
       "human_data": true,
       "status": "reproduced 2026-09-28 at N=8. Amplitude-level identity saturates; geometry-level individuation is reliably positive but small.",
       "key_numbers": [
-        {"what": "subject fingerprinting, N=8 Algonauts/NSD, 25 ROIs", "value": "25/25 ROIs at 100% identification, all significant (permutation p<0.05, chance 1/8)", "source": "experiments/brain/digital-brain/README.md"},
-        {"what": "encoding accuracy, median Pearson r", "value": "positive for all 8 subjects, range 0.219 to 0.463", "source": "experiments/brain/digital-brain/README.md"},
-        {"what": "RSA self-advantage (geometry-level individuation)", "value": "positive in 25/25 ROIs subject-averaged, +0.005 to +0.066, but per-subject median positive for only 6/8", "source": "experiments/brain/digital-brain/README.md"},
-        {"what": "BOLD5000 cross-dataset replication (4 subjects, 5 ROIs)", "value": "encoding r 0.137-0.176; fingerprinting 5/5 significant", "source": "experiments/brain/digital-brain/README.md"}
+        {
+          "what": "subject fingerprinting, N=8 Algonauts/NSD, 25 ROIs",
+          "value": "25/25 ROIs at 100% identification, all significant (permutation p<0.05, chance 1/8)",
+          "source": "experiments/brain/digital-brain/README.md"
+        },
+        {
+          "what": "encoding accuracy, median Pearson r",
+          "value": "positive for all 8 subjects, range 0.219 to 0.463",
+          "source": "experiments/brain/digital-brain/README.md"
+        },
+        {
+          "what": "RSA self-advantage (geometry-level individuation)",
+          "value": "positive in 25/25 ROIs subject-averaged, +0.005 to +0.066, but per-subject median positive for only 6/8",
+          "source": "experiments/brain/digital-brain/README.md"
+        },
+        {
+          "what": "BOLD5000 cross-dataset replication (4 subjects, 5 ROIs)",
+          "value": "encoding r 0.137-0.176; fingerprinting 5/5 significant",
+          "source": "experiments/brain/digital-brain/README.md"
+        }
       ],
       "caveats": [
         "Geometry-level individuation remains partially elusive; the asymmetry is attributed to CLIP's population-level training as the architectural ceiling.",
@@ -67,7 +104,12 @@
         "experiments/brain/digital-brain/REPRODUCE.md",
         "experiments/brain/digital-brain/docs/literature.md"
       ],
-      "cites": []
+      "cites": [],
+      "chain_link": [
+        "1-identify",
+        "2-individuate"
+      ],
+      "chain_note": "The same dissociation inside one dataset: amplitude-level fingerprinting hits 100% in every ROI while geometry-level individuation stays small."
     },
     {
       "id": "decision-phenotype",
@@ -83,10 +125,26 @@
       "human_data": true,
       "status": "living status document; the method is established on controlled data and validated on real public data where it exists. All six headline gates pass; the direct individual neural-to-behaviour link abstains.",
       "key_numbers": [
-        {"what": "NARPS real choices (108 subjects, 27,454 choices), held-out choice prediction", "value": "mean AUC 0.958 [0.951, 0.964], Brier 0.061 vs base 0.233", "source": "experiments/brain/decision-phenotype/STATUS.md"},
-        {"what": "loss aversion recovered by the source study's own range manipulation", "value": "equalIndifference median lambda 1.45 (matches Tom 2007), equalRange 1.00", "source": "experiments/brain/decision-phenotype/STATUS.md"},
-        {"what": "cross-run phenotype fingerprinting, 108 subjects", "value": "13% vs 0.9% chance = 14x, permutation p=0.0005", "source": "experiments/brain/decision-phenotype/STATUS.md"},
-        {"what": "the abstention boundary on the individual neural-to-behaviour link", "value": "neural vs behavioural lambda r = -0.40 against MDES 0.44, so the gate ABSTAINS", "source": "experiments/brain/decision-phenotype/STATUS.md"}
+        {
+          "what": "NARPS real choices (108 subjects, 27,454 choices), held-out choice prediction",
+          "value": "mean AUC 0.958 [0.951, 0.964], Brier 0.061 vs base 0.233",
+          "source": "experiments/brain/decision-phenotype/STATUS.md"
+        },
+        {
+          "what": "loss aversion recovered by the source study's own range manipulation",
+          "value": "equalIndifference median lambda 1.45 (matches Tom 2007), equalRange 1.00",
+          "source": "experiments/brain/decision-phenotype/STATUS.md"
+        },
+        {
+          "what": "cross-run phenotype fingerprinting, 108 subjects",
+          "value": "13% vs 0.9% chance = 14x, permutation p=0.0005",
+          "source": "experiments/brain/decision-phenotype/STATUS.md"
+        },
+        {
+          "what": "the abstention boundary on the individual neural-to-behaviour link",
+          "value": "neural vs behavioural lambda r = -0.40 against MDES 0.44, so the gate ABSTAINS",
+          "source": "experiments/brain/decision-phenotype/STATUS.md"
+        }
       ],
       "caveats": [
         "Not a measured neuroprofile of any individual: claims about individuals are claims about their revealed decision policy, never about their private neurology.",
@@ -101,7 +159,11 @@
         "experiments/brain/decision-phenotype/proofs/README.md",
         "experiments/brain/decision-phenotype/submission/manuscript.md"
       ],
-      "cites": []
+      "cites": [],
+      "chain_link": [
+        "2-individuate"
+      ],
+      "chain_note": "Individuates a decision policy well from choices, and abstains by construction where the individual neural-to-behaviour link is underpowered. The abstention is the finding."
     },
     {
       "id": "behavioral_decoding",
@@ -117,10 +179,26 @@
       "human_data": true,
       "status": "the fusion result is a synthetic positive control; single-family leaks are measured on 443 people in real public data. After the 2026-10 reviewer response the EEG arm's verdict is refuted and the cheap-hardware risk is scoped as a projection, not a measured leak.",
       "key_numbers": [
-        {"what": "NARPS gambles, accept or reject, balanced accuracy (108 subjects)", "value": "0.814 [0.790, 0.836], permutation p=0.001", "source": "experiments/brain/behavioral_decoding/README.md"},
-        {"what": "delay-discounting bids, lowball this offer, balanced accuracy (40 subjects)", "value": "0.882 [0.861, 0.902], permutation p=0.001", "source": "experiments/brain/behavioral_decoding/README.md"},
-        {"what": "fusion vs best single family - SYNTHETIC positive control, not real people", "value": "0.623 [0.60, 0.65] vs cardiac 0.580 [0.55, 0.61]", "source": "experiments/brain/behavioral_decoding/README.md"},
-        {"what": "EEG confound audit: confound-only baseline vs EEG decode", "value": "age+sex+duration 0.723 beats EEG 0.705; per-fold confound regression collapses EEG to 0.542", "source": "experiments/brain/behavioral_decoding/README.md"}
+        {
+          "what": "NARPS gambles, accept or reject, balanced accuracy (108 subjects)",
+          "value": "0.814 [0.790, 0.836], permutation p=0.001",
+          "source": "experiments/brain/behavioral_decoding/README.md"
+        },
+        {
+          "what": "delay-discounting bids, lowball this offer, balanced accuracy (40 subjects)",
+          "value": "0.882 [0.861, 0.902], permutation p=0.001",
+          "source": "experiments/brain/behavioral_decoding/README.md"
+        },
+        {
+          "what": "fusion vs best single family - SYNTHETIC positive control, not real people",
+          "value": "0.623 [0.60, 0.65] vs cardiac 0.580 [0.55, 0.61]",
+          "source": "experiments/brain/behavioral_decoding/README.md"
+        },
+        {
+          "what": "EEG confound audit: confound-only baseline vs EEG decode",
+          "value": "age+sex+duration 0.723 beats EEG 0.705; per-fold confound regression collapses EEG to 0.542",
+          "source": "experiments/brain/behavioral_decoding/README.md"
+        }
       ],
       "caveats": [
         "The fusion result is a synthetic positive control, not evidence that any real person's biosignals were fused at these levels.",
@@ -135,7 +213,11 @@
         "experiments/brain/behavioral_decoding/docs/data_sources.md",
         "experiments/brain/behavioral_decoding/docs/biosignal_fusion.md"
       ],
-      "cites": []
+      "cites": [],
+      "chain_link": [
+        "2-individuate"
+      ],
+      "chain_note": "Tests how far link 2 goes from biosignals rather than fMRI, and how much of it survives a confound audit. Its EEG arm's verdict after audit is refuted."
     },
     {
       "id": "individuation-mcmc",
@@ -151,10 +233,26 @@
       "human_data": true,
       "status": "mostly synthetic subjects with known ground truth plus one real-data gate. Individuation works, including on real people; manipulability is person-specific but shown only in simulation; reading a person's learning rule is the weak link.",
       "key_numbers": [
-        {"what": "parameter recovery, 14 synthetic subjects x 300 trials", "value": "decision-state params r +0.86 to +0.99; learning-rule params only +0.59 to +0.67", "source": "experiments/influence/individuation-mcmc/README.md"},
-        {"what": "real-data cross-session individuation (150 subjects, two sessions)", "value": "own session-1 fit wins in 115/150 (+0.37 nats/trial); test-retest t0 r=0.71, a r=0.60, but alpha r=0.15 and w_q r=-0.01", "source": "experiments/influence/individuation-mcmc/README.md"},
-        {"what": "per-person manipulability (simulation)", "value": "capture dose 0.55 to 1.70 across subjects, a 3.1x spread; correlates -0.61 with the fitted boundary", "source": "experiments/influence/individuation-mcmc/README.md"},
-        {"what": "does the DDM reduction's capture dose transfer to the full attractor circuit?", "value": "reduction Spearman -0.23 (fails); SBI computed in the full circuit Spearman 0.90", "source": "experiments/influence/individuation-mcmc/README.md"}
+        {
+          "what": "parameter recovery, 14 synthetic subjects x 300 trials",
+          "value": "decision-state params r +0.86 to +0.99; learning-rule params only +0.59 to +0.67",
+          "source": "experiments/influence/individuation-mcmc/README.md"
+        },
+        {
+          "what": "real-data cross-session individuation (150 subjects, two sessions)",
+          "value": "own session-1 fit wins in 115/150 (+0.37 nats/trial); test-retest t0 r=0.71, a r=0.60, but alpha r=0.15 and w_q r=-0.01",
+          "source": "experiments/influence/individuation-mcmc/README.md"
+        },
+        {
+          "what": "per-person manipulability (simulation)",
+          "value": "capture dose 0.55 to 1.70 across subjects, a 3.1x spread; correlates -0.61 with the fitted boundary",
+          "source": "experiments/influence/individuation-mcmc/README.md"
+        },
+        {
+          "what": "does the DDM reduction's capture dose transfer to the full attractor circuit?",
+          "value": "reduction Spearman -0.23 (fails); SBI computed in the full circuit Spearman 0.90",
+          "source": "experiments/influence/individuation-mcmc/README.md"
+        }
       ],
       "caveats": [
         "The manipulability gates are entirely synthetic; the only real-data result is individuation of the decision-state fingerprint. No neural data is used anywhere.",
@@ -169,8 +267,15 @@
         "experiments/influence/individuation-mcmc/results/sbi_manipulability.json",
         "experiments/influence/individuation-mcmc/results/realdata.json"
       ],
-      "depends_on": ["bellwether"],
-      "cites": []
+      "depends_on": [
+        "bellwether"
+      ],
+      "cites": [],
+      "chain_link": [
+        "2-individuate",
+        "3-steer"
+      ],
+      "chain_note": "The bypass, and the hinge of the whole chain: individuates a real person's decision state from behaviour alone, then converts that fit into a per-person capture dose. It is where link 2 stops being a readout question and becomes an attack parameter."
     },
     {
       "id": "learning-rule-fusion",
@@ -186,10 +291,26 @@
       "human_data": true,
       "status": "measures a proposed, calibrated environment, not real manipulation",
       "key_numbers": [
-        {"what": "extraction: fused vs best single biosignal, RMSE on the learning rule", "value": "fused 0.082 vs neural 0.088, choice 0.183, peripheral 0.245", "source": "experiments/influence/learning-rule-fusion/README.md"},
-        {"what": "manipulation: closed-loop control error", "value": "fused 0.045 vs best single 0.052", "source": "experiments/influence/learning-rule-fusion/README.md"},
-        {"what": "real-data calibration prior", "value": "NARPS loss-aversion distribution, n=108, median 0.88", "source": "experiments/influence/learning-rule-fusion/README.md"},
-        {"what": "Lean verification of the enabling math", "value": "verified 2026-09-28, Lean v4.34.1, 8927 jobs, exit 0, no sorry", "source": "experiments/influence/learning-rule-fusion/REPRODUCE.md"}
+        {
+          "what": "extraction: fused vs best single biosignal, RMSE on the learning rule",
+          "value": "fused 0.082 vs neural 0.088, choice 0.183, peripheral 0.245",
+          "source": "experiments/influence/learning-rule-fusion/README.md"
+        },
+        {
+          "what": "manipulation: closed-loop control error",
+          "value": "fused 0.045 vs best single 0.052",
+          "source": "experiments/influence/learning-rule-fusion/README.md"
+        },
+        {
+          "what": "real-data calibration prior",
+          "value": "NARPS loss-aversion distribution, n=108, median 0.88",
+          "source": "experiments/influence/learning-rule-fusion/README.md"
+        },
+        {
+          "what": "Lean verification of the enabling math",
+          "value": "verified 2026-09-28, Lean v4.34.1, 8927 jobs, exit 0, no sorry",
+          "source": "experiments/influence/learning-rule-fusion/REPRODUCE.md"
+        }
       ],
       "caveats": [
         "This measures a proposed, calibrated environment, not real manipulation.",
@@ -202,7 +323,12 @@
         "experiments/influence/learning-rule-fusion/results/learning_rule_risk.json",
         "experiments/influence/learning-rule-fusion/results/learning_rule_summary.json"
       ],
-      "cites": []
+      "cites": [],
+      "chain_link": [
+        "2-individuate",
+        "3-steer"
+      ],
+      "chain_note": "Asks what fusing biosignal channels buys for link 2, and shows the link-3 advantage is inherited from the link-2 advantage rather than being separate."
     },
     {
       "id": "bellwether",
@@ -218,10 +344,26 @@
       "human_data": false,
       "status": "a transparent synthetic model with known ground truth. It demonstrates a capability and a risk logic, not an effect in a real brain.",
       "key_numbers": [
-        {"what": "detecting covert steering vs an honest ambiguous decision on the same presented evidence", "value": "geometry channel AUC 0.97 (permutation p<0.001); timing channel AUC 0.99", "source": "experiments/influence/bellwether/README.md"},
-        {"what": "early warning relative to behavioural commitment on steered trials", "value": "fires before commitment about 92% of the time, median lead about 40 ms", "source": "experiments/influence/bellwether/README.md"},
-        {"what": "dose stealth floor, naive vs diffusion-hiding adversary", "value": "about 0.008 nA.s rising to about 0.019 nA.s; the timing channel is not evaded", "source": "experiments/influence/bellwether/README.md"},
-        {"what": "robustness across ten independent random population embeddings", "value": "geometry AUC 0.97 mean, SD 0.016, range 0.93 to 0.99", "source": "experiments/influence/bellwether/README.md"}
+        {
+          "what": "detecting covert steering vs an honest ambiguous decision on the same presented evidence",
+          "value": "geometry channel AUC 0.97 (permutation p<0.001); timing channel AUC 0.99",
+          "source": "experiments/influence/bellwether/README.md"
+        },
+        {
+          "what": "early warning relative to behavioural commitment on steered trials",
+          "value": "fires before commitment about 92% of the time, median lead about 40 ms",
+          "source": "experiments/influence/bellwether/README.md"
+        },
+        {
+          "what": "dose stealth floor, naive vs diffusion-hiding adversary",
+          "value": "about 0.008 nA.s rising to about 0.019 nA.s; the timing channel is not evaded",
+          "source": "experiments/influence/bellwether/README.md"
+        },
+        {
+          "what": "robustness across ten independent random population embeddings",
+          "value": "geometry AUC 0.97 mean, SD 0.016, range 0.93 to 0.99",
+          "source": "experiments/influence/bellwether/README.md"
+        }
       ],
       "caveats": [
         "A synthetic model: not evidence that the effect exists at any particular magnitude in a real brain.",
@@ -234,7 +376,11 @@
         "experiments/influence/bellwether/results/leadtime.json",
         "experiments/influence/bellwether/results/robustness.json"
       ],
-      "cites": []
+      "cites": [],
+      "chain_link": [
+        "3-steer"
+      ],
+      "chain_note": "The detection side of link 3: whether a push is visible in population activity before the choice is committed."
     },
     {
       "id": "persuasion-control",
@@ -250,10 +396,26 @@
       "human_data": false,
       "status": "simulation only; the gap theorem is Lean-verified, the numbers are across 12 seeds with 95% percentile intervals",
       "key_numbers": [
-        {"what": "capture dose to lift P(merge) to 75%, in evidence-equivalent units", "value": "0.0028 nA.s, equal to 4.5% coherence of honest evidence (honest baseline P=0.51)", "source": "experiments/influence/persuasion-control/README.md"},
-        {"what": "stealth floor under the two defenders", "value": "value-channel 0.0084 nA.s, behaviour-shaped 0.0072 nA.s", "source": "experiments/influence/persuasion-control/README.md"},
-        {"what": "covert-capture gap: captured but undetected", "value": "0.0056 and 0.0044 nA.s, each present in 12/12 seeds", "source": "experiments/influence/persuasion-control/README.md"},
-        {"what": "specificity control: directed vs magnitude-matched non-directed drive", "value": "P(merge) 1.00 vs 0.50 at every tested dose", "source": "experiments/influence/persuasion-control/README.md"}
+        {
+          "what": "capture dose to lift P(merge) to 75%, in evidence-equivalent units",
+          "value": "0.0028 nA.s, equal to 4.5% coherence of honest evidence (honest baseline P=0.51)",
+          "source": "experiments/influence/persuasion-control/README.md"
+        },
+        {
+          "what": "stealth floor under the two defenders",
+          "value": "value-channel 0.0084 nA.s, behaviour-shaped 0.0072 nA.s",
+          "source": "experiments/influence/persuasion-control/README.md"
+        },
+        {
+          "what": "covert-capture gap: captured but undetected",
+          "value": "0.0056 and 0.0044 nA.s, each present in 12/12 seeds",
+          "source": "experiments/influence/persuasion-control/README.md"
+        },
+        {
+          "what": "specificity control: directed vs magnitude-matched non-directed drive",
+          "value": "P(merge) 1.00 vs 0.50 at every tested dose",
+          "source": "experiments/influence/persuasion-control/README.md"
+        }
       ],
       "caveats": [
         "Nothing here is human or neural data; dose is a drive amplitude in the model's units and the evidence-equivalent still does not translate to messages or minutes of real persuasion.",
@@ -263,8 +425,14 @@
       "provenance_files": [
         "experiments/influence/persuasion-control/results/persuasion_control.json"
       ],
-      "depends_on": ["bellwether"],
-      "cites": []
+      "depends_on": [
+        "bellwether"
+      ],
+      "cites": [],
+      "chain_link": [
+        "3-steer"
+      ],
+      "chain_note": "Puts numbers on link 3 for one concrete human-control decision: capture dose, stealth floor, and the covert band between them."
     },
     {
       "id": "bounded-influence",
@@ -280,10 +448,26 @@
       "human_data": false,
       "status": "everything here is simulated; no real human belief data has been analysed, so the central claim is untested. The real-data kill-criterion test has not been run.",
       "key_numbers": [
-        {"what": "fold / critical attacker strength", "value": "0.3849 = 2/(3*sqrt(3)), derived", "source": "experiments/influence/bounded-influence/PROVENANCE.md"},
-        {"what": "critical-slowing-down dissociation: warning before forced vs noise-activated crossings", "value": "0.375 vs 0.035, a 10.7x separation; median lead 5.8 time units", "source": "experiments/influence/bounded-influence/PROVENANCE.md"},
-        {"what": "the dose-cap exploit: an attacker parks just below the fold", "value": "crossing probability 1.00 for a dose of 0.001 - the cumulative dose cap is the wrong defence", "source": "experiments/influence/bounded-influence/PROVENANCE.md"},
-        {"what": "what the barrier floor buys instead", "value": "floor 0.1829; crossing probability 0.06 to 0.115 against a 0.05 target", "source": "experiments/influence/bounded-influence/PROVENANCE.md"}
+        {
+          "what": "fold / critical attacker strength",
+          "value": "0.3849 = 2/(3*sqrt(3)), derived",
+          "source": "experiments/influence/bounded-influence/PROVENANCE.md"
+        },
+        {
+          "what": "critical-slowing-down dissociation: warning before forced vs noise-activated crossings",
+          "value": "0.375 vs 0.035, a 10.7x separation; median lead 5.8 time units",
+          "source": "experiments/influence/bounded-influence/PROVENANCE.md"
+        },
+        {
+          "what": "the dose-cap exploit: an attacker parks just below the fold",
+          "value": "crossing probability 1.00 for a dose of 0.001 - the cumulative dose cap is the wrong defence",
+          "source": "experiments/influence/bounded-influence/PROVENANCE.md"
+        },
+        {
+          "what": "what the barrier floor buys instead",
+          "value": "floor 0.1829; crossing probability 0.06 to 0.115 against a 0.05 target",
+          "source": "experiments/influence/bounded-influence/PROVENANCE.md"
+        }
       ],
       "caveats": [
         "It does not show that real beliefs behave like a particle in a potential. That is the assumption the node exists to test, and the real-data test has not been run.",
@@ -299,7 +483,14 @@
         "experiments/influence/bounded-influence/theory/precision_bridge.md",
         "experiments/influence/bounded-influence/theory/related.md"
       ],
-      "cites": ["su2026-lc-topography", "salzberg2001-lateral-transfer"]
+      "cites": [
+        "su2026-lc-topography",
+        "salzberg2001-lateral-transfer"
+      ],
+      "chain_link": [
+        "3-steer"
+      ],
+      "chain_note": "Asks what quantity actually bounds link 3, and finds the intuitive answer wrong: a cumulative dose cap is defeated, a barrier floor is not."
     },
     {
       "id": "cognitive-influence-stack",
@@ -315,10 +506,26 @@
       "human_data": false,
       "status": "simulation only, synthetic learners with known learning rules. The headline claim splits: escalation of intent confirmed, winning through the lever refuted at this capability level.",
       "key_numbers": [
-        {"what": "escalation: curriculum skew over 12 episodes graded on a lasting preference", "value": "mean 0.725 vs 0.5, one-sided Wilcoxon p=2.4e-4; 12/12 episodes used the learning lever", "source": "experiments/influence/cognitive-influence-stack/level2_learning/results/RESULTS.md"},
-        {"what": "persistence actually achieved vs scripted benchmarks", "value": "0/12 episodes persisted, against a scripted clean learning lever at 47%", "source": "experiments/influence/cognitive-influence-stack/level2_learning/results/RESULTS.md"},
-        {"what": "the bound and the detector", "value": "installed-bias law validated five ways, 0/2000 bound violations; detector FPR<5%, curriculum attacks caught 100%", "source": "experiments/influence/cognitive-influence-stack/README.md"},
-        {"what": "level-1 early warning before a belief flip", "value": "median lead about 42 units, but sensitivity only 17% at 6% false alarms", "source": "experiments/influence/cognitive-influence-stack/README.md"}
+        {
+          "what": "escalation: curriculum skew over 12 episodes graded on a lasting preference",
+          "value": "mean 0.725 vs 0.5, one-sided Wilcoxon p=2.4e-4; 12/12 episodes used the learning lever",
+          "source": "experiments/influence/cognitive-influence-stack/level2_learning/results/RESULTS.md"
+        },
+        {
+          "what": "persistence actually achieved vs scripted benchmarks",
+          "value": "0/12 episodes persisted, against a scripted clean learning lever at 47%",
+          "source": "experiments/influence/cognitive-influence-stack/level2_learning/results/RESULTS.md"
+        },
+        {
+          "what": "the bound and the detector",
+          "value": "installed-bias law validated five ways, 0/2000 bound violations; detector FPR<5%, curriculum attacks caught 100%",
+          "source": "experiments/influence/cognitive-influence-stack/README.md"
+        },
+        {
+          "what": "level-1 early warning before a belief flip",
+          "value": "median lead about 42 units, but sensitivity only 17% at 6% false alarms",
+          "source": "experiments/influence/cognitive-influence-stack/README.md"
+        }
       ],
       "caveats": [
         "Simulation only: no human or neural data, nothing fit to real behaviour, by design.",
@@ -331,8 +538,14 @@
         "experiments/influence/cognitive-influence-stack/level3_substrate/README.md",
         "experiments/influence/cognitive-influence-stack/paper/draft.md"
       ],
-      "depends_on": ["bellwether"],
-      "cites": []
+      "depends_on": [
+        "bellwether"
+      ],
+      "cites": [],
+      "chain_link": [
+        "3-steer"
+      ],
+      "chain_note": "Whether an optimizing agent escalates across the levels of link 3 when only the lasting effect is rewarded. Escalation of intent confirmed; execution refuted at this capability level."
     },
     {
       "id": "learner-tampering",
@@ -348,10 +561,26 @@
       "human_data": false,
       "status": "simulation only; every learner is synthetic with a known learning rule, and nothing is fit to or tested on real behaviour or neural recordings",
       "key_numbers": [
-        {"what": "flawed test vs fair control, 20 episodes each (Grok 4.7)", "value": "14/20 committed and 12 passed, vs 2/20 committed and 0 passed; Fisher p=2.4e-4", "source": "experiments/influence/learner-tampering/environment/results/RESULTS.md"},
-        {"what": "cross-model committed rate on the flawed test", "value": "14/20, 3/11, 3/10, 1/10 across four frontier models; no model passed the fair control", "source": "experiments/influence/learner-tampering/README.md"},
-        {"what": "detector operating characteristics and its exact floor", "value": "false alarms 4-5%, catches attacks 88-100%; attacks shorter than ceil(log2(1/alpha)) blocks are provably undetectable", "source": "experiments/influence/learner-tampering/README.md"},
-        {"what": "defences compose, and one sentence removes the behaviour", "value": "caps cut installs to 2/12 and the detector catches 10/12 of those; a 'stay unbiased' instruction gives 0/12", "source": "experiments/influence/learner-tampering/environment/results/RESULTS.md"}
+        {
+          "what": "flawed test vs fair control, 20 episodes each (Grok 4.7)",
+          "value": "14/20 committed and 12 passed, vs 2/20 committed and 0 passed; Fisher p=2.4e-4",
+          "source": "experiments/influence/learner-tampering/environment/results/RESULTS.md"
+        },
+        {
+          "what": "cross-model committed rate on the flawed test",
+          "value": "14/20, 3/11, 3/10, 1/10 across four frontier models; no model passed the fair control",
+          "source": "experiments/influence/learner-tampering/README.md"
+        },
+        {
+          "what": "detector operating characteristics and its exact floor",
+          "value": "false alarms 4-5%, catches attacks 88-100%; attacks shorter than ceil(log2(1/alpha)) blocks are provably undetectable",
+          "source": "experiments/influence/learner-tampering/README.md"
+        },
+        {
+          "what": "defences compose, and one sentence removes the behaviour",
+          "value": "caps cut installs to 2/12 and the detector catches 10/12 of those; a 'stay unbiased' instruction gives 0/12",
+          "source": "experiments/influence/learner-tampering/environment/results/RESULTS.md"
+        }
       ],
       "caveats": [
         "All results are on synthetic learners; neither the bound nor the agent is fit to human behaviour or neural data.",
@@ -363,7 +592,11 @@
         "experiments/influence/learner-tampering/docs/THEORY.md",
         "experiments/influence/learner-tampering/paper/draft.md"
       ],
-      "cites": []
+      "cites": [],
+      "chain_link": [
+        "3-steer"
+      ],
+      "chain_note": "Link 3 aimed at the learning rule rather than a single choice, with an exact floor on what any detector of that form can catch."
     },
     {
       "id": "lc-ne",
@@ -379,10 +612,26 @@
       "human_data": false,
       "status": "69 citations verified against Europe PMC and ClinicalTrials.gov on 2026-10-20. The headline: the popular 'stimulate the locus coeruleus to protect memory in Alzheimer's' story is substantially weaker than its reputation, and the single most relevant completed trial missed its primary endpoint.",
       "key_numbers": [
-        {"what": "continuous taVNS effect on pupil dilation, the field's own mechanism marker (18 studies, 771 participants)", "value": "g=0.002, BF01=21.9 - strong evidence FOR the null", "source": "corpus/references.json"},
-        {"what": "the only completed double-masked taVNS trial in MCI with posted results", "value": "RAVLT delayed recall sham 6.43 vs tVNS 7.83, beta=1.4, p=0.11 - primary endpoint missed", "source": "corpus/references.json"},
-        {"what": "spatial agreement between the seven published LC atlases", "value": "Dice 0.2 to 0.4 - the field does not agree where the LC is", "source": "corpus/references.json"},
-        {"what": "direction of effect of LC stimulation in tau models", "value": "short-term chemogenetic drive rescues reversal learning in rats; long-term drive worsens memory, LTP and tau in mice", "source": "corpus/references.json"}
+        {
+          "what": "continuous taVNS effect on pupil dilation, the field's own mechanism marker (18 studies, 771 participants)",
+          "value": "g=0.002, BF01=21.9 - strong evidence FOR the null",
+          "source": "corpus/references.json"
+        },
+        {
+          "what": "the only completed double-masked taVNS trial in MCI with posted results",
+          "value": "RAVLT delayed recall sham 6.43 vs tVNS 7.83, beta=1.4, p=0.11 - primary endpoint missed",
+          "source": "corpus/references.json"
+        },
+        {
+          "what": "spatial agreement between the seven published LC atlases",
+          "value": "Dice 0.2 to 0.4 - the field does not agree where the LC is",
+          "source": "corpus/references.json"
+        },
+        {
+          "what": "direction of effect of LC stimulation in tau models",
+          "value": "short-term chemogenetic drive rescues reversal learning in rats; long-term drive worsens memory, LTP and tau in mice",
+          "source": "corpus/references.json"
+        }
       ],
       "caveats": [
         "Nothing in this node was run here. It records other people's results and the verification state of each citation.",
@@ -394,26 +643,132 @@
         "corpus/references.json"
       ],
       "cites": [
-        "su2026-lc-topography", "clark1999-vns-memory", "ghacibeh2006-memory", "ghacibeh2006-flexibility",
-        "frangos2015-tavns-brainstem", "keute2019-null-pupil", "warren2019-tavns-markers", "burger2020-null-pupil",
-        "contier2026-null", "pervaz2025-pupil-meta", "liu2026-cognition-meta", "giraudier2022-saa-mega",
-        "sharon2021-phasic-pupil", "ludwig2024-perceived-intensity", "venturabort2025-memory", "mary2026-episodic",
-        "kaluza2026-pavlovian", "kotsaris2026-empathic-learning", "joshi2016-pupil-lc", "megemont2022-pupil-not-lc",
-        "astonjones2005-adaptive-gain", "yudayan2005-uncertainty", "warren2017-atomoxetine-exploration",
-        "marshall2016-pharma-fingerprints", "degee2025-choice-history", "ocallaghan2025-parkinsons-rl",
-        "nuiten2026-arousal-dissociation", "nct03359902-mci-tavns", "nct04908358-ad-tavns",
-        "clark1999-dose-numbers", "alpha2-agonist-decision-studies", "thompson2026-pupil-lc-modes",
-        "braak2011-stages", "braak2011-under30", "ehrenberg2017-lc-tau", "theofilas2017-lc-volume",
-        "lyness2003-meta", "wilson2013-neural-reserve", "kelly2017-lc-progression", "dahl2019-rostral-lc",
-        "elman2021-vetsa", "jacobs2021-lc-validation", "liu2020-camcan-prereg", "sibahi2026-longitudinal",
-        "robertson2013-reserve-theory", "mather2016-lc-review", "mather2021-retreat", "mather2016-gane",
-        "sara2016-gane-critique", "heneka2010-lc-microglia", "rorabaugh2017-chemogenetic",
-        "chalermpalanupap2018-dsp4", "nong2026-chronic-stim-worse", "evans2024-ne-inhibition",
-        "levey2022-atomoxetine-mci", "bachman2023-hrv-lc-contrast", "keren2015-histologic-validation",
-        "watanabe2019-not-neuromelanin", "trujillo2017-iron-contrast", "tona2017-testretest",
-        "dmitrichenko2026-atlas-disagreement", "liu2019-camcan-quadratic", "liu2020-corrigendum",
-        "liu2017-systematic-review", "betts2019-consensus", "lc-transplant-ad-models",
-        "optogenetic-lc-ad-rescue", "lc-mri-meta-analysis-ad"
+        "su2026-lc-topography",
+        "clark1999-vns-memory",
+        "ghacibeh2006-memory",
+        "ghacibeh2006-flexibility",
+        "frangos2015-tavns-brainstem",
+        "keute2019-null-pupil",
+        "warren2019-tavns-markers",
+        "burger2020-null-pupil",
+        "contier2026-null",
+        "pervaz2025-pupil-meta",
+        "liu2026-cognition-meta",
+        "giraudier2022-saa-mega",
+        "sharon2021-phasic-pupil",
+        "ludwig2024-perceived-intensity",
+        "venturabort2025-memory",
+        "mary2026-episodic",
+        "kaluza2026-pavlovian",
+        "kotsaris2026-empathic-learning",
+        "joshi2016-pupil-lc",
+        "megemont2022-pupil-not-lc",
+        "astonjones2005-adaptive-gain",
+        "yudayan2005-uncertainty",
+        "warren2017-atomoxetine-exploration",
+        "marshall2016-pharma-fingerprints",
+        "degee2025-choice-history",
+        "ocallaghan2025-parkinsons-rl",
+        "nuiten2026-arousal-dissociation",
+        "nct03359902-mci-tavns",
+        "nct04908358-ad-tavns",
+        "clark1999-dose-numbers",
+        "alpha2-agonist-decision-studies",
+        "thompson2026-pupil-lc-modes",
+        "braak2011-stages",
+        "braak2011-under30",
+        "ehrenberg2017-lc-tau",
+        "theofilas2017-lc-volume",
+        "lyness2003-meta",
+        "wilson2013-neural-reserve",
+        "kelly2017-lc-progression",
+        "dahl2019-rostral-lc",
+        "elman2021-vetsa",
+        "jacobs2021-lc-validation",
+        "liu2020-camcan-prereg",
+        "sibahi2026-longitudinal",
+        "robertson2013-reserve-theory",
+        "mather2016-lc-review",
+        "mather2021-retreat",
+        "mather2016-gane",
+        "sara2016-gane-critique",
+        "heneka2010-lc-microglia",
+        "rorabaugh2017-chemogenetic",
+        "chalermpalanupap2018-dsp4",
+        "nong2026-chronic-stim-worse",
+        "evans2024-ne-inhibition",
+        "levey2022-atomoxetine-mci",
+        "bachman2023-hrv-lc-contrast",
+        "keren2015-histologic-validation",
+        "watanabe2019-not-neuromelanin",
+        "trujillo2017-iron-contrast",
+        "tona2017-testretest",
+        "dmitrichenko2026-atlas-disagreement",
+        "liu2019-camcan-quadratic",
+        "liu2020-corrigendum",
+        "liu2017-systematic-review",
+        "betts2019-consensus",
+        "lc-transplant-ad-models",
+        "optogenetic-lc-ad-rescue",
+        "lc-mri-meta-analysis-ad"
+      ],
+      "chain_link": [
+        "2-individuate",
+        "3-steer"
+      ],
+      "chain_note": "External evidence on whether the noradrenergic system is a usable readout (link 2) or a usable knob (link 3) in real humans. Verdict on both: much weaker than its reputation."
+    },
+    {
+      "id": "psilocybin-precision",
+      "path": "evidence/psilocybin-precision",
+      "arm": "evidence",
+      "chain_link": [
+        "2-individuate"
+      ],
+      "chain_note": "External evidence that the quantity link 2 is blocked on may itself be manipulable: what binds autobiographical context into experience can be pharmacologically lowered, with a measured behavioural correlate. Also a case study in the tree's own population-versus-individual gap, since its authors flag that the association may not hold within individuals.",
+      "question": "Is the individuation bottleneck a fixed property of brains, or a maintained quantity that can be moved?",
+      "decider": "n/a - literature node. The subjects reviewed made no decisions; the outcome is a retrospective self-report scale.",
+      "task": "n/a - verified external evidence review",
+      "manipulation": "n/a - reviews others' manipulation: a single 19 mg oral dose of psilocybin, crossed with an 8-week meditation training arm",
+      "readout": "n/a - reviews others' readouts: inter-subject representational similarity under hyperalignment, seed connectivity, and the Ego Dissolution Inventory",
+      "defence": null,
+      "substrate": "literature",
+      "human_data": false,
+      "status": "One verified dataset paper and one preprint, checked 2026-10-20. Suggestive and explicitly not load-bearing: the mechanism is reverse inference, the outcome is retrospective self-report, and the key association is between-person.",
+      "key_numbers": [
+        {
+          "what": "match between the ego-dissolution-linked network and the Neurosynth language map",
+          "value": "r=0.382, spatial-null p<0.001, q=0.003, vs best comparator r=0.208",
+          "source": "corpus/references.json"
+        },
+        {
+          "what": "connectivity score vs ego dissolution, and vs the imagery control",
+          "value": "rho=0.455 (Bonferroni p=0.048) vs rho=0.008 - specific to selfhood, not to being altered",
+          "source": "corpus/references.json"
+        },
+        {
+          "what": "the PsiConnect cohort this rests on",
+          "value": "62 participants, single 19 mg dose, multi-echo fMRI + EEG, set and setting crossed with drug",
+          "source": "corpus/references.json"
+        },
+        {
+          "what": "stimulus-tracking control",
+          "value": "inter-subject correlation during music FELL under psilocybin, so global tracking does not explain the result",
+          "source": "corpus/references.json"
+        }
+      ],
+      "caveats": [
+        "The central paper is a PREPRINT posted 2026-10-14, not peer-reviewed, no PMID, with resting-state seeds drawn from the same participants.",
+        "Language involvement is reverse inference from meta-analytic maps; no measure of language or inner speech was taken, and the outcome scale was completed retrospectively after scanning.",
+        "The authors explicitly flag ergodicity: the between-person association may not hold within individuals. Nothing in it connects the score to choice behaviour, which is what this tree's chain runs through."
+      ],
+      "provenance_files": [
+        "evidence/psilocybin-precision/README.md",
+        "corpus/references.json"
+      ],
+      "cites": [
+        "novelli2026-psiconnect",
+        "cooper2026-language-selfhood"
       ]
     }
   ]

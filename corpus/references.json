@@ -1078,6 +1078,37 @@
       "evidence_class": "meta-analysis",
       "why_unverified": "The only AD-relevant hit for an LC-MRI meta-analysis is a conference abstract with no listed authors, no PMID and no DOI. Not citable. The verified meta-analysis in this file (lyness2003-meta) is of autopsy cell counts, not MRI.",
       "n": null
+    },
+    {
+      "id": "novelli2026-psiconnect",
+      "authors": "Novelli L, Stoliker D, Barta T, Greaves MD, Chopra S, Jackson J, Kwee J, Pang JC, Williams ML, Razi A",
+      "year": 2026,
+      "title": "PsiConnect: Multimodal Neuroimaging of Context-Dependent Brain and Behaviour Dynamics under Psilocybin",
+      "venue": "Scientific Data",
+      "doi": "10.1038/s41597-026-07312-1",
+      "pmid": "42168232",
+      "verified_at": "https://europepmc.org/article/MED/42168232",
+      "verified_on": "2026-10-20",
+      "status": "verified",
+      "evidence_class": "human-interventional",
+      "n": 62,
+      "finding": "A multimodal dataset: 62 participants scanned before and after a single 19 mg oral dose of psilocybin, with multi-echo fMRI, structural and diffusion MRI and EEG, across resting state and three naturalistic conditions (guided meditation, music, movie). Half the cohort completed an 8-week meditation training programme, so set and setting are crossed with drug. A full behavioural and self-report battery with follow-ups.",
+      "caveat": "This is the dataset paper, not a result. It is what experiments/influence/bounded-influence/theory/related.md cites as its ground-truth barrier-lowering testbed; that node's PROVENANCE.md listed the citation as not re-verified, and it is now verified. The dataset's value to this tree is that it is a rare case of an experimentally controlled manipulation of the quantity the model calls barrier height, with brain and behaviour recorded."
+    },
+    {
+      "id": "cooper2026-language-selfhood",
+      "authors": "Cooper G, Stoliker D, Astl Delgado SV, Blackburne G, Novelli L, Green DW, Razi A, Das RK, Skipper JI",
+      "year": 2026,
+      "title": "Language-associated brain representations covary with disruption of selfhood under psilocybin",
+      "venue": "bioRxiv preprint, posted 2026-10-14, version 1",
+      "doi": "10.64898/2026.10.06.757069",
+      "verified_at": "https://api.biorxiv.org/details/biorxiv/10.64898/2026.10.06.757069",
+      "verified_on": "2026-10-20",
+      "status": "preprint",
+      "evidence_class": "human-interventional",
+      "n": "43 with ego-dissolution scores, 49 with imagery scores, 50 paired resting scans, from the 62-person PsiConnect cohort",
+      "finding": "Under psilocybin, the component cluster whose inter-subject representational similarity tracked ego dissolution was a left-lateralised frontotemporal network whose map matched the Neurosynth language map at r=0.382 (spatial-null p<0.001, q=0.003), nearly twice the best comparator (imagery r=0.208; baseline r<=0.12). A connectivity score seeded on that cluster correlated with ego dissolution at rho=0.455 (Bonferroni-adjusted p=0.048) and not with imagery (rho=0.008); item-level, the loss-of-ego and loss-of-identity items correlated at rho about 0.43-0.51. Inter-subject correlation during music FELL under psilocybin, so a global rise in stimulus tracking does not explain the convergence.",
+      "caveat": "PREPRINT, not peer-reviewed, posted 2026-10-14, no PMID. Its own stated limits are the load-bearing ones here: language involvement is REVERSE INFERENCE from meta-analytic maps with no direct measure of language or inner speech; the ego-dissolution scale was completed once after scanning, so it is retrospective; resting-state seeds came from the same participants, so it needs independent replication; and the authors explicitly flag ERGODICITY - between-person associations may not hold within individuals. That last caveat is this tree's own claim 2 appearing in someone else's data."
     }
   ]
 }
