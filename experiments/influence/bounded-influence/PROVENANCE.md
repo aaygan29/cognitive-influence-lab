@@ -61,14 +61,26 @@ Requires Python 3, `numpy`, `matplotlib`. Outputs go to `experiments/*.json` and
 
 ## Outside sources cited in `theory/`
 
-These are cited in the theory notes and were **not re-verified** when this file was written. Treat each as a pointer to check, not as established support.
+These are cited in the theory notes. They were **not re-verified** when this file was written. Two
+of the five have since been checked against Europe PMC (2026-10-20) and now live in
+[`corpus/references.json`](../../../corpus/references.json); the other three are still pointers to
+check, not established support.
 
-| Used for | Source as cited in this repo |
-|---|---|
-| Norepinephrine as a barrier and noise knob | Su et al., Allen Institute, bioRxiv 717727 |
-| Active inference and the dose-to-barrier bridge | Novelli, Stoliker, Razi et al., PsiConnect, Scientific Data 2026 |
-| Collective-scale model of agency erosion | Moon and Boudreaux, RAND, 2026 |
-| Neural readout of a decision crossing | Li et al., iScience 2026; bioRxiv 730072 |
-| Example of a transfer claim dissolved by a proper null | Salzberg et al., Science 2001 |
+| Used for | Source as cited in this repo | State |
+|---|---|---|
+| Norepinephrine as a barrier and noise knob | Su et al., Allen Institute, bioRxiv 717727 | **Verified, and superseded.** Now published: Su Z et al., "Topographic structure and function of locus coeruleus noradrenaline neurons", *Nature* 2026, doi 10.1038/s41586-026-11026-0, PMID 42749800. The abstract matches this repo's description closely (dorsal LC neurons projecting to isocortex activate on choice switches and carry reward-prediction-error signals; ventral LC activity is higher when animals ignore reward-predicting stimuli). **It is a mouse result**, so it licenses LC-NE as a candidate mechanism for the gain parameter, not a human magnitude. Cite `su2026-lc-topography`, not the preprint. |
+| Active inference and the dose-to-barrier bridge | Novelli, Stoliker, Razi et al., PsiConnect, Scientific Data 2026 | Still unverified. |
+| Collective-scale model of agency erosion | Moon and Boudreaux, RAND, 2026 | Still unverified. |
+| Neural readout of a decision crossing | Li et al., iScience 2026; bioRxiv 730072 | Still unverified. |
+| Example of a transfer claim dissolved by a proper null | Salzberg et al., Science 2001 | **Verified.** Salzberg SL, White O, Peterson J, Eisen JA, "Microbial genes in the human genome: lateral transfer or gene loss?", *Science* 2001, doi 10.1126/science.1061036, PMID 11358996. Cite `salzberg2001-lateral-transfer`. |
+
+**One caveat this node should absorb.** `theory/related.md` proposes an NE/arousal proxy (pupil,
+tonic latency drift) as the specificity control that separates a genuine approach to the separatrix
+from an arousal shift. That control is weaker than it looks: the paper usually cited to license
+pupil-as-LC concludes the relationship is **not specific to LC** (`joshi2016-pupil-lc`), pupil
+predicts only a small fraction of LC spiking moment to moment (`megemont2022-pupil-not-lc`), and in
+humans the pharmacological and pupillometric handles dissociate (`nuiten2026-arousal-dissociation`).
+A pupil covariate controls for something, but not specifically for LC gain. See
+[`evidence/lc-ne`](../../../evidence/lc-ne) for the full record.
 
 The dynamical-systems background (Kramers escape, critical slowing down before a fold) is standard, but the theory notes do not cite specific papers for it. Adding those citations is an open task in [COLLABORATING.md](COLLABORATING.md).
