@@ -1,0 +1,56 @@
+{
+  "dataset": "Knutson neuroforecasting (Kuhnen and Knutson 2005)",
+  "n": 274,
+  "window_TRs": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "models": {
+    "M0_NAcc": {
+      "oos_r": -0.21864611609622206,
+      "oos_auc": 0.41495383426747734,
+      "perm_p": 0.9995
+    },
+    "M1_EVR": {
+      "oos_r": 0.1817950085576925,
+      "oos_auc": 0.5709137002021173,
+      "perm_p": 0.003
+    },
+    "M2_affect_NAcc_minus_AIns": {
+      "oos_r": 0.18004273965274495,
+      "oos_auc": 0.5513069370542569,
+      "perm_p": 0.002
+    },
+    "M3_ridge_full": {
+      "oos_r": 0.09283439568875208,
+      "oos_auc": 0.5604622533937227,
+      "perm_p": 0.1215
+    },
+    "M4_ridge_ROImeans": {
+      "oos_r": -0.08940865029401876,
+      "oos_auc": 0.4594475264067444,
+      "perm_p": 0.84
+    },
+    "M5_shrinkage_ensemble": {
+      "oos_r": 0.05496856553355643,
+      "oos_auc": 0.5108871910795392,
+      "perm_p": 0.251
+    }
+  },
+  "best_generalizer": {
+    "model": "M1_EVR",
+    "oos_r": 0.1817950085576925,
+    "oos_auc": 0.5709137002021173,
+    "perm_p": 0.003
+  },
+  "window_robustness_affect": {
+    "early_2_5": 0.12969115356995867,
+    "mid_3_8": 0.18004273965274495,
+    "late_5_10": 0.10973981112740126,
+    "wide_2_12": 0.14051837368610276
+  }
+}

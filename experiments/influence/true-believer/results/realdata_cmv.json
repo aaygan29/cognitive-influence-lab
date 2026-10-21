@@ -1,0 +1,49 @@
+{
+  "dataset": "ChangeMyView / Winning Arguments (Tan et al. 2016, ConvoKit)",
+  "n_labeled": 19571,
+  "n_success": 12327,
+  "signature": "B = z(E)+z(V)-z(R), persuasion-neuroscience-grounded TEXT proxy (not fMRI)",
+  "within_pair": {
+    "n_pairs": 3866,
+    "win_rate": 0.5351784790481118,
+    "win_rate_ci95": [
+      0.519917227108122,
+      0.5507048629073978
+    ],
+    "mean_diff_B": 0.06990730597260034,
+    "wilcoxon_p": 1.7108707738913606e-05
+  },
+  "within_pair_channels": {
+    "E": {
+      "win_rate": 0.5794102431453699,
+      "wilcoxon_p": 8.820549977799312e-25
+    },
+    "V": {
+      "win_rate": 0.48706673564407654,
+      "wilcoxon_p": 0.06745082200555186
+    },
+    "R_neg": {
+      "win_rate": 0.26151060527677183,
+      "wilcoxon_p": 1.1931684810246207e-09
+    },
+    "B": {
+      "win_rate": 0.5351784790481118,
+      "wilcoxon_p": 1.7108707738913606e-05
+    }
+  },
+  "incremental_auc": {
+    "auc_content": 0.5693588016407638,
+    "auc_content_plus_B": 0.5690349374725716,
+    "delta_auc": -0.00032386416819221166,
+    "delta_auc_ci95": [
+      -0.0004457571374216274,
+      -0.0002100166801196268
+    ],
+    "n_folds": 50,
+    "passed": false
+  },
+  "permutation_null": {
+    "null_win_rate_mean": 0.5056425178953977,
+    "null_win_rate_sd": 0.00770775418806208
+  }
+}

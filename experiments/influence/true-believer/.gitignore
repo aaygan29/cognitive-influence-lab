@@ -1,0 +1,30 @@
+# Raw third-party data is never committed (only the manifest + synthetic stand-in)
+data/raw/
+data/*.csv
+!data/synthetic_standin.csv
+*.npy
+!results/*.npy
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+
+.pytest_cache/
+
+# keep the submission PDF; docx is a build artifact
+paper/PAPER.docx
+
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.blg
+*.log
+*.out

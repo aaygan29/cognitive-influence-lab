@@ -1,0 +1,88 @@
+{
+  "dataset": "Knutson stock neuroforecasting (Kuhnen and Knutson 2005), via neurobridge",
+  "n_stocks": 274,
+  "window_TRs": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "roi_map": {
+    "E": "mpfcb",
+    "V": "nacc8mmb",
+    "R": "desai_insb"
+  },
+  "signature_B": {
+    "E1->E2": {
+      "pearson_r": 0.31550860182418194,
+      "auc": 0.6186672272440614
+    },
+    "E2->E1": {
+      "pearson_r": 0.048081415291203085,
+      "auc": 0.5231601731601732
+    },
+    "mean_r": 0.1817950085576925,
+    "mean_auc": 0.5709137002021173,
+    "perm_p": 0.003,
+    "null_mean_r": -0.002035185791981544
+  },
+  "NAcc_only": {
+    "E1->E2": {
+      "pearson_r": -0.3441885633362768,
+      "auc": 0.3928946815219676
+    },
+    "E2->E1": {
+      "pearson_r": -0.09310366885616733,
+      "auc": 0.4370129870129871
+    },
+    "mean_r": -0.21864611609622206,
+    "mean_auc": 0.41495383426747734,
+    "perm_p": 0.9995,
+    "null_mean_r": -0.002662913088474415
+  },
+  "MPFC_only": {
+    "E1->E2": {
+      "pearson_r": -0.23108223148932372,
+      "auc": 0.38196342232499475
+    },
+    "E2->E1": {
+      "pearson_r": -0.050858797479195555,
+      "auc": 0.48831168831168836
+    },
+    "mean_r": -0.14097051448425962,
+    "mean_auc": 0.43513755531834153,
+    "perm_p": 0.9805,
+    "null_mean_r": 0.00010136346701431426
+  },
+  "insula_only": {
+    "E1->E2": {
+      "pearson_r": -0.1033978375773253,
+      "auc": 0.4406138322472146
+    },
+    "E2->E1": {
+      "pearson_r": -0.1855119959879717,
+      "auc": 0.4231601731601732
+    },
+    "mean_r": -0.1444549167826485,
+    "mean_auc": 0.4318870027036939,
+    "perm_p": 0.9845,
+    "null_mean_r": -0.00013809803621764194
+  },
+  "per_experiment_stability": {
+    "experiment_1": {
+      "E": -0.05085879747919545,
+      "V": -0.09310366885616728,
+      "R": -0.1855119959879718,
+      "B": 0.048081415291203064
+    },
+    "experiment_2": {
+      "E": 0.2310822314893234,
+      "V": 0.34418856333627673,
+      "R": 0.10339783757732529,
+      "B": 0.31550860182418194
+    }
+  },
+  "caveat": "Effect is near-null in experiment 1 and strong in experiment 2; the composite is the only predictor sign-stable across both, but the result is weak and experiment-dependent."
+}
