@@ -58,7 +58,7 @@ superseded, and the real-CSI fMRI pipeline is built, unit-tested and gated on a 
 | `council-of-elrond` | Review **tooling**, not an experiment — but it is the instrument that produced this tree's honesty layer. Its outputs appear as `COUNCIL_REVIEW.md` in several folded nodes, and the MDES corrections in claim 1 are its gate output. Cited, not merged. |
 | `grok-reward-hacking-psg0417`, `honeyforge-env-template`, `steering-in-the-wild`, `choose-to-steer` | Already excluded by the README. |
 
-## Fully redundant — safe to stop developing
+## Fully redundant — archived 2026-10-20
 
 Verified by file-list and SHA comparison, not assumed:
 
@@ -68,8 +68,13 @@ Verified by file-list and SHA comparison, not assumed:
 - **`structure-function-individuation`** — 68 of 72 files present verbatim. The four absent were the
   duplicated `digital-brain/` stub; two of those were SHA-identical to the tree's richer standalone
   node, and the one genuine gap, `digital-brain/LICENSE`, has been restored.
-  **Keep this repo public.** It is the attributed, citable version by design; the copy here is
-  deliberately anonymised. "Redundant" here means stop developing it, not delete it.
+  It is the attributed, citable version by design; the copy here is deliberately anonymised.
+
+Both were **archived on GitHub on 2026-10-20**, not deleted, and both remain **public**: an archived
+repo stays readable and citable, it just becomes read-only. That matters because
+`individuation-spine/wiring-not-weights/paper/manuscript.md` cites
+`github.com/aaygan29/structure-function-individuation` as its code URL, and that citation still
+resolves. Archiving is reversible if either needs to be picked up again.
 
 ## Known defects this consolidation surfaced
 
