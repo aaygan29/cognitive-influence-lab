@@ -1,0 +1,794 @@
+{
+  "committed_results_source": "/Users/aayushgandhi/Desktop/Research/Neuro-AI/digital-brain/results/algonauts2023/all_results_N4.json",
+  "n_rois": 25,
+  "chance_committed": 0.25,
+  "correction_of_committed_pvalues": {
+    "n_bh_fdr_survive_q05": 0,
+    "n_bonferroni_survive_05": 0,
+    "per_roi": {
+      "EBA": {
+        "accuracy": 0.75,
+        "p_raw": 0.032,
+        "q_bh_fdr": 0.05499999999999999,
+        "p_bonferroni": 0.8,
+        "survives_bh_fdr_05": false,
+        "survives_bonferroni_05": false
+      },
+      "FBA-2": {
+        "accuracy": 0.75,
+        "p_raw": 0.026,
+        "q_bh_fdr": 0.05499999999999999,
+        "p_bonferroni": 0.65,
+        "survives_bh_fdr_05": false,
+        "survives_bonferroni_05": false
+      },
+      "FFA-1": {
+        "accuracy": 1.0,
+        "p_raw": 0.041,
+        "q_bh_fdr": 0.05499999999999999,
+        "p_bonferroni": 1.0,
+        "survives_bh_fdr_05": false,
+        "survives_bonferroni_05": false
+      },
+      "FFA-2": {
+        "accuracy": 0.5,
+        "p_raw": 0.287,
+        "q_bh_fdr": 0.294,
+        "p_bonferroni": 1.0,
+        "survives_bh_fdr_05": false,
+        "survives_bonferroni_05": false
+      },
+      "OFA": {
+        "accuracy": 1.0,
+        "p_raw": 0.044,
+        "q_bh_fdr": 0.05499999999999999,
+        "p_bonferroni": 1.0,
+        "survives_bh_fdr_05": false,
+        "survives_bonferroni_05": false
+      },
+      "OPA": {
+        "accuracy": 0.75,
+        "p_raw": 0.039,
+        "q_bh_fdr": 0.05499999999999999,
+        "p_bonferroni": 0.975,
+        "survives_bh_fdr_05": false,
+        "survives_bonferroni_05": false
+      },
+      "OWFA": {
+        "accuracy": 0.75,
+        "p_raw": 0.055,
+        "q_bh_fdr": 0.059782608695652176,
+        "p_bonferroni": 1.0,
+        "survives_bh_fdr_05": false,
+        "survives_bonferroni_05": false
+      },
+      "PPA": {
+        "accuracy": 1.0,
+        "p_raw": 0.032,
+        "q_bh_fdr": 0.05499999999999999,
+        "p_bonferroni": 0.8,
+        "survives_bh_fdr_05": false,
+        "survives_bonferroni_05": false
+      },
+      "RSC": {
+        "accuracy": 0.5,
+        "p_raw": 0.294,
+        "q_bh_fdr": 0.294,
+        "p_bonferroni": 1.0,
+        "survives_bh_fdr_05": false,
+        "survives_bonferroni_05": false
+      },
+      "V1d": {
+        "accuracy": 1.0,
+        "p_raw": 0.043,
+        "q_bh_fdr": 0.05499999999999999,
+        "p_bonferroni": 1.0,
+        "survives_bh_fdr_05": false,
+        "survives_bonferroni_05": false
+      },
+      "V1v": {
+        "accuracy": 1.0,
+        "p_raw": 0.048,
+        "q_bh_fdr": 0.05714285714285714,
+        "p_bonferroni": 1.0,
+        "survives_bh_fdr_05": false,
+        "survives_bonferroni_05": false
+      },
+      "V2d": {
+        "accuracy": 1.0,
+        "p_raw": 0.033,
+        "q_bh_fdr": 0.05499999999999999,
+        "p_bonferroni": 0.8250000000000001,
+        "survives_bh_fdr_05": false,
+        "survives_bonferroni_05": false
+      },
+      "V2v": {
+        "accuracy": 1.0,
+        "p_raw": 0.042,
+        "q_bh_fdr": 0.05499999999999999,
+        "p_bonferroni": 1.0,
+        "survives_bh_fdr_05": false,
+        "survives_bonferroni_05": false
+      },
+      "V3d": {
+        "accuracy": 0.75,
+        "p_raw": 0.04,
+        "q_bh_fdr": 0.05499999999999999,
+        "p_bonferroni": 1.0,
+        "survives_bh_fdr_05": false,
+        "survives_bonferroni_05": false
+      },
+      "V3v": {
+        "accuracy": 1.0,
+        "p_raw": 0.036,
+        "q_bh_fdr": 0.05499999999999999,
+        "p_bonferroni": 0.8999999999999999,
+        "survives_bh_fdr_05": false,
+        "survives_bonferroni_05": false
+      },
+      "VWFA-1": {
+        "accuracy": 1.0,
+        "p_raw": 0.043,
+        "q_bh_fdr": 0.05499999999999999,
+        "p_bonferroni": 1.0,
+        "survives_bh_fdr_05": false,
+        "survives_bonferroni_05": false
+      },
+      "VWFA-2": {
+        "accuracy": 1.0,
+        "p_raw": 0.037,
+        "q_bh_fdr": 0.05499999999999999,
+        "p_bonferroni": 0.9249999999999999,
+        "survives_bh_fdr_05": false,
+        "survives_bonferroni_05": false
+      },
+      "early": {
+        "accuracy": 0.75,
+        "p_raw": 0.054,
+        "q_bh_fdr": 0.059782608695652176,
+        "p_bonferroni": 1.0,
+        "survives_bh_fdr_05": false,
+        "survives_bonferroni_05": false
+      },
+      "hV4": {
+        "accuracy": 0.75,
+        "p_raw": 0.039,
+        "q_bh_fdr": 0.05499999999999999,
+        "p_bonferroni": 0.975,
+        "survives_bh_fdr_05": false,
+        "survives_bonferroni_05": false
+      },
+      "lateral": {
+        "accuracy": 0.75,
+        "p_raw": 0.028,
+        "q_bh_fdr": 0.05499999999999999,
+        "p_bonferroni": 0.7000000000000001,
+        "survives_bh_fdr_05": false,
+        "survives_bonferroni_05": false
+      },
+      "midlateral": {
+        "accuracy": 1.0,
+        "p_raw": 0.039,
+        "q_bh_fdr": 0.05499999999999999,
+        "p_bonferroni": 0.975,
+        "survives_bh_fdr_05": false,
+        "survives_bonferroni_05": false
+      },
+      "midparietal": {
+        "accuracy": 0.75,
+        "p_raw": 0.043,
+        "q_bh_fdr": 0.05499999999999999,
+        "p_bonferroni": 1.0,
+        "survives_bh_fdr_05": false,
+        "survives_bonferroni_05": false
+      },
+      "midventral": {
+        "accuracy": 1.0,
+        "p_raw": 0.034,
+        "q_bh_fdr": 0.05499999999999999,
+        "p_bonferroni": 0.8500000000000001,
+        "survives_bh_fdr_05": false,
+        "survives_bonferroni_05": false
+      },
+      "parietal": {
+        "accuracy": 0.75,
+        "p_raw": 0.033,
+        "q_bh_fdr": 0.05499999999999999,
+        "p_bonferroni": 0.8250000000000001,
+        "survives_bh_fdr_05": false,
+        "survives_bonferroni_05": false
+      },
+      "ventral": {
+        "accuracy": 1.0,
+        "p_raw": 0.034,
+        "q_bh_fdr": 0.05499999999999999,
+        "p_bonferroni": 0.8500000000000001,
+        "survives_bh_fdr_05": false,
+        "survives_bonferroni_05": false
+      }
+    }
+  },
+  "subject_respecting_permutation_fmri_reanalysis": {
+    "note": "Recomputed directly from on-disk LH training betas (n_stim=800, subjects=['subj01', 'subj02', 'subj03', 'subj04']), not a re-derivation of the committed accuracy/p numbers, which were produced by a different (undocumented in this script) classifier/CV scheme. This is an independent individuation probe using the same subject-respecting exchangeability logic.",
+    "n_permutations": 5000,
+    "n_bh_fdr_survive_q05": 25,
+    "n_bonferroni_survive_05": 0,
+    "per_roi": {
+      "EBA": {
+        "n_subjects_with_valid_mask": 4,
+        "n_voxels_median": 300,
+        "participation_ratio_per_subject": {
+          "subj01": 217.9385782129004,
+          "subj02": 219.0215827643752,
+          "subj03": 217.13830363487256,
+          "subj04": 218.39389022343443
+        },
+        "participation_ratio_mean": 218.12308870889564,
+        "manifold_capacity_proxy_margin": 0.40424491645520155,
+        "mean_between_subject_distance": 2.11068204963393,
+        "mean_within_subject_spread": 5.221295219101244,
+        "observed_fingerprint_1nn_accuracy": 1.0,
+        "chance_1nn": 0.25,
+        "permutation_null_mean": 0.251,
+        "permutation_null_std": 0.2511453762265991,
+        "permutation_p_subject_respecting": 0.04319136172765447,
+        "q_bh_fdr_permutation": 0.04619076184763047,
+        "p_bonferroni_permutation": 1.0,
+        "survives_bh_fdr_05_permutation": true
+      },
+      "FBA-2": {
+        "n_subjects_with_valid_mask": 4,
+        "n_voxels_median": 150,
+        "participation_ratio_per_subject": {
+          "subj01": 126.46920791462051,
+          "subj02": 126.24707407443498,
+          "subj03": 125.66161382453994,
+          "subj04": 126.27230850700676
+        },
+        "participation_ratio_mean": 126.16255108015055,
+        "manifold_capacity_proxy_margin": 0.5761532334330607,
+        "mean_between_subject_distance": 2.1302392072390366,
+        "mean_within_subject_spread": 3.697348350447049,
+        "observed_fingerprint_1nn_accuracy": 1.0,
+        "chance_1nn": 0.25,
+        "permutation_null_mean": 0.2475,
+        "permutation_null_std": 0.2503872001520845,
+        "permutation_p_subject_respecting": 0.04239152169566087,
+        "q_bh_fdr_permutation": 0.04619076184763047,
+        "p_bonferroni_permutation": 1.0,
+        "survives_bh_fdr_05_permutation": true
+      },
+      "FFA-1": {
+        "n_subjects_with_valid_mask": 4,
+        "n_voxels_median": 250,
+        "participation_ratio_per_subject": {
+          "subj01": 190.34591100739536,
+          "subj02": 190.2732416591129,
+          "subj03": 190.31262851459695,
+          "subj04": 190.23964402848733
+        },
+        "participation_ratio_mean": 190.29285630239812,
+        "manifold_capacity_proxy_margin": 0.5025295123684825,
+        "mean_between_subject_distance": 2.398736432891472,
+        "mean_within_subject_spread": 4.773324499063614,
+        "observed_fingerprint_1nn_accuracy": 1.0,
+        "chance_1nn": 0.25,
+        "permutation_null_mean": 0.2563,
+        "permutation_null_std": 0.246242380592781,
+        "permutation_p_subject_respecting": 0.039192161567686463,
+        "q_bh_fdr_permutation": 0.04619076184763047,
+        "p_bonferroni_permutation": 0.9798040391921616,
+        "survives_bh_fdr_05_permutation": true
+      },
+      "FFA-2": {
+        "n_subjects_with_valid_mask": 4,
+        "n_voxels_median": 200,
+        "participation_ratio_per_subject": {
+          "subj01": 159.88367901865402,
+          "subj02": 159.27558790166444,
+          "subj03": 160.35634597102532,
+          "subj04": 160.00672373754193
+        },
+        "participation_ratio_mean": 159.88058415722145,
+        "manifold_capacity_proxy_margin": 0.47282765162092166,
+        "mean_between_subject_distance": 2.0132603465504615,
+        "mean_within_subject_spread": 4.257915838145761,
+        "observed_fingerprint_1nn_accuracy": 1.0,
+        "chance_1nn": 0.25,
+        "permutation_null_mean": 0.24865,
+        "permutation_null_std": 0.24891901795563953,
+        "permutation_p_subject_respecting": 0.04059188162367527,
+        "q_bh_fdr_permutation": 0.04619076184763047,
+        "p_bonferroni_permutation": 1.0,
+        "survives_bh_fdr_05_permutation": true
+      },
+      "OFA": {
+        "n_subjects_with_valid_mask": 4,
+        "n_voxels_median": 200,
+        "participation_ratio_per_subject": {
+          "subj01": 159.66650788270795,
+          "subj02": 159.3878088495136,
+          "subj03": 159.9000738993961,
+          "subj04": 159.61379229459402
+        },
+        "participation_ratio_mean": 159.6420457315529,
+        "manifold_capacity_proxy_margin": 0.6038997928244851,
+        "mean_between_subject_distance": 2.585662633917185,
+        "mean_within_subject_spread": 4.28160874476085,
+        "observed_fingerprint_1nn_accuracy": 1.0,
+        "chance_1nn": 0.25,
+        "permutation_null_mean": 0.2453,
+        "permutation_null_std": 0.24910421513896552,
+        "permutation_p_subject_respecting": 0.041191761647670466,
+        "q_bh_fdr_permutation": 0.04619076184763047,
+        "p_bonferroni_permutation": 1.0,
+        "survives_bh_fdr_05_permutation": true
+      },
+      "OPA": {
+        "n_subjects_with_valid_mask": 4,
+        "n_voxels_median": 250,
+        "participation_ratio_per_subject": {
+          "subj01": 189.32125182855896,
+          "subj02": 190.2836786203583,
+          "subj03": 190.42539149842378,
+          "subj04": 190.29374161100498
+        },
+        "participation_ratio_mean": 190.0810158895865,
+        "manifold_capacity_proxy_margin": 0.4489698302546831,
+        "mean_between_subject_distance": 2.14184153998855,
+        "mean_within_subject_spread": 4.770568968460793,
+        "observed_fingerprint_1nn_accuracy": 1.0,
+        "chance_1nn": 0.25,
+        "permutation_null_mean": 0.2526,
+        "permutation_null_std": 0.2542503490656404,
+        "permutation_p_subject_respecting": 0.04539092181563687,
+        "q_bh_fdr_permutation": 0.04619076184763047,
+        "p_bonferroni_permutation": 1.0,
+        "survives_bh_fdr_05_permutation": true
+      },
+      "OWFA": {
+        "n_subjects_with_valid_mask": 4,
+        "n_voxels_median": 150,
+        "participation_ratio_per_subject": {
+          "subj01": 126.39214665397152,
+          "subj02": 125.94516771467487,
+          "subj03": 125.88601884915303,
+          "subj04": 126.10450605632316
+        },
+        "participation_ratio_mean": 126.08195981853065,
+        "manifold_capacity_proxy_margin": 0.5167857558271052,
+        "mean_between_subject_distance": 1.9086552150730902,
+        "mean_within_subject_spread": 3.6933200916457327,
+        "observed_fingerprint_1nn_accuracy": 1.0,
+        "chance_1nn": 0.25,
+        "permutation_null_mean": 0.24845,
+        "permutation_null_std": 0.253988380639745,
+        "permutation_p_subject_respecting": 0.04399120175964807,
+        "q_bh_fdr_permutation": 0.04619076184763047,
+        "p_bonferroni_permutation": 1.0,
+        "survives_bh_fdr_05_permutation": true
+      },
+      "PPA": {
+        "n_subjects_with_valid_mask": 4,
+        "n_voxels_median": 350,
+        "participation_ratio_per_subject": {
+          "subj01": 243.4018038287244,
+          "subj02": 243.8118218135274,
+          "subj03": 243.05309360836696,
+          "subj04": 242.72679042838004
+        },
+        "participation_ratio_mean": 243.2483774197497,
+        "manifold_capacity_proxy_margin": 0.5132235996661478,
+        "mean_between_subject_distance": 2.899001112449836,
+        "mean_within_subject_spread": 5.648612250752156,
+        "observed_fingerprint_1nn_accuracy": 1.0,
+        "chance_1nn": 0.25,
+        "permutation_null_mean": 0.24985,
+        "permutation_null_std": 0.25241330689961655,
+        "permutation_p_subject_respecting": 0.04479104179164167,
+        "q_bh_fdr_permutation": 0.04619076184763047,
+        "p_bonferroni_permutation": 1.0,
+        "survives_bh_fdr_05_permutation": true
+      },
+      "RSC": {
+        "n_subjects_with_valid_mask": 4,
+        "n_voxels_median": 300,
+        "participation_ratio_per_subject": {
+          "subj01": 218.3456652231371,
+          "subj02": 217.89194051912298,
+          "subj03": 218.22192545484893,
+          "subj04": 217.7265823389078
+        },
+        "participation_ratio_mean": 218.0465283840042,
+        "manifold_capacity_proxy_margin": 0.4284943147354491,
+        "mean_between_subject_distance": 2.2385054909124538,
+        "mean_within_subject_spread": 5.224119466541979,
+        "observed_fingerprint_1nn_accuracy": 1.0,
+        "chance_1nn": 0.25,
+        "permutation_null_mean": 0.24865,
+        "permutation_null_std": 0.2502212570905997,
+        "permutation_p_subject_respecting": 0.041391721655668866,
+        "q_bh_fdr_permutation": 0.04619076184763047,
+        "p_bonferroni_permutation": 1.0,
+        "survives_bh_fdr_05_permutation": true
+      },
+      "V1d": {
+        "n_subjects_with_valid_mask": 4,
+        "n_voxels_median": 600,
+        "participation_ratio_per_subject": {
+          "subj01": 342.1241727350764,
+          "subj02": 342.7472801749557,
+          "subj03": 343.657648955464,
+          "subj04": 342.089987451291
+        },
+        "participation_ratio_mean": 342.6547723291968,
+        "manifold_capacity_proxy_margin": 0.5061352710639031,
+        "mean_between_subject_distance": 3.7411298125642864,
+        "mean_within_subject_spread": 7.391561162492934,
+        "observed_fingerprint_1nn_accuracy": 1.0,
+        "chance_1nn": 0.25,
+        "permutation_null_mean": 0.2507,
+        "permutation_null_std": 0.2467276028335703,
+        "permutation_p_subject_respecting": 0.038592281543691265,
+        "q_bh_fdr_permutation": 0.04619076184763047,
+        "p_bonferroni_permutation": 0.9648070385922816,
+        "survives_bh_fdr_05_permutation": true
+      },
+      "V1v": {
+        "n_subjects_with_valid_mask": 4,
+        "n_voxels_median": 800,
+        "participation_ratio_per_subject": {
+          "subj01": 399.05966172563933,
+          "subj02": 399.02523389604954,
+          "subj03": 399.19738637548187,
+          "subj04": 399.0823319500073
+        },
+        "participation_ratio_mean": 399.0911534867945,
+        "manifold_capacity_proxy_margin": 0.4656374241585022,
+        "mean_between_subject_distance": 3.9732746445563016,
+        "mean_within_subject_spread": 8.532979606904062,
+        "observed_fingerprint_1nn_accuracy": 1.0,
+        "chance_1nn": 0.25,
+        "permutation_null_mean": 0.2521,
+        "permutation_null_std": 0.2552853109757786,
+        "permutation_p_subject_respecting": 0.04439112177564487,
+        "q_bh_fdr_permutation": 0.04619076184763047,
+        "p_bonferroni_permutation": 1.0,
+        "survives_bh_fdr_05_permutation": true
+      },
+      "V2d": {
+        "n_subjects_with_valid_mask": 4,
+        "n_voxels_median": 400,
+        "participation_ratio_per_subject": {
+          "subj01": 266.57049377193965,
+          "subj02": 266.4264352695848,
+          "subj03": 266.4576553151838,
+          "subj04": 266.2854737754705
+        },
+        "participation_ratio_mean": 266.4350145330447,
+        "manifold_capacity_proxy_margin": 0.5037408933182961,
+        "mean_between_subject_distance": 3.039682651295538,
+        "mean_within_subject_spread": 6.034218566755044,
+        "observed_fingerprint_1nn_accuracy": 1.0,
+        "chance_1nn": 0.25,
+        "permutation_null_mean": 0.25125,
+        "permutation_null_std": 0.2524102563288584,
+        "permutation_p_subject_respecting": 0.04439112177564487,
+        "q_bh_fdr_permutation": 0.04619076184763047,
+        "p_bonferroni_permutation": 1.0,
+        "survives_bh_fdr_05_permutation": true
+      },
+      "V2v": {
+        "n_subjects_with_valid_mask": 4,
+        "n_voxels_median": 500,
+        "participation_ratio_per_subject": {
+          "subj01": 306.3596763052168,
+          "subj02": 306.90873117259287,
+          "subj03": 307.42453791053845,
+          "subj04": 307.7030605536547
+        },
+        "participation_ratio_mean": 307.0990014855007,
+        "manifold_capacity_proxy_margin": 0.5451776866119298,
+        "mean_between_subject_distance": 3.685231240917616,
+        "mean_within_subject_spread": 6.759688320736987,
+        "observed_fingerprint_1nn_accuracy": 1.0,
+        "chance_1nn": 0.25,
+        "permutation_null_mean": 0.24495,
+        "permutation_null_std": 0.2500239938485905,
+        "permutation_p_subject_respecting": 0.04239152169566087,
+        "q_bh_fdr_permutation": 0.04619076184763047,
+        "p_bonferroni_permutation": 1.0,
+        "survives_bh_fdr_05_permutation": true
+      },
+      "V3d": {
+        "n_subjects_with_valid_mask": 4,
+        "n_voxels_median": 300,
+        "participation_ratio_per_subject": {
+          "subj01": 217.49116006911646,
+          "subj02": 217.92829397040654,
+          "subj03": 217.5080831660043,
+          "subj04": 218.1077829593105
+        },
+        "participation_ratio_mean": 217.75883004120945,
+        "manifold_capacity_proxy_margin": 0.4551209770877966,
+        "mean_between_subject_distance": 2.376515912214913,
+        "mean_within_subject_spread": 5.221723523756648,
+        "observed_fingerprint_1nn_accuracy": 1.0,
+        "chance_1nn": 0.25,
+        "permutation_null_mean": 0.2524,
+        "permutation_null_std": 0.25331648189567135,
+        "permutation_p_subject_respecting": 0.04539092181563687,
+        "q_bh_fdr_permutation": 0.04619076184763047,
+        "p_bonferroni_permutation": 1.0,
+        "survives_bh_fdr_05_permutation": true
+      },
+      "V3v": {
+        "n_subjects_with_valid_mask": 4,
+        "n_voxels_median": 400,
+        "participation_ratio_per_subject": {
+          "subj01": 266.7522456350361,
+          "subj02": 266.8276646714154,
+          "subj03": 266.1564180584973,
+          "subj04": 266.1348700803268
+        },
+        "participation_ratio_mean": 266.4677996113189,
+        "manifold_capacity_proxy_margin": 0.43915386520089106,
+        "mean_between_subject_distance": 2.645319059610585,
+        "mean_within_subject_spread": 6.023672496654547,
+        "observed_fingerprint_1nn_accuracy": 1.0,
+        "chance_1nn": 0.25,
+        "permutation_null_mean": 0.25235,
+        "permutation_null_std": 0.2504635252886136,
+        "permutation_p_subject_respecting": 0.04339132173565287,
+        "q_bh_fdr_permutation": 0.04619076184763047,
+        "p_bonferroni_permutation": 1.0,
+        "survives_bh_fdr_05_permutation": true
+      },
+      "VWFA-1": {
+        "n_subjects_with_valid_mask": 4,
+        "n_voxels_median": 200,
+        "participation_ratio_per_subject": {
+          "subj01": 160.10494084766728,
+          "subj02": 159.8449045568978,
+          "subj03": 159.579135701216,
+          "subj04": 160.29307436566836
+        },
+        "participation_ratio_mean": 159.95551386786235,
+        "manifold_capacity_proxy_margin": 0.481785143199428,
+        "mean_between_subject_distance": 2.0572021488895706,
+        "mean_within_subject_spread": 4.2699576313783085,
+        "observed_fingerprint_1nn_accuracy": 1.0,
+        "chance_1nn": 0.25,
+        "permutation_null_mean": 0.24945,
+        "permutation_null_std": 0.25166882504593213,
+        "permutation_p_subject_respecting": 0.044191161767646474,
+        "q_bh_fdr_permutation": 0.04619076184763047,
+        "p_bonferroni_permutation": 1.0,
+        "survives_bh_fdr_05_permutation": true
+      },
+      "VWFA-2": {
+        "n_subjects_with_valid_mask": 4,
+        "n_voxels_median": 180,
+        "participation_ratio_per_subject": {
+          "subj01": 146.76286789611194,
+          "subj02": 146.94181914806813,
+          "subj03": 146.63347798237348,
+          "subj04": 146.3941933494032
+        },
+        "participation_ratio_mean": 146.6830895939892,
+        "manifold_capacity_proxy_margin": 0.45905228911769214,
+        "mean_between_subject_distance": 1.8562450268806356,
+        "mean_within_subject_spread": 4.0436461616342605,
+        "observed_fingerprint_1nn_accuracy": 1.0,
+        "chance_1nn": 0.25,
+        "permutation_null_mean": 0.2537,
+        "permutation_null_std": 0.25171672570570275,
+        "permutation_p_subject_respecting": 0.04339132173565287,
+        "q_bh_fdr_permutation": 0.04619076184763047,
+        "p_bonferroni_permutation": 1.0,
+        "survives_bh_fdr_05_permutation": true
+      },
+      "early": {
+        "n_subjects_with_valid_mask": 4,
+        "n_voxels_median": 1200,
+        "participation_ratio_per_subject": {
+          "subj01": 480.1069023322653,
+          "subj02": 479.82936944073106,
+          "subj03": 479.01402909080804,
+          "subj04": 479.4104359928269
+        },
+        "participation_ratio_mean": 479.59018421415783,
+        "manifold_capacity_proxy_margin": 0.4886532332499336,
+        "mean_between_subject_distance": 5.109105340391053,
+        "mean_within_subject_spread": 10.455482523692599,
+        "observed_fingerprint_1nn_accuracy": 1.0,
+        "chance_1nn": 0.25,
+        "permutation_null_mean": 0.2557,
+        "permutation_null_std": 0.2503347958235131,
+        "permutation_p_subject_respecting": 0.04479104179164167,
+        "q_bh_fdr_permutation": 0.04619076184763047,
+        "p_bonferroni_permutation": 1.0,
+        "survives_bh_fdr_05_permutation": true
+      },
+      "hV4": {
+        "n_subjects_with_valid_mask": 4,
+        "n_voxels_median": 250,
+        "participation_ratio_per_subject": {
+          "subj01": 190.48923149875284,
+          "subj02": 190.1951156157099,
+          "subj03": 190.07217926039542,
+          "subj04": 190.26782947129496
+        },
+        "participation_ratio_mean": 190.25608896153827,
+        "manifold_capacity_proxy_margin": 0.48036461791592294,
+        "mean_between_subject_distance": 2.2868167700804034,
+        "mean_within_subject_spread": 4.760585365344662,
+        "observed_fingerprint_1nn_accuracy": 1.0,
+        "chance_1nn": 0.25,
+        "permutation_null_mean": 0.24915,
+        "permutation_null_std": 0.25042319680892183,
+        "permutation_p_subject_respecting": 0.041791641671665665,
+        "q_bh_fdr_permutation": 0.04619076184763047,
+        "p_bonferroni_permutation": 1.0,
+        "survives_bh_fdr_05_permutation": true
+      },
+      "lateral": {
+        "n_subjects_with_valid_mask": 4,
+        "n_voxels_median": 850,
+        "participation_ratio_per_subject": {
+          "subj01": 411.0999620032578,
+          "subj02": 412.19094415520806,
+          "subj03": 411.63224236323714,
+          "subj04": 411.6707559695782
+        },
+        "participation_ratio_mean": 411.6484761228203,
+        "manifold_capacity_proxy_margin": 0.5617069580514653,
+        "mean_between_subject_distance": 4.955436389854305,
+        "mean_within_subject_spread": 8.822102555118626,
+        "observed_fingerprint_1nn_accuracy": 1.0,
+        "chance_1nn": 0.25,
+        "permutation_null_mean": 0.24925,
+        "permutation_null_std": 0.25042351626794157,
+        "permutation_p_subject_respecting": 0.041991601679664065,
+        "q_bh_fdr_permutation": 0.04619076184763047,
+        "p_bonferroni_permutation": 1.0,
+        "survives_bh_fdr_05_permutation": true
+      },
+      "midlateral": {
+        "n_subjects_with_valid_mask": 4,
+        "n_voxels_median": 800,
+        "participation_ratio_per_subject": {
+          "subj01": 400.3019725834923,
+          "subj02": 399.44545517721014,
+          "subj03": 399.6907238236266,
+          "subj04": 400.1564499627949
+        },
+        "participation_ratio_mean": 399.898650386781,
+        "manifold_capacity_proxy_margin": 0.4715452567939722,
+        "mean_between_subject_distance": 4.024461031507414,
+        "mean_within_subject_spread": 8.534623079169922,
+        "observed_fingerprint_1nn_accuracy": 1.0,
+        "chance_1nn": 0.25,
+        "permutation_null_mean": 0.25005,
+        "permutation_null_std": 0.25072394680205556,
+        "permutation_p_subject_respecting": 0.041791641671665665,
+        "q_bh_fdr_permutation": 0.04619076184763047,
+        "p_bonferroni_permutation": 1.0,
+        "survives_bh_fdr_05_permutation": true
+      },
+      "midparietal": {
+        "n_subjects_with_valid_mask": 4,
+        "n_voxels_median": 700,
+        "participation_ratio_per_subject": {
+          "subj01": 373.2361696965861,
+          "subj02": 373.59436078212786,
+          "subj03": 372.7609088451859,
+          "subj04": 372.8790597446707
+        },
+        "participation_ratio_mean": 373.1176247671427,
+        "manifold_capacity_proxy_margin": 0.48547635045627496,
+        "mean_between_subject_distance": 3.877915347866791,
+        "mean_within_subject_spread": 7.987856348144759,
+        "observed_fingerprint_1nn_accuracy": 1.0,
+        "chance_1nn": 0.25,
+        "permutation_null_mean": 0.24935,
+        "permutation_null_std": 0.2557578493419117,
+        "permutation_p_subject_respecting": 0.04619076184763048,
+        "q_bh_fdr_permutation": 0.04619076184763047,
+        "p_bonferroni_permutation": 1.0,
+        "survives_bh_fdr_05_permutation": true
+      },
+      "midventral": {
+        "n_subjects_with_valid_mask": 4,
+        "n_voxels_median": 900,
+        "participation_ratio_per_subject": {
+          "subj01": 422.17431949968545,
+          "subj02": 422.7885161379369,
+          "subj03": 423.33621860228845,
+          "subj04": 422.4482939904783
+        },
+        "participation_ratio_mean": 422.68683705759724,
+        "manifold_capacity_proxy_margin": 0.4846248996926271,
+        "mean_between_subject_distance": 4.393138794210133,
+        "mean_within_subject_spread": 9.065029050294346,
+        "observed_fingerprint_1nn_accuracy": 1.0,
+        "chance_1nn": 0.25,
+        "permutation_null_mean": 0.2514,
+        "permutation_null_std": 0.2504456827338016,
+        "permutation_p_subject_respecting": 0.04259148170365927,
+        "q_bh_fdr_permutation": 0.04619076184763047,
+        "p_bonferroni_permutation": 1.0,
+        "survives_bh_fdr_05_permutation": true
+      },
+      "parietal": {
+        "n_subjects_with_valid_mask": 4,
+        "n_voxels_median": 750,
+        "participation_ratio_per_subject": {
+          "subj01": 386.71261096954055,
+          "subj02": 385.46055963619807,
+          "subj03": 386.97696957009316,
+          "subj04": 386.4714576851204
+        },
+        "participation_ratio_mean": 386.4053994652381,
+        "manifold_capacity_proxy_margin": 0.49996800735053376,
+        "mean_between_subject_distance": 4.135099770066022,
+        "mean_within_subject_spread": 8.270728745182193,
+        "observed_fingerprint_1nn_accuracy": 1.0,
+        "chance_1nn": 0.25,
+        "permutation_null_mean": 0.2482,
+        "permutation_null_std": 0.25223354257513014,
+        "permutation_p_subject_respecting": 0.04339132173565287,
+        "q_bh_fdr_permutation": 0.04619076184763047,
+        "p_bonferroni_permutation": 1.0,
+        "survives_bh_fdr_05_permutation": true
+      },
+      "ventral": {
+        "n_subjects_with_valid_mask": 4,
+        "n_voxels_median": 950,
+        "participation_ratio_per_subject": {
+          "subj01": 434.3070255041915,
+          "subj02": 433.1305154843515,
+          "subj03": 433.2717971812403,
+          "subj04": 433.24246633990634
+        },
+        "participation_ratio_mean": 433.4879511274224,
+        "manifold_capacity_proxy_margin": 0.4612542971875955,
+        "mean_between_subject_distance": 4.287646688445744,
+        "mean_within_subject_spread": 9.295624375942594,
+        "observed_fingerprint_1nn_accuracy": 1.0,
+        "chance_1nn": 0.25,
+        "permutation_null_mean": 0.24855,
+        "permutation_null_std": 0.24821441839667574,
+        "permutation_p_subject_respecting": 0.041191761647670466,
+        "q_bh_fdr_permutation": 0.04619076184763047,
+        "p_bonferroni_permutation": 1.0,
+        "survives_bh_fdr_05_permutation": true
+      }
+    }
+  },
+  "permutation_floor_caveat": "With only n_t=4 (or fewer, per-ROI) subjects contributing valid held-out templates, the subject-respecting permutation null has only 4! = 24 distinct label arrangements; even with N_PERM=5000 resamples the achievable minimum empirical p-value is bounded near 1/24 = 0.042 for every ROI simultaneously. This is why the independent fMRI-derived permutation p-values cluster tightly around 0.03-0.05 and *all* clear an uncorrected/BH threshold (25/25 'survive' BH-FDR here) while *none* clear Bonferroni (0/25) -- consistent in direction with the committed analysis's 0/25 Bonferroni-survivors, but the BH result here should NOT be read as 25 independently robust ROI effects: it is an artifact of a permutation null with a hard p-floor at N=4, which BH-FDR does not protect against when nearly all p-values sit at that floor. Bonferroni (or exact combinatorial testing, or a larger N) is the only trustworthy correction under N=4.",
+  "mdes": {
+    "N4_4way": {
+      "n_subjects_kway": 4,
+      "chance": 0.25,
+      "n_trials": 4,
+      "alpha": 0.05,
+      "power": 0.8,
+      "mdes_accuracy": 0.8317608591773659,
+      "mdes_effect_size_vs_chance": 0.5817608591773659
+    },
+    "N8_8way": {
+      "n_subjects_kway": 8,
+      "chance": 0.125,
+      "n_trials": 8,
+      "alpha": 0.05,
+      "power": 0.8,
+      "mdes_accuracy": 0.5029487368259583,
+      "mdes_effect_size_vs_chance": 0.3779487368259583
+    },
+    "interpretation": "At N=4 (4-way identification, chance=0.25), the smallest true accuracy detectable at alpha=0.05/power=0.80 with only 4 independent identification trials is very high (0.832 vs chance 0.25), i.e. the design can only detect near-perfect individuation, not graded effects. Doubling to N=8 tightens this substantially (0.503 vs chance 0.125), but even N=8 remains underpowered for anything but a large true effect. This is a power problem, not evidence against a real individuation 'principle' -- the study is simply not equipped to distinguish a true 100% individuation architecture from a true 60% one."
+  },
+  "caveats": [],
+  "ran": true,
+  "generated_at": "2026-08-16 11:51:23"
+}

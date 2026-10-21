@@ -1,0 +1,109 @@
+{
+  "analysis": "identification_rigor_reanalysis",
+  "date": "2026-08-16",
+  "committed_baseline_json": "/Users/aayushgandhi/Desktop/Research/Neuro-AI/wiring-not-weights/results/exp05_abide_results.json",
+  "committed_baseline": {
+    "dataset": "ABIDE cpac/filt_global/rois_cc200 (public fcp-indi)",
+    "atlas": "CC200",
+    "n_subjects": 248,
+    "n_rois": 200,
+    "n_edges": 19900,
+    "density": 0.1,
+    "chance": 0.004032258064516129,
+    "within_session_split": true,
+    "arms": {
+      "FULL_weighted": {
+        "id_acc": 0.9798387096774194,
+        "margin": 0.28048715998108065,
+        "perm_p": 0.0004997501249375312
+      },
+      "WIRING_binarized": {
+        "id_acc": 0.9717741935483871,
+        "margin": 0.17545821521726807,
+        "perm_p": 0.0004997501249375312
+      },
+      "NODE_STRENGTH": {
+        "id_acc": 0.44556451612903225,
+        "margin": 0.293169441278051,
+        "perm_p": 0.0004997501249375312
+      }
+    },
+    "weighted_minus_binarized": 0.008064516129032251,
+    "thesis_supported": false,
+    "kill_topology_sufficient": true,
+    "runtime_s": 6.85
+  },
+  "data_source": "FRESH re-fetch: N=75 newly downloaded ABIDE CC200 subjects from public fcp-indi S3 (independent sample from the committed N=248 run, same pipeline/split-half design). fetched 100 files in 24.3s",
+  "fresh_sample": {
+    "n_subjects": 75,
+    "n_rois": 200,
+    "arms": {
+      "FULL_weighted": {
+        "id_acc": 1.0,
+        "margin": 0.2840087754634451,
+        "perm_p": 0.0004997501249375312
+      },
+      "WIRING_binarized": {
+        "id_acc": 1.0,
+        "margin": 0.17961448466490262,
+        "perm_p": 0.0004997501249375312
+      },
+      "NODE_STRENGTH": {
+        "id_acc": 0.64,
+        "margin": 0.2928933782749375,
+        "perm_p": 0.0004997501249375312
+      }
+    }
+  },
+  "a_mcnemar": {
+    "b_full_only": 0,
+    "c_binarized_only": 0,
+    "n_discordant": 0,
+    "p_two_sided": 1.0,
+    "basis": "fresh N=75, real per-subject correct/incorrect pairs"
+  },
+  "b_tost": {
+    "diff": 0.0,
+    "se": 1e-06,
+    "ci95": [
+      -1.96e-06,
+      1.96e-06
+    ],
+    "margin": 0.05,
+    "p_tost": 0.0,
+    "equivalent_at_margin": true,
+    "basis": "fresh N=75, paired (phi=0.000)"
+  },
+  "c_rmt_null": {
+    "top_eigenvalue_real": 22.25497301892332,
+    "top_eigenvalue_null_mean": 1.1196944529111243,
+    "top_eigenvalue_null_p95": 1.1270101953847034,
+    "empirical_p_top_eig_exceeds_null": 0.004975124378109453,
+    "n_null_draws": 200,
+    "mp_theoretical_bulk_edge_note": "MP bulk-edge lambda+ (informational, N=75 subjects, D=19900 edges, q=N/D=0.0038) = 1.1266; with N<<D the relevant comparison is the empirical random-Gaussian-matrix null above, not the asymptotic MP edge, since MP theory assumes fixed aspect ratio with both dimensions large.",
+    "eig_real_top10": [
+      22.25497301892332,
+      2.0771074456616514,
+      1.5860902441920408,
+      1.3804216983779969,
+      1.2735995024974285,
+      1.242585490202294,
+      1.1890043589727817,
+      1.1605556774992973,
+      1.079770024633579,
+      1.0382696765911616
+    ],
+    "interpretation": "real top eigenvalue far exceeds the random-matrix null distribution"
+  },
+  "d_node_strength_regression": {
+    "id_acc_before_regression": 1.0,
+    "id_acc_after_regressing_out_node_strength": 1.0,
+    "margin_after": 0.3935029647151262,
+    "perm_p_after": 0.0004997501249375312,
+    "drop": 0.0,
+    "interpretation": "identification survives regressing out each subject's mean node strength (a motion/global-SNR proxy) -> not purely riding on a gross scalar confound"
+  },
+  "single_session_caveat": "ABIDE is single-session per subject (one resting-state scan, split first-half/second-half here). This within-session confound (stable head-motion tendency, global SNR, scanner/site signature shared by both halves of the SAME scan) is NOT fixable with ABIDE data -- there is no independent second acquisition to separate 'trait connectivity' from 'trait scanner/motion signature'. The node-strength regression above (test d) removes the specific GROSS SCALAR version of this confound but cannot rule out subtler within-scan nuisance structure.",
+  "between_session_design_needed": "HCP test-retest: fingerprint session 1 vs an independently acquired session 2 (different day) per subject, after regressing each session's own mean framewise-displacement and global signal out of that session's edges BEFORE computing the fingerprint. If identification still holds session-to-session after this regression, the within-session confound is ruled out. wiring-not-weights/exp05_hcp_wiring_vs_weights.py already targets exactly this design; it is blocked on HCP's gated Aspera-only data access, not on method design.",
+  "runtime_s": 29.25
+}
