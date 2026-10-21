@@ -1069,6 +1069,58 @@
         "experiments/influence/warden/verification/cognitive_virus/lean/CognitiveVirus/Basic.lean"
       ],
       "cites": []
+    },
+    {
+      "id": "spikeprint",
+      "path": "experiments/influence/spikeprint",
+      "arm": "steering",
+      "chain_link": [
+        "2-individuate",
+        "3-steer"
+      ],
+      "chain_note": "Asks whether a content-level index predicts real measured choice distortion - link 2 feeding link 3, on real human behaviour. Its central question is still unanswered: the instrument it is named for has never been run.",
+      "question": "Does a content-level Cognitive Sovereignty Index predict real, measured choice distortion?",
+      "decider": "real human participants in public secondary data: NARPS ds001734, 108 subjects, 27,454 trials, subject-grouped cross-validation",
+      "task": "accept or reject a mixed gain-loss gamble, modelled with a spiking LIF network against a prospect-theory baseline",
+      "manipulation": "none - observational on public secondary data. The preregistered question is whether a property OF THE STIMULUS predicts distortion in the choice",
+      "readout": "held-out AUC of choice prediction, plus an energy proxy, against preregistered kill criteria",
+      "defence": "preregistration with explicit kill criteria, and the kill criteria were allowed to fire",
+      "substrate": "public-data",
+      "human_data": true,
+      "status": "Study 2 complete and reproduced; the preregistered lower-energy criterion FAILS and a gradient-boosted ceiling beats the baseline. There is NO CSI result at all: the first run mislabeled a text heuristic as CSI and is superseded; the real-CSI fMRI pipeline is built, unit-tested and never run.",
+      "key_numbers": [
+        {
+          "what": "spiking LIF vs prospect theory on real NARPS behaviour",
+          "value": "AUC 0.892 vs 0.888, paired delta +0.0046 [+0.0025, +0.0066] - iso-accuracy passes",
+          "source": "experiments/influence/spikeprint/README.md"
+        },
+        {
+          "what": "the preregistered lower-energy kill criterion",
+          "value": "FAILS - about 13x the rate-MLP energy proxy",
+          "source": "experiments/influence/spikeprint/README.md"
+        },
+        {
+          "what": "the preregistered ceiling kill criterion",
+          "value": "FAILS - a gradient-boosted model beats prospect theory by +0.011 AUC",
+          "source": "experiments/influence/spikeprint/README.md"
+        },
+        {
+          "what": "the instrument the repo is named for",
+          "value": "no CSI result exists; the first NARPS run mislabeled a text heuristic as CSI and is superseded",
+          "source": "experiments/influence/spikeprint/results/CORRECTION_2026-06-08.md"
+        }
+      ],
+      "caveats": [
+        "The central preregistered question is UNANSWERED. The real-CSI fMRI pipeline is built and tested but gated on a data download that has not happened.",
+        "The repo's one-line description overclaims relative to its own README, which states plainly that there is no CSI result yet.",
+        "Folded from a formerly PRIVATE repo on the author's explicit instruction; this published it. Checked first for secrets and participant data: the only committed data file is a manifest of URLs and checksums for public CC0 OpenNeuro data."
+      ],
+      "provenance_files": [
+        "experiments/influence/spikeprint/README.md",
+        "experiments/influence/spikeprint/PREREGISTRATION.md",
+        "experiments/influence/spikeprint/results/CORRECTION_2026-06-08.md"
+      ],
+      "cites": []
     }
   ]
 }

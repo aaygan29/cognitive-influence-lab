@@ -24,17 +24,27 @@ stray personal string.
 
 ## The private-content decision
 
-`warden` contained `spikeprint/` as a subtree — 42 files from a **private** repository. This tree is
-public, so folding `warden` as-is would have published that work.
+`warden` contained `spikeprint/` as a subtree — 42 files from a then-**private** repository. Folding
+`warden` as-is would have published that work as a side effect of a merge, so `spikeprint/` was
+removed from `warden`'s history with `git filter-branch --index-filter`, the backup refs dropped, and
+the result checked: **zero paths matching `spikeprint` across every reachable tree** in the folded
+history.
 
-`spikeprint/` was removed from `warden`'s history with `git filter-branch --index-filter` before the
-subtree merge, the backup refs were dropped, and the result was checked: **zero paths matching
-`spikeprint` across every reachable tree** in the folded history. The private work was not published.
+`spikeprint` was then folded **in its own right**, on the author's explicit instruction, at
+[`experiments/influence/spikeprint`](experiments/influence/spikeprint) — which published it. Before
+folding it was scanned across its full history for credentials, keys and participant-level data:
+none. Every "secret"-shaped match was the word *tokenizes*. The only committed data file is
+`data/manifest.csv`, 434 rows of URLs and SHA-256 checksums for public CC0 OpenNeuro data; no
+participant data is committed. Its ORCID was removed, since an ORCID uniquely identifies the author
+and would have defeated the tree's anonymisation.
 
-`spikeprint` itself is therefore **not folded in**, and the standalone private repo remains its only
-home. Folding it is a decision about publishing private research, not a consolidation decision, and
-it belongs to the author. Note that the standalone is one commit ahead of the copy that was in
-`warden` (`docs/integration_2026-09-20.md`).
+It is folded direct rather than through `warden`, so there is one copy, and it carries
+`docs/integration_2026-09-20.md`, which `warden`'s vendored copy lacked.
+
+**What it actually contains is worth stating plainly: there is no CSI result.** The instrument the
+repo is named for has never been run — the first NARPS run mislabeled a text heuristic as CSI and is
+superseded, and the real-CSI fMRI pipeline is built, unit-tested and gated on a data download. What
+*is* complete is Study 2, where two of the three preregistered kill criteria **fire**.
 
 ## Left out, deliberately
 
