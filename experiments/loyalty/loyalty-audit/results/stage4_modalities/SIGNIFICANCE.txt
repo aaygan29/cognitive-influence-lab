@@ -1,5 +1,0 @@
-INSTALL Cohen h: {'regime': 3.05, 'ideology_fictional': 1.2, 'benign_science': 0.97}
-COMBINED override DiD=0.0198 SE=0.0206 CI=[-0.021,0.060]
-  BF01 vs 0.05: 1.84
-  BF01 vs 0.1: 1.22e+03
-  BF01 vs 0.2: 2.51e+16
