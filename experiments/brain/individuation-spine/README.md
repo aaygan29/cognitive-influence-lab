@@ -2,11 +2,17 @@
 
 **A power-controlled dissociation across brains and brain-inspired networks.**
 
-Aayush Gandhi. This repository merges three previously separate repos
+Anonymous. This node merges three previously separate repos
 (`neurowire`/wiring-not-weights, `digital_brain`, `neuro_topology`) into the single evidence base
 for one paper, the same way the underlying research program was consolidated from ~15 project
 folders into one synthesized thesis. Each subdirectory keeps its full original commit history
 (merged via `git subtree`); the old standalone repos have been removed, and their full history is preserved here.
+
+It was itself folded into this tree on 2026-10-20 from the standalone `structure-function-individuation`
+repo, again by `git subtree`, so every commit above is still reachable. Author identities and local
+filesystem paths were scrubbed on fold-in (see [`FOLD_NOTE.md`](FOLD_NOTE.md) for exactly what was
+changed). It is the **readout arm's evidence base**: the "identify but not individualize" result that
+the rest of the tree's threat model rests on.
 
 ## The thesis
 
@@ -16,30 +22,35 @@ folders into one synthesized thesis. Each subdirectory keeps its full original c
 > *structure* is not the performance lever, function is. Bio-inspired AI should copy computation,
 > not anatomy.
 
-## The four claims, stress-tested (see `brainsim-decoder/       fMRI-to-image decoding on NSD 7T data (CLIP encoding, ridge whole-cortex
-                       prediction, retrieval and captioning): computer vision applied to
-                       individual neuroimaging, folded in 2026-09-15 with full history
-rigor/STRENGTHENED_SYNTHESIS.md` for full detail)
+## The four claims, stress-tested (see `rigor/STRENGTHENED_SYNTHESIS.md` for full detail)
 
 | # | Claim | Status | Evidence |
 |---|---|---|---|
 | 1 | Identification is structural and cheap | **STRENGTHENED.** Corrected TOST equivalence (committed N=248: CI [-1.9%, +3.5%]); independently replicated fresh N=75 re-fetch; Marchenko-Pastur random-matrix null rejected (p≈0.005). Within-session confound named, not fixed (needs HCP between-session data). | `wiring-not-weights/` |
-| 2 | Human reconstruction-individuation is **undetermined**, not "dear" | **Corrected.** digital-brain's N=4 "21/25 significant" is 0/25 after BH-FDR and Bonferroni; wiring-not-weights' N=8 null has MDES≈0.59 against an observed 0.175 — underpowered, not proof of a null. | `digital-brain/`, `wiring-not-weights/` |
+| 2 | Human reconstruction-individuation is **undetermined**, not "dear" | **Corrected.** digital-brain's N=4 "21/25 significant" is 0/25 after BH-FDR and Bonferroni; wiring-not-weights' N=8 null has MDES≈0.59 against an observed 0.175 — underpowered, not proof of a null. | [`../digital-brain`](../digital-brain), `wiring-not-weights/` |
 | 3 | Where power is unlimited, reconstruction-identity is the functional-equivalence class of the weights | **STRENGTHENED existence proof.** Formalized via the Fisher Information Metric: the class is literally the FIM's zero-eigenvalue symmetry directions (permutation ⋊ positive-rescaling), confirmed numerically (curvature ≈1e-17). A stronger four-way numerical unification was attempted and **failed** — reported honestly, not hidden. | `wiring-not-weights/`, `rigor/fim_spectrum_results.json` |
 | 4 | Brain-like structure is emergent, not causal, in artificial networks | **Survives unchanged.** Imposing brain-like attention topology on a transformer hurts performance, Cohen's d = -1.20, 120 runs / 20 seeds. The cleanest negative in the program. | `ai-topology/` |
 
 ## Layout
 
 ```
-wiring-not-weights/   the spine: ABIDE N=248 identification + NSD N=8 reconstruction +
-                       the synthetic functional-equivalence-class apparatus (full history)
-digital-brain/         N=4 stimulus-evoked fingerprinting arm, now FDR-corrected (full history)
+wiring-not-weights/     the spine: ABIDE N=248 identification + NSD N=8 reconstruction +
+                        the synthetic functional-equivalence-class apparatus (full history)
 ai-topology/            the AI-side echo: brain-like topology hurts transformer performance (full history)
+brainsim-decoder/       fMRI-to-image decoding on NSD 7T data (CLIP encoding, ridge whole-cortex
+                        prediction, retrieval and captioning): computer vision applied to
+                        individual neuroimaging, folded in 2026-09-15 with full history
 rigor/                  the stress-test pass: math framework (FIM/sloppy-model theory, Lie-group
-                       quotient manifolds, manifold capacity, random matrix theory, rate-distortion),
-                       corrected statistics, adversarial review, and a second-substrate (RNN)
-                       generalization test of the framework
+                        quotient manifolds, manifold capacity, random matrix theory, rate-distortion),
+                        corrected statistics, adversarial review, and a second-substrate (RNN)
+                        generalization test of the framework
 ```
+
+The N=4 stimulus-evoked fingerprinting arm (`digital-brain`, now FDR-corrected) is claim 2's other
+leg. It is not a subdirectory here: it was already a node of this tree when the spine was folded in,
+and lives one level up at [`../digital-brain`](../digital-brain). That copy is the live one (full
+`src/`, `results/`, N=8 reproduction); the spine's older duplicate was dropped on fold-in rather
+than kept as a stale second copy.
 
 ## Honesty discipline
 

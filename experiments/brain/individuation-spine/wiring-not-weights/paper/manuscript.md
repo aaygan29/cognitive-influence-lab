@@ -1,7 +1,7 @@
 # Wiring Is Not Weights: Identity as the Functional-Equivalence Class, and What It Would Take to Store It
 
-**Aayush Gandhi**
-Preprint draft, June 2026. Code: the `wiring-not-weights/` directory of https://github.com/aaygan29/structure-function-individuation
+**Anonymous**
+Preprint draft, June 2026. Code: the `wiring-not-weights/` directory of https://github.com/anonymous/structure-function-individuation
 
 ---
 
